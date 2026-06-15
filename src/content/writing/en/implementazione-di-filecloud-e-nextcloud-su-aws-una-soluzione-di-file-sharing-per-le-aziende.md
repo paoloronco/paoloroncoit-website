@@ -11,12 +11,12 @@ FileCloud is a self-hosted file sharing platform that allows for secure file man
 
 Nextcloud is an open-source platform designed to offer a versatile and secure self-hosted cloud environment. Based on the ownCloud source code, Nextcloud has significantly expanded and improved upon available functionalities, offering a wide range of tools for file management, real-time collaboration, data synchronization, and more. This software allows users to create their personal cloud space, providing access from any device and anywhere. Thanks to its advanced security features and open-source nature, Nextcloud offers users greater control over their data and a flexible solution to meet various business and personal needs.
 
-**Implementation on AWS:**  
+## Implementation on AWS:
 My experience in implementing storage and file sharing solutions is characterized by extensive knowledge of cloud platforms. During an AWS project, I implemented a configuration for the installation of Nextcloud and FileCloud, two open-source storage platforms, within an EC2 instance. This task requires the use of an appropriate AMI image and the configuration of a series of services, including adapting the web server and managing access permissions.
 
 A key aspect was ensuring data security by optimizing connectivity and correctly configuring SSL certificates for secure communication. The goal was to create a flexible and highly performant solution capable of handling large amounts of data while simultaneously ensuring adequate protection of sensitive data. The entire implementation required detailed skills in managing the cloud environment, with particular attention to optimized configuration to ensure maximum reliability and security of the platforms.
 
-**Advantages and Business Applications:**
+## Advantages and Business Applications:
 
 FileCloud and Nextcloud offer storage and file sharing solutions that can be implemented on cloud platforms like AWS, providing a series of significant business advantages and applications:
 

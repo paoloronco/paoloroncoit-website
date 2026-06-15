@@ -13,8 +13,10 @@
     "@astrojs/mdx": "^4.2.0",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.3.0",
+    "@fontsource-variable/hanken-grotesk": "^5.2.8",
     "@fontsource-variable/inter": "^5.1.1",
     "@fontsource-variable/jetbrains-mono": "^5.1.2",
+    "@fontsource-variable/space-grotesk": "^5.2.10",
     "@tailwindcss/vite": "^4.0.9",
     "astro": "^5.4.0",
     "tailwindcss": "^4.0.9"

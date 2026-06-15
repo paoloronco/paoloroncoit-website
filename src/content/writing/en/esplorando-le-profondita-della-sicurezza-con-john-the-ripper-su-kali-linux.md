@@ -7,7 +7,7 @@ draft: false
 ---
 In my constant journey through the landscape of information security, a formidable weapon I have employed is John the Ripper, a powerful password-cracking tool. Integrated into my digital arsenal on Kali Linux, John the Ripper has become a crucial ally in assessing password strength and conducting security analysis.
 
-**John the Ripper: Deciphering the World of Passwords**
+## John the Ripper: Deciphering the World of Passwords
 
 John the Ripper is an open-source software designed to test password security through dictionary, brute-force, and hybrid attacks. In my journey, I have utilized this tool for:
 
@@ -16,7 +16,7 @@ John the Ripper is an open-source software designed to test password security th
 2.  **Password Auditing:**
     -   Regular password auditing is essential to ensure account security. John the Ripper has been my ally in verifying password resilience and identifying weak patterns.
 
-**Kali Linux: The Ideal Playing Ground**
+## Kali Linux: The Ideal Playing Ground
 
 Kali Linux, the specialized Linux distribution for information security, provides an ideal environment to fully leverage the capabilities of John the Ripper. Its seamless integration makes the process of cracking passwords more efficient and effective.
 
@@ -25,7 +25,7 @@ Kali Linux, the specialized Linux distribution for information security, provide
 4.  **Developing Security Policies:**
     -   Information obtained through John the Ripper has contributed to developing more robust security policies focused on resilient passwords and secure credential management practices.
 
-**Conclusions in My Technological Portfolio**
+## Conclusions in My Technological Portfolio
 
 In my portfolio, the experience with John the Ripper on Kali Linux highlights my commitment to ensuring information security. This tool, used with awareness and ethics, represents a fundamental pillar in my approach to information security. The ability to identify and mitigate password vulnerabilities is a tangible demonstration of my commitment to creating secure and resilient digital environments.
 

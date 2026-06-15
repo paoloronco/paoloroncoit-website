@@ -9,7 +9,7 @@ Nel mondo sempre più connesso di oggi, la sicurezza delle reti Wi-Fi è diventa
 
 Successivamente, ho usato Hashcat per decifrare la password cifrata presente nel file di handshake e quindi rivelarla in chiaro.
 
-**Strumenti Utilizzati:**
+## Strumenti Utilizzati:
 
 -   AirMon-NG su Kali Linux: AirMon-NG è un'utility di monitoraggio Wi-Fi inclusa in Kali Linux, una distribuzione Linux specializzata nella sicurezza informatica. Questo strumento mi ha consentito di rilevare le reti wireless circostanti, monitorarle e catturare pacchetti, inclusi gli handshake di autenticazione.
 -   Scheda di rete Alfa Network: Le schede di rete Alfa Network sono ampiamente riconosciute nella comunità Linux per la loro stabilità e la capacità di funzionare in "Monitor Mode". Questa caratteristica le rende strumenti essenziali per chi lavora in ambito di sicurezza informatica.
@@ -18,7 +18,7 @@ Successivamente, ho usato Hashcat per decifrare la password cifrata presente nel
 **Approccio Etico:  
 **È fondamentale sottolineare che tutte le attività svolte sono state condotte in modo etico e responsabile. Ho testato esclusivamente la mia rete Wi-Fi di proprietà, un router TP-Link che aveva una password di default composta da 8 caratteri numerici. Questo test ha evidenziato il pericolo delle password predefinite, sottolineando l'importanza di impostare password solide e complesse.
 
-**Risultati:**  
+## Risultati:
 L'utilizzo di AirMon-NG, insieme ad Hashcat ha dimostrato la vulnerabilità delle reti Wi-Fi con password deboli o predefinite. Nel mio caso, Hashcat su Windows è stato in grado di decifrare la password dall'handshake molto rapidamente, richiedendo solamente 15 minuti. Questo risultato sottolinea la necessità di proteggere le reti utilizzando password robuste, composte da caratteri casuali e alfanumerici.
 
 **Conclusioni**:  

@@ -207,7 +207,7 @@ Node: **Schedule Trigger**
 -   Purpose: runs the workflow automatically.
 -   In this template it is set to run at a specific minute every hour.
 
-**Configure:**
+## Configure:
 
 1.  Open the node.
 2.  Adjust the **interval**:
@@ -226,7 +226,7 @@ Node: **Get many messages**
     -   Use Gmail OAuth2 credential
     -   Filter by **sender** and **PDF attachments**.
 
-**Configure:**
+## Configure:
 
 1.  Select your Gmail credential.
 2.  Under **Filters → Sender**, set the email address that sends invoices, e.g.:
@@ -252,7 +252,7 @@ Node: **Gmail-Get\_Invoice**
 
 -   Purpose: fetches the **full email** and **downloads the attachment** for each selected message.
 
-**Configure:**
+## Configure:
 
 1.  Make sure the Gmail credential is selected.
 2.  Confirm `downloadAttachments` is enabled.
@@ -267,7 +267,7 @@ Node: **GoogleDrive-upload-file**
 
 -   Purpose: uploads the invoice PDF to a specified Google Drive folder.
 
-**Configure:**
+## Configure:
 
 1.  Select your Google Drive credential.
 2.  Under **Folder ID**, paste the ID of your invoice folder.
@@ -293,7 +293,7 @@ Node: **FTP-upload-octopus**
 
 -   Purpose: saves the invoice PDF to your FTP/SFTP server.
 
-**Configure:**
+## Configure:
 
 1.  Set **Protocol** (`sftp` recommended).
 2.  Choose your FTP/SFTP credential.
@@ -342,7 +342,7 @@ Node: **Extract from File1**
 
 -   Purpose: extracts the text content from the PDF.
 
-**Configure:**
+## Configure:
 
 -   Mode: `pdf` (already set in the template).
 -   No additional configuration is usually needed.
@@ -359,7 +359,7 @@ Nodes: **OpenRouter Chat Model1** → **AI\_Agent-fields**
     -   Convert text into a structured JSON object.
     -   Extract fields like: `invoice_number`, `vendor_name`, `invoice_date`, `total_amount`, `tax_details`, `line_items`, etc.
 
-**Configure:**
+## Configure:
 
 1.  In **OpenRouter Chat Model1**:
     -   Select your credential and model.
@@ -393,7 +393,7 @@ Node: **GoogleSheets\_save**
 
 -   Purpose: appends one row to your Google Sheet per invoice.
 
-**Configure:**
+## Configure:
 
 1.  Select your **Google API** credential.
 2.  Enter **Document ID** and **Sheet Name** (as described earlier).

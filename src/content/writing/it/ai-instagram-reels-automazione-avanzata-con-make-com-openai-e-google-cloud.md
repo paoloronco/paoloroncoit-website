@@ -50,7 +50,7 @@ Per collegare Make.com a questo endpoint ho anche creato una Service Account con
 Una volta generato il video `.mp4`, viene salvato su **Google Cloud Storage**, che funge da deposito centrale per tutti i file temporanei e finali. Per ottenere il link pubblico al file più recente, ho integrato una chiamata API direttamente dalla pipeline Make.com, che interroga il bucket e restituisce i file ordinati per data di creazione. In questo modo, riesco a individuare l’output giusto senza ambiguità.  
 Questa funzione è fondamentale per mantenere l’automazione fluida, specialmente quando il sistema viene eseguito più volte al giorno.
 
-**Google Drive: archivio di backup e tracciabilità**
+## Google Drive: archivio di backup e tracciabilità
 
 Google Drive non è usato come ambiente attivo di lavoro, ma come **spazio di backup**, utile per avere sempre a disposizione una copia dei contenuti generati. Nella pipeline Make.com, ho inserito due step specifici che caricano immagine e audio grezzi su una cartella Drive condivisa.  
 Per realizzare questa integrazione, non è bastato un semplice collegamento: ho dovuto passare dalla **Google Cloud Console**, creare un progetto, abilitare le API necessarie, configurare un sistema di autenticazione OAuth e creare una **Service Account dedicata** per consentire a Make.com di accedere a Google Drive in modo sicuro e controllato.  

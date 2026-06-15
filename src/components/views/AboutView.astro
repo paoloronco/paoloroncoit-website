@@ -14,22 +14,7 @@ const t = useTranslations(lang);
       <p>{t('about.p1')}</p>
       <p>{t('about.p2')}</p>
       <p>{t('about.p3')}</p>
-      <h2>{t('about.infra')}</h2>
-      <p>{t('about.infraText')}</p>
     </div>
-
-    <figure class="mt-6 overflow-x-auto rounded-card border border-ink-600 bg-ink-800/60 p-5">
-      <pre class="font-mono text-xs leading-relaxed text-text-dim"><code>┌─────────────┐   ┌──────────────┐   ┌───────────────┐
-│  Edge / CDN │──▶│  Reverse     │──▶│  n8n          │
-│  (sito)     │   │  proxy + WAF │   │  automazioni  │
-└─────────────┘   └──────────────┘   └───────┬───────┘
-                          │                  │
-                  ┌───────▼──────┐   ┌────────▼───────┐
-                  │  Monitoring  │   │  LLM / RAG     │
-                  │  + logging   │   │  self-hosted   │
-                  └──────────────┘   └────────────────┘</code></pre>
-      <figcaption class="kicker mt-3">{t('about.diagramCaption')}</figcaption>
-    </figure>
 
     <div class="prose mt-10">
       <h2>{t('about.contact')}</h2>

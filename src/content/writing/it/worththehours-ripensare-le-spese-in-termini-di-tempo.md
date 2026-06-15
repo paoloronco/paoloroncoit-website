@@ -58,7 +58,7 @@ Visualizzare una spesa in termini di tempo lavorativo cambia radicalmente la per
 
 L’app è costruita seguendo le **best practice Android moderne** e un’architettura **MVVM** chiara e scalabile.
 
-**Tecnologie utilizzate:**
+## Tecnologie utilizzate:
 
 -   **Kotlin**
 -   **Jetpack Compose**

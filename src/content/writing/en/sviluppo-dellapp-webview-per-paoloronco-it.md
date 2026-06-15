@@ -23,7 +23,7 @@ My personal portfolio app offers a series of features designed to highlight my w
 4.  Custom Notifications: The app can send notifications about updates to my portfolio, ensuring that users are always informed about my latest achievements.  
     (Available soon - Firebase integration)
 
-**Conclusions**  
+## Conclusions
 Creating a dedicated application for my personal portfolio is an important step in showcasing my work and skills in an innovative and accessible way. Using Android Studio and the Java language, I was able to develop a reliable and performant app. This app offers a convenient way to explore my curriculum, projects, and contact me directly.
 
 I am enthusiastic about continuing to improve the app and receiving feedback from users. Thank you for your support and invite you to discover my personal portfolio through this dedicated app.

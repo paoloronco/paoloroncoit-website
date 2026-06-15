@@ -28,7 +28,7 @@ Il sistema è stato concepito per non archiviare alcun dato dell’utente, mante
 
 Durante lo sviluppo di Legaly, ho consolidato e ampliato competenze sia front-end che back-end, attraversando tutte le fasi di progettazione, prototipazione e distribuzione dell’estensione.
 
-**Tecnologie principali utilizzate:**
+## Tecnologie principali utilizzate:
 
 -   **Frontend:**
     -   JavaScript e manifest V3 per la costruzione dell’estensione Chrome.
@@ -39,7 +39,7 @@ Durante lo sviluppo di Legaly, ho consolidato e ampliato competenze sia front-en
     -   Integrazione con **OpenAI** per l’elaborazione e la semplificazione automatica dei testi legali.
     -   Deployment continuo e configurazione cloud tramite CLI Firebase.
 
-**Strumenti e metodologie:**
+## Strumenti e metodologie:
 
 -   Workflow Node.js gestito tramite terminale (nvm, npm, firebase-tools).
 -   Versionamento e testing continuo via ambiente di sviluppo (VSCode, WindSurf AI).

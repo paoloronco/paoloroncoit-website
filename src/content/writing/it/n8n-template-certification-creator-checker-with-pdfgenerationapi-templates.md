@@ -5,7 +5,7 @@ pubDate: 2025-12-17
 tags: ["n8n"]
 draft: false
 ---
-**From a simple MVP to a reusable, production-ready workflow**
+## From a simple MVP to a reusable, production-ready workflow
 
 It was a real pleasure to connect with **Michal Liska**, Chief Operating Officer at **PDF Generator API by Actual Reports**, and to see this project featured as a real-world example inside the n8n ecosystem.
 

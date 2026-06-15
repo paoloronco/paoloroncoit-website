@@ -7,11 +7,11 @@ draft: false
 ---
 Nel mondo digitale in costante evoluzione, la gestione e la fruizione dei contenuti multimediali richiedono soluzioni innovative. Plex, una piattaforma di gestione dei media, offre un ecosistema completo per organizzare, condividere e accedere a contenuti multimediali, rendendo l'esperienza di intrattenimento più fluida e accessibile quando implementata su un ambiente Proxmox.
 
-**Cos'è Plex?**
+## Cos'è Plex?
 
 Plex è un'applicazione multimediale che consente di organizzare e distribuire contenuti multimediali come film, programmi TV, musica e foto. La sua architettura client-server consente l'accesso ai contenuti multimediali da dispositivi remoti tramite una comoda interfaccia web o app dedicate.
 
-**Come si utilizza Plex su Proxmox?**
+## Come si utilizza Plex su Proxmox?
 
 1.  **Installazione di Plex su Proxmox:**
     -   Plex può essere installato su una macchina virtuale all'interno dell'ambiente Proxmox. L'installazione può essere eseguita scaricando il pacchetto di installazione appropriato dal sito ufficiale di Plex e configurandolo all'interno della macchina virtuale.
@@ -22,7 +22,7 @@ Plex è un'applicazione multimediale che consente di organizzare e distribuire c
 4.  **Funzionalità Avanzate di Plex:**
     -   Plex offre funzionalità avanzate come la possibilità di aggiungere sottotitoli, informazioni dettagliate sui media, la creazione di playlist personalizzate e la sincronizzazione offline per la visualizzazione dei contenuti anche senza connessione internet.
 
-**Perché Plex è utile su Proxmox?**
+## Perché Plex è utile su Proxmox?
 
 1.  **Centralizzazione e Accesso Remoto ai Contenuti:** Plex consente di centralizzare e organizzare i contenuti multimediali, rendendoli accessibili da qualsiasi luogo tramite un'interfaccia user-friendly.
 2.  **Semplicità e Fluidità di Utilizzo:** L'interfaccia intuitiva di Plex e la sua capacità di streaming fluido offrono un'esperienza di intrattenimento senza interruzioni.

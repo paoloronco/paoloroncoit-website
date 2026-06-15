@@ -7,10 +7,10 @@ draft: false
 ---
 Nell'ambito dell'amministrazione dei sistemi, il monitoraggio efficace è essenziale per garantire il corretto funzionamento e la sicurezza di un'infrastruttura IT. Zabbix, una piattaforma di monitoraggio open-source, offre potenti funzionalità per il monitoraggio e la gestione dei sistemi, inclusi server, reti e dispositivi, quando implementato su un ambiente Proxmox.
 
-**Cos'è Zabbix?**  
+## Cos'è Zabbix?
 Zabbix è una soluzione di monitoraggio flessibile e scalabile che consente di monitorare in tempo reale le prestazioni di vari dispositivi e sistemi. Questa piattaforma offre una vasta gamma di funzionalità, tra cui il monitoraggio delle prestazioni, la rilevazione delle anomalie, la generazione di report e la notifica degli eventi critici.
 
-**Come si usa Zabbix su Proxmox?**
+## Come si usa Zabbix su Proxmox?
 
 1.  **Installazione di Zabbix su Proxmox:**
     -   Zabbix può essere installato su un server separato o all'interno di un container su Proxmox. La procedura di installazione è relativamente semplice, richiedendo l'installazione dei pacchetti Zabbix e la configurazione dell'ambiente.
@@ -21,7 +21,7 @@ Zabbix è una soluzione di monitoraggio flessibile e scalabile che consente di m
 4.  **Generazione di Report e Analisi dei Dati:**
     -   Zabbix raccoglie dati da vari dispositivi monitorati e offre la possibilità di generare report dettagliati sulle prestazioni e sull'affidabilità del sistema nel tempo. Questi report possono essere utili per l'analisi delle tendenze e la pianificazione delle risorse.
 
-**Perché Zabbix è utile su Proxmox?**
+## Perché Zabbix è utile su Proxmox?
 
 1.  **Monitoraggio Centralizzato:** Zabbix offre un'interfaccia centralizzata per monitorare l'intera infrastruttura IT, inclusi server, reti e dispositivi, consentendo agli amministratori di tenere sotto controllo ogni aspetto dell'ambiente Proxmox.
 2.  **Rilevamento Tempestivo delle Anomalie:** Grazie ai trigger e alle notifiche personalizzabili, Zabbix consente di rilevare rapidamente anomalie, problemi di prestazioni o situazioni critiche, permettendo interventi tempestivi per risolvere i problemi.

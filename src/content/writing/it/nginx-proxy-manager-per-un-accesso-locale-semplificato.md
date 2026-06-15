@@ -7,16 +7,16 @@ draft: false
 ---
 Nella gestione del mio homelab, ho implementato con successo NGINX Proxy Manager come componente chiave per semplificare l'accesso locale ai servizi e alle applicazioni della mia rete. Questo articolo fornirà una panoramica di come NGINX Proxy Manager migliora l'esperienza di accesso ai servizi web sulla mia rete locale.
 
-**Problema Iniziale**  
+## Problema Iniziale
 Inizialmente, l'accesso alle applicazioni locali richiedeva l'utilizzo di indirizzi IP e porte specifiche, risultando poco pratico e difficile da ricordare. Inoltre, l'uso di certificati auto-generati comportava fastidiosi avvisi di sicurezza nei browser.
 
-**Soluzione Implementata con NGINX Proxy Manager**  
+## Soluzione Implementata con NGINX Proxy Manager
 Per risolvere questi problemi, ho adottato NGINX Proxy Manager come reverse proxy e DNS locale. Questa soluzione semplifica l'accesso alle applicazioni attraverso domini locali personalizzati senza gli avvertimenti di sicurezza.
 
-**Funzionamento di NGINX Proxy Manager**  
+## Funzionamento di NGINX Proxy Manager
 NGINX Proxy Manager sfrutta il metodo di verifica del certificato SSL chiamato DNS-01, consentendo di generare certificati validi per i domini locali senza esporre la macchina alla pubblica rete. Questo approccio supera le limitazioni del metodo HTTP-01, rendendo possibile l'uso di wildcard certificates per sottodomini.
 
-**Implementazione Pratica**
+## Implementazione Pratica
 
 1.  **Preparativi:**
     -   Ho scelto DuckDNS come fornitore DNS gratuito per semplificare il processo.
@@ -33,6 +33,6 @@ NGINX Proxy Manager sfrutta il metodo di verifica del certificato SSL chiamato D
 6.  **Accesso Sicuro:**
     -   Ora, posso accedere alle applicazioni locali attraverso domini personalizzati (es. [https://jellyfin.local](https://jellyfin.local/)) senza avvisi di sicurezza.
 
-**Conclusioni**
+## Conclusioni
 
 L'integrazione di NGINX Proxy Manager nella mia rete locale ha notevolmente migliorato l'accesso e la gestione delle applicazioni, offrendo una soluzione elegante e sicura. Questo approccio rappresenta un aggiornamento significativo rispetto all'utilizzo di IP e porte, contribuendo a semplificare la navigazione nei servizi del mio homelab. Per ulteriori dettagli sulle funzionalità avanzate di NGINX Proxy Manager, visita il sito ufficiale: [nginxproxymanager.com](https://nginxproxymanager.com/).

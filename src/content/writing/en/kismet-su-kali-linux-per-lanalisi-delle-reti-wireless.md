@@ -7,11 +7,11 @@ draft: false
 ---
 In the vast landscape of wireless networks, understanding and analyzing the surrounding networks is crucial to ensure security and efficiency. Kismet, a widely used tool for network analysis, provides detailed insights into Wi-Fi networks, allowing you to identify devices, access points, and potential threats.
 
-**What is Kismet?**
+## What is Kismet?
 
 Kismet is an open-source software designed to discover and monitor Wi-Fi networks. This tool offers comprehensive information about surrounding networks, including devices, MAC addresses, used channels, signal strength, and more. It is a powerful resource for network administrators, security professionals, and technology enthusiasts who want to examine Wi-Fi networks.
 
-**How to Use Kismet on Kali Linux?**
+## How to Use Kismet on Kali Linux?
 
 1.  **Installing Kismet on Kali Linux:**
     -   Kismet is already included in the Kali Linux distribution. However, you can update it to the latest version via the package manager or download the source code directly from the official Kismet repository.
@@ -22,7 +22,7 @@ Kismet is an open-source software designed to discover and monitor Wi-Fi network
 4.  **Using Advanced Features:**
     -   Kismet offers advanced features for detailed network analysis. These include network mapping, packet logging, protocol identification, and security evaluation of the networks themselves.
 
-**Why is Kismet Useful on Kali Linux?**
+## Why is Kismet Useful on Kali Linux?
 
 1.  **Discovering Wi-Fi Networks:** Kismet allows you to discover nearby Wi-Fi networks, identify hidden access points, and detect connected devices, providing a comprehensive view of network situations.
 2.  **Security Monitoring:** It helps in identifying potential security threats such as unauthorized networks or suspicious activities, enabling the adoption of preventive measures to protect wireless networks.

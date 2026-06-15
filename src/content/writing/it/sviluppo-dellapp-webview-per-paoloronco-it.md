@@ -24,7 +24,7 @@ L'app del mio portfolio personale offre una serie di funzionalità pensate per v
 4.  Notifiche Personalizzate: L'app può inviare notifiche sugli aggiornamenti del mio portfolio, garantendo che gli utenti siano sempre informati sulle mie ultime realizzazioni.  
     (avaiable soon - FireBase integration)
 
-**Conclusioni**  
+## Conclusioni
 La creazione di un'applicazione dedicata al mio portfolio personale è un passo importante per mostrare il mio lavoro e competenze in modo innovativo e accessibile. Utilizzando Android Studio e il linguaggio Java, ho potuto sviluppare un'app affidabile e performante. Questa app offre un modo conveniente per esplorare il mio curriculum, i miei progetti e mettersi in contatto direttamente con me.
 
 Sono entusiasta di continuare a migliorare l'app e di ricevere feedback dagli utenti. Grazie per il vostro supporto e vi invito a scoprire il mio portfolio personale attraverso questa app dedicata.

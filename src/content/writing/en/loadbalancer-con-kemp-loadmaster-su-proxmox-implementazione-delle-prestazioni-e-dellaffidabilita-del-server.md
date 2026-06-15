@@ -9,7 +9,7 @@ In my constant effort to improve the efficiency and reliability of my IT infrast
 
 The use of a Load Balancer is crucial for distributing traffic evenly across multiple servers, improving overall system performance and ensuring greater stability. During this implementation, I further enriched the infrastructure by allowing simplified and protected access through CloudFlare-managed subdomains.
 
-**Benefits of integrating CloudFlare and subdomains:**
+## Benefits of integrating CloudFlare and subdomains:
 
 1.  **Simplified and secure access:** Purchasing a domain name and configuring subdomains like NextCloud.example.com, Plex.example.com, and proxmox.example.com on CloudFlare has made accessing the infrastructure services extremely convenient and secure.
 2.  **Additional protection:** CloudFlare offers advanced security features such as DDoS protection and firewalls, providing an additional layer of protection for my online services.

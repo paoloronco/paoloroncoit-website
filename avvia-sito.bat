@@ -25,11 +25,11 @@ if not exist "node_modules" (
   echo.
 )
 
-REM Apre il browser dopo qualche secondo, mentre il server parte
-start "" /min cmd /c "timeout /t 4 >nul & start http://localhost:4321/"
+REM Apre il browser SOLO quando il server risponde davvero (evita pagina vuota)
+start "" /min powershell -NoProfile -WindowStyle Hidden -Command "$u='http://localhost:4321/'; for($i=0;$i -lt 90;$i++){ try{ $null = Invoke-WebRequest -UseBasicParsing -Uri $u -TimeoutSec 2; Start-Process $u; break }catch{ Start-Sleep -Milliseconds 800 } }"
 
 echo Server in avvio su http://localhost:4321/
-echo Il browser si aprira' tra pochi secondi.
+echo Il browser si aprira' NON appena il server e' pronto (puo' volerci qualche secondo).
 echo.
 echo  ^>^>  Per FERMARE il sito: chiudi questa finestra oppure premi CTRL+C.
 echo.

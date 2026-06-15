@@ -10,10 +10,10 @@ WordPress è una delle piattaforme di gestione dei contenuti più popolari al mo
 Il Caso di Studio: prportfolio.paoloronco.it  
 Prima di iniziare, è importante notare che il sito web su cui stai leggendo questo articolo, prportfolio.paoloronco.it, è stato sviluppato con WordPress. Questo dimostra quanto sia rilevante la sicurezza di WordPress anche per i siti web di successo.
 
-**Cos'è WPScan?**  
+## Cos'è WPScan?
 WPScan è uno strumento di analisi della sicurezza WordPress open source che aiuta gli sviluppatori e gli amministratori di sistema a identificare e correggere le vulnerabilità nei siti web basati su WordPress. Questo strumento è essenziale per garantire che il tuo sito web rimanga protetto da minacce e attacchi.
 
-**Caratteristiche Principali di WPScan:**  
+## Caratteristiche Principali di WPScan:
 Scansione di Vulnerabilità: WPScan effettua una scansione completa del tuo sito WordPress per identificare le vulnerabilità note, tra cui temi, plugin e versioni di WordPress obsolete.
 
 Ricerca di Plugin e Temi: WPScan può trovare plugin e temi che potrebbero presentare vulnerabilità di sicurezza.
@@ -22,7 +22,7 @@ Dizionario per il Brute Force: WPScan può essere utilizzato per testare la forz
 
 Analisi dei Vulnerability Report: WPScan fornisce dettagliati report di vulnerabilità, consentendo di comprendere e affrontare le minacce.
 
-**Utilizzo di WPScan:**  
+## Utilizzo di WPScan:
 WPScan è disponibile su Kali Linux ed è facile da utilizzare. Ecco come iniziare:
 
 Installazione: Se non hai già WPScan installato, puoi farlo utilizzando i comandi del terminale su Kali Linux.
@@ -31,7 +31,7 @@ Scansione: Esegui una scansione del tuo sito web WordPress specificando l'URL de
 
 Analisi dei Risultati: Esamina i risultati della scansione per identificare vulnerabilità e segui le indicazioni per correggerle.
 
-**Avvertimento Etico:**  
+## Avvertimento Etico:
 È importante utilizzare WPScan in modo etico e legale, ad esempio su siti web di tua proprietà o con il permesso del proprietario. L'utilizzo non autorizzato su siti web altrui è contro la legge.
 
 Conclusioni:  

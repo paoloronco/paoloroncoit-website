@@ -7,7 +7,7 @@ draft: false
 ---
 Among the projects that have transformed my residence into an advanced technological experience, stands out the implementation of Home Assistant on a Proxmox container. In this article, we will explore how Home Assistant has seamlessly integrated into my daily life, offering centralized and intelligent control over various aspects, from weather to server temperature monitoring.
 
-**Home Assistant: A Comprehensive Overview**  
+## Home Assistant: A Comprehensive Overview
 **Home Assistant:** Home Assistant is an open-source platform for home automation. Its versatility and wide range of integrations make it the beating heart of my smart home ecosystem. This multifunctional tool offers a centralized solution for a variety of functions:
 
 1.  **Domestic Automation:** Home Assistant coordinates a series of automations to improve comfort and efficiency in my home, from lighting control to appliance management.
@@ -18,9 +18,9 @@ Among the projects that have transformed my residence into an advanced technolog
 6.  **Multi-room Audio:** Thanks to audio integrations, I can enjoy seamless sound experiences across all rooms of the house.
 7.  **Motion Detection:** Home Assistant uses motion sensors to activate or deactivate devices based on presence or absence in rooms.
 
-**Integration with Proxmox: Stability and Flexibility**  
+## Integration with Proxmox: Stability and Flexibility
 Implementing Home Assistant on a Proxmox container has strengthened the stability and flexibility of the system. This advanced configuration allows for reliable and secure access to home automation features from any connected device.
 
-**Conclusions**  
+## Conclusions
 Home Assistant has transformed my house into an intelligent and personalized space, improving the quality of my daily life. This project, successfully integrated on a Proxmox container, testifies to the power of technology when used intelligently to meet personal needs. Keep following my technological portfolio for further explorations of projects shaping my digital and domestic environment.
 

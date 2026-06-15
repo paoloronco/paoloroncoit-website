@@ -24,7 +24,7 @@ draft: false
 3.  **Ampia Variedad di Software:** Grazie ai repository APT, Ubuntu Server offre accesso a migliaia di pacchetti software, rendendo facile l'installazione di servizi e applicazioni aggiuntive.
 4.  **Sicurezza:** Ubuntu Server è conosciuto per le sue robuste funzionalità di sicurezza, inclusa la gestione dei firewall e degli aggiornamenti di sicurezza regolari.
 
-**Progetti Interessanti Basati su Ubuntu Server:**
+## Progetti Interessanti Basati su Ubuntu Server:
 
 -   **Ubuntu Server Guide:** Una risorsa ufficiale che fornisce istruzioni dettagliate sulla configurazione di varie funzionalità su Ubuntu Server.
 -   **Nextcloud:** Una piattaforma di cloud personale open-source che può essere facilmente installata su Ubuntu Server per la condivisione e la sincronizzazione dei file.

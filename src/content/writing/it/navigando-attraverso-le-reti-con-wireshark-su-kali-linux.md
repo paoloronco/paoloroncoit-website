@@ -7,7 +7,7 @@ draft: false
 ---
 Integrato nel mio arsenale digitale su Kali Linux, Wireshark è diventato il mio compagno fidato per esplorare il traffico di rete, analizzare le comunicazioni e identificare potenziali minacce. Questo articolo esplorerà come ho sfruttato Wireshark nel contesto della sicurezza informatica e del penetration testing.
 
-**Wireshark: Osservare il Traffico in Tempo Reale**
+## Wireshark: Osservare il Traffico in Tempo Reale
 
 Wireshark è uno sniffer di rete open-source che consente di catturare e analizzare il traffico di rete in tempo reale. Nel mio percorso, ho utilizzato Wireshark per:
 
@@ -16,7 +16,7 @@ Wireshark è uno sniffer di rete open-source che consente di catturare e analizz
 2.  **Penetration Testing:**
     -   Wireshark è diventato uno strumento essenziale nei test di penetrazione. La capacità di esaminare le interazioni tra dispositivi sulla rete mi ha permesso di individuare vulnerabilità e punti di accesso non autorizzati.
 
-**Kali Linux: Il Terreno Perfetto per Wireshark**
+## Kali Linux: Il Terreno Perfetto per Wireshark
 
 Kali Linux fornisce l'ambiente ideale per utilizzare Wireshark in modo avanzato. La sua integrazione senza soluzione di continuità consente di catturare pacchetti di dati, analizzare protocolli e identificare eventuali debolezze nella sicurezza di una rete.
 
@@ -25,6 +25,6 @@ Kali Linux fornisce l'ambiente ideale per utilizzare Wireshark in modo avanzato.
 4.  **Educazione e Sensibilizzazione:**
     -   Wireshark è stato uno strumento prezioso nell'ambito dell'educazione sulla sicurezza informatica. L'analisi visiva del traffico di rete ha facilitato la comprensione di concetti complessi e ha contribuito a sensibilizzare sull'importanza della sicurezza delle comunicazioni.
 
-**Conclusioni nel Portfolio Tecnologico**
+## Conclusioni nel Portfolio Tecnologico
 
 Nel mio portfolio, l'esperienza con Wireshark su Kali Linux dimostra il mio impegno nel garantire la sicurezza delle reti e delle comunicazioni digitali. Wireshark, utilizzato con perizia e etica, rappresenta uno strumento fondamentale nel mio approccio alla sicurezza informatica. La capacità di analizzare il traffico di rete in tempo reale è una testimonianza tangibile della mia dedizione nel creare ambienti digitali sicuri e resilienti.

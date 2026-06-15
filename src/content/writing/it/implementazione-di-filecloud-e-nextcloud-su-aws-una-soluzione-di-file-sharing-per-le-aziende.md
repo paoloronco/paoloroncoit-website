@@ -11,12 +11,12 @@ FileCloud è una piattaforma di condivisione dei file self-hosted che permette d
 
 Nextcloud è una piattaforma open source progettata per offrire un ambiente cloud self-hosted versatile e sicuro. Fondata sul codice sorgente di ownCloud, Nextcloud ha ampliato e migliorato significativamente le funzionalità disponibili, offrendo una vasta gamma di strumenti per la gestione dei file, la collaborazione in tempo reale, la sincronizzazione dei dati e molto altro ancora. Questo software consente agli utenti di creare il proprio spazio cloud personale, permettendo l'accesso da qualsiasi dispositivo e da qualsiasi luogo. Grazie alle sue caratteristiche di sicurezza avanzate e alla natura open source, Nextcloud offre agli utenti un maggiore controllo sui propri dati e una soluzione flessibile per soddisfare diverse esigenze aziendali e personali.
 
-**Implementazione su AWS:**  
+## Implementazione su AWS:
 La mia esperienza nell'implementazione di soluzioni di storage e condivisione dei file è caratterizzata da un'ampia conoscenza delle piattaforme cloud. Durante un progetto su AWS, ho messo in atto una configurazione per l'installazione di Nextcloud e FileCloud, due piattaforme di storage open-source, all'interno di un'istanza EC2. Questa attività richiede un'introduzione dell'immagine AMI adeguata e la configurazione di una serie di servizi, compreso l'adattamento del server web e la gestione dei permessi di accesso.
 
 Un aspetto fondamentale è stato garantire la sicurezza dei dati, ottimizzando la connettività e configurando correttamente i certificati SSL per una comunicazione sicura. L'obiettivo era creare una soluzione flessibile e altamente performante, capace di gestire grandi quantità di dati, garantendo al contempo un'adeguata protezione dei dati sensibili. L'intera implementazione ha richiesto competenze dettagliate nel gestire l'ambiente cloud, con particolare attenzione alla configurazione ottimizzata per garantire la massima affidabilità e sicurezza delle piattaforme.
 
-**Vantaggi e Applicazioni Aziendali:**
+## Vantaggi e Applicazioni Aziendali:
 
 FileCloud e NextCloud offrono soluzioni di storage e condivisione dei file che possono essere implementate su piattaforme cloud come AWS, offrendo una serie di vantaggi e applicazioni aziendali significative:
 

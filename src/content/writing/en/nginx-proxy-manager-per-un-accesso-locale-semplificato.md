@@ -7,16 +7,16 @@ draft: false
 ---
 In managing my homelab, I successfully implemented NGINX Proxy Manager as a key component to simplify local access to services and applications in my network. This article will provide an overview of how NGINX Proxy Manager enhances the experience of accessing web services on my local network.
 
-**Initial Problem**  
+## Initial Problem
 Initially, accessing local applications required specific IP addresses and ports, making it impractical and hard to remember. Additionally, using self-generated certificates led to annoying security warnings in browsers.
 
-**Implemented Solution with NGINX Proxy Manager**  
+## Implemented Solution with NGINX Proxy Manager
 To address these issues, I adopted NGINX Proxy Manager as a reverse proxy and local DNS. This solution simplifies access to applications through custom local domains without the security warnings.
 
-**How NGINX Proxy Manager Works**  
+## How NGINX Proxy Manager Works
 NGINX Proxy Manager leverages the DNS-01 certificate validation method, allowing for valid certificates to be generated for local domains without exposing the machine to public networks. This approach overcomes the limitations of the HTTP-01 method, making it possible to use wildcard certificates for subdomains.
 
-**Practical Implementation**
+## Practical Implementation
 
 1.  **Preparations:**
     -   I chose DuckDNS as a free DNS provider to simplify the process.
@@ -33,7 +33,7 @@ NGINX Proxy Manager leverages the DNS-01 certificate validation method, allowing
 6.  **Secure Access:**
     -   Now, I can access local applications through custom domains (e.g., [https://jellyfin.local](https://jellyfin.local/)) without security warnings.
 
-**Conclusions**
+## Conclusions
 
 Integrating NGINX Proxy Manager into my local network has significantly improved access and management of applications, offering an elegant and secure solution. This approach represents a significant upgrade from using IP addresses and ports, contributing to the simplification of navigation through services in my homelab. For further details on advanced features of NGINX Proxy Manager, visit the official site: [nginxproxymanager.com](https://nginxproxymanager.com/).
 

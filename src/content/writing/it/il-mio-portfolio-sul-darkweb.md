@@ -17,7 +17,7 @@ Innanzitutto, il sito è ospitato su un server sicuro, con un firewall e un sist
 
 Inoltre, ho implementato una serie di misure di sicurezza aggiuntive, come la verifica in due passaggi e l'uso di un sistema di autenticazione a più fattori. Queste misure rendono più difficile per gli hacker accedere al sito o ai dati dei visitatori.
 
-**Alcuni consigli per creare un portfolio sicuro sul DarkWeb**
+## Alcuni consigli per creare un portfolio sicuro sul DarkWeb
 
 Se stai pensando di creare un portfolio sul DarkWeb, ecco alcuni consigli per aiutarti a farlo in modo sicuro:
 

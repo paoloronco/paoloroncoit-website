@@ -7,11 +7,11 @@ draft: false
 ---
 prevenire potenziali minacce e vulnerabilità. Una delle risorse più preziose per valutare e migliorare la sicurezza di un sistema è Lynis, uno strumento potente e versatile per l'analisi della sicurezza su sistemi operativi Linux come Kali Linux.
 
-**Cosa è Lynis?**
+## Cosa è Lynis?
 
 Lynis è uno strumento di audit della sicurezza open-source progettato per condurre una valutazione approfondita della sicurezza di sistemi basati su Unix/Linux. Il suo obiettivo principale è eseguire un controllo approfondito del sistema, identificare vulnerabilità, configurazioni non sicure e suggerire miglioramenti per rafforzare la sicurezza complessiva del sistema.
 
-**Come si usa Lynis su Kali Linux?**
+## Come si usa Lynis su Kali Linux?
 
 1.  **Installazione di Lynis su Kali Linux:**
     -   Lynis può essere facilmente installato su Kali Linux attraverso il gestore dei pacchetti del sistema, oppure scaricando direttamente il sorgente dal repository ufficiale di Lynis.
@@ -22,7 +22,7 @@ Lynis è uno strumento di audit della sicurezza open-source progettato per condu
 4.  **Implementazione delle Migliorie Consigliate:**
     -   Basandosi sui risultati della scansione, Lynis fornirà suggerimenti e raccomandazioni per migliorare la sicurezza. Gli amministratori di sistema possono poi implementare queste correzioni per mitigare le vulnerabilità individuate.
 
-**Perché Lynis è utile su Kali Linux?**
+## Perché Lynis è utile su Kali Linux?
 
 1.  **Identificazione delle Vulnerabilità:** Lynis esamina il sistema in profondità, individuando vulnerabilità note, configurazioni non sicure e punti deboli nel sistema che possono essere sfruttati da potenziali minacce.
 2.  **Miglioramento della Sicurezza:** Offre raccomandazioni chiare e consigli pratici per migliorare la sicurezza del sistema, consentendo agli amministratori di sistema di prendere misure preventive e correttive efficaci.

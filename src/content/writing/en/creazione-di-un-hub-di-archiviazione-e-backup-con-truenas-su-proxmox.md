@@ -7,7 +7,7 @@ draft: false
 ---
 Implementing a reliable and secure storage system is essential to ensure data protection and facilitate access from any device. In this article, I will share my experience in creating a Virtual Machine (VM) on Proxmox with TrueNAS, formerly FreeNAS, transforming it into a complete hub for backup, storage, and multimedia streaming.
 
-**Creation of the VM with TrueNAS on Proxmox**
+## Creation of the VM with TrueNAS on Proxmox
 
 1.  **Initialization of the VM:**
     -   I created a dedicated VM on Proxmox, providing adequate resources to ensure optimal performance.
@@ -16,7 +16,7 @@ Implementing a reliable and secure storage system is essential to ensure data pr
 3.  **Configuration of RAID 10 Pools:**
     -   Using two 6TB hard drives each, I created pools in RAID 10 to ensure redundancy and high performance. This became the core of my backup and storage system.
 
-**Implementation of Backup and Synchronization Tools**
+## Implementation of Backup and Synchronization Tools
 
 4.  **CloudSync:**
     -   To ensure data security even in an external location, I configured CloudSync to perform backups on a cloud storage service. This ensures a copy of the data in a remote location.
@@ -25,14 +25,14 @@ Implementing a reliable and secure storage system is essential to ensure data pr
 6.  **rSync:**
     -   Using rSync, I automated the backup process between different storage units, ensuring data consistency and simplifying version management.
 
-**Enhancing Features with Jellyfin and Netdata**
+## Enhancing Features with Jellyfin and Netdata
 
 7.  **Jellyfin:**
     -   By adding Jellyfin to my hub, I transformed the server into a complete multimedia center. Now I can access my media content from any device on the network.
 8.  **Netdata:**
     -   Integrating Netdata provides comprehensive system monitoring, ensuring optimal performance and allowing me to intervene promptly in case of issues.
 
-**Advantages and Final Considerations**
+## Advantages and Final Considerations
 
 Implementing TrueNAS on Proxmox has significantly improved data management and information security. The creation of RAID 10 pools, the use of advanced tools like CloudSync, Syncthing, and rSync, along with multimedia features from Jellyfin and detailed system monitoring from Netdata, transformed my server into a complete and versatile hub.
 

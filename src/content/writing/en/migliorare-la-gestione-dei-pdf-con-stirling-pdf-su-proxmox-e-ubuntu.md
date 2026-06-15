@@ -5,25 +5,25 @@ pubDate: 2024-03-12
 tags: ["proxmox"]
 draft: false
 ---
-**Improving PDF Management with Stirling PDF on Proxmox and Ubuntu**
+## Improving PDF Management with Stirling PDF on Proxmox and Ubuntu
 
-**Introduction**
+## Introduction
 
 In the digital age, efficient management of PDF documents is crucial for any IT infrastructure. To address this need, I recently implemented Stirling PDF, a powerful open-source tool, on an Ubuntu server managed through Proxmox. This solution provides a simple interface for modifying, merging, saving, and reordering PDF files, making it indispensable in my local network.
 
-**Why Stirling PDF**
+## Why Stirling PDF
 
 Stirling PDF, available at the GitHub repository Stirling-Tools/Stirling-PDF, is a versatile tool that offers a wide range of features for manipulating PDF documents. From merging to splitting, from rotating to encrypting, Stirling PDF meets various needs, simplifying PDF management without the need for external software.
 
-**Deploy on Proxmox and Ubuntu**
+## Deploy on Proxmox and Ubuntu
 
 The deployment of Stirling PDF was carried out on a virtual machine running Ubuntu, orchestrated through Proxmox, a strategic choice that ensured flexibility and scalability. Thanks to its intuitive interface and powerful VM management features, Proxmox made the installation and configuration of Stirling PDF simple and efficient.
 
-**Benefits in the Local Network**
+## Benefits in the Local Network
 
 Integrating Stirling PDF into my local network has significantly improved document management. Users can now easily access Stirling PDF's functionalities from the network, enhancing collaboration and operational efficiency. This tool eliminated the need for external software to manipulate PDFs, centralizing operations and reducing processing times.
 
-**Conclusions**
+## Conclusions
 
 The implementation of Stirling PDF on an Ubuntu server in Proxmox has represented a significant advancement in managing file PDFs in my local network. This solution not only optimized document-related workflows but also increased productivity and improved collaboration within the organization. Stirling PDF has proven to be an essential tool, demonstrating that open-source solutions can offer powerful and flexible features for modern business needs.
 

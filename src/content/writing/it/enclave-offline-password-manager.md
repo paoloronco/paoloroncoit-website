@@ -178,7 +178,7 @@ Questa licenza è stata scelta deliberatamente: qualsiasi fork o opera derivata 
 
 ## Sviluppatore
 
-**Paolo Ronco**
+## Paolo Ronco
 
 -   Email: info@paoloronco.it
 -   GitHub: [https://github.com/paoloronco](https://github.com/paoloronco)

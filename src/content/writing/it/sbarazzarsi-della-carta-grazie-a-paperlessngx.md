@@ -7,7 +7,7 @@ draft: false
 ---
 diventata una priorità per molte organizzazioni e individui. Paperless NG è una soluzione open-source che consente di digitalizzare, archiviare e gestire i documenti in modo efficiente. In questo articolo, esploreremo Paperless NG e guideremo passo dopo passo attraverso il processo di deploy su Proxmox, offrendo un modo pratico e sostenibile per gestire i tuoi documenti digitali.
 
-**Cos'è Paperless NG?**  
+## Cos'è Paperless NG?
 Paperless NG è una soluzione open-source per la gestione documentale che consente di acquisire, archiviare, organizzare e ricercare documenti digitali. Utilizzando tecnologie moderne come l'OCR (riconoscimento ottico dei caratteri) e l'archiviazione basata su tag, Paperless NG semplifica il processo di gestione dei documenti digitali, riducendo il disordine e migliorando l'accessibilità.
 
 Vantaggi di Paperless NG:

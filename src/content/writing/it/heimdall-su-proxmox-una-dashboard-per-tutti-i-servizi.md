@@ -7,10 +7,10 @@ draft: false
 ---
 La gestione di numerosi servizi su un server Proxmox può diventare una sfida, specialmente quando si tratta di ricordare tutte le interfacce utente web (WebUI). Fortunatamente, ho scoperto una soluzione efficace implementando Heimdall, un'applicazione che centralizza tutte le WebUI in una comoda dashboard.
 
-**Cos'è Heimdall e Perché è Utile**  
+## Cos'è Heimdall e Perché è Utile
 Heimdall è una dashboard basata su web progettata per semplificare l'accesso e la gestione di servizi e applicazioni con interfaccia utente web. La sua utilità risiede nella capacità di fornire un punto centrale per accedere a tutte le WebUI dei servizi installati sul server Proxmox. In breve, Heimdall semplifica la navigazione tra diverse applicazioni web, rendendo la gestione e l'accesso più efficienti.
 
-**Implementazione Pratica su Proxmox**
+## Implementazione Pratica su Proxmox
 
 1.  **Creazione di un Container Ubuntu:**
     -   Inizialmente, ho creato un container Ubuntu su Proxmox, fornendo l'ambiente in cui Heimdall verrà eseguito.
@@ -21,12 +21,12 @@ Heimdall è una dashboard basata su web progettata per semplificare l'accesso e 
 4.  **Accesso alla Dashboard Unificata:**
     -   Una volta configurato, Heimdall ha fornito una dashboard unificata accessibile da un singolo punto, elencando tutti i servizi installati con le rispettive interfacce utente web.
 
-**Vantaggi di Heimdall su Proxmox**  
+## Vantaggi di Heimdall su Proxmox
 L'implementazione di Heimdall ha introdotto numerosi vantaggi nella gestione dei servizi su Proxmox:
 
 -   **Centralizzazione:** Tutte le WebUI sono accessibili da una singola dashboard, semplificando la navigazione.
 -   **Efficienza:** Risparmio di tempo nella gestione e nell'accesso ai vari servizi.
 -   **Ordine:** Una panoramica ordinata e organizzata dei servizi installati.
 
-**Conclusione**  
+## Conclusione
 Heimdall si è dimostrato un alleato prezioso nel semplificare la gestione dei servizi con interfaccia utente web su Proxmox. La sua capacità di centralizzare le WebUI in una dashboard intuitiva ha migliorato significativamente l'efficienza e l'ordine nella gestione quotidiana del server. Per maggiori informazioni su Heimdall e come implementarlo, visita la repository su GitHub: [Heimdall](https://github.com/linuxserver/Heimdall).

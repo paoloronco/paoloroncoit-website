@@ -9,7 +9,7 @@ Nel costante impegno per migliorare l'efficienza e l'affidabilità della mia inf
 
 L'uso di un Load Balancer è cruciale per distribuire il traffico in modo equo tra più server, migliorando le prestazioni complessive del sistema e garantendo una maggiore stabilità. Durante questa implementazione, ho ulteriormente arricchito l'infrastruttura, consentendo anche un accesso semplificato attraverso sottodomini protetti e gestiti tramite CloudFlare.
 
-**Benefici dell'integrazione di CloudFlare e dei sottodomini:**
+## Benefici dell'integrazione di CloudFlare e dei sottodomini:
 
 1.  **Accesso semplificato e sicuro:** L'acquisto di un nome di dominio e la configurazione dei sottodomini come NextCloud.esempio.com, Plex.esempio.com, e proxmox.esempio.com su CloudFlare hanno reso l'accesso ai servizi dell'infrastruttura estremamente comodo e sicuro.
 2.  **Protezione aggiuntiva:** CloudFlare offre livelli di sicurezza avanzati, come protezione DDoS e firewall, che garantiscono un livello aggiuntivo di protezione per i miei servizi online.

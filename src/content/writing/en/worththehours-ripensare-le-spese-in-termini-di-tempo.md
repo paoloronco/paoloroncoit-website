@@ -58,7 +58,7 @@ Seeing an expense in terms of working time radically changes the perception of i
 
 The app is built following **modern Android best practices** and a clear, scalable **MVVM** architecture.
 
-**Technologies used:**
+## Technologies used:
 
 -   **Kotlin**
 -   **Jetpack Compose**

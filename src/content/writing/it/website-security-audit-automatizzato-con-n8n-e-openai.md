@@ -86,7 +86,7 @@ Per me è diventato un piccolo strumento di routine, utile per garantire che i m
 
 ## Warnings
 
-**3 warnings detected**
+## 3 warnings detected
 
 See the Configuration Issues section below for more info.
 
@@ -189,7 +189,7 @@ The X-XSS-Protection header is set to \`0\`, meaning that the browser's built-in
 
 This report highlights security issues detected through client-side analysis. For a comprehensive security assessment, consider engaging a professional penetration tester.
 
-**To implement the fixes above:**
+## To implement the fixes above:
 
 1.  Work with your development team to address each issue in order of criticality
 2.  Retest after implementing each fix

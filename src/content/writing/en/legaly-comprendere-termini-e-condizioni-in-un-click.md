@@ -28,7 +28,7 @@ The system is designed not to store any user data, maintaining a “privacy-firs
 
 During the development of Legaly, I consolidated and expanded both front-end and back-end skills, spanning all phases of extension design, prototyping, and distribution.
 
-**Key technologies used:**
+## Key technologies used:
 
 -   **Frontend:**
     -   JavaScript and manifest V3 for building the Chrome extension.
@@ -39,7 +39,7 @@ During the development of Legaly, I consolidated and expanded both front-end and
     -   Integration with **OpenAI** for automatic text processing and simplification.
     -   Continuous deployment and cloud configuration via Firebase CLI.
 
-**Tools and methodologies:**
+## Tools and methodologies:
 
 -   Node.js workflow managed through the terminal (nvm, npm, firebase-tools).
 -   Continuous versioning and testing via development environment (VSCode, WindSurf AI).

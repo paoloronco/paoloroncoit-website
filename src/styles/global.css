@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 /* Font locali (no CDN esterni — privacy/performance) */
-@import "@fontsource-variable/inter";
-@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/space-grotesk"; /* display */
+@import "@fontsource-variable/hanken-grotesk"; /* body */
+@import "@fontsource-variable/jetbrains-mono"; /* dati/codice */
 
 /* ============================================================
    DESIGN SYSTEM — "scuro ma vivo"
@@ -40,7 +41,8 @@
   --color-cat-tool: #34d399;
 
   /* Tipografia */
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Hanken Grotesk Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk Variable", "Hanken Grotesk Variable", ui-sans-serif, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", "Cascadia Code", monospace;
 
   /* Raggi / contenuti */
@@ -74,8 +76,8 @@ body {
   -webkit-font-smoothing: antialiased;
   /* Alone radiale (depth, "vivo") + griglia sottile */
   background-image:
-    radial-gradient(120% 80% at 75% -10%, color-mix(in oklab, var(--color-accent) 16%, transparent), transparent 55%),
-    radial-gradient(90% 60% at 0% 0%, color-mix(in oklab, var(--color-accent-2) 10%, transparent), transparent 50%),
+    radial-gradient(120% 80% at 75% -10%, color-mix(in oklab, var(--color-accent) 14%, transparent), transparent 55%),
+    radial-gradient(90% 60% at 0% 0%, color-mix(in oklab, var(--color-accent) 6%, transparent), transparent 50%),
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 72px 72px, 72px 72px;
@@ -101,7 +103,13 @@ body {
   border-radius: 3px;
 }
 
-/* Label monospace ricorrente del sistema */
+/* Heading col font display (Space Grotesk) */
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Label ricorrente del sistema (small-caps, niente più mono ovunque) */
 .kicker {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -116,11 +124,37 @@ body {
   line-height: 1.7;
   color: var(--color-text-dim);
 }
-.prose h2, .prose h3 { color: var(--color-text); font-weight: 600; line-height: 1.25; }
-.prose h2 { font-size: 1.5rem; margin-top: 2.5rem; margin-bottom: 0.75rem; }
-.prose h3 { font-size: 1.2rem; margin-top: 1.75rem; margin-bottom: 0.5rem; }
+.prose h2, .prose h3 { color: var(--color-text); font-family: var(--font-display); font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; scroll-margin-top: 5rem; }
+.prose h2 {
+  font-size: 1.6rem;
+  margin-top: 2.75rem;
+  margin-bottom: 0.85rem;
+  padding-left: 0.85rem;
+  border-left: 3px solid var(--color-accent);
+}
+.prose h3 { font-size: 1.22rem; margin-top: 1.85rem; margin-bottom: 0.5rem; }
 .prose p { margin-bottom: 1.1rem; }
-.prose a { color: var(--color-accent); text-underline-offset: 3px; text-decoration: underline; }
+/* paragrafo "lead" (apertura) più grande */
+.prose > p:first-of-type { font-size: 1.12rem; line-height: 1.65; color: var(--color-text); }
+.prose a { color: var(--color-accent); text-underline-offset: 3px; text-decoration: underline; text-decoration-thickness: 1px; transition: color 0.2s; }
+.prose a:hover { color: var(--color-text); }
+/* immagini e separatori */
+.prose img {
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--color-ink-600);
+  margin: 1.6rem 0;
+  display: block;
+}
+.prose hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-ink-500), transparent);
+  margin: 2.75rem 0;
+}
+.prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+.prose th, .prose td { border: 1px solid var(--color-ink-600); padding: 0.5rem 0.75rem; text-align: left; }
+.prose th { background: var(--color-ink-700); color: var(--color-text); font-family: var(--font-display); }
 .prose ul, .prose ol { margin: 1rem 0 1.25rem 1.25rem; }
 .prose li { margin-bottom: 0.4rem; }
 .prose code {
@@ -200,8 +234,9 @@ body {
   animation: drift1 18s ease-in-out infinite;
 }
 .hero-fx::after {
-  background: radial-gradient(circle, color-mix(in oklab, var(--color-accent-2) 45%, transparent), transparent 70%);
+  background: radial-gradient(circle, color-mix(in oklab, var(--color-accent) 32%, transparent), transparent 70%);
   bottom: -20rem; left: -8rem;
+  opacity: 0.35;
   animation: drift2 22s ease-in-out infinite;
 }
 @keyframes drift1 {
@@ -256,8 +291,8 @@ body {
 
 /* --- Chat widget (bolla AI) --- */
 .chat-fab {
-  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
-  box-shadow: 0 10px 30px -8px color-mix(in oklab, var(--color-accent) 60%, transparent);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-soft));
+  box-shadow: 0 10px 30px -8px color-mix(in oklab, var(--color-accent) 55%, transparent);
 }
 .chat-fab::before {
   content: '';

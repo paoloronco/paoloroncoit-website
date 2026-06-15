@@ -21,7 +21,7 @@ interface Issuer {
 const ISSUERS: Issuer[] = [
   { id: 'googlecloud', name: 'Google Cloud', keywords: ['google cloud', 'gcp'], color: 'var(--color-cat-cloud)', logo: 'googlecloud' },
   { id: 'google', name: 'Google', keywords: ['google'], color: 'var(--color-accent)', logo: 'google' },
-  { id: 'aws', name: 'AWS', keywords: ['aws', 'amazon web services', 'amazon'], color: 'var(--color-cat-automation)', mark: 'AWS' },
+  { id: 'aws', name: 'AWS', keywords: ['aws', 'amazon web services', 'amazon'], color: 'var(--color-cat-automation)', logo: 'aws' },
   { id: 'comptia', name: 'CompTIA', keywords: ['comptia'], color: 'var(--color-cat-security)', logo: 'comptia' },
   { id: 'cisco', name: 'Cisco', keywords: ['cisco', 'netcad', 'netacad'], color: 'var(--color-cat-cloud)', logo: 'cisco' },
   { id: 'intel', name: 'Intel', keywords: ['intel'], color: 'var(--color-accent)', logo: 'intel' },

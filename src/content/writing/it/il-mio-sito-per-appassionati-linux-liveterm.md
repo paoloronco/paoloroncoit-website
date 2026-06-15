@@ -9,11 +9,11 @@ il mio nuovo sito web, LiveTerm, un luogo dedicato agli appassionati di Linux e 
 
 Prima di immergerci nei dettagli di LiveTerm, è importante specificare che questo straordinario strumento non è stato progettato da zero da me, ma è il risultato del lavoro svolto dalla comunità open source. Ho avuto il piacere di clonare la repository LiveTerm da GitHub, disponibile all'indirizzo [https://github.com/Cveinnt/LiveTerm](https://github.com/Cveinnt/LiveTerm), e di implementarlo su Vercel per renderlo accessibile a tutti. Grazie alla generosità e all'impegno degli sviluppatori che hanno contribuito a questo progetto, ora possiamo esplorare un nuovo mondo di possibilità direttamente dalla command line.
 
-**Navigazione Intuitiva e Interattiva**
+## Navigazione Intuitiva e Interattiva
 
 LiveTerm ti permette di esplorare un vasto mondo di informazioni e contenuti utilizzando una serie di comandi intuitivi, suddivisi per categorie per rendere la tua esperienza di navigazione ancora più fluida e piacevole. Scopri di più su LiveTerm e sui suoi comandi disponibili:
 
-**Comandi Generali:**
+## Comandi Generali:
 
 -   `about`: Visualizza informazioni generali su LiveTerm e sui comandi disponibili.
 -   `banner`: Mostra il banner visibile all'accesso.
@@ -27,7 +27,7 @@ LiveTerm ti permette di esplorare un vasto mondo di informazioni e contenuti uti
 -   `resume`: Visualizza il mio curriculum vitae.
 -   `sumfetch`: Mostra il mio riassunto.
 
-**Comandi Utili:**
+## Comandi Utili:
 
 -   `date`: Visualizza la data corrente.
 -   `sudo`: Esegui un comando con privilegi amministrativi.
@@ -41,12 +41,12 @@ LiveTerm ti permette di esplorare un vasto mondo di informazioni e contenuti uti
 -   `whoami`: Mostra il nome utente corrente.
 -   `quote`: Visualizza una citazione casuale.
 
-**Navigazione Internet:**
+## Navigazione Internet:
 
 -   `google`, `bing`, `duckduckgo`: Visita la homepage dei motori di ricerca.
 -   `reddit`: Visita la homepage di Reddit.
 -   `weather`: Ottieni le previsioni meteo per una città specifica.
 
-**Esplora il Mondo Linux da un Nuovo Punto di Vista**
+## Esplora il Mondo Linux da un Nuovo Punto di Vista
 
 Con LiveTerm, puoi navigare nel mondo Linux in modo innovativo e interattivo, esplorando una vasta gamma di informazioni e contenuti direttamente dalla tua riga di comando. Che tu sia un appassionato di tecnologia o un professionista del settore, LiveTerm offre un modo unico e coinvolgente per interagire con il mondo online. Ti invito a esplorare il sito e scoprire tutto ciò che LiveTerm ha da offrire. Buona navigazione!

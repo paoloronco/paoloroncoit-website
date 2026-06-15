@@ -7,7 +7,7 @@ draft: false
 ---
 Nel mio costante viaggio attraverso il panorama della sicurezza informatica, un'arma formidabile che ho impiegato è John the Ripper, un potente strumento di cracking delle password. Integrato nel mio arsenale digitale su Kali Linux, John the Ripper è diventato un alleato cruciale nella valutazione della robustezza delle password e nell'analisi di sicurezza.
 
-**John the Ripper: Decifrare il Mondo delle Password**
+## John the Ripper: Decifrare il Mondo delle Password
 
 John the Ripper è un software open-source progettato per testare la sicurezza delle password attraverso attacchi di tipo dictionary, brute-force e hybrid. Nel mio percorso, ho sfruttato questo strumento per:
 
@@ -16,7 +16,7 @@ John the Ripper è un software open-source progettato per testare la sicurezza d
 2.  **Audit delle Password:**
     -   L'audit regolare delle password è essenziale per garantire la sicurezza degli account. John the Ripper è stato il mio alleato nella verifica della resilienza delle password e nell'identificazione di pattern deboli.
 
-**Kali Linux: Il Terreno di Gioco Ideale**
+## Kali Linux: Il Terreno di Gioco Ideale
 
 Kali Linux, la distribuzione Linux specializzata in sicurezza informatica, fornisce un ambiente ideale per sfruttare appieno le capacità di John the Ripper. La sua integrazione senza soluzione di continuità rende il processo di cracking delle password più efficiente ed efficace.
 
@@ -25,6 +25,6 @@ Kali Linux, la distribuzione Linux specializzata in sicurezza informatica, forni
 4.  **Sviluppo di Politiche di Sicurezza:**
     -   Le informazioni ottenute attraverso John the Ripper hanno contribuito a elaborare politiche di sicurezza più robuste, incentrate su password resilienti e pratiche di gestione sicure.
 
-**Conclusioni nel Portfolio Tecnologico**
+## Conclusioni nel Portfolio Tecnologico
 
 Nel mio portfolio, l'esperienza con John the Ripper su Kali Linux evidenzia il mio impegno nel garantire la sicurezza delle informazioni. Questo strumento, utilizzato con consapevolezza ed etica, rappresenta un pilastro fondamentale nel mio approccio alla sicurezza informatica. La capacità di identificare e mitigare le vulnerabilità nelle password è una dimostrazione tangibile del mio impegno nel creare ambienti digitali sicuri e resilienti.

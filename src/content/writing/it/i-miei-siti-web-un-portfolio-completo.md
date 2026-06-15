@@ -19,7 +19,7 @@ Gestire molteplici progetti e siti web è una testimonianza delle mie competenze
 **Tecnologia:** Self-hosting su Proxmox, Docker, Docker Compose, Portainer, Cloudflare Zero Trust  
 **Descrizione:** Un sito dedicato alla pubblicazione di articoli sui nuovi software, servizi, app e esperienze che ho sviluppato. Utilizza Docker con Docker Compose e Portainer per la gestione delle applicazioni, esponendolo in sicurezza tramite Cloudflare Zero Trust. Su Portainer è stato installato WordPress per la gestione dei contenuti.
 
-**Main Website**
+## Main Website
 
 URL: [https://portfolioronco.it](https://portfolioronco.it) e [https://portfolioronco.com](https://portfolioronco.com)  
 Descrizione: Questi domini fanno da redirect al sito del portfolio principale per rendere il nome dominio più semplice e accessibile.

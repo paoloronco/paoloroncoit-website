@@ -5,7 +5,7 @@ pubDate: 2025-11-25
 tags: ["n8n"]
 draft: false
 ---
-**Auto-Sync “Included with Prime” Games → Google Sheets with Discord Notifications**
+## Auto-Sync “Included with Prime” Games → Google Sheets with Discord Notifications
 
 [](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/1-amazonluna-fetch#auto-sync-included-with-prime-games--google-sheets-with-discord-notifications)Automatically fetch, organize, and maintain an updated catalog of **Amazon Luna – Included with Prime** games. This workflow regularly queries Amazon’s official Luna endpoint, extracts complete metadata, and syncs everything into Google Sheets without duplicates.
 
