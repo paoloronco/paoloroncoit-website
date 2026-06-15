@@ -1,0 +1,119 @@
+---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const fallback = t('ask.fallback');
+---
+
+<!-- Bolla (FAB) -->
+<button
+  type="button"
+  data-chat-toggle
+  aria-label={t('chat.open')}
+  aria-expanded="false"
+  class="chat-fab group fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full text-ink-900 transition-transform hover:scale-105 active:scale-95"
+>
+  <svg data-chat-icon-open width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3a8.38 8.38 0 0 1 8.5 8.5z"/>
+    <circle cx="8.5" cy="11.5" r="0.6" fill="currentColor"/><circle cx="12.5" cy="11.5" r="0.6" fill="currentColor"/><circle cx="16.5" cy="11.5" r="0.6" fill="currentColor"/>
+  </svg>
+  <svg data-chat-icon-close class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+</button>
+
+<!-- Pannello chat -->
+<section
+  data-chat-panel
+  role="dialog"
+  aria-label={t('ask.title')}
+  class="chat-panel fixed bottom-24 right-5 z-40 flex w-[min(92vw,380px)] flex-col overflow-hidden rounded-2xl border border-ink-500 bg-ink-800/95 shadow-2xl backdrop-blur-md"
+  style="max-height:min(70vh,560px)"
+>
+  <header class="flex items-center gap-3 border-b border-ink-600 px-4 py-3">
+    <span class="chat-fab flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-ink-900">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3a8.38 8.38 0 0 1 8.5 8.5z"/></svg>
+    </span>
+    <div class="min-w-0 flex-1">
+      <p class="text-sm font-semibold text-text">{t('ask.title')}</p>
+      <p class="flex items-center gap-1.5 font-mono text-[10px] text-muted">
+        <span class="h-1.5 w-1.5 rounded-full bg-ok"></span>{t('chat.tagline')}
+      </p>
+    </div>
+    <button type="button" data-chat-close aria-label="×" class="rounded-md p-1 text-muted transition-colors hover:text-text">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </header>
+
+  <div data-chatw-log class="flex-1 space-y-3 overflow-y-auto p-4 text-sm">
+    <div><span class="inline-block max-w-[85%] rounded-2xl rounded-bl-sm bg-ink-700 px-3 py-2 text-text-dim">{t('chat.greeting')}</span></div>
+  </div>
+
+  <form data-chatw-form class="flex items-center gap-2 border-t border-ink-600 p-3">
+    <input
+      data-chatw-input
+      type="text"
+      placeholder={t('ask.placeholder')}
+      class="w-full rounded-lg bg-ink-900/60 px-3 py-2.5 text-sm text-text placeholder:text-muted focus:outline-none focus:ring-1 focus:ring-accent"
+      autocomplete="off"
+    />
+    <button type="submit" aria-label={t('ask.send')} class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-ink-900 transition-opacity hover:opacity-90">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </form>
+</section>
+
+<script is:inline data-astro-rerun define:vars={{ fallback }}>
+  (() => {
+    const fab = document.querySelector('[data-chat-toggle]');
+    const panel = document.querySelector('[data-chat-panel]');
+    if (!fab || !panel) return;
+    const log = panel.querySelector('[data-chatw-log]');
+    const form = panel.querySelector('[data-chatw-form]');
+    const input = panel.querySelector('[data-chatw-input]');
+    const iOpen = fab.querySelector('[data-chat-icon-open]');
+    const iClose = fab.querySelector('[data-chat-icon-close]');
+    const closeBtn = panel.querySelector('[data-chat-close]');
+
+    const setOpen = (v) => {
+      panel.classList.toggle('is-open', v);
+      fab.setAttribute('aria-expanded', v ? 'true' : 'false');
+      iOpen && iOpen.classList.toggle('hidden', v);
+      iClose && iClose.classList.toggle('hidden', !v);
+      if (v) requestAnimationFrame(() => input && input.focus());
+    };
+
+    const bubble = (who, text) => {
+      const wrap = document.createElement('div');
+      wrap.className = who === 'me' ? 'text-right' : '';
+      const span = document.createElement('span');
+      span.className =
+        'inline-block max-w-[85%] rounded-2xl px-3 py-2 ' +
+        (who === 'me' ? 'rounded-br-sm bg-accent text-ink-900' : 'rounded-bl-sm bg-ink-700 text-text-dim');
+      span.textContent = text;
+      wrap.appendChild(span);
+      log.appendChild(wrap);
+      log.scrollTop = log.scrollHeight;
+    };
+
+    const send = (q) => {
+      if (!q) return;
+      bubble('me', q);
+      // TODO fase 2: fetch('/api/ask', { method:'POST', body: JSON.stringify({ q }) }) -> stream
+      setTimeout(() => bubble('ai', fallback), 300);
+    };
+
+    fab.addEventListener('click', () => setOpen(!panel.classList.contains('is-open')));
+    closeBtn && closeBtn.addEventListener('click', () => setOpen(false));
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = input.value.trim();
+      input.value = '';
+      send(q);
+    });
+
+    // Esc per chiudere (idempotente con le View Transitions)
+    if (window.__chatEsc) document.removeEventListener('keydown', window.__chatEsc);
+    const onEsc = (e) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('keydown', onEsc);
+    window.__chatEsc = onEsc;
+  })();
+</script>

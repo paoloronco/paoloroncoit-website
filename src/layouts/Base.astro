@@ -1,0 +1,124 @@
+---
+import '@/styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import SiteHeader from '@/components/SiteHeader.astro';
+import SiteFooter from '@/components/SiteFooter.astro';
+import CommandPalette from '@/components/CommandPalette.astro';
+import ChatWidget from '@/components/ChatWidget.astro';
+import Motion from '@/components/Motion.astro';
+import { site } from '@/data/site';
+import { getLangFromUrl, localizePath, stripLangPrefix } from '@/i18n/utils';
+import { useTranslations } from '@/i18n/utils';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Path canonico IT, es. "/writing" (senza prefisso lingua). */
+  path?: string;
+}
+
+const { title, description = site.description, path = '' } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const base = stripLangPrefix(path || Astro.url.pathname);
+
+const fullTitle = title ? `${title} — ${site.name}` : `${site.name} · ${site.role}`;
+const origin = Astro.site ?? new URL(site.url);
+const canonical = new URL(localizePath(base, lang), origin).toString();
+const altIt = new URL(localizePath(base, 'it'), origin).toString();
+const altEn = new URL(localizePath(base, 'en'), origin).toString();
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: site.role,
+  url: site.url,
+  email: `mailto:${site.email}`,
+  sameAs: Object.values(site.socials),
+  knowsAbout: site.domains,
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('motion');</script>
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="it" href={altIt} />
+    <link rel="alternate" hreflang="en" href={altEn} />
+    <link rel="alternate" hreflang="x-default" href={altIt} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <ClientRouter />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'it_IT'} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#0a0c12" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+
+    <!-- Auto-rilevamento lingua: solo al primo accesso; la scelta manuale ha la precedenza. -->
+    <script is:inline>
+      (function () {
+        try {
+          var p = location.pathname;
+          var current = p === '/en' || p === '/en/' || p.indexOf('/en/') === 0 ? 'en' : 'it';
+          function alt(path, lang) {
+            var clean = path;
+            if (path === '/en' || path === '/en/') clean = '/';
+            else if (path.indexOf('/en/') === 0) clean = path.slice(3);
+            if (lang === 'it') return clean;
+            return clean === '/' ? '/en/' : '/en' + clean;
+          }
+          var stored = localStorage.getItem('lang');
+          var seen = localStorage.getItem('langSeen');
+          var target = null;
+          if (stored === 'it' || stored === 'en') {
+            target = stored;
+          } else if (!seen) {
+            localStorage.setItem('langSeen', '1');
+            target = (navigator.language || '').toLowerCase().indexOf('it') === 0 ? 'it' : 'en';
+          }
+          if (target && target !== current) {
+            location.replace(alt(p, target) + location.search + location.hash);
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Easter egg per i peer che aprono la console -->
+    <script is:inline>
+      console.log(
+        '%c↳ curioso? il sorgente è su github.com/paoloronco — security.txt in /.well-known/',
+        'color:#4f8dff;font-family:monospace;font-size:12px'
+      );
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-3 focus:rounded focus:bg-accent focus:px-3 focus:py-2 focus:text-ink-900">
+      {t('a11y.skip')}
+    </a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+    <CommandPalette />
+    <ChatWidget />
+    <Motion />
+  </body>
+</html>

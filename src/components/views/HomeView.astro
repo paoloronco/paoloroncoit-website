@@ -1,0 +1,134 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import CaseFileCard from '@/components/CaseFileCard.astro';
+import { site } from '@/data/site';
+import { getLangFromUrl, useTranslations, localizePath, entryLang, entrySlug } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const areas = [
+  { key: 'security', color: 'var(--color-cat-security)' },
+  { key: 'ai', color: 'var(--color-cat-ai)' },
+  { key: 'automation', color: 'var(--color-cat-automation)' },
+  { key: 'cloud', color: 'var(--color-cat-cloud)' },
+] as const;
+
+const marquee = ['Proxmox', 'Docker', 'Kali Linux', 'n8n', 'Cloudflare', 'Wazuh', 'Splunk', 'Qdrant', 'OpenAI', 'Ollama', 'AWS', 'Google Cloud', 'Linux', 'Grafana', 'WireGuard', 'RAG', 'Zero Trust', 'Proxmox'];
+
+const projects = (await getCollection('work', (e) => !e.data.draft && entryLang(e.id) === lang))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const posts = (await getCollection('writing', (e) => !e.data.draft && entryLang(e.id) === lang))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 4);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString(lang === 'en' ? 'en-GB' : 'it-IT', { day: '2-digit', month: 'short', year: 'numeric' });
+---
+
+<Base path="/">
+  <!-- HERO -->
+  <section class="relative overflow-hidden border-b border-ink-600/60">
+    <div class="hero-fx" aria-hidden="true"></div>
+    <div class="relative z-10 mx-auto grid max-w-5xl grid-cols-1 items-end gap-8 px-5 pt-14 sm:grid-cols-[1fr_0.95fr] sm:gap-4 sm:pt-20">
+      <div class="pb-12 sm:pb-16">
+        <p class="kicker anim-rise text-accent" style="animation-delay:.05s">{site.role}</p>
+        <h1 class="mt-3 text-5xl font-semibold leading-[1.05] tracking-tight text-text sm:text-7xl">
+          <span class="reveal-mask"><span style="animation-delay:.15s">{site.name}</span></span>
+        </h1>
+        <p class="anim-rise mt-5 max-w-md text-base leading-relaxed text-text-dim" style="animation-delay:.35s">{t('home.intro')}</p>
+        <div class="anim-rise mt-7 flex flex-wrap gap-3" style="animation-delay:.5s">
+          <a href={localizePath('/work', lang)} class="btn-shine rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-ink-900 shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:shadow-accent/40">
+            {t('home.ctaWork')}
+          </a>
+          <a href={localizePath('/writing', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
+            {t('home.ctaWriting')}
+          </a>
+        </div>
+      </div>
+
+      <div class="anim-rise relative order-first flex items-end justify-center self-end sm:order-none sm:justify-end" style="animation-delay:.3s">
+        <div
+          class="pointer-events-none absolute bottom-0 h-[78%] w-[78%] rounded-t-[3rem] sm:w-[90%]"
+          style="background:linear-gradient(180deg, color-mix(in oklab, var(--color-accent) 22%, transparent), color-mix(in oklab, var(--color-accent-2) 14%, transparent));filter:blur(2px)"
+          aria-hidden="true"
+        ></div>
+        <img src="/paolo.png" alt={`${site.name}, ${site.role}`} width="549" height="552" fetchpriority="high"
+          class="anim-float relative z-10 w-72 max-w-full object-contain object-bottom drop-shadow-2xl sm:w-[26rem] lg:w-[30rem]" />
+      </div>
+    </div>
+
+    <!-- marquee competenze (motion graphic) -->
+    <div class="marquee relative z-10 border-t border-ink-600/60 py-3">
+      <div class="marquee__track">
+        {[...marquee, ...marquee].map((m) => (
+          <span class="flex items-center whitespace-nowrap px-5 font-mono text-xs uppercase tracking-widest text-muted">
+            {m}<span class="ml-5 text-accent/50">/</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- AREE -->
+  <section class="mx-auto max-w-5xl px-5 pt-16 pb-4">
+    <p class="kicker mb-5" data-reveal>{t('home.whatIDo')}</p>
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {areas.map((a, i) => (
+        <div
+          data-reveal
+          data-tilt
+          style={`--c:${a.color};--i:${i + 1}`}
+          class="group rounded-card border border-ink-600 bg-ink-800/40 p-5 transition-colors hover:border-[var(--c)]"
+        >
+          <span class="block h-1.5 w-8 rounded-full transition-all duration-300 group-hover:w-14" style={`background:${a.color}`}></span>
+          <h3 class="mt-4 font-semibold text-text">{t(`area.${a.key}.t` as any)}</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-muted">{t(`area.${a.key}.d` as any)}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- PROGETTI -->
+  {projects.length > 0 && (
+    <section class="mx-auto max-w-5xl px-5 pt-12 pb-4">
+      <div class="mb-5 flex items-baseline justify-between" data-reveal>
+        <h2 class="text-2xl font-semibold tracking-tight text-text">{t('home.featured')}</h2>
+        <a href={localizePath('/work', lang)} class="link-underline text-sm text-muted hover:text-accent">{t('common.all')}</a>
+      </div>
+      <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+        {projects.map((p, i) => (
+          <div data-reveal style={`--i:${i + 1}`}>
+            <CaseFileCard href={localizePath(`/work/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- ARTICOLI -->
+  {posts.length > 0 && (
+    <section class="mx-auto max-w-5xl px-5 pt-12 pb-4">
+      <div class="mb-5 flex items-baseline justify-between" data-reveal>
+        <h2 class="text-2xl font-semibold tracking-tight text-text">{t('home.recent')}</h2>
+        <a href={localizePath('/writing', lang)} class="link-underline text-sm text-muted hover:text-accent">{t('common.all')}</a>
+      </div>
+      <ul class="divide-y divide-ink-600/70 border-y border-ink-600/70">
+        {posts.map((p, i) => (
+          <li data-reveal style={`--i:${i + 1}`}>
+            <a href={localizePath(`/writing/${entrySlug(p.id)}`, lang)} class="group flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-5">
+              <time class="font-mono text-xs text-muted sm:w-24 sm:shrink-0">{fmt(p.data.pubDate)}</time>
+              <div>
+                <span class="font-medium text-text-dim transition-colors group-hover:text-accent">{p.data.title}</span>
+                <p class="mt-0.5 text-sm text-muted">{p.data.description}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Base>

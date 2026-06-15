@@ -1,0 +1,9 @@
+/* TEAM */
+  Paolo Ronco — Cyber Security Analyst
+  Site: https://paoloronco.it
+  GitHub: github.com/paoloronco
+
+/* SITE */
+  Standards: HTML5, CSS, JS
+  Stack: Astro, Tailwind, static, edge-deployed
+  Tracker: nessuno

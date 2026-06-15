@@ -1,0 +1,13 @@
+# Paolo Ronco
+
+> Cyber Security Analyst. Lavoro al confine tra Security, AI/LLM e infrastrutture self-hosted.
+
+## Pagine
+- [Work](https://paoloronco.it/work): progetti come case file (problema/soluzione/stack/risultato)
+- [Writing](https://paoloronco.it/writing): articoli su security, AI, automazione, self-hosting
+- [CV](https://paoloronco.it/cv): esperienze, certificazioni, formazione
+- [Skills](https://paoloronco.it/skills): competenze tecniche complete con livelli e strumenti
+- [About](https://paoloronco.it/about): chi sono e com'è fatta la mia infrastruttura
+
+## Temi
+Cyber Security, AI/LLM applicata, automazione (n8n), cloud, DevSecOps, open source, self-hosting.

@@ -1,0 +1,36 @@
+---
+import { getLangFromUrl, localizePath, stripLangPrefix } from '@/i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const base = stripLangPrefix(Astro.url.pathname);
+const hrefs = { it: localizePath(base, 'it'), en: localizePath(base, 'en') };
+const opts = [
+  { code: 'it', label: 'IT' },
+  { code: 'en', label: 'EN' },
+] as const;
+---
+<div class="inline-flex items-center rounded-md border border-ink-600 p-0.5 font-mono text-[11px]" role="group" aria-label="Language / Lingua">
+  {opts.map((o) => (
+    <a
+      href={hrefs[o.code]}
+      data-lang-link={o.code}
+      aria-current={lang === o.code ? 'true' : undefined}
+      class:list={[
+        'rounded px-2 py-1 transition-colors',
+        lang === o.code ? 'bg-accent text-ink-900' : 'text-muted hover:text-text',
+      ]}
+    >{o.label}</a>
+  ))}
+</div>
+
+<script is:inline data-astro-rerun>
+  document.querySelectorAll('[data-lang-link]').forEach((a) => {
+    a.addEventListener('click', () => {
+      try {
+        const v = a.getAttribute('data-lang-link');
+        localStorage.setItem('lang', v);
+        localStorage.setItem('langSeen', '1');
+        document.cookie = 'lang=' + v + ';path=/;max-age=31536000;samesite=lax';
+      } catch (e) {}
+    });
+  });
+</script>

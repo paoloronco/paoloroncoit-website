@@ -1,0 +1,29 @@
+---
+# ── Campi obbligatori ──────────────────────────────
+title: "Nome del progetto"
+summary: "Una o due righe: cosa fa e perché conta. Compare nella card."
+category: "automation"       # uno tra: security | ai | automation | cloud | tool
+stack: ["n8n", "Docker"]     # tecnologie usate (chip nella pagina)
+problem: "Quale problema/rischio risolve."
+solution: "Come l'hai risolto, in sintesi."
+outcome: "Il risultato concreto: metriche, prima/dopo, impatto."
+# ── Campi opzionali ────────────────────────────────
+featured: true               # true = mostrato in home tra i progetti in evidenza
+order: 2                      # ordine (numero più basso = più in alto)
+draft: false                 # true = bozza, non pubblicato
+links:
+  - label: "Repo GitHub"
+    href: "https://github.com/paoloronco/..."
+  - label: "Demo"
+    href: "https://esempio.it"
+---
+
+Qui scrivi il resto in **Markdown**: contesto, architettura, diagrammi, lezioni
+imparate. I campi `problem` / `solution` / `outcome` qui sopra compaiono già nel
+riquadro strutturato del "case file"; questo corpo è l'approfondimento libero.
+
+## Architettura
+
+```
+schema o diagramma testuale qui
+```

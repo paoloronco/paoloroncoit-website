@@ -1,0 +1,26 @@
+---
+# ── Campi obbligatori ──────────────────────────────
+title: "Titolo dell'articolo"
+description: "Una frase che riassume il pezzo (usata in lista, SEO e anteprime social)."
+pubDate: 2026-06-09          # data di pubblicazione (YYYY-MM-DD)
+# ── Campi opzionali ────────────────────────────────
+tags: ["security", "ai"]    # parole chiave (compaiono come #tag)
+# updatedDate: 2026-06-20    # se lo aggiorni in futuro
+draft: false                 # true = non viene pubblicato (resta bozza)
+---
+
+Scrivi qui in **Markdown**. Questa prima parte è l'introduzione.
+
+## Un sottotitolo
+
+I sottotitoli `##` finiscono in automatico nell'indice (TOC) a lato.
+
+- elenco puntato
+- **grassetto**, *corsivo*, [link](https://esempio.it)
+
+```js
+// i blocchi di codice hanno evidenziazione e tasto copia
+const ciao = "mondo";
+```
+
+> Citazione o nota in evidenza.

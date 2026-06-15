@@ -1,0 +1,52 @@
+---
+// Motore di motion: scroll-reveal + tilt 3D. Idempotente, re-inizializzabile.
+---
+<script>
+  function initMotion() {
+    // Scelta di design: animazioni per tutti (niente check su reduced-motion).
+    // --- Scroll reveal ---
+    const els = document.querySelectorAll('[data-reveal]:not(.is-visible)');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach((e) => e.classList.add('is-visible'));
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              en.target.classList.add('is-visible');
+              io.unobserve(en.target);
+            }
+          });
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }
+      );
+      els.forEach((e) => io.observe(e));
+    }
+
+    // --- Tilt 3D (solo mouse) ---
+    if (window.matchMedia('(pointer:fine)').matches) {
+      document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((card) => {
+        if (card.dataset.tiltReady) return;
+        card.dataset.tiltReady = '1';
+        const max = 6;
+        card.addEventListener('pointermove', (ev) => {
+          const e = ev as PointerEvent;
+          const r = card.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          card.style.setProperty('--ry', px * max + 'deg');
+          card.style.setProperty('--rx', -py * max + 'deg');
+        });
+        card.addEventListener('pointerleave', () => {
+          card.style.setProperty('--ry', '0deg');
+          card.style.setProperty('--rx', '0deg');
+        });
+      });
+    }
+  }
+
+  // gira sia con View Transitions (astro:page-load) sia senza
+  document.addEventListener('astro:page-load', initMotion);
+  if (document.readyState !== 'loading') initMotion();
+  else document.addEventListener('DOMContentLoaded', initMotion);
+</script>

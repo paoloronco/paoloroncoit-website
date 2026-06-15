@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleView from '@/components/views/ArticleView.astro';
+import { entryLang, entrySlug } from '@/i18n/utils';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('writing', (e) => !e.data.draft && entryLang(e.id) === 'en');
+  return posts.map((post) => ({ params: { slug: entrySlug(post.id) }, props: { post } }));
+}
+const { post } = Astro.props;
+---
+<ArticleView post={post} />

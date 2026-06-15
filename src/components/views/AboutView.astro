@@ -1,0 +1,39 @@
+---
+import Base from '@/layouts/Base.astro';
+import { site } from '@/data/site';
+import { getLangFromUrl, useTranslations, localizePath } from '@/i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+<Base title="About" description={t('about.p1')} path="/about">
+  <section class="mx-auto max-w-3xl px-5 pt-16 pb-16">
+    <p class="kicker anim-rise" style="animation-delay:.05s">{t('about.kicker')}</p>
+    <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text" style="animation-delay:.12s">{site.name}</h1>
+
+    <div class="prose mt-8">
+      <p>{t('about.p1')}</p>
+      <p>{t('about.p2')}</p>
+      <p>{t('about.p3')}</p>
+      <h2>{t('about.infra')}</h2>
+      <p>{t('about.infraText')}</p>
+    </div>
+
+    <figure class="mt-6 overflow-x-auto rounded-card border border-ink-600 bg-ink-800/60 p-5">
+      <pre class="font-mono text-xs leading-relaxed text-text-dim"><code>┌─────────────┐   ┌──────────────┐   ┌───────────────┐
+│  Edge / CDN │──▶│  Reverse     │──▶│  n8n          │
+│  (sito)     │   │  proxy + WAF │   │  automazioni  │
+└─────────────┘   └──────────────┘   └───────┬───────┘
+                          │                  │
+                  ┌───────▼──────┐   ┌────────▼───────┐
+                  │  Monitoring  │   │  LLM / RAG     │
+                  │  + logging   │   │  self-hosted   │
+                  └──────────────┘   └────────────────┘</code></pre>
+      <figcaption class="kicker mt-3">{t('about.diagramCaption')}</figcaption>
+    </figure>
+
+    <div class="prose mt-10">
+      <h2>{t('about.contact')}</h2>
+      <p><a href={`mailto:${site.email}`}>{site.email}</a> · <a href={localizePath('/contact', lang)}>/contact</a></p>
+    </div>
+  </section>
+</Base>

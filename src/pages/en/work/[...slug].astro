@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import CaseFileView from '@/components/views/CaseFileView.astro';
+import { entryLang, entrySlug } from '@/i18n/utils';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('work', (e) => !e.data.draft && entryLang(e.id) === 'en');
+  return projects.map((project) => ({ params: { slug: entrySlug(project.id) }, props: { project } }));
+}
+const { project } = Astro.props;
+---
+<CaseFileView project={project} />
