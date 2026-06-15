@@ -1,0 +1,99 @@
+---
+// Pannello terminale con typing animato (elemento "firma" da security analyst).
+// Le righe `cmd` vengono digitate carattere per carattere; le `out` compaiono
+// in dissolvenza. Fallback no-JS via <noscript> (tutto già nel DOM, opacità 0
+// solo sotto html.motion → se manca il JS resta visibile).
+interface Line {
+  kind: 'cmd' | 'out';
+  cmd?: string;
+  html?: string; // per le out: HTML colorato
+}
+interface Props {
+  lines: Line[];
+  user?: string;
+  host?: string;
+  path?: string;
+  title?: string;
+}
+const { lines, user = 'paolo', host = 'soc', path = '~', title = 'paolo@soc — zsh' } = Astro.props;
+---
+<div class="term" data-term aria-label="terminal">
+  <div class="term__bar" aria-hidden="true">
+    <span class="term__dot" style="background:#fb7185"></span>
+    <span class="term__dot" style="background:#fbbf24"></span>
+    <span class="term__dot" style="background:#34d399"></span>
+    <span class="term__title">{title}</span>
+  </div>
+  <pre class="term__body"><code>{lines.map((l) => l.kind === 'cmd'
+      ? <span class="term__line"><span class="term__user">{user}@{host}</span><span class="term__muted">:</span><span class="term__path">{path}</span><span class="term__prompt">$ </span><span class="term__cmd" data-type>{l.cmd}</span></span>
+      : <span class="term__line term__resp" data-out set:html={l.html ?? ''}></span>
+  )}<span class="term__line" data-final><span class="term__user">{user}@{host}</span><span class="term__muted">:</span><span class="term__path">{path}</span><span class="term__prompt">$ </span><span class="term__caret" data-caret aria-hidden="true"></span></span></code></pre>
+</div>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    function runTerm() {
+      document.querySelectorAll('[data-term]').forEach((term) => {
+        if (term.dataset.termReady) return;
+        term.dataset.termReady = '1';
+
+        const caret = term.querySelector('[data-caret]');
+        const finalLine = term.querySelector('[data-final]');
+        const steps = Array.from(term.querySelectorAll('[data-type],[data-out]'));
+
+        // Svuota i comandi da digitare (memorizza il testo pieno)
+        steps.forEach((s) => {
+          if (s.hasAttribute('data-type')) {
+            s.dataset.full = s.textContent || '';
+            s.textContent = '';
+          }
+        });
+        if (finalLine) finalLine.style.opacity = '0';
+
+        let i = 0;
+        const typeCmd = (el, done) => {
+          el.classList.add('is-active');
+          const full = el.dataset.full || '';
+          let n = 0;
+          const tick = () => {
+            n++;
+            el.textContent = full.slice(0, n);
+            if (caret) el.appendChild(caret);
+            if (n < full.length) setTimeout(tick, 36 + Math.random() * 46);
+            else { el.classList.add('is-done'); setTimeout(done, 280); }
+          };
+          if (caret) el.appendChild(caret);
+          setTimeout(tick, 130);
+        };
+        const revealOut = (el, done) => {
+          el.style.transition = 'opacity .28s cubic-bezier(0.25,1,0.5,1)';
+          el.classList.add('is-active', 'is-done');
+          setTimeout(done, 230);
+        };
+        const next = () => {
+          if (i >= steps.length) {
+            if (finalLine) {
+              finalLine.style.transition = 'opacity .25s ease';
+              finalLine.style.opacity = '1';
+              if (caret) finalLine.appendChild(caret);
+            }
+            return;
+          }
+          const el = steps[i++];
+          if (el.hasAttribute('data-type')) typeCmd(el, next);
+          else revealOut(el, next);
+        };
+        // Anima sempre quando il JS è attivo. Garantisce le righe visibili anche
+        // se la classe .motion non è ancora stata aggiunta al momento del run.
+        document.documentElement.classList.add('motion');
+        next();
+      });
+    }
+    if (!window.__termInit) {
+      window.__termInit = true;
+      document.addEventListener('astro:page-load', runTerm);
+    }
+    if (document.readyState !== 'loading') runTerm();
+    else document.addEventListener('DOMContentLoaded', runTerm);
+  })();
+</script>

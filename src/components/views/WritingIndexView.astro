@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '@/layouts/Base.astro';
+import CmdPath from '@/components/CmdPath.astro';
 import { getLangFromUrl, useTranslations, localizePath, entryLang, entrySlug } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -15,7 +16,7 @@ const fmt = (d: Date) =>
 
 <Base title="Writing" description={t('writing.subtitle')} path="/writing">
   <section class="mx-auto max-w-3xl px-5 pt-16 pb-10">
-    <p class="kicker anim-rise" style="animation-delay:.05s">{t('writing.kicker')}</p>
+    <CmdPath cmd="ls" arg="~/writing" note={`${posts.length}`} />
     <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text" style="animation-delay:.12s">Writing</h1>
     <p class="anim-rise mt-3 text-text-dim" style="animation-delay:.2s">{t('writing.subtitle')}</p>
   </section>

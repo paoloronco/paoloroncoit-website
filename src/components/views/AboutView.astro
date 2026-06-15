@@ -1,5 +1,6 @@
 ---
 import Base from '@/layouts/Base.astro';
+import CmdPath from '@/components/CmdPath.astro';
 import { site } from '@/data/site';
 import { getLangFromUrl, useTranslations, localizePath } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
@@ -7,7 +8,7 @@ const t = useTranslations(lang);
 ---
 <Base title="About" description={t('about.p1')} path="/about">
   <section class="mx-auto max-w-3xl px-5 pt-16 pb-16">
-    <p class="kicker anim-rise" style="animation-delay:.05s">{t('about.kicker')}</p>
+    <CmdPath cmd="whoami" />
     <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text" style="animation-delay:.12s">{site.name}</h1>
 
     <div class="prose mt-8">

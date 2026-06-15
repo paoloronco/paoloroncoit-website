@@ -1,0 +1,13 @@
+---
+// Eyebrow a riga di comando — motivo di coerenza che lega ogni pagina
+// all'hero col terminale. Es. `$ cd ~/work`.
+interface Props {
+  cmd: string;
+  arg?: string;
+  note?: string;
+}
+const { cmd, arg, note } = Astro.props;
+---
+<p class="cmd-path anim-rise" style="animation-delay:.05s">
+  <span class="sep">$</span> <span class="cur">{cmd}</span>{arg && <> <span class="dir">{arg}</span></>}{note && <span class="term__muted">  # {note}</span>}
+</p>

@@ -2,11 +2,14 @@
 import { getCollection } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import CaseFileCard from '@/components/CaseFileCard.astro';
+import Terminal from '@/components/Terminal.astro';
+import SectionHead from '@/components/SectionHead.astro';
 import { site } from '@/data/site';
 import { getLangFromUrl, useTranslations, localizePath, entryLang, entrySlug } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const en = lang === 'en';
 
 const areas = [
   { key: 'security', color: 'var(--color-cat-security)' },
@@ -15,7 +18,16 @@ const areas = [
   { key: 'cloud', color: 'var(--color-cat-cloud)' },
 ] as const;
 
+// Icone (stroke, currentColor) per le card delle aree
+const icons: Record<string, string> = {
+  security: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>',
+  ai: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9.5 2v3M14.5 2v3M9.5 19v3M14.5 19v3M2 9.5h3M2 14.5h3M19 9.5h3M19 14.5h3"/></svg>',
+  automation: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><path d="M9 6h6a3 3 0 0 1 3 3v6"/></svg>',
+  cloud: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 5.5 9.2 3.5 3.5 0 0 0 7 18z"/></svg>',
+};
+
 const marquee = ['Proxmox', 'Docker', 'Kali Linux', 'n8n', 'Cloudflare', 'Wazuh', 'Splunk', 'Qdrant', 'OpenAI', 'Ollama', 'AWS', 'Google Cloud', 'Linux', 'Grafana', 'WireGuard', 'RAG', 'Zero Trust', 'Proxmox'];
+const stack = ['Proxmox', 'Docker', 'Kubernetes', 'Kali Linux', 'Wazuh', 'Splunk', 'n8n', 'Cloudflare', 'AWS', 'Google Cloud', 'Linux', 'Grafana', 'WireGuard', 'Qdrant', 'Ollama', 'OpenAI', 'Python', 'Bash'];
 
 const projects = (await getCollection('work', (e) => !e.data.draft && entryLang(e.id) === lang))
   .sort((a, b) => a.data.order - b.data.order)
@@ -27,41 +39,80 @@ const posts = (await getCollection('writing', (e) => !e.data.draft && entryLang(
 
 const fmt = (d: Date) =>
   d.toLocaleDateString(lang === 'en' ? 'en-GB' : 'it-IT', { day: '2-digit', month: 'short', year: 'numeric' });
+
+// --- Contenuto del terminale ---
+const pad = (s: string, n: number) => s + ' '.repeat(Math.max(0, n - s.length));
+const focus: [string, string][] = [
+  ['security', 'threat detection · hardening · incident response'],
+  ['ai/llm', en ? 'RAG, agents, self-hosted models' : 'RAG, agenti, modelli self-hosted'],
+  ['automation', en ? 'n8n workflows, pipelines' : 'workflow n8n, pipeline'],
+  ['cloud', en ? 'containers, CI/CD, DevSecOps' : 'container, CI/CD, DevSecOps'],
+];
+const focusHtml = focus
+  .map(([k, d]) => `<span class="term__key">${pad(k, 13)}</span><span class="term__resp">${d}</span>`)
+  .join('\n');
+const termLines = [
+  { kind: 'cmd', cmd: 'whoami' },
+  { kind: 'out', html: `<span class="term__resp">Cyber Security Analyst</span> <span class="term__muted">·</span> Deloitte — Cloud &amp; Infrastructure` },
+  { kind: 'cmd', cmd: 'cat focus.txt' },
+  { kind: 'out', html: focusHtml },
+  { kind: 'cmd', cmd: 'ls ~/lab' },
+  { kind: 'out', html: `self-hosting <span class="term__muted">·</span> n8n <span class="term__muted">·</span> RAG <span class="term__muted">·</span> homelab` },
+  { kind: 'cmd', cmd: './say-hi.sh' },
+  { kind: 'out', html: `<span class="term__muted">→</span> <a class="term__key" style="text-decoration:underline;text-underline-offset:3px" href="mailto:${site.email}">${site.email}</a>` },
+] as const;
 ---
 
 <Base path="/">
-  <!-- HERO -->
+  <!-- ============ HERO ============ -->
   <section class="relative overflow-hidden border-b border-ink-600/60">
     <div class="hero-fx" aria-hidden="true"></div>
-    <div class="relative z-10 mx-auto grid max-w-5xl grid-cols-1 items-end gap-8 px-5 pt-14 sm:grid-cols-[1fr_0.95fr] sm:gap-4 sm:pt-20">
-      <div class="pb-12 sm:pb-16">
-        <p class="kicker anim-rise text-accent" style="animation-delay:.05s">{site.role}</p>
-        <h1 class="mt-3 text-5xl font-semibold leading-[1.05] tracking-tight text-text sm:text-7xl">
-          <span class="reveal-mask"><span style="animation-delay:.15s">{site.name}</span></span>
-        </h1>
-        <p class="anim-rise mt-5 max-w-md text-base leading-relaxed text-text-dim" style="animation-delay:.35s">{t('home.intro')}</p>
-        <div class="anim-rise mt-7 flex flex-wrap gap-3" style="animation-delay:.5s">
-          <a href={localizePath('/work', lang)} class="btn-shine rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-ink-900 shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:shadow-accent/40">
-            {t('home.ctaWork')}
-          </a>
-          <a href={localizePath('/writing', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
-            {t('home.ctaWriting')}
-          </a>
+    <div class="relative z-10 mx-auto max-w-5xl px-5 pt-16 sm:pt-24">
+      <div class="grid grid-cols-1 items-center gap-10 sm:grid-cols-[1fr_0.9fr] sm:gap-6">
+        <div class="pb-2">
+          <span class="anim-rise inline-flex items-center gap-2 rounded-full border border-ok/30 bg-ok/10 px-3 py-1 text-xs font-medium text-ok" style="animation-delay:.05s">
+            <span class="status-dot"></span>{t('home.status')}
+          </span>
+          <p class="kicker anim-rise mt-5 text-accent" style="animation-delay:.1s">{site.role}</p>
+          <h1 class="mt-3 text-5xl font-semibold leading-[1.02] tracking-tight text-text sm:text-7xl">
+            <span class="reveal-mask"><span style="animation-delay:.18s">Paolo</span></span><br />
+            <span class="reveal-mask"><span class="text-accent" style="animation-delay:.28s">Ronco</span></span>
+          </h1>
+          <p class="anim-rise mt-6 max-w-md text-base leading-relaxed text-text-dim" style="animation-delay:.42s">{t('home.intro')}</p>
+          <div class="anim-rise mt-7 flex flex-wrap items-center gap-3" style="animation-delay:.54s">
+            <a href={localizePath('/work', lang)} class="btn-shine rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-ink-900 shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:shadow-accent/40">
+              {t('home.ctaWork')}
+            </a>
+            <a href={localizePath('/writing', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
+              {t('home.ctaWriting')}
+            </a>
+            <div class="ml-1 flex items-center gap-1.5">
+              <a href={site.socials.github} target="_blank" rel="noopener" aria-label="GitHub" class="flex h-9 w-9 items-center justify-center rounded-md border border-ink-600 text-muted transition-colors hover:border-accent hover:text-text">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+              </a>
+              <a href={site.socials.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn" class="flex h-9 w-9 items-center justify-center rounded-md border border-ink-600 text-muted transition-colors hover:border-accent hover:text-text">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.8-2.05 3.7-2.05 4 0 4.7 2.6 4.7 6V21H21v-5.3c0-1.27-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H13z"/></svg>
+              </a>
+              <a href={site.socials.huggingface} target="_blank" rel="noopener" aria-label="Hugging Face" class="flex h-9 w-9 items-center justify-center rounded-md border border-ink-600 font-mono text-[11px] font-bold text-muted transition-colors hover:border-accent hover:text-text">HF</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="anim-rise order-first flex items-end justify-center sm:order-none sm:justify-end" style="animation-delay:.34s">
+          <div class="photo-frame">
+            <img src="/paolo.png" alt={`${site.name}, ${site.role}`} width="549" height="552" fetchpriority="high"
+              class="anim-float relative z-10 w-64 max-w-full object-contain object-bottom drop-shadow-2xl sm:w-[24rem] lg:w-[27rem]" />
+          </div>
         </div>
       </div>
 
-      <div class="anim-rise relative order-first flex items-end justify-center self-end sm:order-none sm:justify-end" style="animation-delay:.3s">
-        <div
-          class="pointer-events-none absolute bottom-0 h-[78%] w-[78%] rounded-t-[3rem] sm:w-[90%]"
-          style="background:linear-gradient(180deg, color-mix(in oklab, var(--color-accent) 20%, transparent), transparent 75%);filter:blur(2px)"
-          aria-hidden="true"
-        ></div>
-        <img src="/paolo.png" alt={`${site.name}, ${site.role}`} width="549" height="552" fetchpriority="high"
-          class="anim-float relative z-10 w-72 max-w-full object-contain object-bottom drop-shadow-2xl sm:w-[26rem] lg:w-[30rem]" />
+      <!-- TERMINALE -->
+      <div class="anim-rise mt-10 pb-16 sm:mt-14 sm:pb-20" style="animation-delay:.64s">
+        <Terminal lines={termLines} />
       </div>
     </div>
 
-    <!-- marquee competenze (motion graphic) -->
+    <!-- marquee competenze -->
     <div class="marquee relative z-10 border-t border-ink-600/60 py-3">
       <div class="marquee__track">
         {[...marquee, ...marquee].map((m) => (
@@ -73,64 +124,66 @@ const fmt = (d: Date) =>
     </div>
   </section>
 
-  <!-- AREE — lista editoriale numerata (niente griglia di card) -->
-  <section class="mx-auto max-w-5xl px-5 pt-20 pb-6">
-    <div class="grid gap-8 lg:grid-cols-[230px_1fr]">
-      <div data-reveal="left">
-        <p class="kicker text-accent">{t('home.whatIDo')}</p>
-        <div class="mt-4 hidden h-px w-16 bg-ink-500 lg:block"></div>
-      </div>
-      <ul class="border-t border-ink-600/60">
-        {areas.map((a, i) => (
-          <li
-            data-reveal
-            style={`--c:${a.color};--i:${i}`}
-            class="group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 border-b border-ink-600/60 py-6 transition-colors sm:gap-x-8"
-          >
-            <span class="font-mono text-sm text-muted transition-colors group-hover:text-[var(--c)]">0{i + 1}</span>
-            <div>
-              <div class="flex items-center gap-3">
-                <span class="h-2.5 w-2.5 shrink-0 rounded-full" style={`background:${a.color}`}></span>
-                <h3 class="text-2xl font-semibold tracking-tight text-text transition-colors group-hover:text-[var(--c)]">
-                  {t(`area.${a.key}.t` as any)}
-                </h3>
-              </div>
-              <p class="mt-1.5 max-w-xl text-sm leading-relaxed text-muted">{t(`area.${a.key}.d` as any)}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+  <!-- ============ AREE ============ -->
+  <section class="mx-auto max-w-5xl px-5 py-24">
+    <SectionHead eyebrow={t('home.whatIDo')} title={t('home.areasTitle')} accent={t('home.areasAccent')} sub={t('home.areasSub')} />
+    <div class="mt-12 grid gap-4 sm:grid-cols-2">
+      {areas.map((a, i) => (
+        <article
+          data-reveal
+          style={`--c:${a.color};--i:${i}`}
+          class="glow-card group overflow-hidden rounded-2xl border border-ink-600 p-6 sm:p-7"
+        >
+          <div class="flex items-start justify-between">
+            <span class="glow-card__icon" set:html={icons[a.key]} />
+            <span class="font-display text-2xl font-semibold tabular-nums text-ink-500 transition-colors group-hover:text-[var(--c)]">0{i + 1}</span>
+          </div>
+          <h3 class="mt-5 text-xl font-semibold tracking-tight text-text transition-colors group-hover:text-[var(--c)]">
+            {t(`area.${a.key}.t` as any)}
+          </h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{t(`area.${a.key}.d` as any)}</p>
+        </article>
+      ))}
     </div>
   </section>
 
-  <!-- PROGETTI -->
-  {projects.length > 0 && (
-    <section class="mx-auto max-w-5xl px-5 pt-12 pb-4">
-      <div class="mb-5 flex items-baseline justify-between" data-reveal>
-        <h2 class="text-2xl font-semibold tracking-tight text-text">{t('home.featured')}</h2>
-        <a href={localizePath('/work', lang)} class="link-underline text-sm text-muted hover:text-accent">{t('common.all')}</a>
+  <!-- ============ STACK ============ -->
+  <section class="section-glow border-y border-ink-600/60 py-24">
+    <div class="mx-auto max-w-5xl px-5">
+      <SectionHead eyebrow={t('home.stackEyebrow')} title={t('home.stackTitle')} accent={t('home.stackAccent')} sub={t('home.stackSub')} />
+      <div class="mt-12 flex flex-wrap justify-center gap-2.5" data-reveal>
+        {stack.map((s) => (
+          <span class="stack-chip rounded-lg px-3.5 py-2 font-mono text-sm text-text-dim">{s}</span>
+        ))}
       </div>
-      <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+    </div>
+  </section>
+
+  <!-- ============ PROGETTI ============ -->
+  {projects.length > 0 && (
+    <section class="mx-auto max-w-5xl px-5 py-24">
+      <SectionHead eyebrow={t('home.featuredEyebrow')} title={t('home.featured')} accent={t('home.featuredAccent')} sub={t('home.featuredSub')} />
+      <div class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
         {projects.map((p, i) => (
           <div data-reveal style={`--i:${i + 1}`}>
-            <CaseFileCard href={localizePath(`/work/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} />
+            <CaseFileCard href={localizePath(`/work/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} index={i + 1} />
           </div>
         ))}
+      </div>
+      <div class="mt-8 text-center" data-reveal>
+        <a href={localizePath('/work', lang)} class="link-underline text-sm text-muted hover:text-accent">{t('common.all')}</a>
       </div>
     </section>
   )}
 
-  <!-- ARTICOLI -->
+  <!-- ============ ARTICOLI ============ -->
   {posts.length > 0 && (
-    <section class="mx-auto max-w-5xl px-5 pt-12 pb-4">
-      <div class="mb-5 flex items-baseline justify-between" data-reveal>
-        <h2 class="text-2xl font-semibold tracking-tight text-text">{t('home.recent')}</h2>
-        <a href={localizePath('/writing', lang)} class="link-underline text-sm text-muted hover:text-accent">{t('common.all')}</a>
-      </div>
-      <ul class="divide-y divide-ink-600/70 border-y border-ink-600/70">
+    <section class="mx-auto max-w-5xl px-5 py-24">
+      <SectionHead eyebrow={t('home.recentEyebrow')} title={t('home.recent')} accent={t('home.recentAccent')} sub={t('home.recentSub')} />
+      <ul class="mx-auto mt-12 max-w-3xl divide-y divide-ink-600/70 border-y border-ink-600/70">
         {posts.map((p, i) => (
           <li data-reveal style={`--i:${i + 1}`}>
-            <a href={localizePath(`/writing/${entrySlug(p.id)}`, lang)} class="group flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-5">
+            <a href={localizePath(`/writing/${entrySlug(p.id)}`, lang)} class="group flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:gap-5">
               <time class="font-mono text-xs text-muted sm:w-24 sm:shrink-0">{fmt(p.data.pubDate)}</time>
               <div>
                 <span class="font-medium text-text-dim transition-colors group-hover:text-accent">{p.data.title}</span>
@@ -140,6 +193,9 @@ const fmt = (d: Date) =>
           </li>
         ))}
       </ul>
+      <div class="mt-8 text-center" data-reveal>
+        <a href={localizePath('/writing', lang)} class="link-underline text-sm text-muted hover:text-accent">{t('common.all')}</a>
+      </div>
     </section>
   )}
 </Base>
