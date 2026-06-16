@@ -14,6 +14,11 @@ export const ui = {
     'header.openPalette': 'Apri command palette',
     'a11y.skip': 'Salta al contenuto',
     'footer.rights': 'costruito con Astro, statico, edge-deployed · 0 tracker',
+    'footer.privacy': 'Privacy Policy',
+    'footer.terms': 'Termini e Condizioni',
+    'footer.cookie': 'Cookie Policy',
+    'footer.legal': 'Note legali',
+    'legal.updated': 'Ultimo aggiornamento',
     'lang.switch': 'Lingua',
 
     // home
@@ -160,6 +165,11 @@ export const ui = {
     'header.openPalette': 'Open command palette',
     'a11y.skip': 'Skip to content',
     'footer.rights': 'built with Astro, static, edge-deployed · 0 trackers',
+    'footer.privacy': 'Privacy Policy',
+    'footer.terms': 'Terms & Conditions',
+    'footer.cookie': 'Cookie Policy',
+    'footer.legal': 'Legal',
+    'legal.updated': 'Last updated',
     'lang.switch': 'Language',
 
     'home.intro':
