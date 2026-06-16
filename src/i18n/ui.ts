@@ -42,13 +42,13 @@ export const ui = {
 
     // aree
     'area.security.t': 'Cyber Security',
-    'area.security.d': 'Threat detection, hardening, incident response.',
+    'area.security.d': 'Difesa di architetture e cloud: Zero Trust, IAM, detection con SIEM/SOAR ed EDR/XDR, gestione del rischio.',
     'area.ai.t': 'AI / LLM',
-    'area.ai.d': 'RAG, agenti e modelli self-hosted, applicati sul serio.',
+    'area.ai.d': 'AI applicata alla sicurezza: RAG, agenti, LLM self-hosted, AI red teaming e MCP.',
     'area.automation.t': 'Automazione',
-    'area.automation.d': 'Workflow n8n e pipeline che tolgono lavoro ripetitivo.',
+    'area.automation.d': 'Workflow e pipeline che eliminano il lavoro ripetitivo: n8n, Zapier, Make, GitHub Actions, CI/CD.',
     'area.cloud.t': 'Cloud & DevSecOps',
-    'area.cloud.d': 'Container, CI/CD e sicurezza dentro il ciclo di sviluppo.',
+    'area.cloud.d': 'Cloud multi-provider — Google Cloud, AWS, Azure, OCI — con la sicurezza dentro il ciclo di sviluppo.',
 
     // cv
     'cv.kicker': 'Curriculum',
@@ -121,6 +121,9 @@ export const ui = {
     'skills.inThisPage': 'In questa pagina',
     'skills.source': 'Fonte',
     'skills.handsOn': 'hands-on',
+    'skills.view': 'Vista',
+    'skills.modeDots': 'Livelli',
+    'skills.modePct': 'Percentuale',
 
     // work
     'work.kicker': 'Portfolio',
@@ -183,13 +186,13 @@ export const ui = {
     'common.all': 'all →',
 
     'area.security.t': 'Cyber Security',
-    'area.security.d': 'Threat detection, hardening, incident response.',
+    'area.security.d': 'Securing architectures and cloud: Zero Trust, IAM, detection with SIEM/SOAR and EDR/XDR, risk management.',
     'area.ai.t': 'AI / LLM',
-    'area.ai.d': 'RAG, agents and self-hosted models, applied for real.',
+    'area.ai.d': 'AI applied to security: RAG, agents, self-hosted LLMs, AI red teaming and MCP.',
     'area.automation.t': 'Automation',
-    'area.automation.d': 'n8n workflows and pipelines that remove repetitive work.',
+    'area.automation.d': 'Workflows and pipelines that remove repetitive work: n8n, Zapier, Make, GitHub Actions, CI/CD.',
     'area.cloud.t': 'Cloud & DevSecOps',
-    'area.cloud.d': 'Containers, CI/CD and security inside the development cycle.',
+    'area.cloud.d': 'Multi-provider cloud — Google Cloud, AWS, Azure, OCI — with security baked into the dev cycle.',
 
     'cv.kicker': 'Résumé',
     'cv.downloadPdf': '⬇ Download PDF',
@@ -257,6 +260,9 @@ export const ui = {
     'skills.inThisPage': 'On this page',
     'skills.source': 'Source',
     'skills.handsOn': 'hands-on',
+    'skills.view': 'View',
+    'skills.modeDots': 'Levels',
+    'skills.modePct': 'Percent',
 
     'work.kicker': 'Portfolio',
     'work.subtitle': 'Not a list: every project is a case file — problem, solution, stack, outcome.',

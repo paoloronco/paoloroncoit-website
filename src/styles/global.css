@@ -469,6 +469,15 @@ h1, h2, h3, .font-display {
   filter: blur(28px); opacity: 0.85;
 }
 
+/* --- Skills: due modalità di vista (puntini / percentuale) --- */
+[data-skills-mode='dots'] .skill-pct { display: none; }
+[data-skills-mode='pct'] .skill-dots { display: none; }
+/* in modalità percentuale la riga ha una linea di separazione più marcata */
+[data-skills-mode='pct'] .skill-row { border-bottom-color: color-mix(in oklab, var(--color-ink-500) 70%, transparent); }
+/* toggle segmentato */
+.seg-btn { transition: color 0.2s, background 0.2s; }
+.seg-btn[aria-pressed='true'] { background: color-mix(in oklab, var(--color-accent) 18%, transparent); color: var(--color-text); }
+
 /* --- Pallino timeline con alone --- */
 .tl-dot { box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-accent) 20%, transparent); }
 
