@@ -1,0 +1,25 @@
+---
+import Base from '@/layouts/Base.astro';
+import CmdPath from '@/components/CmdPath.astro';
+import { legal, legalUpdated, type LegalKey } from '@/data/legal';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+interface Props { doc: LegalKey }
+const { doc } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const d = legal[doc];
+const path = `/${doc}`;
+const updated = new Date(legalUpdated).toLocaleDateString(lang === 'en' ? 'en-GB' : 'it-IT', {
+  day: '2-digit', month: 'long', year: 'numeric',
+});
+---
+<Base title={d.title[lang]} description={d.description[lang]} path={path}>
+  <section class="mx-auto max-w-3xl px-5 pt-16 pb-24">
+    <CmdPath cmd="cat" arg={`${doc}.md`} />
+    <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text sm:text-5xl" style="animation-delay:.12s">{d.title[lang]}</h1>
+    <p class="anim-rise mt-3 font-mono text-xs text-muted" style="animation-delay:.2s">{t('legal.updated')}: {updated}</p>
+    <div class="prose mt-8" set:html={d.html[lang]} />
+  </section>
+</Base>
