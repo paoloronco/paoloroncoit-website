@@ -113,12 +113,16 @@ export const ui = {
     'ask.placeholder': 'Es. che esperienza hai con il cloud?',
     'ask.send': 'Invia',
     'ask.note':
-      'ⓘ MVP: l\'endpoint è da collegare. In fase 2 → POST verso l\'edge proxy /api/ask → webhook n8n (streaming).',
+      'ⓘ L\'assistente cerca tra i miei contenuti (competenze, progetti, articoli) tramite un workflow n8n self-hosted, raggiunto da un proxy del sito. Nessun dato passa da SaaS di terzi.',
     'ask.fallback':
-      "L'assistente non è ancora collegato in questo MVP. Quando l'edge proxy sarà attivo, qui arriverà la risposta in streaming dal workflow n8n.",
+      "Ops, qualcosa è andato storto. Riprova tra poco.",
     'chat.open': "Apri l'assistente AI",
     'chat.tagline': 'Assistente AI · self-hosted',
     'chat.greeting': 'Ciao 👋 Sono l\'assistente AI di Paolo. Chiedimi dei suoi progetti, articoli o competenze.',
+    'chat.searching': 'Sto cercando…',
+    'chat.found': 'Ecco cosa ho trovato:',
+    'chat.empty': 'Non ho trovato risultati per questa richiesta.',
+    'chat.error': 'Ops, qualcosa è andato storto. Riprova tra poco.',
 
     // skills
     'skills.kicker': 'Competenze',
@@ -258,12 +262,16 @@ export const ui = {
     'ask.placeholder': 'E.g. what is your experience with cloud?',
     'ask.send': 'Send',
     'ask.note':
-      'ⓘ MVP: the endpoint is still to be connected. In phase 2 → POST to the edge proxy /api/ask → n8n webhook (streaming).',
+      'ⓘ The assistant searches my content (skills, projects, articles) via a self-hosted n8n workflow, reached through a site proxy. No data goes through third-party SaaS.',
     'ask.fallback':
-      'The assistant is not connected yet in this MVP. Once the edge proxy is live, the streamed answer from the n8n workflow will appear here.',
+      'Oops, something went wrong. Please try again shortly.',
     'chat.open': 'Open the AI assistant',
     'chat.tagline': 'AI Assistant · self-hosted',
     'chat.greeting': "Hi 👋 I'm Paolo's AI assistant. Ask me about his projects, articles or skills.",
+    'chat.searching': 'Searching…',
+    'chat.found': "Here's what I found:",
+    'chat.empty': 'I found no results for this query.',
+    'chat.error': 'Oops, something went wrong. Please try again shortly.',
 
     'skills.kicker': 'Skills',
     'skills.skillUnit': 'skills',

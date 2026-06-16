@@ -2,7 +2,12 @@
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const fallback = t('ask.fallback');
+const i18n = {
+  searching: t('chat.searching'),
+  found: t('chat.found'),
+  empty: t('chat.empty'),
+  error: t('chat.error'),
+};
 ---
 
 <!-- Bolla (FAB) -->
@@ -61,7 +66,7 @@ const fallback = t('ask.fallback');
   </form>
 </section>
 
-<script is:inline data-astro-rerun define:vars={{ fallback }}>
+<script is:inline data-astro-rerun define:vars={{ i18n }}>
   (() => {
     const fab = document.querySelector('[data-chat-toggle]');
     const panel = document.querySelector('[data-chat-panel]');
@@ -72,6 +77,14 @@ const fallback = t('ask.fallback');
     const iOpen = fab.querySelector('[data-chat-icon-open]');
     const iClose = fab.querySelector('[data-chat-icon-close]');
     const closeBtn = panel.querySelector('[data-chat-close]');
+    let busy = false;
+
+    // sessionId persistente per la sessione del browser (continuità conversazione)
+    let sid;
+    try {
+      sid = sessionStorage.getItem('chatSid');
+      if (!sid) { sid = 'web-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); sessionStorage.setItem('chatSid', sid); }
+    } catch (e) { sid = 'web-' + Date.now(); }
 
     const setOpen = (v) => {
       panel.classList.toggle('is-open', v);
@@ -80,6 +93,10 @@ const fallback = t('ask.fallback');
       iClose && iClose.classList.toggle('hidden', !v);
       if (v) requestAnimationFrame(() => input && input.focus());
     };
+
+    const scroll = () => { log.scrollTop = log.scrollHeight; };
+    const escHtml = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const fmt = (s) => escHtml(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
 
     const bubble = (who, text) => {
       const wrap = document.createElement('div');
@@ -91,14 +108,72 @@ const fallback = t('ask.fallback');
       span.textContent = text;
       wrap.appendChild(span);
       log.appendChild(wrap);
-      log.scrollTop = log.scrollHeight;
+      scroll();
     };
 
-    const send = (q) => {
-      if (!q) return;
+    const typing = () => {
+      const wrap = document.createElement('div');
+      const span = document.createElement('span');
+      span.className = 'inline-block rounded-2xl rounded-bl-sm bg-ink-700 px-3 py-2.5';
+      span.innerHTML = '<span class="typing-dots"><span></span><span></span><span></span></span>';
+      wrap.appendChild(span);
+      log.appendChild(wrap);
+      scroll();
+      return wrap;
+    };
+
+    const renderResults = (data) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'space-y-2';
+      const intro = document.createElement('p');
+      intro.className = 'text-xs text-muted';
+      intro.textContent = i18n.found;
+      wrap.appendChild(intro);
+      (data.results || []).forEach((r) => {
+        const hasUrl = r && r.url && r.url !== '#';
+        const el = document.createElement(hasUrl ? 'a' : 'div');
+        el.className = 'chat-card';
+        if (hasUrl) { el.href = r.url; el.target = '_blank'; el.rel = 'noopener'; }
+        el.innerHTML = '<span class="chat-card__title"></span><span class="chat-card__body"></span>';
+        el.querySelector('.chat-card__title').textContent = (r && r.title) || '';
+        el.querySelector('.chat-card__body').innerHTML = fmt(r && r.summary);
+        wrap.appendChild(el);
+      });
+      log.appendChild(wrap);
+      scroll();
+    };
+
+    const render = (data) => {
+      if (data && data.type === 'search_results') {
+        if (!data.results || !data.results.length) return bubble('ai', i18n.empty);
+        return renderResults(data);
+      }
+      const text = data && (data.reply || data.output || data.message || data.answer || data.text);
+      bubble('ai', text || i18n.empty);
+    };
+
+    const send = async (q) => {
+      if (!q || busy) return;
+      busy = true;
       bubble('me', q);
-      // TODO fase 2: fetch('/api/ask', { method:'POST', body: JSON.stringify({ q }) }) -> stream
-      setTimeout(() => bubble('ai', fallback), 300);
+      const t = typing();
+      try {
+        const r = await fetch('/api/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: q, sessionId: sid }),
+        });
+        const data = await r.json().catch(() => null);
+        t.remove();
+        if (!r.ok || !data) bubble('ai', i18n.error);
+        else render(data);
+      } catch (e) {
+        t.remove();
+        bubble('ai', i18n.error);
+      } finally {
+        busy = false;
+        scroll();
+      }
     };
 
     fab.addEventListener('click', () => setOpen(!panel.classList.contains('is-open')));
