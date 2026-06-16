@@ -4,7 +4,7 @@ export const site = {
   role: 'Cyber Security Analyst',
   // Descrizione neutra — usata solo per <meta> / SEO, non in pagina.
   description:
-    'Cyber Security Analyst. Security, AI/LLM, automazione e self-hosting.',
+    'Cyber Security Analyst in Deloitte — Enterprise Security, Cloud & AI. Security, AI/LLM, automazione e homelab.',
   domains: ['Security', 'AI / LLM', 'Automation', 'Cloud', 'DevSecOps'],
   email: 'info@paoloronco.it',
   url: 'https://paoloronco.it',
@@ -25,7 +25,7 @@ export const nav = [
 
 // Breve presentazione per la home (rifinisci con le tue parole).
 export const intro =
-  'Cyber Security Analyst in Deloitte, area Cloud & Infrastructure. Mi occupo di sicurezza e infrastrutture e, nel tempo libero, sperimento con AI, automazioni e servizi che ospito da solo. Ogni esperienza ha contribuito a formare il professionista che sono oggi.';
+  "Cyber Security Analyst in Deloitte, area Enterprise Security — Cloud & AI. Mi occupo della sicurezza di cloud e infrastrutture, con un interesse forte per come l'AI possa rafforzarla. Nel mio homelab metto le mani su automazioni, LLM e tutto ciò che vale la pena capire a fondo.";
 
 // Aree di competenza con descrizione + colore. Riempie la home con sostanza.
 export const areas = [

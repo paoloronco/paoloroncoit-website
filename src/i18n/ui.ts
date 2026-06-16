@@ -18,7 +18,7 @@ export const ui = {
 
     // home
     'home.intro':
-      'Cyber Security Analyst in Deloitte, area Cloud & Infrastructure. Mi occupo di sicurezza e infrastrutture e, nel tempo libero, sperimento con AI, automazioni e servizi che ospito da solo. Ogni esperienza ha contribuito a formare il professionista che sono oggi.',
+      "Cyber Security Analyst in Deloitte, area Enterprise Security — Cloud & AI. Mi occupo della sicurezza di cloud e infrastrutture, con un interesse forte per come l'AI possa rafforzarla. Nel mio homelab metto le mani su automazioni, LLM e tutto ciò che vale la pena capire a fondo.",
     'home.ctaWork': 'Esplora i progetti →',
     'home.ctaWriting': 'Leggi gli articoli',
     'home.status': 'Disponibile per collaborazioni',
@@ -73,7 +73,7 @@ export const ui = {
     // about
     'about.kicker': 'Chi sono',
     'about.p1':
-      "Sono un Cyber Security Analyst in Deloitte, nell'area Cloud & Infrastructure. Prima ho lavorato come System Administrator e in diversi ruoli legati ai servizi IT, partendo da Torino.",
+      "Sono un Cyber Security Analyst in Deloitte, nell'area Enterprise Security — Cloud & AI. Prima ho lavorato come System Administrator e in diversi ruoli legati ai servizi IT, partendo da Torino.",
     'about.p2':
       '«Ogni esperienza che ho vissuto ha contribuito a formare la persona e il professionista che sono oggi.» Mi muovo tra sicurezza, infrastrutture e una forte curiosità per AI, automazione e tutto ciò che posso ospitare e capire a fondo.',
     'about.p3':
@@ -83,6 +83,15 @@ export const ui = {
       'Eseguo diversi servizi in autonomia — è una scelta di controllo e di minimizzazione del rischio, non un vezzo.',
     'about.diagramCaption': 'schema semplificato · il "personal SOC"',
     'about.contact': 'Contatti',
+    'about.factsTitle': 'In breve',
+    'about.roleLabel': 'Ruolo',
+    'about.companyLabel': 'Azienda',
+    'about.companyValue': 'Deloitte · Enterprise Security — Cloud & AI',
+    'about.locationLabel': 'Luogo',
+    'about.locationValue': 'Torino, Italia',
+    'about.focusLabel': 'Focus',
+    'about.areasLabel': 'Aree',
+    'about.writeMe': 'Scrivimi',
 
     // contact
     'contact.kicker': 'Contatti',
@@ -131,6 +140,11 @@ export const ui = {
     'writing.toc': 'In questa pagina',
     'writing.back': '← writing',
     'writing.minRead': 'min di lettura',
+    'writing.min': 'min',
+    'writing.search': 'Cerca tra gli articoli…',
+    'writing.allTags': 'tutti',
+    'writing.noResults': 'Nessun articolo trovato.',
+    'writing.count': 'articoli',
   },
 
   en: {
@@ -146,7 +160,7 @@ export const ui = {
     'lang.switch': 'Language',
 
     'home.intro':
-      'Cyber Security Analyst at Deloitte, Cloud & Infrastructure. I work on security and infrastructure and, in my spare time, experiment with AI, automation and services I self-host. Every experience helped shape the professional I am today.',
+      'Cyber Security Analyst at Deloitte, Enterprise Security — Cloud & AI. I work on securing cloud and infrastructure, with a keen interest in how AI can strengthen it. In my homelab I get hands-on with automation, LLMs and anything worth understanding in depth.',
     'home.ctaWork': 'Explore the projects →',
     'home.ctaWriting': 'Read the articles',
     'home.status': 'Available for collaborations',
@@ -198,7 +212,7 @@ export const ui = {
 
     'about.kicker': 'About me',
     'about.p1':
-      'I am a Cyber Security Analyst at Deloitte, in the Cloud & Infrastructure area. Previously I worked as a System Administrator and in several IT-services roles, starting out in Turin.',
+      'I am a Cyber Security Analyst at Deloitte, in the Enterprise Security — Cloud & AI area. Previously I worked as a System Administrator and in several IT-services roles, starting out in Turin.',
     'about.p2':
       '“Every experience I have lived has helped shape the person and professional I am today.” I move between security, infrastructure and a strong curiosity for AI, automation and everything I can host and understand in depth.',
     'about.p3':
@@ -208,6 +222,15 @@ export const ui = {
       'I run several services on my own — a choice of control and risk minimization, not a gimmick.',
     'about.diagramCaption': 'simplified diagram · the "personal SOC"',
     'about.contact': 'Contact',
+    'about.factsTitle': 'At a glance',
+    'about.roleLabel': 'Role',
+    'about.companyLabel': 'Company',
+    'about.companyValue': 'Deloitte · Enterprise Security — Cloud & AI',
+    'about.locationLabel': 'Location',
+    'about.locationValue': 'Turin, Italy',
+    'about.focusLabel': 'Focus',
+    'about.areasLabel': 'Areas',
+    'about.writeMe': 'Write to me',
 
     'contact.kicker': 'Contact',
     'contact.title': 'Get in touch',
@@ -251,5 +274,10 @@ export const ui = {
     'writing.toc': 'On this page',
     'writing.back': '← writing',
     'writing.minRead': 'min read',
+    'writing.min': 'min',
+    'writing.search': 'Search articles…',
+    'writing.allTags': 'all',
+    'writing.noResults': 'No articles found.',
+    'writing.count': 'articles',
   },
 } as const;

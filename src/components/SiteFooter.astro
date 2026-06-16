@@ -1,8 +1,5 @@
 ---
 import { site } from '@/data/site';
-import { getLangFromUrl, useTranslations } from '@/i18n/utils';
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
 
@@ -21,6 +18,6 @@ const year = new Date().getFullYear();
     </div>
   </div>
   <div class="mx-auto max-w-5xl px-5 pb-8">
-    <p class="font-mono text-xs text-muted/70">© {year} · {t('footer.rights')}</p>
+    <p class="font-mono text-xs text-muted/70">© {year} {site.name}</p>
   </div>
 </footer>

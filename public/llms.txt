@@ -1,6 +1,6 @@
 # Paolo Ronco
 
-> Cyber Security Analyst. Lavoro al confine tra Security, AI/LLM e infrastrutture self-hosted.
+> Cyber Security Analyst in Deloitte (Enterprise Security — Cloud & AI). Lavoro al confine tra security, cloud e AI/LLM, con un homelab dove sperimento automazioni e modelli.
 
 ## Pagine
 - [Work](https://paoloronco.it/work): progetti come case file (problema/soluzione/stack/risultato)
