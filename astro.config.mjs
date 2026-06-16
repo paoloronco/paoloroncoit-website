@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 
 // Cambia con il dominio definitivo prima del deploy.
@@ -9,6 +10,9 @@ const SITE = 'https://paoloronco.it';
 
 export default defineConfig({
   site: SITE,
+  // Le pagine restano statiche (prerender di default). Solo le route con
+  // `export const prerender = false` (es. /api/ask) girano on-demand su Vercel.
+  adapter: vercel({ maxDuration: 60 }),
   i18n: {
     locales: ['it', 'en'],
     defaultLocale: 'it',
