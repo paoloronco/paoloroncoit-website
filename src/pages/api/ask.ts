@@ -20,11 +20,25 @@ const json = (data: unknown, status = 200) =>
   });
 
 // Health-check: apri /api/ask nel browser per verificare deploy + presenza env.
-export const GET: APIRoute = async () =>
-  json({
+// /api/ask?debug=1 → metadati SICURI sull'auth (senza esporre il token) per il debug.
+export const GET: APIRoute = async ({ url }) => {
+  const value = env('N8N_AUTH_HEADER_VALUE');
+  const base = {
     ok: true,
-    configured: Boolean(env('N8N_WEBHOOK_URL')) && Boolean(env('N8N_AUTH_HEADER_VALUE')),
-  });
+    configured: Boolean(env('N8N_WEBHOOK_URL')) && Boolean(value),
+  };
+  if (url.searchParams.get('debug') === '1') {
+    return json({
+      ...base,
+      webhookSet: Boolean(env('N8N_WEBHOOK_URL')),
+      headerName: env('N8N_AUTH_HEADER_NAME') || 'Authorization',
+      authStartsWithBearer: value.startsWith('Bearer '),
+      authLength: value.length, // atteso: 39 (= "Bearer " + token da 32)
+      authHasEdgeWhitespace: value !== value.trim(),
+    });
+  }
+  return json(base);
+};
 
 export const POST: APIRoute = async ({ request }) => {
   const url = env('N8N_WEBHOOK_URL');
