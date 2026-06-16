@@ -6,60 +6,60 @@ import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const total = skillCategories.reduce((n, c) => n + c.skills.length, 0);
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+// livello 0–100 → 1–5 tacche
+const dots = (lvl: number) => Math.max(1, Math.min(5, Math.round(lvl / 20)));
+// testo del tooltip: descrizione + eventuali strumenti
+const tip = (s: { desc?: Record<string, string>; tools?: string[] }) =>
+  [s.desc?.[lang], s.tools?.length ? s.tools.join(' · ') : null].filter(Boolean).join('  —  ');
 ---
 <Base title="Skills" description={skillsTagline[lang]} path="/skills">
-  <section class="mx-auto max-w-5xl px-5 pt-16 pb-8">
-    <CmdPath cmd="cat" arg="skills.json" note={`${total}+ ${t('skills.skillUnit')}`} />
+  <section class="mx-auto max-w-6xl px-5 pt-16 pb-8">
+    <CmdPath cmd="cat" arg="skills.json" />
     <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text sm:text-5xl" style="animation-delay:.12s">Skills</h1>
     <p class="anim-rise mt-4 max-w-2xl text-text-dim" style="animation-delay:.2s">{skillsTagline[lang]}</p>
 
-    <nav class="mt-8 flex flex-wrap gap-2" aria-label="Skill categories">
+    <nav class="anim-rise mt-8 flex flex-wrap gap-2" style="animation-delay:.28s" aria-label="Skill categories">
       {skillCategories.map((c) => (
-        <a href={`#${slug(c.name.en)}`} style={`--c:${c.color}`} class="rounded-full border border-ink-600 px-3 py-1 text-xs text-text-dim transition-colors hover:border-[var(--c)] hover:text-text">
+        <a href={`#${slug(c.name.en)}`} style={`--c:${c.color}`} class="group inline-flex items-center gap-2 rounded-full border border-ink-600 px-3 py-1 text-xs text-muted transition-colors hover:border-[var(--c)] hover:text-text">
+          <span class="h-1.5 w-1.5 rounded-full opacity-70" style={`background:${c.color}`}></span>
           {c.name[lang]}
         </a>
       ))}
     </nav>
   </section>
 
-  <section class="mx-auto max-w-5xl px-5 pb-16">
+  <section class="mx-auto max-w-6xl px-5 pb-20">
     {skillCategories.map((cat) => (
-      <div data-reveal id={slug(cat.name.en)} style={`--c:${cat.color}`} class="scroll-mt-20 border-t border-ink-600/70 py-10">
-        <div class="mb-6 flex items-center gap-3">
-          <span class="h-5 w-1.5 rounded-full" style={`background:${cat.color}`}></span>
-          <h2 class="text-xl font-semibold text-text">{cat.name[lang]}</h2>
-          <span class="font-mono text-xs text-muted">{cat.skills.length}</span>
+      <div data-reveal id={slug(cat.name.en)} style={`--c:${cat.color}`} class="scroll-mt-20 border-t border-ink-600/50 py-11">
+        <div class="mb-7 flex items-center gap-2.5">
+          <span class="h-2.5 w-2.5 rounded-full opacity-80" style={`background:${cat.color}`}></span>
+          <h2 class="text-xl font-semibold tracking-tight text-text">{cat.name[lang]}</h2>
+          <span class="font-mono text-xs text-muted/70">{cat.skills.length}</span>
         </div>
 
-        <div class="grid grid-cols-1 gap-x-8 gap-y-5 md:grid-cols-2">
+        <ul class="grid grid-cols-1 gap-x-12 gap-y-px sm:grid-cols-2 lg:grid-cols-3">
           {cat.skills.map((s) => (
-            <div>
-              <div class="flex items-center justify-between gap-2">
-                <div class="flex items-center gap-2">
-                  <span class="text-sm font-medium text-text">{s.name}</span>
-                  {s.hands && (
-                    <span class="rounded px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider" style={`color:${cat.color};background:color-mix(in oklab, ${cat.color} 16%, transparent)`}>{t('skills.handsOn')}</span>
-                  )}
-                </div>
-                <span class="font-mono text-xs tabular-nums text-muted">{s.level}%</span>
-              </div>
-              <div class="mt-1.5 h-1.5 overflow-hidden rounded-full bg-ink-600">
-                <span class="block h-full rounded-full" style={`width:${s.level}%;background:${cat.color}`}></span>
-              </div>
-              {s.desc && <p class="mt-1.5 text-xs leading-relaxed text-muted">{s.desc[lang]}</p>}
-              {s.tools && (
-                <div class="mt-2 flex flex-wrap gap-1">
-                  {s.tools.map((tool) => <span class="rounded border border-ink-600 px-1.5 py-0.5 font-mono text-[10px] text-text-dim">{tool}</span>)}
-                </div>
-              )}
-            </div>
+            <li
+              title={tip(s)}
+              class="flex items-center justify-between gap-4 border-b border-ink-600/30 py-2.5"
+            >
+              <span class="truncate text-[15px] text-text-dim">{s.name}</span>
+              <span class="flex shrink-0 items-center gap-1" aria-label={`${s.level}%`}>
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <span
+                    class="h-1.5 w-1.5 rounded-full"
+                    style={i < dots(s.level) ? `background:${cat.color};opacity:.55` : 'background:var(--color-ink-600)'}
+                  ></span>
+                ))}
+              </span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     ))}
 
-    <p class="mt-6 font-mono text-xs text-muted">{t('skills.source')}: <a href="https://skills.paoloronco.it" class="text-accent hover:underline">skills.paoloronco.it</a></p>
+    <p class="mt-8 font-mono text-xs text-muted/70">{t('skills.source')}: <a href="https://skills.paoloronco.it" class="text-accent hover:underline">skills.paoloronco.it</a></p>
   </section>
 </Base>

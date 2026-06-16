@@ -359,12 +359,15 @@ h1, h2, h3, .font-display {
 .term__body {
   margin: 0;
   padding: 1.05rem 1.15rem 1.25rem;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   line-height: 1.85;
   min-height: 15.5rem;
-  white-space: pre-wrap;
-  word-break: break-word;
+  white-space: pre;        /* niente wrap: le righe restano intere */
+  overflow-x: auto;        /* se troppo lunghe, scroll orizzontale (come un vero terminale) */
 }
+/* scrollbar discreta per il terminale */
+.term__body::-webkit-scrollbar { height: 6px; }
+.term__body::-webkit-scrollbar-thumb { background: var(--color-ink-500); border-radius: 3px; }
 .term__line { display: block; }
 .term__prompt { color: var(--color-accent); }
 .term__user { color: var(--color-ok); }

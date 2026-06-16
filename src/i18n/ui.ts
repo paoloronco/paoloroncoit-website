@@ -75,9 +75,9 @@ export const ui = {
     'about.p1':
       "Sono un Cyber Security Analyst in Deloitte, nell'area Enterprise Security — Cloud & AI. Prima ho lavorato come System Administrator e in diversi ruoli legati ai servizi IT, partendo da Torino.",
     'about.p2':
-      '«Ogni esperienza che ho vissuto ha contribuito a formare la persona e il professionista che sono oggi.» Mi muovo tra sicurezza, infrastrutture e una forte curiosità per AI, automazione e tutto ciò che posso ospitare e capire a fondo.',
+      '«Ogni esperienza che ho vissuto ha contribuito a formare la persona e il professionista che sono oggi.» Il mio campo è la sicurezza del cloud e delle architetture, con un interesse crescente per l\'AI applicata alla difesa e per l\'automazione di processi e analisi.',
     'about.p3':
-      'Credo nelle prove più che nelle dichiarazioni: gran parte di ciò che faccio è verificabile — codice aperto, certificazioni, servizi che mantengo io.',
+      'Credo nelle prove più che nelle dichiarazioni: gran parte di ciò che faccio è verificabile — codice aperto, certificazioni e progetti documentati.',
     'about.infra': 'La mia infrastruttura',
     'about.infraText':
       'Eseguo diversi servizi in autonomia — è una scelta di controllo e di minimizzazione del rischio, non un vezzo.',
@@ -214,9 +214,9 @@ export const ui = {
     'about.p1':
       'I am a Cyber Security Analyst at Deloitte, in the Enterprise Security — Cloud & AI area. Previously I worked as a System Administrator and in several IT-services roles, starting out in Turin.',
     'about.p2':
-      '“Every experience I have lived has helped shape the person and professional I am today.” I move between security, infrastructure and a strong curiosity for AI, automation and everything I can host and understand in depth.',
+      '“Every experience I have lived has helped shape the person and professional I am today.” My field is cloud and architecture security, with a growing interest in AI applied to defense and in automating processes and analysis.',
     'about.p3':
-      'I believe in evidence over claims: most of what I do is verifiable — open code, certifications, services I maintain myself.',
+      'I believe in evidence over claims: most of what I do is verifiable — open code, certifications and documented projects.',
     'about.infra': 'My infrastructure',
     'about.infraText':
       'I run several services on my own — a choice of control and risk minimization, not a gimmick.',
