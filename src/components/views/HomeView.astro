@@ -5,6 +5,7 @@ import CaseFileCard from '@/components/CaseFileCard.astro';
 import Terminal from '@/components/Terminal.astro';
 import SectionHead from '@/components/SectionHead.astro';
 import SocialLinks from '@/components/SocialLinks.astro';
+import StackGraph from '@/components/StackGraph.astro';
 import { site } from '@/data/site';
 import { getLangFromUrl, useTranslations, localizePath, entryLang, entrySlug } from '@/i18n/utils';
 
@@ -143,7 +144,11 @@ const termLines = [
   <section class="section-glow border-y border-ink-600/60 py-24">
     <div class="mx-auto max-w-5xl px-5">
       <SectionHead eyebrow={t('home.stackEyebrow')} title={t('home.stackTitle')} accent={t('home.stackAccent')} sub={t('home.stackSub')} />
-      <div class="mt-12 flex flex-wrap justify-center gap-2.5" data-reveal>
+      <!-- desktop: costellazione animata · mobile: chip leggibili -->
+      <div class="mt-10 hidden md:block" data-reveal>
+        <StackGraph />
+      </div>
+      <div class="mt-12 flex flex-wrap justify-center gap-2.5 md:hidden" data-reveal>
         {stack.map((s) => (
           <span class="stack-chip rounded-lg px-3.5 py-2 font-mono text-sm text-text-dim">{s}</span>
         ))}

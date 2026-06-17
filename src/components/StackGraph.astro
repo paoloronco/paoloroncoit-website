@@ -1,0 +1,96 @@
+---
+// Stack come "costellazione": nodi (strumenti) connessi da linee animate.
+// Decorativo ma coerente; colori per area. Hover → evidenzia nodo + connessioni.
+type Node = { id: string; label: string; x: number; y: number; c: string };
+
+const A = 'var(--color-accent)';
+const SEC = 'var(--color-cat-security)';
+const CLO = 'var(--color-cat-cloud)';
+const AUT = 'var(--color-cat-automation)';
+const AI = 'var(--color-cat-ai)';
+
+const nodes: Node[] = [
+  { id: 'proxmox', label: 'Proxmox', x: 150, y: 200, c: A },
+  { id: 'bash', label: 'Bash', x: 250, y: 110, c: A },
+  { id: 'linux', label: 'Linux', x: 130, y: 320, c: A },
+  { id: 'docker', label: 'Docker', x: 330, y: 230, c: A },
+  { id: 'kali', label: 'Kali Linux', x: 245, y: 360, c: SEC },
+  { id: 'github', label: 'GitHub', x: 430, y: 105, c: A },
+  { id: 'cloudflare', label: 'Cloudflare', x: 470, y: 215, c: CLO },
+  { id: 'wazuh', label: 'Wazuh', x: 420, y: 345, c: SEC },
+  { id: 'n8n', label: 'n8n', x: 585, y: 330, c: AUT },
+  { id: 'gcloud', label: 'Google Cloud', x: 635, y: 140, c: CLO },
+  { id: 'splunk', label: 'Splunk', x: 720, y: 280, c: SEC },
+  { id: 'ollama', label: 'Ollama', x: 785, y: 180, c: AI },
+  { id: 'openai', label: 'OpenAI', x: 820, y: 320, c: AI },
+];
+
+const edges: [string, string][] = [
+  ['proxmox', 'linux'], ['proxmox', 'docker'], ['proxmox', 'bash'], ['proxmox', 'cloudflare'],
+  ['docker', 'n8n'], ['docker', 'wazuh'], ['docker', 'kali'], ['docker', 'github'],
+  ['linux', 'kali'], ['bash', 'github'],
+  ['cloudflare', 'gcloud'], ['cloudflare', 'n8n'],
+  ['wazuh', 'splunk'], ['splunk', 'gcloud'],
+  ['n8n', 'ollama'], ['n8n', 'openai'], ['ollama', 'openai'], ['gcloud', 'openai'],
+];
+
+const byId = Object.fromEntries(nodes.map((n) => [n.id, n]));
+---
+<div class="stack-graph">
+  <svg class="sg-graph" data-sg viewBox="0 0 920 440" role="img" aria-label="Mappa degli strumenti e delle loro connessioni">
+    <g class="sg-edges">
+      {edges.map(([a, b], i) => {
+        const A2 = byId[a], B2 = byId[b];
+        return <line class="sg-edge" data-a={a} data-b={b} x1={A2.x} y1={A2.y} x2={B2.x} y2={B2.y} style={`--d:${(i % 6) * 0.5}s`} />;
+      })}
+    </g>
+    <g class="sg-nodes">
+      {nodes.map((n, i) => (
+        <g class="sg-node" data-id={n.id} tabindex="0" style={`--c:${n.c};--i:${i}`} transform={`translate(${n.x} ${n.y})`}>
+          <circle class="sg-halo" r="15"></circle>
+          <circle class="sg-ring" r="9"></circle>
+          <circle class="sg-dot" r="5"></circle>
+          <text class="sg-label" y="30" text-anchor="middle">{n.label}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+</div>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    function init() {
+      document.querySelectorAll('[data-sg]').forEach((g) => {
+        if (g.dataset.sgReady) return;
+        g.dataset.sgReady = '1';
+        const edges = Array.from(g.querySelectorAll('.sg-edge'));
+        const nodes = Array.from(g.querySelectorAll('.sg-node'));
+        nodes.forEach((node) => {
+          const id = node.dataset.id;
+          const enter = () => {
+            g.classList.add('sg-focus');
+            const nbr = new Set([id]);
+            edges.forEach((e) => {
+              const on = e.dataset.a === id || e.dataset.b === id;
+              e.classList.toggle('sg-on', on);
+              if (on) { nbr.add(e.dataset.a); nbr.add(e.dataset.b); }
+            });
+            nodes.forEach((n) => n.classList.toggle('sg-on', nbr.has(n.dataset.id)));
+          };
+          const leave = () => {
+            g.classList.remove('sg-focus');
+            nodes.forEach((n) => n.classList.remove('sg-on'));
+            edges.forEach((e) => e.classList.remove('sg-on'));
+          };
+          node.addEventListener('pointerenter', enter);
+          node.addEventListener('pointerleave', leave);
+          node.addEventListener('focusin', enter);
+          node.addEventListener('focusout', leave);
+        });
+      });
+    }
+    if (!window.__sgInit) { window.__sgInit = true; document.addEventListener('astro:page-load', init); }
+    if (document.readyState !== 'loading') init();
+    else document.addEventListener('DOMContentLoaded', init);
+  })();
+</script>
