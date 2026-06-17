@@ -7,6 +7,8 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const current = stripLangPrefix(Astro.url.pathname);
 const isActive = (href: string) => current === href || current.startsWith(href + '/');
+// Label di menu localizzate (IT: Progetti/Articoli/Competenze · EN: Work/Writing/Skills).
+const navLabel = (href: string) => t(`nav.${href.replace(/\//g, '')}` as any);
 ---
 
 <header class="sticky top-0 z-30 border-b border-ink-600/70 bg-ink-900/80 backdrop-blur-md">
@@ -25,7 +27,7 @@ const isActive = (href: string) => current === href || current.startsWith(href +
             isActive(item.href) ? 'text-text' : 'text-muted',
           ]}
         >
-          {item.label}
+          {navLabel(item.href)}
         </a>
       ))}
     </nav>
@@ -35,13 +37,21 @@ const isActive = (href: string) => current === href || current.startsWith(href +
       <button
         type="button"
         data-cmdk-open
-        class="group inline-flex items-center gap-2 rounded-full border border-ink-500 bg-ink-800/60 py-1.5 pl-2.5 pr-3.5 text-xs text-muted transition-all hover:-translate-y-px hover:border-accent/70 hover:text-text hover:shadow-md hover:shadow-accent/10"
+        class="group flex items-center gap-2 rounded-full border border-ink-500 bg-ink-800/60 py-1.5 pl-3 pr-1.5 text-xs text-muted transition-all hover:border-accent/70 hover:text-text hover:shadow-md hover:shadow-accent/10"
         aria-label={t('header.openPalette')}
+        title={t('header.openPalette')}
       >
-        <svg class="h-4 w-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="h-4 w-4 shrink-0 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path>
         </svg>
-        <span class="hidden sm:inline">{t('header.search')}</span>
+        <span class="hidden whitespace-nowrap sm:inline">{t('header.search')}</span>
+        <span class="ml-0.5 inline-flex shrink-0 items-center gap-1 rounded-full bg-accent/15 px-1.5 py-0.5 text-accent">
+          <svg class="h-3 w-3" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2l1.7 5.6L19 9l-5.3 1.4L12 16l-1.7-5.6L5 9l5.3-1.4L12 2z"></path>
+            <path d="M19 14l.8 2.4L22 17l-2.2.6L19 20l-.8-2.4L16 17l2.2-.6L19 14z" opacity="0.7"></path>
+          </svg>
+          <span class="font-mono text-[10px] font-semibold tracking-wide">AI</span>
+        </span>
       </button>
 
       <!-- Hamburger (solo mobile) -->
@@ -75,7 +85,7 @@ const isActive = (href: string) => current === href || current.startsWith(href +
           isActive(item.href) ? 'bg-ink-700 text-text' : 'text-text-dim hover:bg-ink-800 hover:text-text',
         ]}
       >
-        {item.label}
+        {navLabel(item.href)}
       </a>
     ))}
   </nav>

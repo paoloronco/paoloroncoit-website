@@ -8,9 +8,9 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const areaKeys = ['security', 'ai', 'automation', 'cloud'] as const;
-const facts = [
+const facts: { label: string; value: string; sub?: string }[] = [
   { label: t('about.roleLabel'), value: site.role },
-  { label: t('about.companyLabel'), value: t('about.companyValue') },
+  { label: t('about.companyLabel'), value: 'Deloitte', sub: 'Enterprise Security — Cloud & AI' },
   { label: t('about.locationLabel'), value: t('about.locationValue') },
 ];
 ---
@@ -56,7 +56,10 @@ const facts = [
               {facts.map((f) => (
                 <div class="flex items-baseline justify-between gap-3 border-b border-ink-600/50 pb-3">
                   <dt class="shrink-0 font-mono text-xs uppercase tracking-wide text-muted">{f.label}</dt>
-                  <dd class="text-right font-medium text-text">{f.value}</dd>
+                  <dd class="text-right font-medium text-text">
+                    {f.value}
+                    {f.sub && <span class="mt-0.5 block text-xs font-normal text-text-dim">{f.sub}</span>}
+                  </dd>
                 </div>
               ))}
               <div>

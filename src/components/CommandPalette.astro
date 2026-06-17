@@ -1,28 +1,43 @@
 ---
-// Command palette: spina dorsale del sito (naviga + cerca + chiedi all'AI).
-// Vanilla JS, zero dipendenze. Lang-aware: link e label localizzati.
-import { getLangFromUrl, localizePath } from '@/i18n/utils';
+// Command palette: barra unificata di ricerca AI-assisted (naviga + cerca contenuti + chiedi all'AI).
+// Vanilla JS, zero dipendenze. Lang-aware: link e label localizzati. Indicizza anche gli articoli.
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, localizePath, entryLang, entrySlug } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const L = (p: string) => localizePath(p, lang);
 const en = lang === 'en';
-const g = en ? { nav: 'Navigate', act: 'Actions' } : { nav: 'Naviga', act: 'Azioni' };
+const g = en ? { nav: 'Navigate', act: 'Actions', post: 'Articles' } : { nav: 'Naviga', act: 'Azioni', post: 'Articoli' };
 
-const commands = [
-  { group: g.nav, label: 'Home', href: L('/'), keys: 'home start' },
-  { group: g.nav, label: en ? 'CV' : 'CV', href: L('/cv'), keys: 'curriculum cv esperienza experience' },
-  { group: g.nav, label: en ? 'Work — projects' : 'Work — progetti', href: L('/work'), keys: 'progetti portfolio case projects' },
-  { group: g.nav, label: en ? 'Writing — articles' : 'Writing — articoli', href: L('/writing'), keys: 'articoli blog post articles' },
-  { group: g.nav, label: en ? 'Skills — technical skills' : 'Skills — competenze tecniche', href: L('/skills'), keys: 'competenze skill tecnologie tool skills' },
-  { group: g.nav, label: 'About', href: L('/about'), keys: 'chi sono bio infra about' },
-  { group: g.act, label: en ? 'Download CV (PDF)' : 'Scarica il CV (PDF)', href: '/cv.pdf', keys: 'download pdf scarica' },
-  { group: g.act, label: en ? 'Contact' : 'Contatti', href: L('/contact'), keys: 'email scrivi pgp contact' },
-  { group: g.act, label: 'AI Assistant', href: L('/ask'), keys: 'chatbot ai chiedi assistente ask' },
+const navCommands = [
+  { group: g.nav, name: 'Home', href: L('/'), keys: 'home start', kind: 'nav' },
+  { group: g.nav, name: 'CV', href: L('/cv'), keys: 'curriculum cv esperienza experience', kind: 'nav' },
+  { group: g.nav, name: 'Work', sub: en ? 'projects' : 'progetti', href: L('/work'), keys: 'progetti portfolio case projects', kind: 'nav' },
+  { group: g.nav, name: 'Writing', sub: en ? 'articles' : 'articoli', href: L('/writing'), keys: 'articoli blog post articles', kind: 'nav' },
+  { group: g.nav, name: 'Skills', sub: en ? 'technical skills' : 'competenze tecniche', href: L('/skills'), keys: 'competenze skill tecnologie tool skills', kind: 'nav' },
+  { group: g.nav, name: 'About', href: L('/about'), keys: 'chi sono bio infra about', kind: 'nav' },
+  { group: g.act, name: en ? 'Download CV (PDF)' : 'Scarica il CV (PDF)', href: '/cv.pdf', keys: 'download pdf scarica', kind: 'act' },
+  { group: g.act, name: en ? 'Contact' : 'Contatti', href: L('/contact'), keys: 'email scrivi pgp contact', kind: 'act' },
+  { group: g.act, name: 'AI Assistant', href: L('/ask'), keys: 'chatbot ai chiedi assistente ask', kind: 'act' },
 ];
 
+// Indicizza gli articoli (titolo + tag) → ricerca di post e argomenti, non solo pagine.
+const posts = (await getCollection('writing', (e) => !e.data.draft && entryLang(e.id) === lang)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const postCommands = posts.map((p) => ({
+  group: g.post,
+  name: p.data.title,
+  href: L(`/writing/${entrySlug(p.id)}`),
+  keys: (p.data.tags ?? []).join(' '),
+  kind: 'post',
+}));
+
+const commands = [...navCommands, ...postCommands];
+
 const i18nStrings = {
-  placeholder: en ? 'Type a command or a question…' : 'Scrivi un comando o una domanda…',
+  placeholder: en ? 'Search articles, projects, skills… or ask the AI' : 'Cerca articoli, progetti, skill… o chiedi all’AI',
   askGroup: en ? 'Ask the AI' : "Chiedi all'AI",
-  noResults: en ? 'No results.' : 'Nessun risultato.',
+  noResults: en ? 'No results — try asking the AI.' : "Nessun risultato — prova a chiedere all'AI.",
   askRoute: L('/ask'),
 };
 ---
@@ -32,7 +47,9 @@ const i18nStrings = {
 
   <div class="absolute left-1/2 top-[15vh] w-[92vw] max-w-xl -translate-x-1/2 overflow-hidden rounded-lg border border-ink-500 bg-ink-800 shadow-2xl">
     <div class="flex items-center gap-3 border-b border-ink-600 px-4">
-      <span class="font-mono text-accent" aria-hidden="true">⌘</span>
+      <svg class="h-4 w-4 shrink-0 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path>
+      </svg>
       <input
         data-cmdk-input
         type="text"
@@ -40,8 +57,12 @@ const i18nStrings = {
         class="w-full bg-transparent py-3.5 text-sm text-text placeholder:text-muted focus:outline-none"
         autocomplete="off"
         spellcheck="false"
-        aria-label="Comando o domanda"
+        aria-label={i18nStrings.placeholder}
       />
+      <span class="inline-flex shrink-0 items-center gap-1 rounded-full bg-accent/15 px-1.5 py-0.5 text-accent" title="AI-assisted">
+        <svg class="h-3 w-3" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.7 5.6L19 9l-5.3 1.4L12 16l-1.7-5.6L5 9l5.3-1.4L12 2z"></path></svg>
+        <span class="font-mono text-[10px] font-semibold tracking-wide">AI</span>
+      </span>
       <kbd class="hidden font-mono text-[10px] text-muted sm:block">ESC</kbd>
     </div>
 
@@ -73,10 +94,16 @@ const i18nStrings = {
 
     function render(q) {
       const query = q.trim().toLowerCase();
-      const matches = commands.filter((c) => {
-        if (!query) return true;
-        return (c.label + ' ' + c.keys + ' ' + c.group).toLowerCase().includes(query);
-      });
+      let matches;
+      if (!query) {
+        // A riposo: solo navigazione + azioni (niente muro di articoli).
+        matches = commands.filter((c) => c.kind !== 'post');
+      } else {
+        const hit = commands.filter((c) => (c.name + ' ' + (c.sub || '') + ' ' + c.keys + ' ' + c.group).toLowerCase().includes(query));
+        const postHits = hit.filter((c) => c.kind === 'post').slice(0, 6);
+        const others = hit.filter((c) => c.kind !== 'post');
+        matches = [...others, ...postHits];
+      }
 
       let html = '';
       let lastGroup = '';
@@ -89,7 +116,10 @@ const i18nStrings = {
         }
         const idx = items.length;
         items.push({ type: 'nav', href: c.href });
-        html += `<li role="option" data-idx="${idx}" class="cmdk-item flex cursor-pointer items-center justify-between rounded-md px-3 py-2 text-sm text-text-dim"><span>${c.label}</span><span class="font-mono text-[10px] text-muted">↵</span></li>`;
+        const labelHtml = c.sub
+          ? `<span class="inline-block w-20 shrink-0">${escapeHtml(c.name)}</span><span class="text-muted">— ${escapeHtml(c.sub)}</span>`
+          : `<span>${escapeHtml(c.name)}</span>`;
+        html += `<li role="option" data-idx="${idx}" class="cmdk-item flex cursor-pointer items-center justify-between rounded-md px-3 py-2 text-sm text-text-dim"><span class="min-w-0 truncate">${labelHtml}</span><span class="ml-3 font-mono text-[10px] text-muted">↵</span></li>`;
       });
 
       // Sezione "Chiedi all'AI" se c'è una query libera
