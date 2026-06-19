@@ -8,7 +8,7 @@ import { getLangFromUrl, localizePath } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const en = lang === 'en';
 const user = 'paolo';
-const host = 'soc';
+const host = 'secops';
 const path = '~';
 
 const focus: [string, string][] = [
@@ -48,11 +48,17 @@ const T = {
     dSocial: en ? 'my profiles' : 'i miei profili',
     dFocus: en ? 'focus areas' : 'aree di competenza',
     dClear: en ? 'clear the terminal' : 'pulisci il terminale',
+    dCat: en ? 'read a file (e.g. cat cv.md)' : 'leggi un file (es. cat cv.md)',
     notFound: en ? 'command not found' : 'comando non trovato',
     hint: en ? "type 'help' to list the commands" : "scrivi 'help' per l'elenco dei comandi",
     introHint: en ? "interactive terminal — type 'help' and press enter" : "terminale interattivo — scrivi 'help' e premi invio",
     placeholder: en ? 'type a command… (e.g. help)' : 'scrivi un comando… (es. help)',
     noFile: en ? 'No such file or directory' : 'file o cartella inesistente',
+    isDir: en ? 'Is a directory' : 'è una cartella',
+    readonly: en ? '(read-only — this is a terminal, not an editor 🙂)' : '(sola lettura — è un terminale, non un editor 🙂)',
+    bio: en
+      ? 'Cyber Security Analyst at Deloitte (Enterprise Security — Cloud & AI). Cloud & architecture security, AI applied to defense, automation.'
+      : 'Cyber Security Analyst in Deloitte (Enterprise Security — Cloud & AI). Sicurezza di cloud e architetture, AI applicata alla difesa, automazione.',
     sudo: en ? '🔒 no root here — it all runs in your browser.' : '🔒 niente root qui — gira tutto nel tuo browser.',
     nmap: en ? 'scanning… 1 host up: you. only open port: curiosity.' : 'scanning… 1 host up: tu. unica porta aperta: la curiosità.',
     hack: en ? 'the only hack here is how fast this site loads ⚡' : "l'unico hack qui è quanto è veloce questo sito ⚡",
@@ -126,7 +132,7 @@ const T = {
       const helpList = [
         ['help', T.s.dHelp], ['whoami', T.s.dWhoami], ['skills', T.s.dSkills], ['projects', T.s.dWork],
         ['articles', T.s.dWriting], ['cv', T.s.dCv], ['about', T.s.dAbout], ['contact', T.s.dContact],
-        ['ai', T.s.dAi], ['social', T.s.dSocial], ['focus', T.s.dFocus], ['clear', T.s.dClear],
+        ['ai', T.s.dAi], ['social', T.s.dSocial], ['focus', T.s.dFocus], ['cat', T.s.dCat], ['clear', T.s.dClear],
       ];
 
       const commands = {
@@ -148,7 +154,6 @@ const T = {
         ls: () => `<span class="term__path">cv.md  skills.json  projects/  writing/  about.md  contact.md  focus.txt</span>`,
         ai: (arg) => { if (arg) { go(T.paths.ask + '?q=' + encodeURIComponent(arg)); return null; } return navOut('ask', T.s.dAi); },
         ask: (arg) => commands.ai(arg),
-        cat: (arg) => (arg === 'focus.txt' ? commands.focus() : `<span class="term__err">cat: ${esc(arg || '')}: ${esc(T.s.noFile)}</span>`),
         date: () => `<span class="term__resp">${esc(new Date().toLocaleString(T.lang === 'en' ? 'en-GB' : 'it-IT'))}</span>`,
         echo: (arg) => `<span class="term__resp">${esc(arg || '')}</span>`,
         history: () => (history.length ? history.map((h, i) => `<span class="term__muted">${String(i + 1).padStart(3)}</span>  <span class="term__resp">${esc(h)}</span>`).join('\n') : '<span class="term__muted">—</span>'),
@@ -156,6 +161,37 @@ const T = {
         nmap: () => `<span class="term__resp">${esc(T.s.nmap)}</span>`,
         hack: () => `<span class="term__resp">${esc(T.s.hack)}</span>`,
       };
+
+      // ---- finto filesystem: cat/less/more leggono; nano/vi/vim "aprono" (sola lettura) ----
+      const files = {
+        'focus.txt': () => commands.focus(),
+        'cv.md': () => `<span class="term__key"># CV</span>\n<span class="term__resp">${esc(T.role)}</span>\n<span class="term__muted">→</span> ${link(T.paths.cv, T.paths.cv)}  <span class="term__muted">·</span>  ${link(T.cvpdf, 'cv.pdf ↓')}`,
+        'skills.json': () =>
+          '<span class="term__muted">{</span>\n' +
+          T.focus.map(([k, d]) => `  <span class="term__key">"${k}"</span>: <span class="term__resp">"${esc(d)}"</span>`).join(',\n') +
+          '\n<span class="term__muted">}</span>\n<span class="term__muted">→</span> ' + link(T.paths.skills, T.paths.skills),
+        'about.md': () => `<span class="term__key"># whoami</span>\n<span class="term__resp">${esc(T.s.bio)}</span>\n<span class="term__muted">→</span> ${link(T.paths.about, T.paths.about)}`,
+        'contact.md': () =>
+          `<span class="term__key">email</span>     ${link('mailto:' + T.email, T.email)}\n` +
+          Object.keys(T.links).map((k) => `<span class="term__key">${k.toLowerCase().padEnd(9)}</span> ${link(T.links[k], T.links[k])}`).join('\n'),
+      };
+      const dirs = { projects: T.paths.work, writing: T.paths.writing };
+      function readFile(arg, editor) {
+        const raw = (arg || '').trim().replace(/^\.\//, '');
+        if (!raw) return '<span class="term__err">usage: cat &lt;file&gt;</span> <span class="term__muted">— ls</span>';
+        const bare = raw.replace(/\/$/, '');
+        if (dirs[bare]) return `<span class="term__err">cat: ${esc(raw)}: ${esc(T.s.isDir)}</span>\n<span class="term__muted">→</span> ${link(dirs[bare], dirs[bare])}`;
+        const f = files[raw] || files[bare];
+        if (!f) return `<span class="term__err">cat: ${esc(raw)}: ${esc(T.s.noFile)}</span>`;
+        const content = f();
+        return editor ? content + `\n<span class="term__muted">${esc(T.s.readonly)}</span>` : content;
+      }
+      commands.cat = (a) => readFile(a, false);
+      commands.less = (a) => readFile(a, false);
+      commands.more = (a) => readFile(a, false);
+      commands.nano = (a) => readFile(a, true);
+      commands.vi = (a) => readFile(a, true);
+      commands.vim = (a) => readFile(a, true);
 
       function exec(raw) {
         const line = raw.trim();
