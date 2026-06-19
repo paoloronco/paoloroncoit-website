@@ -17,8 +17,6 @@ Credenziali: `admin / demo123`
 
 Lynx si propone come alternativa self-hosted a Linktree e servizi simili, con il vantaggio di essere **totalmente indipendente** e **personalizzabile**:
 
-![](/posts/lynx-un-link-manager-open-source-e-self-hosted/Lynx-Ad1.png)
-
 -   **Profilo e tema su misura** → colori, font, layout e stili definibili con un semplice JSON o tramite pannello admin.
 -   **Gestione sicura dei link** → autenticazione basata su bcryptjs e JWT, protezione delle sessioni con cookie HttpOnly.
 -   **Admin panel integrato** → gestione di link, bio e temi senza toccare codice.

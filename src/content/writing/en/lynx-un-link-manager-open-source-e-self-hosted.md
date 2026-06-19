@@ -17,8 +17,6 @@ Credentials: `admin / demo123`
 
 Lynx proposes itself as an alternative to self-hosted Linktree and similar services, with the advantage of being **totally independent** and **customizable**:
 
-![](/posts/lynx-un-link-manager-open-source-e-self-hosted/Lynx-Ad1.png)
-
 -   **Custom Profile and Theme** → colors, fonts, layout, and styles definable with a simple JSON or through an admin panel.
 -   **Secure Link Management** → authentication based on bcryptjs and JWT, session protection with HttpOnly cookies.
 -   **Integrated Admin Panel** → manage links, bio, and themes without touching the code.
@@ -76,4 +74,3 @@ Beyond its practical utility, Lynx also represents a **showcase project**: an ex
 
 ✍️ **In summary:** Lynx is not just a link manager, but a project that demonstrates real full-stack development and cloud-native deployment skills.  
 A portfolio project that unites design, security, and DevOps automation.
-
