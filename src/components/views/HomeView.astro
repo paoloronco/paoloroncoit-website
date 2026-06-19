@@ -11,7 +11,6 @@ import { getLangFromUrl, useTranslations, localizePath, entryLang, entrySlug } f
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const en = lang === 'en';
 
 const areas = [
   { key: 'security', color: 'var(--color-cat-security)' },
@@ -41,28 +40,6 @@ const posts = (await getCollection('writing', (e) => !e.data.draft && entryLang(
 
 const fmt = (d: Date) =>
   d.toLocaleDateString(lang === 'en' ? 'en-GB' : 'it-IT', { day: '2-digit', month: 'short', year: 'numeric' });
-
-// --- Contenuto del terminale ---
-const pad = (s: string, n: number) => s + ' '.repeat(Math.max(0, n - s.length));
-const focus: [string, string][] = [
-  ['security', 'security architecture · cloud security · zero trust · IAM · CSPM/CNAPP · SIEM/SOAR · EDR/XDR · risk & compliance'],
-  ['ai', en ? 'RAG · agents · self-hosted LLMs · Heretic · AI red teaming · MCP' : 'RAG · agenti · LLM self-hosted · Heretic · AI red teaming · MCP'],
-  ['automation', 'workflow · pipeline · REST API · CI/CD · n8n · Zapier · Make · GitHub Actions · serverless'],
-  ['cloud', 'Google Cloud · AWS · Azure · Oracle Cloud · IaaS/PaaS/SaaS'],
-];
-const focusHtml = focus
-  .map(([k, d]) => `<span class="term__key">${pad(k, 13)}</span><span class="term__resp">${d}</span>`)
-  .join('\n');
-const termLines = [
-  { kind: 'cmd', cmd: 'whoami' },
-  { kind: 'out', html: `<span class="term__resp">Cyber Security Analyst</span> <span class="term__muted">·</span> Deloitte — Enterprise Security <span class="term__muted">·</span> Cloud &amp; AI` },
-  { kind: 'cmd', cmd: 'cat focus.txt' },
-  { kind: 'out', html: focusHtml },
-  { kind: 'cmd', cmd: 'ls ~/lab' },
-  { kind: 'out', html: `self-hosting <span class="term__muted">·</span> n8n <span class="term__muted">·</span> RAG <span class="term__muted">·</span> homelab` },
-  { kind: 'cmd', cmd: './say-hi.sh' },
-  { kind: 'out', html: `<span class="term__muted">→</span> <a class="term__key" style="text-decoration:underline;text-underline-offset:3px" href="mailto:${site.email}">${site.email}</a>` },
-] as const;
 ---
 
 <Base path="/">
@@ -101,7 +78,7 @@ const termLines = [
 
       <!-- TERMINALE -->
       <div class="anim-rise mt-10 pb-16 sm:mt-14 sm:pb-20" style="animation-delay:.64s">
-        <Terminal lines={termLines} />
+        <Terminal />
       </div>
     </div>
 

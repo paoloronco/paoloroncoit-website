@@ -1,99 +1,237 @@
 ---
-// Pannello terminale con typing animato (elemento "firma" da security analyst).
-// Le righe `cmd` vengono digitate carattere per carattere; le `out` compaiono
-// in dissolvenza. Fallback no-JS via <noscript> (tutto già nel DOM, opacità 0
-// solo sotto html.motion → se manca il JS resta visibile).
-interface Line {
-  kind: 'cmd' | 'out';
-  cmd?: string;
-  html?: string; // per le out: HTML colorato
-}
-interface Props {
-  lines: Line[];
-  user?: string;
-  host?: string;
-  path?: string;
-  title?: string;
-}
-const { lines, user = 'paolo', host = 'soc', path = '~', title = 'paolo@soc — zsh' } = Astro.props;
+// Terminale interattivo dell'hero. Tutto lato client (nessuna VM/container):
+// l'intro si "scrive" da sola, poi l'utente digita comandi reali con risposte.
+// I comandi sconosciuti restituiscono un errore "command not found".
+import { site } from '@/data/site';
+import { getLangFromUrl, localizePath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const en = lang === 'en';
+const user = 'paolo';
+const host = 'soc';
+const path = '~';
+
+const focus: [string, string][] = [
+  ['security', 'security architecture · cloud security · zero trust · IAM · CSPM/CNAPP · SIEM/SOAR · EDR/XDR · risk & compliance'],
+  ['ai', en ? 'RAG · agents · self-hosted LLMs · Heretic · AI red teaming · MCP' : 'RAG · agenti · LLM self-hosted · Heretic · AI red teaming · MCP'],
+  ['automation', 'workflow · pipeline · REST API · CI/CD · n8n · Zapier · Make · GitHub Actions · serverless'],
+  ['cloud', 'Google Cloud · AWS · Azure · Oracle Cloud · IaaS/PaaS/SaaS'],
+];
+
+const T = {
+  user, host, path,
+  lang,
+  role: 'Cyber Security Analyst · Deloitte — Enterprise Security · Cloud & AI',
+  email: site.email,
+  cvpdf: '/cv.pdf',
+  focus,
+  links: { GitHub: site.socials.github, LinkedIn: site.socials.linkedin, 'Hugging Face': site.socials.huggingface },
+  paths: {
+    cv: localizePath('/cv', lang),
+    work: localizePath('/work', lang),
+    writing: localizePath('/writing', lang),
+    skills: localizePath('/skills', lang),
+    about: localizePath('/about', lang),
+    ask: localizePath('/ask', lang),
+    contact: localizePath('/contact', lang),
+  },
+  s: {
+    dHelp: en ? 'list the available commands' : "elenca i comandi disponibili",
+    dWhoami: en ? 'who I am, in one line' : 'chi sono, in una riga',
+    dSkills: en ? 'technical skills (with levels)' : 'competenze tecniche (con livelli)',
+    dWork: en ? 'projects / case files' : 'progetti / case file',
+    dWriting: en ? 'articles & notes' : 'articoli e note',
+    dCv: en ? 'experience, certifications, education' : 'esperienza, certificazioni, formazione',
+    dAbout: en ? 'who I am' : 'chi sono',
+    dContact: en ? 'how to reach me' : 'come contattarmi',
+    dAi: en ? 'ask the AI assistant' : "chiedi all'assistente AI",
+    dSocial: en ? 'my profiles' : 'i miei profili',
+    dFocus: en ? 'focus areas' : 'aree di competenza',
+    dClear: en ? 'clear the terminal' : 'pulisci il terminale',
+    notFound: en ? 'command not found' : 'comando non trovato',
+    hint: en ? "type 'help' to list the commands" : "scrivi 'help' per l'elenco dei comandi",
+    introHint: en ? "interactive terminal — type 'help' and press enter" : "terminale interattivo — scrivi 'help' e premi invio",
+    placeholder: en ? 'type a command… (e.g. help)' : 'scrivi un comando… (es. help)',
+    noFile: en ? 'No such file or directory' : 'file o cartella inesistente',
+    sudo: en ? '🔒 no root here — it all runs in your browser.' : '🔒 niente root qui — gira tutto nel tuo browser.',
+    nmap: en ? 'scanning… 1 host up: you. only open port: curiosity.' : 'scanning… 1 host up: tu. unica porta aperta: la curiosità.',
+    hack: en ? 'the only hack here is how fast this site loads ⚡' : "l'unico hack qui è quanto è veloce questo sito ⚡",
+    aria: en ? 'Interactive terminal input' : 'Input del terminale interattivo',
+  },
+};
 ---
-<div class="term" data-term aria-label="terminal">
+<div class="term" data-term>
   <div class="term__bar" aria-hidden="true">
     <span class="term__dot" style="background:#fb7185"></span>
     <span class="term__dot" style="background:#fbbf24"></span>
     <span class="term__dot" style="background:#34d399"></span>
-    <span class="term__title">{title}</span>
+    <span class="term__title">{user}@{host} — zsh</span>
   </div>
-  <pre class="term__body"><code>{lines.map((l) => l.kind === 'cmd'
-      ? <span class="term__line"><span class="term__user">{user}@{host}</span><span class="term__muted">:</span><span class="term__path">{path}</span><span class="term__prompt">$ </span><span class="term__cmd" data-type>{l.cmd}</span></span>
-      : <span class="term__line term__resp" data-out set:html={l.html ?? ''}></span>
-  )}<span class="term__line" data-final><span class="term__user">{user}@{host}</span><span class="term__muted">:</span><span class="term__path">{path}</span><span class="term__prompt">$ </span><span class="term__caret" data-caret aria-hidden="true"></span></span></code></pre>
+  <div class="term__body" data-term-body>
+    <div data-term-log></div>
+    <div class="term__line term__inputline" data-term-inputline hidden>
+      <span class="term__user">{user}@{host}</span><span class="term__muted">:</span><span class="term__path">{path}</span><span class="term__prompt">$ </span>
+      <input
+        class="term__field"
+        data-term-input
+        type="text"
+        autocomplete="off"
+        autocapitalize="off"
+        autocorrect="off"
+        spellcheck="false"
+        aria-label={T.s.aria}
+        placeholder={T.s.placeholder}
+      />
+    </div>
+  </div>
 </div>
 
-<script is:inline data-astro-rerun>
+<script is:inline data-astro-rerun define:vars={{ T }}>
   (() => {
-    function runTerm() {
+    function initTerms() {
       document.querySelectorAll('[data-term]').forEach((term) => {
-        if (term.dataset.termReady) return;
-        term.dataset.termReady = '1';
-
-        const caret = term.querySelector('[data-caret]');
-        const finalLine = term.querySelector('[data-final]');
-        const steps = Array.from(term.querySelectorAll('[data-type],[data-out]'));
-
-        // Svuota i comandi da digitare (memorizza il testo pieno)
-        steps.forEach((s) => {
-          if (s.hasAttribute('data-type')) {
-            s.dataset.full = s.textContent || '';
-            s.textContent = '';
-          }
-        });
-        if (finalLine) finalLine.style.opacity = '0';
-
-        let i = 0;
-        const typeCmd = (el, done) => {
-          el.classList.add('is-active');
-          const full = el.dataset.full || '';
-          let n = 0;
-          const tick = () => {
-            n++;
-            el.textContent = full.slice(0, n);
-            if (caret) el.appendChild(caret);
-            if (n < full.length) setTimeout(tick, 36 + Math.random() * 46);
-            else { el.classList.add('is-done'); setTimeout(done, 280); }
-          };
-          if (caret) el.appendChild(caret);
-          setTimeout(tick, 130);
-        };
-        const revealOut = (el, done) => {
-          el.style.transition = 'opacity .28s cubic-bezier(0.25,1,0.5,1)';
-          el.classList.add('is-active', 'is-done');
-          setTimeout(done, 230);
-        };
-        const next = () => {
-          if (i >= steps.length) {
-            if (finalLine) {
-              finalLine.style.transition = 'opacity .25s ease';
-              finalLine.style.opacity = '1';
-              if (caret) finalLine.appendChild(caret);
-            }
-            return;
-          }
-          const el = steps[i++];
-          if (el.hasAttribute('data-type')) typeCmd(el, next);
-          else revealOut(el, next);
-        };
-        // Anima sempre quando il JS è attivo. Garantisce le righe visibili anche
-        // se la classe .motion non è ancora stata aggiunta al momento del run.
-        document.documentElement.classList.add('motion');
-        next();
+        if (term.dataset.ready) return;
+        term.dataset.ready = '1';
+        setup(term);
       });
     }
-    if (!window.__termInit) {
-      window.__termInit = true;
-      document.addEventListener('astro:page-load', runTerm);
+
+    function setup(term) {
+      const body = term.querySelector('[data-term-body]');
+      const log = term.querySelector('[data-term-log]');
+      const inputline = term.querySelector('[data-term-inputline]');
+      const input = term.querySelector('[data-term-input]');
+      const history = [];
+      let hi = 0;
+
+      const ps1 =
+        `<span class="term__user">${T.user}@${T.host}</span><span class="term__muted">:</span>` +
+        `<span class="term__path">${T.path}</span><span class="term__prompt">$ </span>`;
+      const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      const scroll = () => { body.scrollTop = body.scrollHeight; };
+
+      function addLine(html, cls) {
+        const div = document.createElement('div');
+        div.className = 'term__line' + (cls ? ' ' + cls : '');
+        div.innerHTML = html;
+        log.appendChild(div);
+        scroll();
+        return div;
+      }
+
+      const link = (href, label) => `<a class="term__link" href="${href}">${esc(label || href)}</a>`;
+      const navOut = (key, desc) => `<span class="term__resp">${esc(desc)}</span>\n<span class="term__muted">→</span> ${link(T.paths[key], T.paths[key])}`;
+      const go = (href) => { window.location.href = href; };
+
+      const helpList = [
+        ['help', T.s.dHelp], ['whoami', T.s.dWhoami], ['skills', T.s.dSkills], ['projects', T.s.dWork],
+        ['articles', T.s.dWriting], ['cv', T.s.dCv], ['about', T.s.dAbout], ['contact', T.s.dContact],
+        ['ai', T.s.dAi], ['social', T.s.dSocial], ['focus', T.s.dFocus], ['clear', T.s.dClear],
+      ];
+
+      const commands = {
+        help: () => helpList.map(([c, d]) => `<span class="term__key">${c.padEnd(9)}</span><span class="term__muted">${esc(d)}</span>`).join('\n'),
+        whoami: () => `<span class="term__resp">${esc(T.role)}</span>`,
+        focus: () => T.focus.map(([k, d]) => `<span class="term__key">${k.padEnd(12)}</span><span class="term__resp">${esc(d)}</span>`).join('\n'),
+        about: () => navOut('about', T.s.dAbout),
+        skills: () => navOut('skills', T.s.dSkills),
+        work: () => navOut('work', T.s.dWork),
+        projects: () => commands.work(),
+        writing: () => navOut('writing', T.s.dWriting),
+        articles: () => commands.writing(),
+        blog: () => commands.writing(),
+        cv: () => `<span class="term__resp">${esc(T.s.dCv)}</span>\n<span class="term__muted">→</span> ${link(T.paths.cv, T.paths.cv)}  <span class="term__muted">·</span>  ${link(T.cvpdf, 'cv.pdf ↓')}`,
+        resume: () => commands.cv(),
+        contact: () => `<span class="term__resp">${esc(T.s.dContact)}</span>\n<span class="term__muted">→</span> ${link('mailto:' + T.email, T.email)}`,
+        email: () => commands.contact(),
+        social: () => Object.keys(T.links).map((k) => `<span class="term__key">${k.padEnd(14)}</span>${link(T.links[k], T.links[k])}`).join('\n'),
+        ls: () => `<span class="term__path">cv.md  skills.json  projects/  writing/  about.md  contact.md  focus.txt</span>`,
+        ai: (arg) => { if (arg) { go(T.paths.ask + '?q=' + encodeURIComponent(arg)); return null; } return navOut('ask', T.s.dAi); },
+        ask: (arg) => commands.ai(arg),
+        cat: (arg) => (arg === 'focus.txt' ? commands.focus() : `<span class="term__err">cat: ${esc(arg || '')}: ${esc(T.s.noFile)}</span>`),
+        date: () => `<span class="term__resp">${esc(new Date().toLocaleString(T.lang === 'en' ? 'en-GB' : 'it-IT'))}</span>`,
+        echo: (arg) => `<span class="term__resp">${esc(arg || '')}</span>`,
+        history: () => (history.length ? history.map((h, i) => `<span class="term__muted">${String(i + 1).padStart(3)}</span>  <span class="term__resp">${esc(h)}</span>`).join('\n') : '<span class="term__muted">—</span>'),
+        sudo: () => `<span class="term__err">${esc(T.s.sudo)}</span>`,
+        nmap: () => `<span class="term__resp">${esc(T.s.nmap)}</span>`,
+        hack: () => `<span class="term__resp">${esc(T.s.hack)}</span>`,
+      };
+
+      function exec(raw) {
+        const line = raw.trim();
+        addLine(ps1 + `<span class="term__cmd">${esc(line)}</span>`);
+        if (!line) return;
+        history.push(line);
+        hi = history.length;
+        const sp = line.indexOf(' ');
+        const name = (sp < 0 ? line : line.slice(0, sp)).toLowerCase();
+        const arg = sp < 0 ? '' : line.slice(sp + 1).trim();
+        if (name === 'clear' || name === 'cls') { log.innerHTML = ''; return; }
+        const fn = commands[name];
+        const out = fn ? fn(arg) : `<span class="term__err">${esc(T.s.notFound)}: ${esc(name)}</span>\n<span class="term__muted">${esc(T.s.hint)}</span>`;
+        if (out != null) addLine(out, 'term__out');
+      }
+
+      // ---- input ----
+      const caretEnd = () => requestAnimationFrame(() => { try { input.setSelectionRange(input.value.length, input.value.length); } catch (_) {} });
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const v = input.value; input.value = '';
+          exec(v);
+          try { input.focus({ preventScroll: true }); } catch (_) {}
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (history.length) { hi = Math.max(0, hi - 1); input.value = history[hi] || ''; caretEnd(); }
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (history.length) { hi = Math.min(history.length, hi + 1); input.value = history[hi] || ''; caretEnd(); }
+        } else if ((e.key === 'l' || e.key === 'L') && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault(); log.innerHTML = '';
+        }
+      });
+      body.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        if (window.getSelection && String(window.getSelection())) return;
+        if (!inputline.hidden) { try { input.focus({ preventScroll: true }); } catch (_) {} }
+      });
+
+      // ---- intro typing (niente spazio pre-allocato: cresce mentre scrive) ----
+      function typeCmd(text, done) {
+        const lineEl = addLine(ps1 + '<span class="term__cmd"></span>');
+        const span = lineEl.querySelector('.term__cmd');
+        const caret = document.createElement('span');
+        caret.className = 'term__caret';
+        lineEl.appendChild(caret);
+        let i = 0;
+        (function tick() {
+          span.textContent = text.slice(0, ++i);
+          scroll();
+          if (i < text.length) setTimeout(tick, 38 + Math.random() * 46);
+          else { caret.remove(); setTimeout(done, 240); }
+        })();
+      }
+      function finishIntro() {
+        inputline.hidden = false;
+        hi = history.length;
+        scroll();
+        if (window.matchMedia && window.matchMedia('(pointer:fine)').matches) {
+          try { input.focus({ preventScroll: true }); } catch (_) {}
+        }
+      }
+      // intro breve: digita whoami → output → hint → prompt vivo
+      typeCmd('whoami', () => {
+        addLine(commands.whoami(), 'term__out');
+        history.push('whoami');
+        setTimeout(() => {
+          addLine(`<span class="term__muted"># ${T.s.introHint}</span>`, 'term__out');
+          finishIntro();
+        }, 220);
+      });
     }
-    if (document.readyState !== 'loading') runTerm();
-    else document.addEventListener('DOMContentLoaded', runTerm);
+
+    if (!window.__termInit) { window.__termInit = true; document.addEventListener('astro:page-load', initTerms); }
+    if (document.readyState !== 'loading') initTerms();
+    else document.addEventListener('DOMContentLoaded', initTerms);
   })();
 </script>

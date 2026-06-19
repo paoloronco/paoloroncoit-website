@@ -371,15 +371,17 @@ a.chat-card:hover { border-color: color-mix(in oklab, var(--color-accent) 55%, t
 .term__body {
   margin: 0;
   padding: 1.05rem 1.15rem 1.25rem;
-  font-size: 0.78rem;
-  line-height: 1.85;
-  min-height: 15.5rem;
-  white-space: pre;        /* niente wrap: le righe restano intere */
-  overflow-x: auto;        /* se troppo lunghe, scroll orizzontale (come un vero terminale) */
+  font-size: 0.8rem;
+  line-height: 1.8;
+  /* niente min-height: il terminale cresce col contenuto, poi scrolla internamente */
+  max-height: clamp(15rem, 46vh, 24rem);
+  overflow-y: auto;
+  white-space: pre-wrap;   /* responsive: le righe lunghe vanno a capo */
+  word-break: break-word;
+  cursor: text;
 }
-/* scrollbar discreta per il terminale */
-.term__body::-webkit-scrollbar { height: 6px; }
-.term__body::-webkit-scrollbar-thumb { background: var(--color-ink-500); border-radius: 3px; }
+.term__body::-webkit-scrollbar { width: 8px; }
+.term__body::-webkit-scrollbar-thumb { background: var(--color-ink-500); border-radius: 4px; }
 .term__line { display: block; }
 .term__prompt { color: var(--color-accent); }
 .term__user { color: var(--color-ok); }
@@ -388,13 +390,23 @@ a.chat-card:hover { border-color: color-mix(in oklab, var(--color-accent) 55%, t
 .term__resp { color: var(--color-text-dim); }
 .term__key { color: var(--color-accent); }
 .term__muted { color: var(--color-muted); }
-/* Stato iniziale (solo con JS): le righe compaiono mentre vengono "digitate" */
-.motion .term [data-type],
-.motion .term [data-out] { opacity: 0; }
-.motion .term [data-type].is-active,
-.motion .term [data-type].is-done,
-.motion .term [data-out].is-active,
-.motion .term [data-out].is-done { opacity: 1; }
+.term__err { color: var(--color-danger); }
+.term__link { color: var(--color-accent); text-underline-offset: 2px; }
+.term__link:hover { text-decoration: underline; }
+/* riga di input interattiva */
+.term__inputline { display: flex; align-items: baseline; }
+.term__field {
+  flex: 1 1 auto;
+  min-width: 2ch;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  caret-color: var(--color-accent);
+  outline: none;
+  padding: 0;
+}
+.term__field::placeholder { color: var(--color-muted); opacity: 0.65; }
 /* Caret a blocco lampeggiante */
 .term__caret {
   display: inline-block;
