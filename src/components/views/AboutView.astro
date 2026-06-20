@@ -2,7 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import CmdPath from '@/components/CmdPath.astro';
 import SocialLinks from '@/components/SocialLinks.astro';
-import { site, categoryColors } from '@/data/site';
+import { site, categoryColors, enterpriseSecurityArea } from '@/data/site';
 import { getLangFromUrl, useTranslations, localizePath } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -10,7 +10,7 @@ const t = useTranslations(lang);
 const areaKeys = ['security', 'ai', 'automation', 'cloud'] as const;
 const facts: { label: string; value: string; sub?: string }[] = [
   { label: t('about.roleLabel'), value: site.role },
-  { label: t('about.companyLabel'), value: 'Deloitte', sub: 'Enterprise Security — Cloud & AI' },
+  { label: t('about.companyLabel'), value: 'Deloitte', sub: enterpriseSecurityArea },
   { label: t('about.locationLabel'), value: t('about.locationValue') },
 ];
 ---

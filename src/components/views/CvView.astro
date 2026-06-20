@@ -2,6 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import CmdPath from '@/components/CmdPath.astro';
 import { resolveCert } from '@/data/certs';
+import { enterpriseSecurityArea } from '@/data/site';
 import { getLangFromUrl, useTranslations, localizePath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -9,7 +10,7 @@ const t = useTranslations(lang);
 const en = lang === 'en';
 
 const experience: { period: string; role: string; sub?: string; org: string }[] = [
-  { period: en ? 'Nov 2024 — present' : 'Nov 2024 — presente', role: 'Cyber Security Analyst', sub: 'Enterprise Security — Cloud & AI', org: 'Deloitte Consulting' },
+  { period: en ? 'Nov 2024 — present' : 'Nov 2024 — presente', role: 'Cyber Security Analyst', sub: enterpriseSecurityArea, org: 'Deloitte Consulting' },
   { period: en ? 'Jul 2024 — Oct 2024' : 'Lug 2024 — Ott 2024', role: 'Junior System Administrator', org: en ? 'Dylog s.p.a. — Turin' : 'Dylog s.p.a. — Torino' },
   { period: en ? 'Jan 2018 — Feb 2018' : 'Gen 2018 — Feb 2018', role: en ? 'IT Services / CED' : 'Servizi IT / CED', org: 'Comune di Grugliasco' },
   { period: en ? 'Jan 2018 — Feb 2018' : 'Gen 2018 — Feb 2018', role: 'Accounting Services / IT Services', org: 'FIM-CISL Torino e Canavese' },

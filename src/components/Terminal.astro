@@ -2,7 +2,7 @@
 // Terminale interattivo dell'hero. Tutto lato client (nessuna VM/container):
 // l'intro si "scrive" da sola, poi l'utente digita comandi reali con risposte.
 // I comandi sconosciuti restituiscono un errore "command not found".
-import { site } from '@/data/site';
+import { enterpriseSecurityArea, site } from '@/data/site';
 import { getLangFromUrl, localizePath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -21,7 +21,7 @@ const focus: [string, string][] = [
 const T = {
   user, host, path,
   lang,
-  role: 'Cyber Security Analyst · Deloitte — Enterprise Security · Cloud & AI',
+  role: `Cyber Security Analyst · Deloitte — ${enterpriseSecurityArea}`,
   email: site.email,
   cvpdf: '/cv.pdf',
   focus,
@@ -57,8 +57,8 @@ const T = {
     isDir: en ? 'Is a directory' : 'è una cartella',
     readonly: en ? '(read-only — this is a terminal, not an editor 🙂)' : '(sola lettura — è un terminale, non un editor 🙂)',
     bio: en
-      ? 'Cyber Security Analyst at Deloitte (Enterprise Security — Cloud & AI). Cloud & architecture security, AI applied to defense, automation.'
-      : 'Cyber Security Analyst in Deloitte (Enterprise Security — Cloud & AI). Sicurezza di cloud e architetture, AI applicata alla difesa, automazione.',
+      ? `Cyber Security Analyst at Deloitte (${enterpriseSecurityArea}). Cloud & architecture security, AI applied to defense, automation.`
+      : `Cyber Security Analyst in Deloitte (${enterpriseSecurityArea}). Sicurezza di cloud e architetture, AI applicata alla difesa, automazione.`,
     sudo: en ? '🔒 no root here — it all runs in your browser.' : '🔒 niente root qui — gira tutto nel tuo browser.',
     nmap: en ? 'scanning… 1 host up: you. only open port: curiosity.' : 'scanning… 1 host up: tu. unica porta aperta: la curiosità.',
     hack: en ? 'the only hack here is how fast this site loads ⚡' : "l'unico hack qui è quanto è veloce questo sito ⚡",
