@@ -23,7 +23,7 @@ services:
     image: 'linkstackorg/linkstack:latest'
     environment:
       TZ: 'Europe/Rome'
-      SERVER_ADMIN: 'paolo.ronco2000@gmail.com'
+      SERVER_ADMIN: 'info@paoloronco.it'
       HTTP_SERVER_NAME: 'paoloronco.it'
       HTTPS_SERVER_NAME: 'paoloronco.it'
       LOG_LEVEL: 'info'
@@ -47,8 +47,9 @@ Accesso a LinkStack: Vai al link https://INDIRIZZO-IP-DELLA-MACCHINA:8190/ nel t
 Configurazione Iniziale:  
 Segui le istruzioni di configurazione iniziale su LinkStack:  
 Fai clic su "Next…".  
-Inserisci l'indirizzo email dell'amministratore (ad esempio, paolo.ronco2000@gmail.com).  
+Inserisci l'indirizzo email dell'amministratore (ad esempio, info@paoloronco.it).  
 Utilizza la password dell'utente root del tuo sistema Debian CT come password dell'amministratore.  
 Imposta l'handle (ad esempio, paoloronco.it) e il nome dell'utente (ad esempio, paoloronco).
 
 Con questi passaggi, dovresti essere in grado di configurare LinkStack con successo su un container Debian utilizzando Portainer. Assicurati di seguire attentamente le istruzioni e le migliori pratiche di sicurezza per proteggere la tua installazione.
+
