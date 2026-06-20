@@ -20,7 +20,19 @@ npm run build    # build statico → dist/
 npm run preview  # anteprima del build
 npm run check    # type-check Astro
 ```
-Su Windows: doppio click su **`avvia-sito.bat`** per avviare il sito (one-click).
+## Analytics configuration (Vercel)
+
+Set these public environment variables in Vercel under **Project Settings -> Environment Variables**:
+
+```bash
+PUBLIC_COOKIEYES_ID=your-cookieyes-client-id
+PUBLIC_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
+PUBLIC_MICROSOFT_CLARITY_ID=your-clarity-project-id
+```
+
+Apply them to Production (and Preview if needed), then redeploy. CookieYes loads first;
+Google Analytics and Microsoft Clarity are enabled through its Analytics consent category.
+If CookieYes or a provider ID is missing, that provider is not included in the generated site.
 
 ## Script di migrazione contenuti (in `scripts/`)
 ```bash

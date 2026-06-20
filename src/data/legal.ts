@@ -6,7 +6,7 @@
 import type { Lang } from '@/i18n/ui';
 type LS = Record<Lang, string>;
 
-export const legalUpdated = '2026-06-16';
+export const legalUpdated = '2026-06-20';
 
 export interface LegalDoc {
   title: LS;
@@ -57,7 +57,7 @@ export const legal: Record<LegalKey, LegalDoc> = {
   <li><strong>Cloudflare, Inc.</strong> — gestione DNS, CDN, sicurezza/WAF e protezione dagli attacchi.</li>
   <li><strong>Vercel Inc.</strong> — hosting e distribuzione del Sito. L'infrastruttura di hosting potrebbe in futuro essere modificata (anche verso una soluzione self-hosted basata su Linux, Docker, NGINX e Cloudflare Zero Trust): la presente informativa sarà aggiornata di conseguenza.</li>
   <li><strong>Zoho Corporation (Zoho Mail)</strong> — gestione della casella di posta elettronica per le comunicazioni.</li>
-  <li><strong>Google Ireland Ltd / Google LLC</strong> — Google Analytics, Google Tag Manager e Google Search Console.</li>
+  <li><strong>Google Ireland Ltd / Google LLC</strong> — Google Analytics e Google Search Console.</li>
   <li><strong>Microsoft Ireland / Microsoft Corporation</strong> — Microsoft Clarity (analisi di utilizzo), ove attivo.</li>
   <li><strong>CookieYes Limited</strong> — piattaforma di gestione del consenso ai cookie (CMP).</li>
 </ul>
@@ -126,7 +126,7 @@ export const legal: Record<LegalKey, LegalDoc> = {
   <li><strong>Cloudflare, Inc.</strong> — DNS management, CDN, security/WAF and attack protection.</li>
   <li><strong>Vercel Inc.</strong> — hosting and delivery of the Site. The hosting infrastructure may change in the future (including a self-hosted solution based on Linux, Docker, NGINX and Cloudflare Zero Trust); this notice will be updated accordingly.</li>
   <li><strong>Zoho Corporation (Zoho Mail)</strong> — email mailbox for communications.</li>
-  <li><strong>Google Ireland Ltd / Google LLC</strong> — Google Analytics, Google Tag Manager and Google Search Console.</li>
+  <li><strong>Google Ireland Ltd / Google LLC</strong> — Google Analytics and Google Search Console.</li>
   <li><strong>Microsoft Ireland / Microsoft Corporation</strong> — Microsoft Clarity (usage analytics), where active.</li>
   <li><strong>CookieYes Limited</strong> — cookie consent management platform (CMP).</li>
 </ul>
@@ -187,7 +187,7 @@ export const legal: Record<LegalKey, LegalDoc> = {
 <h3>Cookie tecnici e necessari</h3>
 <p>Indispensabili al corretto funzionamento del Sito e alla memorizzazione delle preferenze (incluse quelle sui cookie e sulla lingua). Non richiedono consenso. Rientrano in questa categoria il cookie del CMP CookieYes e le preferenze salvate localmente dal browser (es. lingua, vista delle competenze).</p>
 <h3>Cookie analitici e di statistica</h3>
-<p>Utilizzati, previo consenso, per raccogliere informazioni in forma aggregata sull'uso del Sito (pagine visitate, durata, provenienza) al fine di migliorarne i contenuti. Sono erogati da Google Analytics e, ove attivo, Microsoft Clarity, gestiti tramite Google Tag Manager.</p>
+<p>Utilizzati, previo consenso, per raccogliere informazioni in forma aggregata sull'uso del Sito (pagine visitate, durata, provenienza) al fine di migliorarne i contenuti. Sono erogati da Google Analytics e Microsoft Clarity e attivati in base alle preferenze espresse tramite CookieYes.</p>
 
 <h2>4. Elenco dei principali cookie/servizi</h2>
 <table>
@@ -195,7 +195,6 @@ export const legal: Record<LegalKey, LegalDoc> = {
   <tbody>
     <tr><td>CookieYes</td><td>CookieYes Limited</td><td>Memorizzazione delle preferenze sul consenso (tecnico)</td></tr>
     <tr><td>Google Analytics (es. _ga, _ga_*)</td><td>Google</td><td>Statistiche di utilizzo (analitico)</td></tr>
-    <tr><td>Google Tag Manager</td><td>Google</td><td>Gestione dei tag/script di misurazione</td></tr>
     <tr><td>Microsoft Clarity (es. _clck, _clsk)</td><td>Microsoft</td><td>Analisi di utilizzo e mappe di interazione (analitico), ove attivo</td></tr>
   </tbody>
 </table>
@@ -225,7 +224,7 @@ export const legal: Record<LegalKey, LegalDoc> = {
 <h3>Technical and necessary cookies</h3>
 <p>Essential for the proper functioning of the Site and for storing preferences (including cookie and language choices). They do not require consent. This category includes the CookieYes CMP cookie and preferences stored locally by the browser (e.g. language, skills view).</p>
 <h3>Analytics and statistical cookies</h3>
-<p>Used, subject to consent, to collect aggregate information about the use of the Site (pages visited, duration, source) in order to improve its content. They are provided by Google Analytics and, where active, Microsoft Clarity, managed through Google Tag Manager.</p>
+<p>Used, subject to consent, to collect aggregate information about the use of the Site (pages visited, duration, source) in order to improve its content. They are provided by Google Analytics and Microsoft Clarity and enabled according to the preferences expressed through CookieYes.</p>
 
 <h2>4. Main cookies/services</h2>
 <table>
@@ -233,7 +232,6 @@ export const legal: Record<LegalKey, LegalDoc> = {
   <tbody>
     <tr><td>CookieYes</td><td>CookieYes Limited</td><td>Stores consent preferences (technical)</td></tr>
     <tr><td>Google Analytics (e.g. _ga, _ga_*)</td><td>Google</td><td>Usage statistics (analytics)</td></tr>
-    <tr><td>Google Tag Manager</td><td>Google</td><td>Management of measurement tags/scripts</td></tr>
     <tr><td>Microsoft Clarity (e.g. _clck, _clsk)</td><td>Microsoft</td><td>Usage analytics and interaction maps (analytics), where active</td></tr>
   </tbody>
 </table>

@@ -6,6 +6,7 @@ import SiteFooter from '@/components/SiteFooter.astro';
 import CommandPalette from '@/components/CommandPalette.astro';
 import ChatWidget from '@/components/ChatWidget.astro';
 import Motion from '@/components/Motion.astro';
+import Analytics from '@/components/Analytics.astro';
 import { site } from '@/data/site';
 import { getLangFromUrl, localizePath, stripLangPrefix } from '@/i18n/utils';
 import { useTranslations } from '@/i18n/utils';
@@ -46,6 +47,7 @@ const personLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Analytics />
     <script is:inline>document.documentElement.classList.add('motion');</script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -54,7 +56,7 @@ const personLd = {
     <link rel="alternate" hreflang="en" href={altEn} />
     <link rel="alternate" hreflang="x-default" href={altIt} />
     <meta name="generator" content={Astro.generator} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <ClientRouter />
 
     <!-- Open Graph -->
