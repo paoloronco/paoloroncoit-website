@@ -1,4 +1,4 @@
-Contact: mailto:paolo.ronco2000@gmail.com
-Preferred-Languages: it, en
+Contact: mailto:info@paoloronco.it
+Preferred-Languages: en, it
 Canonical: https://paoloronco.it/.well-known/security.txt
-# Grazie per la segnalazione responsabile di eventuali vulnerabilità.
+# Thank you for responsibly reporting any vulnerabilities.
