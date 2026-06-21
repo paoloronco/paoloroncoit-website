@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "check:design": "node scripts/check-field-manual.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.0",

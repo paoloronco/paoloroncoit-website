@@ -13,18 +13,18 @@ const i18n = {
 };
 ---
 <Base title={t('ask.title')} description={t('ask.subtitle')} path="/ask">
-  <section class="mx-auto max-w-2xl px-5 pt-16 pb-24">
+  <section class="field-shell max-w-5xl pt-14 pb-24 sm:pt-20">
     <CmdPath cmd="./ask.sh" />
-    <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text sm:text-5xl" style="animation-delay:.12s">{t('ask.title')}</h1>
+    <h1 class="field-display anim-rise mt-6 text-[clamp(4rem,10vw,8rem)]" style="animation-delay:.12s">ASK<span class="field-serif text-signal">.</span></h1>
     <p class="anim-rise mt-3 text-text-dim" style="animation-delay:.2s">{t('ask.subtitle')}</p>
 
-    <div class="anim-rise mt-8 overflow-hidden rounded-2xl border border-ink-600 bg-ink-800/40" style="animation-delay:.28s">
+    <div class="anim-rise mt-10 overflow-hidden border border-ink bg-transparent" style="animation-delay:.28s">
       <div data-ask-log class="min-h-[220px] max-h-[50vh] space-y-3 overflow-y-auto p-4 text-sm">
         <div><span class="inline-block max-w-[85%] rounded-2xl rounded-bl-sm bg-ink-700 px-3 py-2 text-text-dim">{i18n.greeting}</span></div>
       </div>
       <form data-ask-form class="flex items-center gap-2 border-t border-ink-600 p-3">
-        <input data-ask-input type="text" placeholder={t('ask.placeholder')} class="w-full rounded-lg bg-ink-900/60 px-3 py-2.5 text-sm text-text placeholder:text-muted focus:outline-none focus:ring-1 focus:ring-accent" autocomplete="off" />
-        <button type="submit" aria-label={t('ask.send')} class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-ink-900 transition-opacity hover:opacity-90">
+        <input data-ask-input type="text" placeholder={t('ask.placeholder')} class="w-full border border-ink bg-transparent px-3 py-2.5 text-sm placeholder:text-muted focus:outline-none" autocomplete="off" />
+        <button type="submit" aria-label={t('ask.send')} class="flex h-11 w-11 shrink-0 items-center justify-center bg-signal text-white transition-colors hover:bg-ink">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
         </button>
       </form>

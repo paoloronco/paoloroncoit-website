@@ -40,13 +40,13 @@ const languages = [
 ];
 ---
 <Base title="CV" description={t('cv.skillsCardDesc')} path="/cv">
-  <section class="mx-auto max-w-3xl px-5 pt-16 pb-16">
+  <section class="field-shell max-w-5xl pt-14 pb-20 sm:pt-20">
     <div class="flex flex-wrap items-center justify-between gap-3">
       <div>
         <CmdPath cmd="cat" arg="resume.md" />
-        <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text" style="animation-delay:.12s">CV</h1>
+        <h1 class="field-display anim-rise mt-6 text-[clamp(5rem,12vw,10rem)]" style="animation-delay:.12s">CV<span class="text-signal">.</span></h1>
       </div>
-      <a href="/cv.pdf" class="rounded-md border border-ink-500 px-3 py-2 text-sm text-text-dim hover:border-accent hover:text-text">{t('cv.downloadPdf')}</a>
+      <a href="/cv.pdf" class="outline-button">{t('cv.downloadPdf')}</a>
     </div>
 
     <h2 class="kicker mt-12 mb-6">{t('cv.experience')}</h2>
@@ -66,7 +66,7 @@ const languages = [
                 style={right ? 'left:-7px' : 'right:-7px'}
                 aria-hidden="true"
               ></span>
-              <div class="rounded-xl border border-ink-600 bg-ink-800/40 p-5 transition-all hover:-translate-y-0.5 hover:border-accent/60">
+              <div class="border border-ink bg-transparent p-5 transition-colors hover:bg-signal hover:text-white">
                 <p class="font-mono text-xs text-accent">{e.period}</p>
                 <p class="mt-1.5 font-medium leading-snug text-text">{e.role}</p>
                 {e.sub && <p class="text-sm leading-snug text-text-dim">{e.sub}</p>}

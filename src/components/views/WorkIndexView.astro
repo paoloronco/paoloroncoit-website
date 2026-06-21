@@ -2,74 +2,27 @@
 import { getCollection } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import CaseFileCard from '@/components/CaseFileCard.astro';
-import CmdPath from '@/components/CmdPath.astro';
 import { getLangFromUrl, useTranslations, localizePath, entryLang, entrySlug } from '@/i18n/utils';
-
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-const projects = (await getCollection('work', (e) => !e.data.draft && entryLang(e.id) === lang)).sort(
-  (a, b) => a.data.order - b.data.order
-);
+const projects = (await getCollection('work', (entry) => !entry.data.draft && entryLang(entry.id) === lang)).sort((a, b) => a.data.order - b.data.order);
 const allLabel = t('work.all');
-const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
+const categories = [allLabel, ...new Set(projects.map((project) => project.data.category))];
 ---
-
 <Base title="Work" description={t('work.subtitle')} path="/work">
-  <section class="mx-auto max-w-5xl px-5 pt-16 pb-10">
-    <CmdPath cmd="cd" arg="~/work" />
-    <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text" style="animation-delay:.12s">Work</h1>
-    <p class="anim-rise mt-3 max-w-2xl text-text-dim" style="animation-delay:.2s">{t('work.subtitle')}</p>
-
-    {projects.length > 0 && (
-    <div class="mt-8 flex flex-wrap gap-2" data-filter-bar data-all={allLabel}>
-      {categories.map((c, i) => (
-        <button
-          data-filter={i === 0 ? '__all__' : c}
-          class:list={[
-            'rounded-full border px-3 py-1 font-mono text-xs transition-colors',
-            i === 0 ? 'border-accent text-accent' : 'border-ink-600 text-muted hover:text-text',
-          ]}
-        >{c}</button>
-      ))}
+  <header class="field-section pt-14 sm:pt-20">
+    <div class="field-shell grid gap-8 lg:grid-cols-[1fr_2fr]">
+      <p class="field-label">01 / Case files</p>
+      <div><h1 class="field-display text-[clamp(4.5rem,11vw,10rem)]">WORK<span class="text-signal">.</span></h1><p class="mt-6 max-w-xl text-lg text-muted">{t('work.subtitle')}</p></div>
     </div>
-    )}
-  </section>
-
-  <section class="mx-auto max-w-5xl px-5 pb-16">
-    {projects.length === 0 ? (
-      <p class="rounded-card border border-dashed border-ink-600 p-8 text-center text-muted">{t('work.empty')}</p>
-    ) : (
-      <div class="grid grid-cols-1 gap-3 md:grid-cols-2" data-grid>
-        {projects.map((p, i) => (
-          <div data-category={p.data.category} data-reveal style={`--i:${i + 1}`}>
-            <CaseFileCard href={localizePath(`/work/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} index={i + 1} />
-          </div>
-        ))}
-      </div>
-    )}
+  </header>
+  <section class="field-section pt-10">
+    <div class="field-shell">
+      {projects.length > 0 && <div class="mb-12 flex flex-wrap border-y border-ink" data-filter-bar data-all={allLabel}>{categories.map((category, index) => <button data-filter={index === 0 ? '__all__' : category} class:list={['min-h-11 border-r border-ink px-4 font-mono text-[10px] uppercase tracking-[.08em]', index === 0 ? 'bg-ink text-paper' : 'hover:bg-signal hover:text-white']}>{category}</button>)}</div>}
+      {projects.length === 0 ? <div class="grid min-h-72 place-items-center border-y border-ink text-center"><div><p class="field-label">00 / Empty archive</p><p class="mt-4 max-w-md text-muted">{t('work.empty')}</p></div></div> : <div data-grid>{projects.map((project, index) => <div data-category={project.data.category} data-reveal style={`--i:${index}`}><CaseFileCard href={localizePath(`/work/${entrySlug(project.id)}`, lang)} title={project.data.title} summary={project.data.summary} category={project.data.category} stack={project.data.stack} index={index + 1} /></div>)}</div>}
+    </div>
   </section>
 </Base>
-
 <script is:inline data-astro-rerun>
-  (() => {
-    const bar = document.querySelector('[data-filter-bar]');
-    const cards = document.querySelectorAll('[data-grid] [data-category]');
-    if (!bar) return;
-    bar.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-filter]');
-      if (!btn) return;
-      const f = btn.dataset.filter;
-      bar.querySelectorAll('[data-filter]').forEach((b) => {
-        const on = b === btn;
-        b.classList.toggle('border-accent', on);
-        b.classList.toggle('text-accent', on);
-        b.classList.toggle('border-ink-600', !on);
-        b.classList.toggle('text-muted', !on);
-      });
-      cards.forEach((c) => {
-        c.style.display = f === '__all__' || c.dataset.category === f ? '' : 'none';
-      });
-    });
-  })();
+  (() => { const bar = document.querySelector('[data-filter-bar]'); if (!bar || bar.dataset.ready) return; bar.dataset.ready = '1'; const rows = document.querySelectorAll('[data-grid] [data-category]'); bar.addEventListener('click', (event) => { const button = event.target.closest('[data-filter]'); if (!button) return; const filter = button.dataset.filter; bar.querySelectorAll('[data-filter]').forEach((item) => item.classList.toggle('bg-ink', item === button)); rows.forEach((row) => { row.style.display = filter === '__all__' || row.dataset.category === filter ? '' : 'none'; }); }); })();
 </script>
