@@ -1,11 +1,24 @@
 ---
-interface Props { eyebrow?: string; title: string; accent?: string; sub?: string; align?: 'center' | 'left'; }
-const { eyebrow, title, accent, sub } = Astro.props;
+// Header di sezione centrato: eyebrow `// LABEL` + titolo grande (con una parola
+// accentata) + sottotitolo. Pattern ricorrente nei portfolio di riferimento.
+interface Props {
+  eyebrow?: string;
+  title: string;
+  accent?: string; // parola/frase evidenziata in coda al titolo
+  sub?: string;
+  align?: 'center' | 'left';
+}
+const { eyebrow, title, accent, sub, align = 'center' } = Astro.props;
+const center = align === 'center';
 ---
-<div data-reveal class="field-heading">
-  <div>{eyebrow && <p class="field-label">{eyebrow}</p>}</div>
-  <div>
-    <h2>{title}{accent && <> <span class="field-serif text-signal">{accent}</span></>}</h2>
-    {sub && <p class="mt-5 max-w-xl text-base leading-relaxed text-muted">{sub}</p>}
-  </div>
+<div data-reveal class={center ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'}>
+  {eyebrow && (
+    <p class={`eyebrow ${center ? 'flex items-center justify-center gap-1' : ''}`}>
+      <span class="slashes">//</span>{eyebrow}
+    </p>
+  )}
+  <h2 class="mt-3 text-3xl font-semibold leading-tight tracking-tight text-text sm:text-4xl">
+    {title}{accent && <> <span class="text-accent">{accent}</span></>}
+  </h2>
+  {sub && <p class="mt-3 text-base leading-relaxed text-muted">{sub}</p>}
 </div>

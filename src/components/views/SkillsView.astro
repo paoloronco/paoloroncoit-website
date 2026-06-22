@@ -15,10 +15,10 @@ const tip = (s: { desc?: Record<string, string>; tools?: string[] }) =>
   [s.desc?.[lang], s.tools?.length ? s.tools.join(' · ') : null].filter(Boolean).join('  —  ');
 ---
 <Base title="Skills" description={skillsTagline[lang]} path="/skills">
-  <section class="field-shell pt-14 pb-10 sm:pt-20">
+  <section class="mx-auto max-w-6xl px-5 pt-16 pb-8">
     <CmdPath cmd="cat" arg="skills.json" />
     <div class="anim-rise mt-3 flex flex-wrap items-end justify-between gap-x-4 gap-y-3" style="animation-delay:.12s">
-      <h1 class="field-display text-[clamp(4.5rem,11vw,9rem)]">SKILLS<span class="text-signal">.</span></h1>
+      <h1 class="text-4xl font-semibold tracking-tight text-text sm:text-5xl">Skills</h1>
       <div class="flex shrink-0 items-center gap-2 pb-1.5">
         <span class="font-mono text-[11px] uppercase tracking-wide text-muted/70">{t('skills.view')}</span>
         <div class="inline-flex rounded-full border border-ink-600 p-0.5" data-skills-toggle role="group" aria-label={t('skills.view')}>
@@ -39,7 +39,7 @@ const tip = (s: { desc?: Record<string, string>; tools?: string[] }) =>
     </nav>
   </section>
 
-  <section class="field-shell pb-20" data-skills-mode="dots">
+  <section class="mx-auto max-w-6xl px-5 pb-20" data-skills-mode="dots">
     {skillCategories.map((cat) => (
       <div data-reveal id={slug(cat.name.en)} style={`--c:${cat.color}`} class="scroll-mt-20 border-t border-ink-600/50 py-11">
         <div class="mb-7 flex items-center gap-2.5">
