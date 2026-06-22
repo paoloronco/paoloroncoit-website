@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "check:design": "node scripts/check-field-manual.mjs"
+    "check:design": "node scripts/check-field-manual.mjs",
+    "check:projects": "node scripts/check-project-catalog.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.0",
@@ -27,6 +28,7 @@
     "@astrojs/check": "^0.9.4",
     "turndown": "^7.2.4",
     "turndown-plugin-gfm": "^1.0.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "yaml": "^2.8.3"
   }
 }
