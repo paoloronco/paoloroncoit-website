@@ -14,11 +14,26 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.log
-.claude/settings.local.json
 
-# local helpers
-avvia-sito.bat
+# local documentation / planning
+docs/
+PROPOSAL.md
+
+# AI assistants
+.agents/
+.claude/
+.codex/
+.cursor/
 .superpowers/
+.aider*
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+
+# local Windows helpers
+*.bat
+*.cmd
+*.ps1
 
 # vercel
 .vercel
