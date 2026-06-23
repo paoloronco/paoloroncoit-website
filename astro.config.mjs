@@ -10,6 +10,12 @@ const SITE = 'https://paoloronco.it';
 
 export default defineConfig({
   site: SITE,
+  redirects: {
+    '/work': '/projects',
+    '/work/[...slug]': '/projects/[...slug]',
+    '/en/work': '/en/projects',
+    '/en/work/[...slug]': '/en/projects/[...slug]',
+  },
   // Le pagine restano statiche (prerender di default). Solo le route con
   // `export const prerender = false` (es. /api/ask) girano on-demand su Vercel.
   adapter: vercel({ maxDuration: 60 }),

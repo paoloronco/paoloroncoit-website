@@ -56,7 +56,7 @@ const fmt = (d: Date) =>
           </h1>
           <p class="anim-rise mt-6 max-w-md text-base leading-relaxed text-text-dim" style="animation-delay:.42s">{t('home.intro')}</p>
           <div class="anim-rise mt-7 flex flex-wrap items-center gap-3" style="animation-delay:.54s">
-            <a href={localizePath('/work', lang)} class="btn-shine rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-ink-900 shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:shadow-accent/40">
+            <a href={localizePath('/projects', lang)} class="btn-shine rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-ink-900 shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:shadow-accent/40">
               {t('home.ctaWork')}
             </a>
             <a href={localizePath('/writing', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
@@ -140,12 +140,12 @@ const fmt = (d: Date) =>
       <div class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
         {projects.map((p, i) => (
           <div data-reveal style={`--i:${i + 1}`}>
-            <CaseFileCard href={localizePath(`/work/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} index={i + 1} />
+            <CaseFileCard href={localizePath(`/projects/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} index={i + 1} />
           </div>
         ))}
       </div>
       <div class="mt-8 text-center" data-reveal>
-        <a href={localizePath('/work', lang)} class="link-underline text-sm text-muted hover:text-accent">{t('common.all')}</a>
+        <a href={localizePath('/projects', lang)} class="link-underline text-sm text-muted hover:text-accent">{t('common.all')}</a>
       </div>
     </section>
   )}

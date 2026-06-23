@@ -8,7 +8,7 @@ export const ui = {
   it: {
     // generali / nav
     'nav.cv': 'CV',
-    'nav.work': 'Progetti',
+    'nav.projects': 'Projects',
     'nav.writing': 'Articoli',
     'nav.skills': 'Competenze',
     'nav.about': 'About',
@@ -137,14 +137,14 @@ export const ui = {
     'skills.modePct': 'Percentuale',
 
     // work
-    'work.kicker': 'Portfolio',
+    'work.kicker': 'Projects',
     'work.subtitle': 'Non un elenco: ogni progetto è un case file — problema, soluzione, stack, risultato.',
     'work.all': 'tutti',
     'work.problem': 'Problema',
     'work.solution': 'Soluzione',
     'work.outcome': 'Risultato',
     'work.stack': 'Stack',
-    'work.back': '← work',
+    'work.back': '← projects',
     'work.empty': 'Progetti in arrivo.',
     'writing.empty': 'Articoli in arrivo in questa lingua.',
 
@@ -163,7 +163,7 @@ export const ui = {
 
   en: {
     'nav.cv': 'CV',
-    'nav.work': 'Work',
+    'nav.projects': 'Projects',
     'nav.writing': 'Writing',
     'nav.skills': 'Skills',
     'nav.about': 'About',
@@ -194,7 +194,7 @@ export const ui = {
     'home.featured': 'In the',
     'home.featuredAccent': 'spotlight',
     'home.featuredEyebrow': 'projects',
-    'home.featuredSub': 'A selection of work: problem, solution, stack, outcome.',
+    'home.featuredSub': 'A selection of projects: problem, solution, stack, outcome.',
     'home.recent': 'From the',
     'home.recentAccent': 'blog',
     'home.recentEyebrow': 'articles',
@@ -284,14 +284,14 @@ export const ui = {
     'skills.modeDots': 'Levels',
     'skills.modePct': 'Percent',
 
-    'work.kicker': 'Portfolio',
+    'work.kicker': 'Projects',
     'work.subtitle': 'Not a list: every project is a case file — problem, solution, stack, outcome.',
     'work.all': 'all',
     'work.problem': 'Problem',
     'work.solution': 'Solution',
     'work.outcome': 'Outcome',
     'work.stack': 'Stack',
-    'work.back': '← work',
+    'work.back': '← projects',
     'work.empty': 'Projects coming soon.',
     'writing.empty': 'Articles coming soon in this language.',
 

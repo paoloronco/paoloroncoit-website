@@ -22,7 +22,7 @@ Lavoro tra sicurezza cloud, AI applicata alla difesa e automazione. Nel mio home
 export const nav = [
   { href: '/cv', label: 'CV' },
   { href: '/skills', label: 'Skills' },
-  { href: '/work', label: 'Work' },
+  { href: '/projects', label: 'Projects' },
   { href: '/writing', label: 'Writing' },
   { href: '/about', label: 'About' },
 ] as const;

@@ -23,9 +23,9 @@ const ld = {
 };
 ---
 
-<Base title={d.title} description={d.summary} path={`/work/${entrySlug(project.id)}`}>
+<Base title={d.title} description={d.summary} path={`/projects/${entrySlug(project.id)}`}>
   <article class="mx-auto max-w-3xl px-5 pt-14 pb-10">
-    <a href={localizePath('/work', lang)} class="font-mono text-xs text-muted hover:text-accent">{t('work.back')}</a>
+    <a href={localizePath('/projects', lang)} class="font-mono text-xs text-muted hover:text-accent">{t('work.back')}</a>
 
     <div class="mt-5 flex flex-wrap items-center gap-2">
       <span class="kicker rounded px-1.5 py-0.5" style={`color:${color};background:color-mix(in oklab, ${color} 14%, transparent)`}>{d.category}</span>

@@ -7,7 +7,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const current = stripLangPrefix(Astro.url.pathname);
 const isActive = (href: string) => current === href || current.startsWith(href + '/');
-// Label di menu localizzate (IT: Progetti/Articoli/Competenze · EN: Work/Writing/Skills).
+// Label di menu localizzate.
 const navLabel = (href: string) => t(`nav.${href.replace(/\//g, '')}` as any);
 ---
 

@@ -11,7 +11,7 @@ const g = en ? { nav: 'Navigate', act: 'Actions', post: 'Articles' } : { nav: 'N
 const navCommands = [
   { group: g.nav, name: 'Home', href: L('/'), keys: 'home start', kind: 'nav' },
   { group: g.nav, name: 'CV', href: L('/cv'), keys: 'curriculum cv esperienza experience', kind: 'nav' },
-  { group: g.nav, name: 'Work', sub: en ? 'projects' : 'progetti', href: L('/work'), keys: 'progetti portfolio case projects', kind: 'nav' },
+  { group: g.nav, name: 'Projects', sub: en ? 'case files' : 'progetti', href: L('/projects'), keys: 'progetti portfolio case projects work', kind: 'nav' },
   { group: g.nav, name: 'Writing', sub: en ? 'articles' : 'articoli', href: L('/writing'), keys: 'articoli blog post articles', kind: 'nav' },
   { group: g.nav, name: 'Skills', sub: en ? 'technical skills' : 'competenze tecniche', href: L('/skills'), keys: 'competenze skill tecnologie tool skills', kind: 'nav' },
   { group: g.nav, name: 'About', href: L('/about'), keys: 'chi sono bio infra about', kind: 'nav' },

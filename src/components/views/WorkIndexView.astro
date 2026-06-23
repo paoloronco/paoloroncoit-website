@@ -15,10 +15,10 @@ const allLabel = t('work.all');
 const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
 ---
 
-<Base title="Work" description={t('work.subtitle')} path="/work">
+<Base title="Projects" description={t('work.subtitle')} path="/projects">
   <section class="mx-auto max-w-5xl px-5 pt-16 pb-10">
-    <CmdPath cmd="cd" arg="~/work" />
-    <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text" style="animation-delay:.12s">Work</h1>
+    <CmdPath cmd="cd" arg="~/projects" />
+    <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text" style="animation-delay:.12s">Projects</h1>
     <p class="anim-rise mt-3 max-w-2xl text-text-dim" style="animation-delay:.2s">{t('work.subtitle')}</p>
 
     {projects.length > 0 && (
@@ -43,7 +43,7 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
       <div class="grid grid-cols-1 gap-3 md:grid-cols-2" data-grid>
         {projects.map((p, i) => (
           <div data-category={p.data.category} data-reveal style={`--i:${i + 1}`}>
-            <CaseFileCard href={localizePath(`/work/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} index={i + 1} />
+            <CaseFileCard href={localizePath(`/projects/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} index={i + 1} />
           </div>
         ))}
       </div>
