@@ -115,6 +115,14 @@ const T = {
         `<span class="term__path">${T.path}</span><span class="term__prompt">$ </span>`;
       const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
       const scroll = () => { body.scrollTop = body.scrollHeight; };
+      const hasTouchInput = () =>
+        (navigator.maxTouchPoints || 0) > 0 ||
+        (navigator.msMaxTouchPoints || 0) > 0 ||
+        (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+      const canAutoFocusInput = () =>
+        !hasTouchInput() &&
+        window.matchMedia &&
+        window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
       function addLine(html, cls) {
         const div = document.createElement('div');
@@ -229,7 +237,7 @@ const T = {
       body.addEventListener('click', (e) => {
         if (e.target.closest('a')) return;
         if (window.getSelection && String(window.getSelection())) return;
-        if (!inputline.hidden) { try { input.focus({ preventScroll: true }); } catch (_) {} }
+        if (canAutoFocusInput() && !inputline.hidden) { try { input.focus({ preventScroll: true }); } catch (_) {} }
       });
 
       // ---- intro typing (niente spazio pre-allocato: cresce mentre scrive) ----
@@ -251,7 +259,7 @@ const T = {
         inputline.hidden = false;
         hi = history.length;
         scroll();
-        if (window.matchMedia && window.matchMedia('(pointer:fine)').matches) {
+        if (canAutoFocusInput()) {
           try { input.focus({ preventScroll: true }); } catch (_) {}
         }
       }

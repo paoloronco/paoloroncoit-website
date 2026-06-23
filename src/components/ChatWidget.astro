@@ -79,6 +79,30 @@ const i18n = {
     const closeBtn = panel.querySelector('[data-chat-close]');
     let busy = false;
 
+    const setCookieOffset = () => {
+      const viewportBottom = window.innerHeight;
+      let offset = 0;
+      document.querySelectorAll('.cky-consent-container, [class*="cky-consent"]').forEach((el) => {
+        const style = window.getComputedStyle(el);
+        const rect = el.getBoundingClientRect();
+        if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return;
+        if (rect.width < 180 || rect.height < 40 || rect.bottom < viewportBottom - 16) return;
+        offset = Math.max(offset, Math.min(rect.height + 12, viewportBottom * 0.45));
+      });
+      document.documentElement.style.setProperty('--chat-cookie-offset', offset ? `${Math.round(offset)}px` : '0px');
+    };
+
+    if (window.__chatCookieObserver) window.__chatCookieObserver.disconnect();
+    if (window.__chatCookieResize) window.removeEventListener('resize', window.__chatCookieResize);
+    const cookieObserver = new MutationObserver(setCookieOffset);
+    cookieObserver.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] });
+    window.addEventListener('resize', setCookieOffset);
+    window.__chatCookieObserver = cookieObserver;
+    window.__chatCookieResize = setCookieOffset;
+    setCookieOffset();
+    setTimeout(setCookieOffset, 500);
+    setTimeout(setCookieOffset, 1500);
+
     // sessionId persistente per la sessione del browser (continuità conversazione)
     let sid;
     try {

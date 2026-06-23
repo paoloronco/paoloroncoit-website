@@ -294,6 +294,10 @@ h1, h2, h3, .font-display {
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent-soft));
   box-shadow: 0 10px 30px -8px color-mix(in oklab, var(--color-accent) 55%, transparent);
 }
+.chat-fab[data-chat-toggle] {
+  bottom: calc(1.25rem + env(safe-area-inset-bottom) + var(--chat-cookie-offset, 0px));
+  right: calc(1.25rem + env(safe-area-inset-right));
+}
 .chat-fab::before {
   content: '';
   position: absolute;
@@ -307,6 +311,8 @@ h1, h2, h3, .font-display {
   70%, 100% { transform: scale(1.6); opacity: 0; }
 }
 .chat-panel {
+  bottom: calc(6rem + env(safe-area-inset-bottom) + var(--chat-cookie-offset, 0px));
+  right: calc(1.25rem + env(safe-area-inset-right));
   transform-origin: bottom right;
   opacity: 0;
   transform: translateY(16px) scale(0.96);
@@ -319,6 +325,12 @@ h1, h2, h3, .font-display {
   opacity: 1;
   transform: none;
   pointer-events: auto;
+}
+@media (max-width: 640px) {
+  .chat-panel {
+    right: 1rem;
+    width: calc(100vw - 2rem);
+  }
 }
 /* indicatore "sta scrivendo/cercando" */
 .typing-dots { display: inline-flex; gap: 4px; align-items: center; }

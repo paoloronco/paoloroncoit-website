@@ -13,15 +13,19 @@ const year = new Date().getFullYear();
       <p class="mt-1">{site.role}</p>
       <p class="mt-1">{site.domains.join(' · ')}</p>
     </div>
-    <div class="flex flex-wrap gap-x-5 gap-y-2">
+    <div class="flex w-full flex-nowrap items-center justify-between gap-3 overflow-x-auto whitespace-nowrap text-[13px] sm:w-auto sm:justify-start sm:gap-x-5 sm:text-sm">
       <a class="hover:text-accent" href={site.socials.github}>GitHub</a>
-      <a class="hover:text-accent" href={site.socials.huggingface}>Hugging Face</a>
+      <a class="hover:text-accent" href={site.socials.huggingface} aria-label="Hugging Face">
+        <span class="sm:hidden">HF</span><span class="hidden sm:inline">Hugging Face</span>
+      </a>
       <a class="hover:text-accent" href={site.socials.linkedin}>LinkedIn</a>
       <a class="hover:text-accent" href="/rss.xml">RSS</a>
-      <a class="hover:text-accent" href="/.well-known/security.txt">security.txt</a>
+      <a class="hover:text-accent" href="/.well-known/security.txt" aria-label="security.txt">
+        <span class="sm:hidden">Security</span><span class="hidden sm:inline">security.txt</span>
+      </a>
     </div>
   </div>
-  <div class="mx-auto flex max-w-5xl flex-col gap-3 px-5 pb-8 sm:flex-row sm:items-center sm:justify-between">
+  <div class="mx-auto flex max-w-5xl flex-col gap-3 px-5 pb-28 sm:flex-row sm:items-center sm:justify-between sm:pb-8">
     <p class="font-mono text-xs text-muted/70">© {year} {site.name}</p>
     <nav class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted" aria-label={t('footer.legal')}>
       <a class="hover:text-accent" href={localizePath('/privacy', lang)}>{t('footer.privacy')}</a>
