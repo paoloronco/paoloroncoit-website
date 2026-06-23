@@ -438,6 +438,12 @@ a.chat-card:hover { border-color: color-mix(in oklab, var(--color-accent) 55%, t
 .term__body::-webkit-scrollbar { width: 8px; }
 .term__body::-webkit-scrollbar-thumb { background: var(--color-ink-500); border-radius: 4px; }
 .term__line { display: block; }
+.term__promptwrap {
+  display: inline-block;
+  flex: 0 0 auto;
+  margin-right: 0.25ch;
+  white-space: nowrap;
+}
 .term__prompt { color: var(--color-accent); }
 .term__user { color: var(--color-ok); }
 .term__path { color: var(--color-accent-2); }
@@ -449,10 +455,14 @@ a.chat-card:hover { border-color: color-mix(in oklab, var(--color-accent) 55%, t
 .term__link { color: var(--color-accent); text-underline-offset: 2px; }
 .term__link:hover { text-decoration: underline; }
 /* riga di input interattiva */
-.term__inputline { display: flex; align-items: baseline; }
+.term__inputline {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+}
 .term__field {
   flex: 1 1 auto;
-  min-width: 2ch;
+  min-width: 0;
   border: 0;
   background: transparent;
   color: var(--color-text);

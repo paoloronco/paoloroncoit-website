@@ -3,7 +3,8 @@
 // l'intro si "scrive" da sola, poi l'utente digita comandi reali con risposte.
 // I comandi sconosciuti restituiscono un errore "command not found".
 import { enterpriseSecurityArea, site } from '@/data/site';
-import { getLangFromUrl, localizePath } from '@/i18n/utils';
+import { getCollection } from 'astro:content';
+import { entryLang, entrySlug, getLangFromUrl, localizePath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const en = lang === 'en';
@@ -17,6 +18,43 @@ const focus: [string, string][] = [
   ['automation', 'workflow · pipeline · REST API · CI/CD · n8n · Zapier · Make · GitHub Actions · serverless'],
   ['cloud', 'Google Cloud · AWS · Azure · Oracle Cloud · IaaS/PaaS/SaaS'],
 ];
+
+const projectEntries = (await getCollection('work', (entry) => !entry.data.draft && entryLang(entry.id) === lang)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const projectFiles = projectEntries.map((project) => {
+  const slug = entrySlug(project.id).replace(/\/index$/, '');
+  const filename = `${slug.replace(/[^a-zA-Z0-9._-]+/g, '-')}.md`;
+  const data = project.data;
+  const body = typeof project.body === 'string' && project.body.trim() ? project.body.trim() : '';
+  const lines = [
+    `# ${data.title}`,
+    '',
+    data.summary,
+    '',
+    `category: ${data.category}`,
+    `stack: ${data.stack.join(', ') || '-'}`,
+    '',
+    `## ${en ? 'Problem' : 'Problema'}`,
+    data.problem,
+    '',
+    `## ${en ? 'Solution' : 'Soluzione'}`,
+    data.solution,
+    '',
+    `## ${en ? 'Outcome' : 'Risultato'}`,
+    data.outcome,
+  ];
+  if (data.links.length) {
+    lines.push(
+      '',
+      `## Link`,
+      ...data.links.map((item) => `- [${item.label}](${item.href})`)
+    );
+  }
+  if (body) lines.push('', '---', '', body);
+  return { filename, markdown: lines.join('\n'), href: localizePath(`/work/${slug}`, lang) };
+});
 
 const T = {
   user, host, path,
@@ -48,6 +86,8 @@ const T = {
     dSocial: en ? 'my profiles' : 'i miei profili',
     dFocus: en ? 'focus areas' : 'aree di competenza',
     dClear: en ? 'clear the terminal' : 'pulisci il terminale',
+    dCd: en ? 'change directory' : 'entra/esci da una cartella',
+    dLs: en ? 'list files in the current directory' : 'lista i file nella cartella corrente',
     dCat: en ? 'read a file (e.g. cat cv.md)' : 'leggi un file (es. cat cv.md)',
     notFound: en ? 'command not found' : 'comando non trovato',
     hint: en ? "type 'help' to list the commands" : "scrivi 'help' per l'elenco dei comandi",
@@ -55,6 +95,8 @@ const T = {
     placeholder: en ? 'type a command… (e.g. help)' : 'scrivi un comando… (es. help)',
     noFile: en ? 'No such file or directory' : 'file o cartella inesistente',
     isDir: en ? 'Is a directory' : 'è una cartella',
+    emptyProjects: en ? 'no project markdown files yet' : 'nessun file markdown progetto al momento',
+    badPath: en ? 'invalid path' : 'percorso non valido',
     readonly: en ? '(read-only — this is a terminal, not an editor 🙂)' : '(sola lettura — è un terminale, non un editor 🙂)',
     bio: en
       ? `Cyber Security Analyst at Deloitte, in the ${enterpriseSecurityArea}. Cloud security, infrastructure and AI applied to defense.`
@@ -69,6 +111,7 @@ const T = {
     restore: en ? 'restore terminal' : 'ripristina terminale',
     reopen: en ? 'reopen terminal' : 'riapri terminale',
   },
+  projectFiles,
 };
 ---
 <div class="term-shell" data-term-shell>
@@ -82,7 +125,7 @@ const T = {
     <div class="term__body" data-term-body>
       <div data-term-log></div>
       <div class="term__line term__inputline" data-term-inputline hidden>
-        <span class="term__user">{user}@{host}</span><span class="term__muted">:</span><span class="term__path">{path}</span><span class="term__prompt">$ </span>
+        <span class="term__promptwrap"><span class="term__user">{user}@{host}</span><span class="term__muted">:</span><span class="term__path">{path}</span><span class="term__prompt">$ </span></span>
         <input
           class="term__field"
           data-term-input
@@ -124,11 +167,12 @@ const T = {
       const history = [];
       let hi = 0;
       let shellHome = null;
+      let cwd = '~';
 
-      const ps1 =
-        `<span class="term__user">${T.user}@${T.host}</span><span class="term__muted">:</span>` +
-        `<span class="term__path">${T.path}</span><span class="term__prompt">$ </span>`;
       const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      const promptHtml = () =>
+        `<span class="term__promptwrap"><span class="term__user">${esc(T.user)}@${esc(T.host)}</span><span class="term__muted">:</span>` +
+        `<span class="term__path">${esc(cwd)}</span><span class="term__prompt">$ </span></span>`;
       const scroll = () => { body.scrollTop = body.scrollHeight; };
       const hasTouchInput = () =>
         (navigator.maxTouchPoints || 0) > 0 ||
@@ -186,14 +230,30 @@ const T = {
         return div;
       }
 
-      const link = (href, label) => `<a class="term__link" href="${href}">${esc(label || href)}</a>`;
+      const link = (href, label) => `<a class="term__link" href="${esc(href)}">${esc(label || href)}</a>`;
       const navOut = (key, desc) => `<span class="term__resp">${esc(desc)}</span>\n<span class="term__muted">→</span> ${link(T.paths[key], T.paths[key])}`;
       const go = (href) => { window.location.href = href; };
+      const projectMap = Object.fromEntries((T.projectFiles || []).map((file) => [file.filename, file]));
+      const projectNames = Object.keys(projectMap);
+      const isProjectsDir = () => cwd === '~/projects';
+      const safeArg = (arg) => {
+        const raw = (arg || '').trim().replace(/^~\//, '').replace(/^\.\//, '').replace(/\/+$/, '');
+        if (!raw) return '';
+        if (raw.includes('\0') || raw.includes('\\')) return null;
+        const parts = raw.split('/').filter(Boolean);
+        if (parts.some((part) => part === '.' || part === '..')) return null;
+        return parts.join('/');
+      };
+      const projectListing = () =>
+        projectNames.length
+          ? `<span class="term__path">${projectNames.map(esc).join('  ')}</span>`
+          : `<span class="term__muted">${esc(T.s.emptyProjects)}</span>`;
 
       const helpList = [
         ['help', T.s.dHelp], ['whoami', T.s.dWhoami], ['skills', T.s.dSkills], ['projects', T.s.dWork],
         ['articles', T.s.dWriting], ['cv', T.s.dCv], ['about', T.s.dAbout], ['contact', T.s.dContact],
-        ['ai', T.s.dAi], ['social', T.s.dSocial], ['focus', T.s.dFocus], ['cat', T.s.dCat], ['clear', T.s.dClear],
+        ['ai', T.s.dAi], ['social', T.s.dSocial], ['focus', T.s.dFocus], ['cd', T.s.dCd],
+        ['ls', T.s.dLs], ['cat', T.s.dCat], ['clear', T.s.dClear],
       ];
 
       const commands = {
@@ -203,7 +263,7 @@ const T = {
         about: () => navOut('about', T.s.dAbout),
         skills: () => navOut('skills', T.s.dSkills),
         work: () => navOut('work', T.s.dWork),
-        projects: () => commands.work(),
+        projects: () => { cwd = '~/projects'; return commands.ls(); },
         writing: () => navOut('writing', T.s.dWriting),
         articles: () => commands.writing(),
         blog: () => commands.writing(),
@@ -212,7 +272,25 @@ const T = {
         contact: () => `<span class="term__resp">${esc(T.s.dContact)}</span>\n<span class="term__muted">→</span> ${link('mailto:' + T.email, T.email)}`,
         email: () => commands.contact(),
         social: () => Object.keys(T.links).map((k) => `<span class="term__key">${k.padEnd(14)}</span>${link(T.links[k], T.links[k])}`).join('\n'),
-        ls: () => `<span class="term__path">cv.md  skills.json  projects/  writing/  about.md  contact.md  focus.txt</span>`,
+        pwd: () => `<span class="term__resp">${esc(cwd)}</span>`,
+        cd: (arg) => {
+          const target = (arg || '').trim().replace(/\/+$/, '');
+          if (!target || target === '~') { cwd = '~'; return null; }
+          if (target === '..') { cwd = '~'; return null; }
+          if (isProjectsDir() && (target === '.' || target === './projects' || target === 'projects')) return null;
+          if (!isProjectsDir() && (target === 'projects' || target === './projects' || target === '~/projects')) {
+            cwd = '~/projects';
+            return null;
+          }
+          return `<span class="term__err">cd: ${esc(arg)}: ${esc(T.s.noFile)}</span>`;
+        },
+        ls: (arg) => {
+          const target = safeArg(arg);
+          if (target == null) return `<span class="term__err">ls: ${esc(arg)}: ${esc(T.s.badPath)}</span>`;
+          if (!target) return isProjectsDir() ? projectListing() : `<span class="term__path">cv.md  skills.json  projects/  writing/  about.md  contact.md  focus.txt</span>`;
+          if (!isProjectsDir() && target === 'projects') return projectListing();
+          return `<span class="term__err">ls: ${esc(arg)}: ${esc(T.s.noFile)}</span>`;
+        },
         ai: (arg) => { if (arg) { go(T.paths.ask + '?q=' + encodeURIComponent(arg)); return null; } return navOut('ask', T.s.dAi); },
         ask: (arg) => commands.ai(arg),
         date: () => `<span class="term__resp">${esc(new Date().toLocaleString(T.lang === 'en' ? 'en-GB' : 'it-IT'))}</span>`,
@@ -238,10 +316,19 @@ const T = {
       };
       const dirs = { projects: T.paths.work, writing: T.paths.writing };
       function readFile(arg, editor) {
-        const raw = (arg || '').trim().replace(/^\.\//, '');
+        const rawArg = (arg || '').trim();
+        const raw = safeArg(rawArg);
+        if (raw == null) return `<span class="term__err">cat: ${esc(rawArg)}: ${esc(T.s.badPath)}</span>`;
         if (!raw) return '<span class="term__err">usage: cat &lt;file&gt;</span> <span class="term__muted">— ls</span>';
         const bare = raw.replace(/\/$/, '');
         if (dirs[bare]) return `<span class="term__err">cat: ${esc(raw)}: ${esc(T.s.isDir)}</span>\n<span class="term__muted">→</span> ${link(dirs[bare], dirs[bare])}`;
+        const projectName = isProjectsDir() ? bare : bare.startsWith('projects/') ? bare.slice('projects/'.length) : '';
+        if (projectName) {
+          const project = projectMap[projectName];
+          if (!project) return `<span class="term__err">cat: ${esc(rawArg)}: ${esc(T.s.noFile)}</span>`;
+          const content = `<span class="term__md">${esc(project.markdown)}</span>\n<span class="term__muted">→</span> ${link(project.href, project.href)}`;
+          return editor ? content + `\n<span class="term__muted">${esc(T.s.readonly)}</span>` : content;
+        }
         const f = files[raw] || files[bare];
         if (!f) return `<span class="term__err">cat: ${esc(raw)}: ${esc(T.s.noFile)}</span>`;
         const content = f();
@@ -256,7 +343,7 @@ const T = {
 
       function exec(raw) {
         const line = raw.trim();
-        addLine(ps1 + `<span class="term__cmd">${esc(line)}</span>`);
+        addLine(promptHtml() + `<span class="term__cmd">${esc(line)}</span>`);
         if (!line) return;
         history.push(line);
         hi = history.length;
@@ -318,7 +405,7 @@ const T = {
 
       // ---- intro typing (niente spazio pre-allocato: cresce mentre scrive) ----
       function typeCmd(text, done) {
-        const lineEl = addLine(ps1 + '<span class="term__cmd"></span>');
+        const lineEl = addLine(promptHtml() + '<span class="term__cmd"></span>');
         const span = lineEl.querySelector('.term__cmd');
         const caret = document.createElement('span');
         caret.className = 'term__caret';
