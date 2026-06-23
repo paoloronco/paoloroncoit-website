@@ -662,34 +662,17 @@ a.chat-card:hover { border-color: color-mix(in oklab, var(--color-accent) 55%, t
     align-items: flex-start;
     pointer-events: none;
   }
-  .hero-portrait::before {
-    content: '';
-    position: absolute;
-    inset: 0 0 auto;
-    height: 100%;
-    z-index: -1;
-    background:
-      radial-gradient(70% 72% at 55% 18%, color-mix(in oklab, var(--color-accent) 28%, transparent), transparent 68%),
-      linear-gradient(180deg, color-mix(in oklab, var(--color-ink-800) 86%, transparent), transparent 82%);
-  }
+  .hero-portrait::before,
   .hero-portrait::after {
-    content: '';
-    position: absolute;
-    inset: auto 0 0;
-    z-index: 20;
-    height: 64%;
-    background:
-      linear-gradient(180deg, transparent 0%, color-mix(in oklab, var(--color-ink-900) 74%, transparent) 54%, var(--color-ink-900) 96%),
-      linear-gradient(90deg, var(--color-ink-900) 0%, transparent 26%, transparent 74%, var(--color-ink-900) 100%);
-    pointer-events: none;
+    content: none;
   }
   .hero-portrait .photo-frame {
     transform: translateY(0.2rem);
   }
   .hero-portrait .photo-frame::before {
-    inset: 2% -8% -14%;
-    opacity: 0.78;
-    filter: blur(34px);
+    inset: -8% -6% 0 -6%;
+    opacity: 0.45;
+    filter: blur(30px);
   }
   .hero-portrait img {
     width: min(25.75rem, 110vw) !important;
