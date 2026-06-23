@@ -21,7 +21,7 @@ const focus: [string, string][] = [
 const T = {
   user, host, path,
   lang,
-  role: `Cyber Security Analyst · Deloitte — ${enterpriseSecurityArea}`,
+  role: `Cyber Security Analyst · Deloitte · ${enterpriseSecurityArea}`,
   email: site.email,
   cvpdf: '/cv.pdf',
   focus,
@@ -57,39 +57,50 @@ const T = {
     isDir: en ? 'Is a directory' : 'è una cartella',
     readonly: en ? '(read-only — this is a terminal, not an editor 🙂)' : '(sola lettura — è un terminale, non un editor 🙂)',
     bio: en
-      ? `Cyber Security Analyst at Deloitte (${enterpriseSecurityArea}). Cloud & architecture security, AI applied to defense, automation.`
-      : `Cyber Security Analyst in Deloitte (${enterpriseSecurityArea}). Sicurezza di cloud e architetture, AI applicata alla difesa, automazione.`,
+      ? `Cyber Security Analyst at Deloitte, in the ${enterpriseSecurityArea}. Cloud security, infrastructure and AI applied to defense.`
+      : `Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Sicurezza cloud, infrastrutture e AI applicata alla difesa.`,
     sudo: en ? '🔒 no root here — it all runs in your browser.' : '🔒 niente root qui — gira tutto nel tuo browser.',
     nmap: en ? 'scanning… 1 host up: you. only open port: curiosity.' : 'scanning… 1 host up: tu. unica porta aperta: la curiosità.',
     hack: en ? 'the only hack here is how fast this site loads ⚡' : "l'unico hack qui è quanto è veloce questo sito ⚡",
     aria: en ? 'Interactive terminal input' : 'Input del terminale interattivo',
+    close: en ? 'close terminal' : 'chiudi terminale',
+    minimize: en ? 'minimize terminal' : 'minimizza terminale',
+    maximize: en ? 'expand terminal' : 'espandi terminale',
+    restore: en ? 'restore terminal' : 'ripristina terminale',
+    reopen: en ? 'reopen terminal' : 'riapri terminale',
   },
 };
 ---
-<div class="term" data-term>
-  <div class="term__bar" aria-hidden="true">
-    <span class="term__dot" style="background:#fb7185"></span>
-    <span class="term__dot" style="background:#fbbf24"></span>
-    <span class="term__dot" style="background:#34d399"></span>
-    <span class="term__title">{user}@{host} — zsh</span>
-  </div>
-  <div class="term__body" data-term-body>
-    <div data-term-log></div>
-    <div class="term__line term__inputline" data-term-inputline hidden>
-      <span class="term__user">{user}@{host}</span><span class="term__muted">:</span><span class="term__path">{path}</span><span class="term__prompt">$ </span>
-      <input
-        class="term__field"
-        data-term-input
-        type="text"
-        autocomplete="off"
-        autocapitalize="off"
-        autocorrect="off"
-        spellcheck="false"
-        aria-label={T.s.aria}
-        placeholder={T.s.placeholder}
-      />
+<div class="term-shell" data-term-shell>
+  <div class="term" data-term>
+    <div class="term__bar">
+      <button class="term__dot term__dot--close" style="background:#fb7185" type="button" data-term-action="close" aria-label={T.s.close} title={T.s.close}></button>
+      <button class="term__dot term__dot--minimize" style="background:#fbbf24" type="button" data-term-action="minimize" aria-label={T.s.minimize} title={T.s.minimize}></button>
+      <button class="term__dot term__dot--maximize" style="background:#34d399" type="button" data-term-action="maximize" aria-label={T.s.maximize} title={T.s.maximize}></button>
+      <span class="term__title">{user}@{host} — zsh</span>
+    </div>
+    <div class="term__body" data-term-body>
+      <div data-term-log></div>
+      <div class="term__line term__inputline" data-term-inputline hidden>
+        <span class="term__user">{user}@{host}</span><span class="term__muted">:</span><span class="term__path">{path}</span><span class="term__prompt">$ </span>
+        <input
+          class="term__field"
+          data-term-input
+          type="text"
+          autocomplete="off"
+          autocapitalize="off"
+          autocorrect="off"
+          spellcheck="false"
+          aria-label={T.s.aria}
+          placeholder={T.s.placeholder}
+        />
+      </div>
     </div>
   </div>
+  <button class="term-notch" type="button" data-term-reopen hidden aria-label={T.s.reopen} title={T.s.reopen}>
+    <span class="term-notch__light"></span>
+    <span class="term-notch__label">{user}@{host}</span>
+  </button>
 </div>
 
 <script is:inline data-astro-rerun define:vars={{ T }}>
@@ -103,12 +114,16 @@ const T = {
     }
 
     function setup(term) {
+      const shell = term.closest('[data-term-shell]');
       const body = term.querySelector('[data-term-body]');
       const log = term.querySelector('[data-term-log]');
       const inputline = term.querySelector('[data-term-inputline]');
       const input = term.querySelector('[data-term-input]');
+      const reopen = shell && shell.querySelector('[data-term-reopen]');
+      const maximizeBtn = term.querySelector('[data-term-action="maximize"]');
       const history = [];
       let hi = 0;
+      let shellHome = null;
 
       const ps1 =
         `<span class="term__user">${T.user}@${T.host}</span><span class="term__muted">:</span>` +
@@ -123,6 +138,44 @@ const T = {
         !hasTouchInput() &&
         window.matchMedia &&
         window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const focusInput = () => {
+        if (!inputline.hidden && canAutoFocusInput()) {
+          try { input.focus({ preventScroll: true }); } catch (_) {}
+        }
+      };
+      const moveShellToViewport = () => {
+        if (!shell || shellHome) return;
+        shellHome = document.createComment('terminal-home');
+        shell.parentNode.insertBefore(shellHome, shell);
+        document.body.appendChild(shell);
+      };
+      const moveShellHome = () => {
+        if (!shell || !shellHome || !shellHome.parentNode) return;
+        shellHome.parentNode.insertBefore(shell, shellHome);
+        shellHome.remove();
+        shellHome = null;
+      };
+      const setMaximized = (on) => {
+        if (!shell) return;
+        if (on) moveShellToViewport();
+        shell.classList.toggle('is-maximized', on);
+        if (maximizeBtn) {
+          maximizeBtn.setAttribute('aria-label', on ? T.s.restore : T.s.maximize);
+          maximizeBtn.setAttribute('title', on ? T.s.restore : T.s.maximize);
+        }
+        scroll();
+        if (on) focusInput();
+        else moveShellHome();
+      };
+      const setMinimized = (on) => {
+        if (!shell || !reopen) return;
+        if (on) {
+          setMaximized(false);
+          try { input.blur(); } catch (_) {}
+        }
+        shell.classList.toggle('is-minimized', on);
+        reopen.hidden = !on;
+      };
 
       function addLine(html, cls) {
         const div = document.createElement('div');
@@ -236,9 +289,32 @@ const T = {
       });
       body.addEventListener('click', (e) => {
         if (e.target.closest('a')) return;
+        if (e.target.closest('button')) return;
         if (window.getSelection && String(window.getSelection())) return;
         if (canAutoFocusInput() && !inputline.hidden) { try { input.focus({ preventScroll: true }); } catch (_) {} }
       });
+      term.querySelectorAll('[data-term-action]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const action = btn.dataset.termAction;
+          if (action === 'close' && shell) {
+            try { input.blur(); } catch (_) {}
+            setMaximized(false);
+            shell.hidden = true;
+          } else if (action === 'minimize') {
+            setMinimized(true);
+          } else if (action === 'maximize' && shell) {
+            setMaximized(!shell.classList.contains('is-maximized'));
+          }
+        });
+      });
+      if (reopen) {
+        reopen.addEventListener('click', () => {
+          setMinimized(false);
+          focusInput();
+        });
+      }
 
       // ---- intro typing (niente spazio pre-allocato: cresce mentre scrive) ----
       function typeCmd(text, done) {
@@ -259,9 +335,7 @@ const T = {
         inputline.hidden = false;
         hi = history.length;
         scroll();
-        if (canAutoFocusInput()) {
-          try { input.focus({ preventScroll: true }); } catch (_) {}
-        }
+        focusInput();
       }
       // intro breve: digita whoami → output → hint → prompt vivo
       typeCmd('whoami', () => {

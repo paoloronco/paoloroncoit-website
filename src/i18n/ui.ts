@@ -25,7 +25,7 @@ export const ui = {
 
     // home
     'home.intro':
-      `Cyber Security Analyst in Deloitte, area ${enterpriseSecurityArea}. Mi occupo della sicurezza di cloud e infrastrutture, con un interesse forte per come l'AI possa rafforzarla. Nel mio homelab metto le mani su automazioni, LLM e tutto ciò che vale la pena capire a fondo.`,
+      `Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Mi occupo di sicurezza cloud, infrastrutture e AI applicata alla difesa. Nel mio homelab metto le mani su automazioni, LLM e tutto ciò che vale la pena capire a fondo.`,
     'home.ctaWork': 'Esplora i progetti →',
     'home.ctaWriting': 'Leggi gli articoli',
     'home.status': 'Disponibile per collaborazioni',
@@ -80,7 +80,7 @@ export const ui = {
     // about
     'about.kicker': 'Chi sono',
     'about.p1':
-      `Sono un Cyber Security Analyst in Deloitte, nell'area ${enterpriseSecurityArea}. Prima ho lavorato come System Administrator e in diversi ruoli legati ai servizi IT, partendo da Torino.`,
+      `Sono un Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Prima ho lavorato come System Administrator e in diversi ruoli legati ai servizi IT, partendo da Torino.`,
     'about.p2':
       '«Ogni esperienza che ho vissuto ha contribuito a formare la persona e il professionista che sono oggi.» Il mio campo è la sicurezza del cloud e delle architetture, con un interesse crescente per l\'AI applicata alla difesa e per l\'automazione di processi e analisi.',
     'about.p3':
@@ -179,7 +179,7 @@ export const ui = {
     'lang.switch': 'Language',
 
     'home.intro':
-      `Cyber Security Analyst at Deloitte, ${enterpriseSecurityArea}. I work on securing cloud and infrastructure, with a keen interest in how AI can strengthen it. In my homelab I get hands-on with automation, LLMs and anything worth understanding in depth.`,
+      `Cyber Security Analyst at Deloitte, in the ${enterpriseSecurityArea}. I work on cloud security, infrastructure and AI applied to defense. In my homelab I get hands-on with automation, LLMs and anything worth understanding in depth.`,
     'home.ctaWork': 'Explore the projects →',
     'home.ctaWriting': 'Read the articles',
     'home.status': 'Available for collaborations',
@@ -231,7 +231,7 @@ export const ui = {
 
     'about.kicker': 'About me',
     'about.p1':
-      `I am a Cyber Security Analyst at Deloitte, in the ${enterpriseSecurityArea} area. Previously I worked as a System Administrator and in several IT-services roles, starting out in Turin.`,
+      `I am a Cyber Security Analyst at Deloitte, in the ${enterpriseSecurityArea}. Previously I worked as a System Administrator and in several IT-services roles, starting out in Turin.`,
     'about.p2':
       '“Every experience I have lived has helped shape the person and professional I am today.” My field is cloud and architecture security, with a growing interest in AI applied to defense and in automating processes and analysis.',
     'about.p3':
