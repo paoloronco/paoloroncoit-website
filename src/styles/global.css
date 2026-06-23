@@ -653,7 +653,7 @@ a.chat-card:hover { border-color: color-mix(in oklab, var(--color-accent) 55%, t
   }
   .home-hero-portrait {
     position: absolute;
-    inset: 0 auto auto 50%;
+    inset: -0.8rem auto auto 80%;
     translate: -50% 0;
     z-index: 1;
     width: 100vw;
@@ -667,7 +667,7 @@ a.chat-card:hover { border-color: color-mix(in oklab, var(--color-accent) 55%, t
     content: none;
   }
   .hero-portrait .photo-frame {
-    transform: translateY(0.2rem);
+    transform: translateY(-0.15rem);
   }
   .hero-portrait .photo-frame::before {
     inset: -8% -6% 0 -6%;
@@ -675,7 +675,7 @@ a.chat-card:hover { border-color: color-mix(in oklab, var(--color-accent) 55%, t
     filter: blur(30px);
   }
   .hero-portrait img {
-    width: min(25.75rem, 110vw) !important;
+    width: min(24.25rem, 103vw) !important;
     transform: translateX(0) !important;
   }
   .home-hero-terminal {
