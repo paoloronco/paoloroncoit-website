@@ -276,6 +276,45 @@ h1, h2, h3, .font-display {
 }
 .link-underline:hover { background-size: 100% 1px; }
 
+/* --- Header mobile: drawer fluido, senza salto display none/block --- */
+.mobile-nav {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  border-top: 1px solid transparent;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-0.45rem);
+  transition:
+    grid-template-rows 0.38s var(--ease-out-expo),
+    opacity 0.24s var(--ease-out-quart),
+    transform 0.38s var(--ease-out-expo),
+    border-color 0.38s var(--ease-out-quart);
+}
+.mobile-nav[data-state='open'] {
+  grid-template-rows: 1fr;
+  border-top-color: color-mix(in oklab, var(--color-ink-600) 70%, transparent);
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+.mobile-nav__clip {
+  min-height: 0;
+  overflow: hidden;
+}
+.mobile-nav__inner {
+  padding: 0.75rem 1.25rem 1rem;
+  opacity: 0;
+  transform: translateY(-0.35rem);
+  transition:
+    opacity 0.24s var(--ease-out-quart),
+    transform 0.38s var(--ease-out-expo);
+}
+.mobile-nav[data-state='open'] .mobile-nav__inner {
+  opacity: 1;
+  transform: none;
+}
+
 /* --- Tilt 3D card --- */
 [data-tilt] {
   transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(0);
@@ -592,31 +631,81 @@ a.chat-card:hover { border-color: color-mix(in oklab, var(--color-accent) 55%, t
 }
 .hero-portrait { position: relative; isolation: isolate; }
 @media (max-width: 639px) {
+  .home-hero-shell {
+    padding-top: 0.75rem;
+  }
+  .home-hero-grid {
+    position: relative;
+    display: block;
+    min-height: clamp(42rem, 178vw, 48rem);
+  }
+  .home-hero-copy {
+    margin-top: 0;
+    padding-top: clamp(13.75rem, 59vw, 17rem);
+    text-shadow: 0 2px 22px rgba(0, 0, 0, 0.58);
+  }
+  .home-hero-copy .kicker {
+    max-width: 16rem;
+  }
+  .home-hero-copy p:not(.kicker) {
+    max-width: 22rem;
+    color: color-mix(in oklab, var(--color-text-dim) 94%, var(--color-text));
+  }
+  .home-hero-portrait {
+    position: absolute;
+    inset: 0 auto auto 50%;
+    translate: -50% 0;
+    z-index: 1;
+    width: 100vw;
+    height: clamp(24rem, 96vw, 30rem);
+    justify-content: center;
+    align-items: flex-start;
+    pointer-events: none;
+  }
   .hero-portrait::before {
     content: '';
     position: absolute;
-    inset: 1rem 0 0;
+    inset: 0 0 auto;
+    height: 100%;
     z-index: -1;
     background:
-      radial-gradient(70% 80% at 76% 42%, color-mix(in oklab, var(--color-accent) 24%, transparent), transparent 66%),
-      linear-gradient(180deg, color-mix(in oklab, var(--color-ink-800) 72%, transparent), transparent 78%);
+      radial-gradient(70% 72% at 55% 18%, color-mix(in oklab, var(--color-accent) 28%, transparent), transparent 68%),
+      linear-gradient(180deg, color-mix(in oklab, var(--color-ink-800) 86%, transparent), transparent 82%);
   }
   .hero-portrait::after {
     content: '';
     position: absolute;
     inset: auto 0 0;
-    z-index: 1;
-    height: 42%;
-    background: linear-gradient(180deg, transparent, var(--color-ink-900) 84%);
+    z-index: 20;
+    height: 64%;
+    background:
+      linear-gradient(180deg, transparent 0%, color-mix(in oklab, var(--color-ink-900) 74%, transparent) 54%, var(--color-ink-900) 96%),
+      linear-gradient(90deg, var(--color-ink-900) 0%, transparent 26%, transparent 74%, var(--color-ink-900) 100%);
     pointer-events: none;
   }
   .hero-portrait .photo-frame {
-    transform: translateY(0.35rem);
+    transform: translateY(0.2rem);
   }
   .hero-portrait .photo-frame::before {
-    inset: 3% -8% -10% -2%;
-    opacity: 0.72;
+    inset: 2% -8% -14%;
+    opacity: 0.78;
     filter: blur(34px);
+  }
+  .hero-portrait img {
+    width: min(25.75rem, 110vw) !important;
+    transform: translateX(0) !important;
+  }
+  .home-hero-terminal {
+    position: relative;
+    z-index: 3;
+    margin-top: clamp(1.25rem, 6vw, 2.25rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav,
+  .mobile-nav__inner {
+    transition-duration: 0.01ms;
   }
 }
 

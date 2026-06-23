@@ -27,7 +27,7 @@ const icons: Record<string, string> = {
   cloud: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 5.5 9.2 3.5 3.5 0 0 0 7 18z"/></svg>',
 };
 
-const marquee = ['Proxmox', 'Docker', 'Kali Linux', 'Wazuh', 'Splunk', 'n8n', 'Cloudflare', 'Google Cloud', 'AWS', 'Azure', 'Linux', 'Bash', 'Ollama', 'OpenAI', 'GitHub', 'RAG', 'Zero Trust', 'MCP'];
+const marquee = ['Proxmox', 'Docker', 'Kali Linux', 'Wazuh', 'Splunk', 'n8n', 'Cloudflare', 'Google Cloud', 'AWS', 'Azure', 'Oracle Cloud (OCI)', 'Linux', 'Bash', 'Ollama', 'vLLM', 'OpenAI', 'GitHub', 'Vercel', 'Wiz', 'RAG', 'Zero Trust', 'MCP'];
 const stack = ['Proxmox', 'Docker', 'Kali Linux', 'Wazuh', 'Splunk', 'n8n', 'Cloudflare', 'Google Cloud', 'Linux', 'Bash', 'Ollama', 'OpenAI', 'GitHub'];
 
 const projects = (await getCollection('work', (e) => !e.data.draft && entryLang(e.id) === lang))
@@ -46,9 +46,9 @@ const fmt = (d: Date) =>
   <!-- ============ HERO ============ -->
   <section class="relative overflow-hidden border-b border-ink-600/60">
     <div class="hero-fx" aria-hidden="true"></div>
-    <div class="relative z-10 mx-auto max-w-5xl px-5 pt-8 sm:pt-24">
-      <div class="grid grid-cols-1 items-center gap-0 sm:grid-cols-[1fr_0.9fr] sm:gap-6">
-        <div class="relative z-20 -mt-12 pb-2 sm:mt-0">
+    <div class="home-hero-shell relative z-10 mx-auto max-w-5xl px-5 pt-8 sm:pt-24">
+      <div class="home-hero-grid grid grid-cols-1 items-center gap-0 sm:grid-cols-[1fr_0.9fr] sm:gap-6">
+        <div class="home-hero-copy relative z-20 -mt-12 pb-2 sm:mt-0">
           <p class="kicker anim-rise text-accent" style="animation-delay:.1s">{site.role}</p>
           <h1 class="mt-3 text-5xl font-semibold leading-[1.02] tracking-tight text-text sm:text-7xl">
             <span class="reveal-mask"><span style="animation-delay:.18s">Paolo</span></span><br />
@@ -68,7 +68,7 @@ const fmt = (d: Date) =>
           </div>
         </div>
 
-        <div class="hero-portrait anim-rise order-first -mx-5 flex h-[17.5rem] items-end justify-end overflow-hidden sm:order-none sm:mx-0 sm:h-auto sm:overflow-visible sm:justify-end" style="animation-delay:.34s">
+        <div class="hero-portrait home-hero-portrait anim-rise order-first -mx-5 flex h-[17.5rem] items-end justify-end overflow-hidden sm:order-none sm:mx-0 sm:h-auto sm:overflow-visible sm:justify-end" style="animation-delay:.34s">
           <div class="photo-frame">
             <img src="/paolo.png" alt={`${site.name}, ${site.role}`} width="549" height="552" fetchpriority="high"
               class="relative z-10 w-[20.5rem] max-w-full translate-x-7 object-contain object-bottom drop-shadow-2xl sm:w-[24rem] sm:translate-x-0 lg:w-[27rem]" />
@@ -77,7 +77,7 @@ const fmt = (d: Date) =>
       </div>
 
       <!-- TERMINALE -->
-      <div class="anim-rise mt-10 pb-16 sm:mt-14 sm:pb-20" style="animation-delay:.64s">
+      <div class="home-hero-terminal anim-rise mt-10 pb-16 sm:mt-14 sm:pb-20" style="animation-delay:.64s">
         <Terminal />
       </div>
     </div>

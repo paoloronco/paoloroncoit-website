@@ -33,7 +33,9 @@ const navLabel = (href: string) => t(`nav.${href.replace(/\//g, '')}` as any);
     </nav>
 
     <div class="ml-auto flex items-center gap-2">
-      <LanguageSelector />
+      <div class="hidden sm:block">
+        <LanguageSelector />
+      </div>
       <button
         type="button"
         data-cmdk-open
@@ -73,21 +75,32 @@ const navLabel = (href: string) => t(`nav.${href.replace(/\//g, '')}` as any);
   <nav
     id="mobile-nav"
     data-mobile-nav
-    class="hidden border-t border-ink-600/70 bg-ink-900/95 px-5 py-3 backdrop-blur-md sm:hidden"
+    data-state="closed"
+    class="mobile-nav bg-ink-900/95 backdrop-blur-md sm:hidden"
     aria-label="Menu mobile"
+    aria-hidden="true"
+    inert
   >
-    {nav.map((item) => (
-      <a
-        href={localizePath(item.href, lang)}
-        aria-current={isActive(item.href) ? 'page' : undefined}
-        class:list={[
-          'block rounded-md px-3 py-3 text-base transition-colors',
-          isActive(item.href) ? 'bg-ink-700 text-text' : 'text-text-dim hover:bg-ink-800 hover:text-text',
-        ]}
-      >
-        {navLabel(item.href)}
-      </a>
-    ))}
+    <div class="mobile-nav__clip">
+      <div class="mobile-nav__inner">
+        {nav.map((item) => (
+          <a
+            href={localizePath(item.href, lang)}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'block rounded-md px-3 py-3 text-base transition-colors',
+              isActive(item.href) ? 'bg-ink-700 text-text' : 'text-text-dim hover:bg-ink-800 hover:text-text',
+            ]}
+          >
+            {navLabel(item.href)}
+          </a>
+        ))}
+        <div class="mt-3 flex items-center justify-between border-t border-ink-600/70 px-3 pt-4">
+          <span class="font-mono text-[11px] uppercase tracking-wide text-muted/70">Lingua / Language</span>
+          <LanguageSelector />
+        </div>
+      </div>
+    </div>
   </nav>
 </header>
 
@@ -99,13 +112,19 @@ const navLabel = (href: string) => t(`nav.${href.replace(/\//g, '')}` as any);
     const open = btn.querySelector('[data-icon-open]');
     const close = btn.querySelector('[data-icon-close]');
     const setOpen = (v) => {
-      panel.classList.toggle('hidden', !v);
+      panel.dataset.state = v ? 'open' : 'closed';
+      panel.setAttribute('aria-hidden', v ? 'false' : 'true');
+      if ('inert' in panel) panel.inert = !v;
       btn.setAttribute('aria-expanded', v ? 'true' : 'false');
       open && open.classList.toggle('hidden', v);
       close && close.classList.toggle('hidden', !v);
     };
-    btn.addEventListener('click', () => setOpen(panel.classList.contains('hidden')));
+    setOpen(false);
+    btn.addEventListener('click', () => setOpen(panel.dataset.state !== 'open'));
     // chiude toccando un link (la navigazione avviene comunque)
     panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.dataset.state === 'open') setOpen(false);
+    });
   })();
 </script>

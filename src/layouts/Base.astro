@@ -54,7 +54,7 @@ const personLd = {
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="it" href={altIt} />
     <link rel="alternate" hreflang="en" href={altEn} />
-    <link rel="alternate" hreflang="x-default" href={altIt} />
+    <link rel="alternate" hreflang="x-default" href={altEn} />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <ClientRouter />
@@ -73,12 +73,13 @@ const personLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
 
-    <!-- Auto-rilevamento lingua: solo al primo accesso; la scelta manuale ha la precedenza. -->
+    <!-- Auto-rilevamento lingua: scelta manuale > browser/dispositivo. IT resta su "/", tutto il resto va su "/en/". -->
     <script is:inline>
       (function () {
         try {
           var p = location.pathname;
           var current = p === '/en' || p === '/en/' || p.indexOf('/en/') === 0 ? 'en' : 'it';
+
           function alt(path, lang) {
             var clean = path;
             if (path === '/en' || path === '/en/') clean = '/';
@@ -86,15 +87,23 @@ const personLd = {
             if (lang === 'it') return clean;
             return clean === '/' ? '/en/' : '/en' + clean;
           }
-          var stored = localStorage.getItem('lang');
-          var seen = localStorage.getItem('langSeen');
-          var target = null;
-          if (stored === 'it' || stored === 'en') {
-            target = stored;
-          } else if (!seen) {
-            localStorage.setItem('langSeen', '1');
-            target = (navigator.language || '').toLowerCase().indexOf('it') === 0 ? 'it' : 'en';
+
+          function cookieLang() {
+            var match = document.cookie.match(/(?:^|;\s*)lang=(it|en)(?:;|$)/);
+            return match ? match[1] : null;
           }
+
+          function browserLang() {
+            var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+            for (var i = 0; i < langs.length; i++) {
+              if ((langs[i] || '').toLowerCase().split('-')[0] === 'it') return 'it';
+            }
+            return 'en';
+          }
+
+          var stored = localStorage.getItem('lang');
+          var target = stored === 'it' || stored === 'en' ? stored : cookieLang() || browserLang();
+
           if (target && target !== current) {
             location.replace(alt(p, target) + location.search + location.hash);
           }
