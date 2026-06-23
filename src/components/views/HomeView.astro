@@ -97,6 +97,17 @@ const fmt = (d: Date) =>
   <!-- ============ AREE ============ -->
   <section class="mx-auto max-w-5xl px-5 py-24">
     <SectionHead eyebrow={t('home.whatIDo')} title={t('home.areasTitle')} accent={t('home.areasAccent')} sub={t('home.areasSub')} />
+    <nav class="mt-8 flex flex-wrap justify-center gap-3" aria-label={t('home.areasAccent')}>
+      <a href={localizePath('/skills', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
+        {t('nav.skills')}
+      </a>
+      <a href={localizePath('/projects', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
+        {t('nav.projects')}
+      </a>
+      <a href={localizePath('/writing', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
+        {t('nav.writing')}
+      </a>
+    </nav>
     <div class="mt-12 grid gap-4 sm:grid-cols-2">
       {areas.map((a, i) => (
         <article
