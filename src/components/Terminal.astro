@@ -73,6 +73,9 @@ const T = {
     ask: localizePath('/ask', lang),
     contact: localizePath('/contact', lang),
   },
+  endpoints: {
+    writings: `/api/terminal/writings.json?lang=${lang}`,
+  },
   s: {
     dHelp: en ? 'list the available commands' : "elenca i comandi disponibili",
     dWhoami: en ? 'who I am, in one line' : 'chi sono, in una riga',
@@ -96,7 +99,9 @@ const T = {
     noFile: en ? 'No such file or directory' : 'file o cartella inesistente',
     isDir: en ? 'Is a directory' : 'è una cartella',
     emptyProjects: en ? 'no project markdown files yet' : 'nessun file markdown progetto al momento',
+    emptyWritings: en ? 'no article markdown files yet' : 'nessun file markdown articolo al momento',
     badPath: en ? 'invalid path' : 'percorso non valido',
+    loadError: en ? 'unable to load files' : 'impossibile caricare i file',
     readonly: en ? '(read-only — this is a terminal, not an editor 🙂)' : '(sola lettura — è un terminale, non un editor 🙂)',
     bio: en
       ? `Cyber Security Analyst at Deloitte, in the ${enterpriseSecurityArea}. Cloud security, infrastructure and AI applied to defense.`
@@ -125,7 +130,7 @@ const T = {
     <div class="term__body" data-term-body>
       <div data-term-log></div>
       <div class="term__line term__inputline" data-term-inputline hidden>
-        <span class="term__promptwrap"><span class="term__user">{user}@{host}</span><span class="term__muted">:</span><span class="term__path">{path}</span><span class="term__prompt">$ </span></span>
+        <span class="term__promptwrap"><span class="term__user">{user}@{host}</span><span class="term__muted">:</span><span class="term__path">{path}</span><span class="term__prompt"> # </span></span>
         <input
           class="term__field"
           data-term-input
@@ -167,12 +172,15 @@ const T = {
       const history = [];
       let hi = 0;
       let shellHome = null;
-      let cwd = '~';
+      let cwdKey = 'root';
+      let writingsDir = null;
+      let commandQueue = Promise.resolve();
 
       const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      const cwdPath = () => cwdKey === 'root' ? '~' : `~/${cwdKey}/`;
       const promptHtml = () =>
         `<span class="term__promptwrap"><span class="term__user">${esc(T.user)}@${esc(T.host)}</span><span class="term__muted">:</span>` +
-        `<span class="term__path">${esc(cwd)}</span><span class="term__prompt">$ </span></span>`;
+        `<span class="term__path">${esc(cwdPath())}</span><span class="term__prompt"> # </span></span>`;
       const scroll = () => { body.scrollTop = body.scrollHeight; };
       const hasTouchInput = () =>
         (navigator.maxTouchPoints || 0) > 0 ||
@@ -233,9 +241,25 @@ const T = {
       const link = (href, label) => `<a class="term__link" href="${esc(href)}">${esc(label || href)}</a>`;
       const navOut = (key, desc) => `<span class="term__resp">${esc(desc)}</span>\n<span class="term__muted">→</span> ${link(T.paths[key], T.paths[key])}`;
       const go = (href) => { window.location.href = href; };
-      const projectMap = Object.fromEntries((T.projectFiles || []).map((file) => [file.filename, file]));
-      const projectNames = Object.keys(projectMap);
-      const isProjectsDir = () => cwd === '~/projects';
+      const projectDir = {
+        empty: T.s.emptyProjects,
+        href: T.paths.work,
+        map: Object.fromEntries((T.projectFiles || []).map((file) => [file.filename, file])),
+        names: (T.projectFiles || []).map((file) => file.filename),
+      };
+      const rootDirs = {
+        projects: projectDir,
+        writings: null,
+      };
+      const dirAliases = {
+        projects: 'projects',
+        project: 'projects',
+        work: 'projects',
+        writing: 'writings',
+        writings: 'writings',
+        articles: 'writings',
+        blog: 'writings',
+      };
       const safeArg = (arg) => {
         const raw = (arg || '').trim().replace(/^~\//, '').replace(/^\.\//, '').replace(/\/+$/, '');
         if (!raw) return '';
@@ -244,10 +268,34 @@ const T = {
         if (parts.some((part) => part === '.' || part === '..')) return null;
         return parts.join('/');
       };
-      const projectListing = () =>
-        projectNames.length
-          ? `<span class="term__path">${projectNames.map(esc).join('  ')}</span>`
-          : `<span class="term__muted">${esc(T.s.emptyProjects)}</span>`;
+      const validFile = (file) =>
+        file &&
+        typeof file.filename === 'string' &&
+        /^[a-zA-Z0-9._-]+\.md$/.test(file.filename) &&
+        typeof file.markdown === 'string' &&
+        typeof file.href === 'string';
+      const loadWritings = async () => {
+        if (writingsDir) return writingsDir;
+        const response = await fetch(T.endpoints.writings, { credentials: 'same-origin' });
+        if (!response.ok) throw new Error(T.s.loadError);
+        const data = await response.json();
+        const files = Array.isArray(data.files) ? data.files.filter(validFile) : [];
+        writingsDir = {
+          empty: T.s.emptyWritings,
+          href: T.paths.writing,
+          map: Object.fromEntries(files.map((file) => [file.filename, file])),
+          names: files.map((file) => file.filename),
+        };
+        rootDirs.writings = writingsDir;
+        return writingsDir;
+      };
+      const getDir = async (key) => key === 'writings' ? loadWritings() : rootDirs[key];
+      const listDir = async (key) => {
+        const dir = await getDir(key);
+        if (!dir || !dir.names.length) return `<span class="term__muted">${esc((dir && dir.empty) || T.s.noFile)}</span>`;
+        return `<span class="term__path">${dir.names.map(esc).join('  ')}</span>`;
+      };
+      const dirKeyFromPath = (path) => dirAliases[path] || '';
 
       const helpList = [
         ['help', T.s.dHelp], ['whoami', T.s.dWhoami], ['skills', T.s.dSkills], ['projects', T.s.dWork],
@@ -263,8 +311,9 @@ const T = {
         about: () => navOut('about', T.s.dAbout),
         skills: () => navOut('skills', T.s.dSkills),
         work: () => navOut('work', T.s.dWork),
-        projects: () => { cwd = '~/projects'; return commands.ls(); },
-        writing: () => navOut('writing', T.s.dWriting),
+        projects: async () => { cwdKey = 'projects'; return commands.ls(); },
+        writing: async () => { cwdKey = 'writings'; return commands.ls(); },
+        writings: async () => commands.writing(),
         articles: () => commands.writing(),
         blog: () => commands.writing(),
         cv: () => `<span class="term__resp">${esc(T.s.dCv)}</span>\n<span class="term__muted">→</span> ${link(T.paths.cv, T.paths.cv)}  <span class="term__muted">·</span>  ${link(T.cvpdf, 'cv.pdf ↓')}`,
@@ -272,23 +321,28 @@ const T = {
         contact: () => `<span class="term__resp">${esc(T.s.dContact)}</span>\n<span class="term__muted">→</span> ${link('mailto:' + T.email, T.email)}`,
         email: () => commands.contact(),
         social: () => Object.keys(T.links).map((k) => `<span class="term__key">${k.padEnd(14)}</span>${link(T.links[k], T.links[k])}`).join('\n'),
-        pwd: () => `<span class="term__resp">${esc(cwd)}</span>`,
-        cd: (arg) => {
+        pwd: () => `<span class="term__resp">${esc(cwdPath())}</span>`,
+        cd: async (arg) => {
           const target = (arg || '').trim().replace(/\/+$/, '');
-          if (!target || target === '~') { cwd = '~'; return null; }
-          if (target === '..') { cwd = '~'; return null; }
-          if (isProjectsDir() && (target === '.' || target === './projects' || target === 'projects')) return null;
-          if (!isProjectsDir() && (target === 'projects' || target === './projects' || target === '~/projects')) {
-            cwd = '~/projects';
+          if (!target || target === '~') { cwdKey = 'root'; return null; }
+          if (target === '..') { cwdKey = 'root'; return null; }
+          if (target === '.') return null;
+          const clean = safeArg(target);
+          if (clean == null) return `<span class="term__err">cd: ${esc(arg)}: ${esc(T.s.badPath)}</span>`;
+          const next = dirKeyFromPath(clean);
+          if (next) {
+            cwdKey = next;
+            if (next === 'writings') await loadWritings();
             return null;
           }
           return `<span class="term__err">cd: ${esc(arg)}: ${esc(T.s.noFile)}</span>`;
         },
-        ls: (arg) => {
+        ls: async (arg) => {
           const target = safeArg(arg);
           if (target == null) return `<span class="term__err">ls: ${esc(arg)}: ${esc(T.s.badPath)}</span>`;
-          if (!target) return isProjectsDir() ? projectListing() : `<span class="term__path">cv.md  skills.json  projects/  writing/  about.md  contact.md  focus.txt</span>`;
-          if (!isProjectsDir() && target === 'projects') return projectListing();
+          if (!target) return cwdKey === 'root' ? `<span class="term__path">cv.md  skills.json  projects/  writings/  about.md  contact.md  focus.txt</span>` : listDir(cwdKey);
+          const key = dirKeyFromPath(target);
+          if (key) return listDir(key);
           return `<span class="term__err">ls: ${esc(arg)}: ${esc(T.s.noFile)}</span>`;
         },
         ai: (arg) => { if (arg) { go(T.paths.ask + '?q=' + encodeURIComponent(arg)); return null; } return navOut('ask', T.s.dAi); },
@@ -314,19 +368,22 @@ const T = {
           `<span class="term__key">email</span>     ${link('mailto:' + T.email, T.email)}\n` +
           Object.keys(T.links).map((k) => `<span class="term__key">${k.toLowerCase().padEnd(9)}</span> ${link(T.links[k], T.links[k])}`).join('\n'),
       };
-      const dirs = { projects: T.paths.work, writing: T.paths.writing };
-      function readFile(arg, editor) {
+      const dirs = { projects: T.paths.work, writings: T.paths.writing, writing: T.paths.writing, articles: T.paths.writing, blog: T.paths.writing };
+      async function readFile(arg, editor) {
         const rawArg = (arg || '').trim();
         const raw = safeArg(rawArg);
         if (raw == null) return `<span class="term__err">cat: ${esc(rawArg)}: ${esc(T.s.badPath)}</span>`;
         if (!raw) return '<span class="term__err">usage: cat &lt;file&gt;</span> <span class="term__muted">— ls</span>';
         const bare = raw.replace(/\/$/, '');
         if (dirs[bare]) return `<span class="term__err">cat: ${esc(raw)}: ${esc(T.s.isDir)}</span>\n<span class="term__muted">→</span> ${link(dirs[bare], dirs[bare])}`;
-        const projectName = isProjectsDir() ? bare : bare.startsWith('projects/') ? bare.slice('projects/'.length) : '';
-        if (projectName) {
-          const project = projectMap[projectName];
-          if (!project) return `<span class="term__err">cat: ${esc(rawArg)}: ${esc(T.s.noFile)}</span>`;
-          const content = `<span class="term__md">${esc(project.markdown)}</span>\n<span class="term__muted">→</span> ${link(project.href, project.href)}`;
+        const parts = bare.split('/');
+        const fileDirKey = parts.length === 1 && cwdKey !== 'root' ? cwdKey : parts.length === 2 ? dirKeyFromPath(parts[0]) : '';
+        const filename = parts.length === 1 && cwdKey !== 'root' ? parts[0] : parts.length === 2 ? parts[1] : '';
+        if (fileDirKey && filename) {
+          const dir = await getDir(fileDirKey);
+          const file = dir && dir.map[filename];
+          if (!file) return `<span class="term__err">cat: ${esc(rawArg)}: ${esc(T.s.noFile)}</span>`;
+          const content = `<span class="term__md">${esc(file.markdown)}</span>\n<span class="term__muted">→</span> ${link(file.href, file.href)}`;
           return editor ? content + `\n<span class="term__muted">${esc(T.s.readonly)}</span>` : content;
         }
         const f = files[raw] || files[bare];
@@ -341,7 +398,7 @@ const T = {
       commands.vi = (a) => readFile(a, true);
       commands.vim = (a) => readFile(a, true);
 
-      function exec(raw) {
+      async function exec(raw) {
         const line = raw.trim();
         addLine(promptHtml() + `<span class="term__cmd">${esc(line)}</span>`);
         if (!line) return;
@@ -352,9 +409,19 @@ const T = {
         const arg = sp < 0 ? '' : line.slice(sp + 1).trim();
         if (name === 'clear' || name === 'cls') { log.innerHTML = ''; return; }
         const fn = commands[name];
-        const out = fn ? fn(arg) : `<span class="term__err">${esc(T.s.notFound)}: ${esc(name)}</span>\n<span class="term__muted">${esc(T.s.hint)}</span>`;
+        let out;
+        try {
+          out = fn ? await fn(arg) : `<span class="term__err">${esc(T.s.notFound)}: ${esc(name)}</span>\n<span class="term__muted">${esc(T.s.hint)}</span>`;
+        } catch (_) {
+          out = `<span class="term__err">${esc(T.s.loadError)}</span>`;
+        }
         if (out != null) addLine(out, 'term__out');
       }
+      const queueExec = (raw) => {
+        commandQueue = commandQueue.then(() => exec(raw)).catch(() => {
+          addLine(`<span class="term__err">${esc(T.s.loadError)}</span>`, 'term__out');
+        });
+      };
 
       // ---- input ----
       const caretEnd = () => requestAnimationFrame(() => { try { input.setSelectionRange(input.value.length, input.value.length); } catch (_) {} });
@@ -362,7 +429,7 @@ const T = {
         if (e.key === 'Enter') {
           e.preventDefault();
           const v = input.value; input.value = '';
-          exec(v);
+          queueExec(v);
           try { input.focus({ preventScroll: true }); } catch (_) {}
         } else if (e.key === 'ArrowUp') {
           e.preventDefault();
