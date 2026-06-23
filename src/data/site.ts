@@ -6,7 +6,9 @@ export const site = {
   role: 'Cyber Security Analyst',
   // Descrizione neutra — usata solo per <meta> / SEO, non in pagina.
   description:
-    'Cyber Security Analyst in Deloitte, Enterprise Cloud & AI Security Team. Security, AI/LLM, automazione e homelab.',
+    `Cyber Security Analyst in Deloitte, nell'Enterprise Cloud & AI Security Team.
+
+Lavoro tra sicurezza cloud, AI applicata alla difesa e automazione. Nel mio homelab costruisco, testo e analizzo infrastrutture, agenti AI e piattaforme self-hosted, con l'obiettivo di comprendere a fondo le tecnologie che stanno ridefinendo il modo in cui progettiamo e proteggiamo i sistemi.`,
   domains: ['Security', 'AI / LLM', 'Automation', 'Cloud', 'DevSecOps'],
   email: 'info@paoloronco.it',
   url: 'https://paoloronco.it',

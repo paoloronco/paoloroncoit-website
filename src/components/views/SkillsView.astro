@@ -1,6 +1,7 @@
 ---
 import Base from '@/layouts/Base.astro';
 import CmdPath from '@/components/CmdPath.astro';
+import { site } from '@/data/site';
 import { skillCategories, skillsTagline } from '@/data/skills';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
@@ -14,7 +15,7 @@ const dots = (lvl: number) => Math.max(1, Math.min(5, Math.round(lvl / 20)));
 const tip = (s: { desc?: Record<string, string>; tools?: string[] }) =>
   [s.desc?.[lang], s.tools?.length ? s.tools.join(' · ') : null].filter(Boolean).join('  —  ');
 ---
-<Base title="Skills" description={skillsTagline[lang]} path="/skills">
+<Base title="Skills" description={site.description} path="/skills">
   <section class="mx-auto max-w-6xl px-5 pt-16 pb-8">
     <CmdPath cmd="cat" arg="skills.json" />
     <div class="anim-rise mt-3 flex flex-wrap items-end justify-between gap-x-4 gap-y-3" style="animation-delay:.12s">
