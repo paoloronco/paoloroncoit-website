@@ -79,6 +79,21 @@ const i18n = {
     const closeBtn = panel.querySelector('[data-chat-close]');
     let busy = false;
 
+    const hasTouchInput = () =>
+      (navigator.maxTouchPoints || 0) > 0 ||
+      (navigator.msMaxTouchPoints || 0) > 0 ||
+      (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+    const canAutoFocusInput = () =>
+      !hasTouchInput() &&
+      window.matchMedia &&
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const focusInput = () => {
+      if (canAutoFocusInput()) {
+        try { input && input.focus({ preventScroll: true }); } catch (_) {}
+      }
+    };
+    const blurInput = () => { try { input && input.blur(); } catch (_) {} };
+
     const setCookieOffset = () => {
       const viewportBottom = window.innerHeight;
       let offset = 0;
@@ -115,7 +130,8 @@ const i18n = {
       fab.setAttribute('aria-expanded', v ? 'true' : 'false');
       iOpen && iOpen.classList.toggle('hidden', v);
       iClose && iClose.classList.toggle('hidden', !v);
-      if (v) requestAnimationFrame(() => input && input.focus());
+      if (v) requestAnimationFrame(focusInput);
+      else blurInput();
     };
 
     const scroll = () => { log.scrollTop = log.scrollHeight; };
