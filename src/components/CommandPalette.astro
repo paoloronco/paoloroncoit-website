@@ -80,15 +80,30 @@ const i18nStrings = {
     let items = [];
     let active = 0;
 
+    const hasTouchInput = () =>
+      (navigator.maxTouchPoints || 0) > 0 ||
+      (navigator.msMaxTouchPoints || 0) > 0 ||
+      (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+    const canAutoFocusInput = () =>
+      !hasTouchInput() &&
+      window.matchMedia &&
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const focusInput = () => {
+      if (canAutoFocusInput()) {
+        try { input.focus({ preventScroll: true }); } catch (_) {}
+      }
+    };
+    const blurInput = () => { try { input.blur(); } catch (_) {} };
+
     const open = () => {
       root.classList.remove('hidden');
       input.value = '';
       render('');
-      requestAnimationFrame(() => input.focus());
+      requestAnimationFrame(focusInput);
     };
     const close = () => {
       root.classList.add('hidden');
-      input.blur();
+      blurInput();
     };
     const isOpen = () => !root.classList.contains('hidden');
 
