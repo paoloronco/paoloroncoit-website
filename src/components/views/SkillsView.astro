@@ -16,63 +16,108 @@ const tip = (s: { desc?: Record<string, string>; tools?: string[] }) =>
   [s.desc?.[lang], s.tools?.length ? s.tools.join(' · ') : null].filter(Boolean).join('  —  ');
 ---
 <Base title="Skills" description={site.description} path="/skills">
-  <section class="mx-auto max-w-6xl px-5 pt-16 pb-8">
-    <CmdPath cmd="cat" arg="skills.json" />
-    <div class="anim-rise mt-3 flex flex-wrap items-end justify-between gap-x-4 gap-y-3" style="animation-delay:.12s">
-      <h1 class="text-4xl font-semibold tracking-tight text-text sm:text-5xl">Skills</h1>
-      <div class="flex shrink-0 items-center gap-2 pb-1.5">
-        <span class="font-mono text-[11px] uppercase tracking-wide text-muted/70">{t('skills.view')}</span>
-        <div class="inline-flex rounded-full border border-ink-600 p-0.5" data-skills-toggle role="group" aria-label={t('skills.view')}>
-          <button type="button" data-mode="dots" aria-pressed="true" class="seg-btn rounded-full px-3 py-1 text-xs text-muted">{t('skills.modeDots')}</button>
-          <button type="button" data-mode="pct" aria-pressed="false" class="seg-btn rounded-full px-3 py-1 text-xs text-muted">{t('skills.modePct')}</button>
+  <div class="skills-backdrop relative overflow-hidden">
+    <div class="skills-backdrop__blur" aria-hidden="true"></div>
+
+    <section class="skills-glass relative z-10 mx-auto mt-10 max-w-6xl px-5 pt-8 pb-8 sm:px-8 sm:pt-10">
+      <CmdPath cmd="cat" arg="skills.json" />
+      <div class="anim-rise mt-3 flex flex-wrap items-end justify-between gap-x-4 gap-y-3" style="animation-delay:.12s">
+        <h1 class="text-4xl font-semibold tracking-tight text-text sm:text-5xl">Skills</h1>
+        <div class="flex shrink-0 items-center gap-2 pb-1.5">
+          <span class="font-mono text-[11px] uppercase tracking-wide text-muted/70">{t('skills.view')}</span>
+          <div class="inline-flex rounded-full border border-ink-600 bg-ink-900/45 p-0.5 backdrop-blur-sm" data-skills-toggle role="group" aria-label={t('skills.view')}>
+            <button type="button" data-mode="dots" aria-pressed="true" class="seg-btn rounded-full px-3 py-1 text-xs text-muted">{t('skills.modeDots')}</button>
+            <button type="button" data-mode="pct" aria-pressed="false" class="seg-btn rounded-full px-3 py-1 text-xs text-muted">{t('skills.modePct')}</button>
+          </div>
         </div>
       </div>
-    </div>
-    <p class="anim-rise mt-4 max-w-2xl text-text-dim" style="animation-delay:.2s">{skillsTagline[lang]}</p>
+      <p class="anim-rise mt-4 max-w-2xl text-text-dim" style="animation-delay:.2s">{skillsTagline[lang]}</p>
 
-    <nav class="anim-rise mt-8 flex flex-wrap gap-2" style="animation-delay:.28s" aria-label="Skill categories">
-      {skillCategories.map((c) => (
-        <a href={`#${slug(c.name.en)}`} style={`--c:${c.color}`} class="group inline-flex items-center gap-2 rounded-full border border-ink-600 px-3 py-1 text-xs text-muted transition-colors hover:border-[var(--c)] hover:text-text">
-          <span class="h-1.5 w-1.5 rounded-full opacity-70" style={`background:${c.color}`}></span>
-          {c.name[lang]}
-        </a>
+      <nav class="anim-rise mt-8 flex flex-wrap gap-2" style="animation-delay:.28s" aria-label="Skill categories">
+        {skillCategories.map((c) => (
+          <a href={`#${slug(c.name.en)}`} style={`--c:${c.color}`} class="group inline-flex items-center gap-2 rounded-full border border-ink-600 bg-ink-900/35 px-3 py-1 text-xs text-muted backdrop-blur-sm transition-colors hover:border-[var(--c)] hover:text-text">
+            <span class="h-1.5 w-1.5 rounded-full opacity-70" style={`background:${c.color}`}></span>
+            {c.name[lang]}
+          </a>
+        ))}
+      </nav>
+    </section>
+
+    <section class="skills-glass relative z-10 mx-auto mt-5 mb-20 max-w-6xl px-5 pb-8 sm:px-8" data-skills-mode="dots">
+      {skillCategories.map((cat) => (
+        <div data-reveal id={slug(cat.name.en)} style={`--c:${cat.color}`} class="scroll-mt-20 border-t border-ink-600/55 py-11 first:border-t-0">
+          <div class="mb-7 flex items-center gap-2.5">
+            <span class="h-2.5 w-2.5 rounded-full opacity-80" style={`background:${cat.color}`}></span>
+            <h2 class="text-xl font-semibold tracking-tight text-text">{cat.name[lang]}</h2>
+            <span class="font-mono text-xs text-muted/70">{cat.skills.length}</span>
+          </div>
+
+          <ul class="grid grid-cols-1 gap-x-12 gap-y-px sm:grid-cols-2 lg:grid-cols-3">
+            {cat.skills.map((s) => (
+              <li
+                title={tip(s)}
+                class="skill-row flex items-center justify-between gap-4 border-b border-ink-600/35 py-2.5"
+              >
+                <span class="truncate text-[15px] text-text-dim">{s.name}</span>
+                <span class="skill-dots flex shrink-0 items-center gap-1" aria-label={`${s.level}%`}>
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <span
+                      class="h-1.5 w-1.5 rounded-full"
+                      style={i < dots(s.level) ? `background:${cat.color};opacity:.65` : 'background:var(--color-ink-600)'}
+                    ></span>
+                  ))}
+                </span>
+                <span class="skill-pct shrink-0 font-mono text-xs tabular-nums" style={`color:${cat.color}`}>{s.level}%</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       ))}
-    </nav>
-  </section>
 
-  <section class="mx-auto max-w-6xl px-5 pb-20" data-skills-mode="dots">
-    {skillCategories.map((cat) => (
-      <div data-reveal id={slug(cat.name.en)} style={`--c:${cat.color}`} class="scroll-mt-20 border-t border-ink-600/50 py-11">
-        <div class="mb-7 flex items-center gap-2.5">
-          <span class="h-2.5 w-2.5 rounded-full opacity-80" style={`background:${cat.color}`}></span>
-          <h2 class="text-xl font-semibold tracking-tight text-text">{cat.name[lang]}</h2>
-          <span class="font-mono text-xs text-muted/70">{cat.skills.length}</span>
-        </div>
+      <p class="mt-8 font-mono text-xs text-muted/70">{t('skills.source')}: <a href="https://skills.paoloronco.it" class="text-accent hover:underline">skills.paoloronco.it</a></p>
+    </section>
+  </div>
 
-        <ul class="grid grid-cols-1 gap-x-12 gap-y-px sm:grid-cols-2 lg:grid-cols-3">
-          {cat.skills.map((s) => (
-            <li
-              title={tip(s)}
-              class="skill-row flex items-center justify-between gap-4 border-b border-ink-600/30 py-2.5"
-            >
-              <span class="truncate text-[15px] text-text-dim">{s.name}</span>
-              <span class="skill-dots flex shrink-0 items-center gap-1" aria-label={`${s.level}%`}>
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <span
-                    class="h-1.5 w-1.5 rounded-full"
-                    style={i < dots(s.level) ? `background:${cat.color};opacity:.55` : 'background:var(--color-ink-600)'}
-                  ></span>
-                ))}
-              </span>
-              <span class="skill-pct shrink-0 font-mono text-xs tabular-nums" style={`color:${cat.color}`}>{s.level}%</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))}
+  <style>
+    .skills-backdrop {
+      isolation: isolate;
+      padding-inline: 1.25rem;
+    }
 
-    <p class="mt-8 font-mono text-xs text-muted/70">{t('skills.source')}: <a href="https://skills.paoloronco.it" class="text-accent hover:underline">skills.paoloronco.it</a></p>
-  </section>
+    .skills-backdrop__blur {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      backdrop-filter: blur(6px) saturate(0.95);
+      -webkit-backdrop-filter: blur(6px) saturate(0.95);
+      background:
+        radial-gradient(55rem 28rem at 50% 0%, color-mix(in oklab, var(--color-accent) 8%, transparent), transparent 68%),
+        color-mix(in oklab, var(--color-ink-900) 36%, transparent);
+      mask-image: linear-gradient(to bottom, black 0%, black 86%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 86%, transparent 100%);
+    }
+
+    .skills-glass {
+      border: 1px solid color-mix(in oklab, var(--color-ink-500) 70%, transparent);
+      border-radius: 1.5rem;
+      background:
+        linear-gradient(180deg, color-mix(in oklab, var(--color-ink-800) 78%, transparent), color-mix(in oklab, var(--color-ink-900) 70%, transparent));
+      box-shadow: 0 24px 80px color-mix(in oklab, black 34%, transparent);
+      backdrop-filter: blur(14px) saturate(1.08);
+      -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    }
+
+    @media (max-width: 640px) {
+      .skills-backdrop {
+        padding-inline: 0.75rem;
+      }
+
+      .skills-glass {
+        border-radius: 1.15rem;
+      }
+    }
+  </style>
 
   <script is:inline data-astro-rerun>
     (() => {
