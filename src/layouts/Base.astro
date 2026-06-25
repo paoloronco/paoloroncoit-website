@@ -111,6 +111,38 @@ const personLd = {
       })();
     </script>
 
+    <!-- Evita che mobile apra la tastiera per focus ripristinati o auto-focus involontari al caricamento. -->
+    <script is:inline>
+      (function () {
+        function hasTouchInput() {
+          return (
+            (navigator.maxTouchPoints || 0) > 0 ||
+            (navigator.msMaxTouchPoints || 0) > 0 ||
+            (window.matchMedia && window.matchMedia('(pointer: coarse)').matches)
+          );
+        }
+
+        function blurMobileTextInput() {
+          if (!hasTouchInput()) return;
+          var el = document.activeElement;
+          if (!el || !el.matches) return;
+          if (el.matches('[data-term-input], [data-chatw-input], [data-ask-input], input[type="text"], textarea')) {
+            try { el.blur(); } catch (e) {}
+          }
+        }
+
+        function scheduleBlur() {
+          blurMobileTextInput();
+          setTimeout(blurMobileTextInput, 0);
+          setTimeout(blurMobileTextInput, 250);
+        }
+
+        document.addEventListener('DOMContentLoaded', scheduleBlur);
+        document.addEventListener('astro:page-load', scheduleBlur);
+        window.addEventListener('pageshow', scheduleBlur);
+      })();
+    </script>
+
     <!-- Easter egg per i peer che aprono la console -->
     <script is:inline>
       console.log(
