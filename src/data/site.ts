@@ -8,7 +8,7 @@ export const site = {
   description:
     `Cyber Security Analyst in Deloitte, nell'Enterprise Cloud & AI Security Team.
 
-Lavoro tra sicurezza cloud, AI applicata alla difesa e automazione. Nel mio homelab costruisco, testo e analizzo infrastrutture, agenti AI e piattaforme self-hosted, con l'obiettivo di comprendere a fondo le tecnologie che stanno ridefinendo il modo in cui progettiamo e proteggiamo i sistemi.`,
+Lavoro tra sicurezza cloud, AI e automazione. Nel mio homelab costruisco, testo e analizzo infrastrutture, agenti AI e piattaforme self-hosted, con l'obiettivo di comprendere a fondo le tecnologie che stanno ridefinendo il modo in cui progettiamo e proteggiamo i sistemi.`,
   domains: ['Security', 'AI / LLM', 'Automation', 'Cloud', 'DevSecOps'],
   email: 'info@paoloronco.it',
   url: 'https://paoloronco.it',
@@ -16,6 +16,7 @@ Lavoro tra sicurezza cloud, AI applicata alla difesa e automazione. Nel mio home
     github: 'https://github.com/paoloronco',
     huggingface: 'https://huggingface.co/paoloronco',
     linkedin: 'https://www.linkedin.com/in/paolo-ronco-685a5722a',
+    n8n: 'https://n8n.io/creators/paoloronco/',
   },
 } as const;
 
@@ -29,7 +30,7 @@ export const nav = [
 
 // Breve presentazione per la home (rifinisci con le tue parole).
 export const intro =
-  `Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Mi occupo di sicurezza cloud, infrastrutture e AI applicata alla difesa. Nel mio homelab metto le mani su automazioni, LLM e tutto ciò che vale la pena capire a fondo.`;
+  `Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab metto le mani su automazioni, LLM e tutto ciò che vale la pena capire a fondo.`;
 
 // Aree di competenza con descrizione + colore. Riempie la home con sostanza.
 export const areas = [
