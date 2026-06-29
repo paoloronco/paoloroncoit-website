@@ -63,7 +63,11 @@ const T = {
   email: site.email,
   cvpdf: '/cv.pdf',
   focus,
-  links: { GitHub: site.socials.github, LinkedIn: site.socials.linkedin, 'Hugging Face': site.socials.huggingface },
+  links: [
+    { label: 'GitHub', handle: '@paoloronco', href: site.socials.github },
+    { label: 'LinkedIn', handle: 'paolo-ronco', href: site.socials.linkedin },
+    { label: 'Hugging Face', handle: '@paoloronco', href: site.socials.huggingface },
+  ],
   paths: {
     cv: localizePath('/cv', lang),
     work: localizePath('/projects', lang),
@@ -320,7 +324,7 @@ const T = {
         resume: () => commands.cv(),
         contact: () => `<span class="term__resp">${esc(T.s.dContact)}</span>\n<span class="term__muted">→</span> ${link('mailto:' + T.email, T.email)}`,
         email: () => commands.contact(),
-        social: () => Object.keys(T.links).map((k) => `<span class="term__key">${k.padEnd(14)}</span>${link(T.links[k], T.links[k])}`).join('\n'),
+        social: () => T.links.map((item) => `<span class="term__key">${esc(item.label).padEnd(14)}</span>${link(item.href, item.handle)}`).join('\n'),
         pwd: () => `<span class="term__resp">${esc(cwdPath())}</span>`,
         cd: async (arg) => {
           const target = (arg || '').trim().replace(/\/+$/, '');
@@ -366,7 +370,7 @@ const T = {
         'about.md': () => `<span class="term__key"># whoami</span>\n<span class="term__resp">${esc(T.s.bio)}</span>\n<span class="term__muted">→</span> ${link(T.paths.about, T.paths.about)}`,
         'contact.md': () =>
           `<span class="term__key">email</span>     ${link('mailto:' + T.email, T.email)}\n` +
-          Object.keys(T.links).map((k) => `<span class="term__key">${k.toLowerCase().padEnd(9)}</span> ${link(T.links[k], T.links[k])}`).join('\n'),
+          T.links.map((item) => `<span class="term__key">${esc(item.label.toLowerCase()).padEnd(12)}</span> ${link(item.href, item.handle)}`).join('\n'),
       };
       const dirs = { projects: T.paths.work, writings: T.paths.writing, writing: T.paths.writing, articles: T.paths.writing, blog: T.paths.writing };
       async function readFile(arg, editor) {

@@ -26,6 +26,7 @@ export const nav = [
   { href: '/projects', label: 'Projects' },
   { href: '/writing', label: 'Writing' },
   { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
 ] as const;
 
 // Breve presentazione per la home (rifinisci con le tue parole).
