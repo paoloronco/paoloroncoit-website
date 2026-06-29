@@ -8,6 +8,7 @@ import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+const cardTone = (i: number) => `${6 + (i % 3) * 2}%`;
 
 // livello 0–100 → 1–5 tacche
 const dots = (lvl: number) => Math.max(1, Math.min(5, Math.round(lvl / 20)));
@@ -19,7 +20,7 @@ const tip = (s: { desc?: Record<string, string>; tools?: string[] }) =>
   <div class="skills-backdrop relative overflow-hidden">
     <div class="skills-backdrop__blur" aria-hidden="true"></div>
 
-    <section class="skills-glass relative z-10 mx-auto mt-10 max-w-6xl px-5 pt-8 pb-8 sm:px-8 sm:pt-10">
+    <section class="skills-intro-card relative z-10 mx-auto mt-10 max-w-6xl px-5 pt-8 pb-8 sm:px-8 sm:pt-10">
       <CmdPath cmd="cat" arg="skills.json" />
       <div class="anim-rise mt-3 flex flex-wrap items-end justify-between gap-x-4 gap-y-3" style="animation-delay:.12s">
         <h1 class="text-4xl font-semibold tracking-tight text-text sm:text-5xl">Skills</h1>
@@ -43,38 +44,47 @@ const tip = (s: { desc?: Record<string, string>; tools?: string[] }) =>
       </nav>
     </section>
 
-    <section class="skills-glass relative z-10 mx-auto mt-5 mb-20 max-w-6xl px-5 pb-8 sm:px-8" data-skills-mode="dots">
-      {skillCategories.map((cat) => (
-        <div data-reveal id={slug(cat.name.en)} style={`--c:${cat.color}`} class="scroll-mt-20 border-t border-ink-600/55 py-11 first:border-t-0">
-          <div class="mb-7 flex items-center gap-2.5">
-            <span class="h-2.5 w-2.5 rounded-full opacity-80" style={`background:${cat.color}`}></span>
-            <h2 class="text-xl font-semibold tracking-tight text-text">{cat.name[lang]}</h2>
-            <span class="font-mono text-xs text-muted/70">{cat.skills.length}</span>
-          </div>
+    <section class="relative z-10 mx-auto mt-5 mb-20 max-w-6xl" data-skills-mode="dots">
+      <div class="skills-category-stack">
+        {skillCategories.map((cat, i) => (
+          <article
+            data-reveal
+            id={slug(cat.name.en)}
+            style={`--c:${cat.color};--tone:${cardTone(i)};--i:${i + 1}`}
+            class="skills-category-card scroll-mt-20 px-5 py-6 sm:px-7 sm:py-7"
+          >
+            <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex min-w-0 items-center gap-3">
+                <span class="category-mark" aria-hidden="true"></span>
+                <h2 class="truncate text-xl font-semibold tracking-tight text-text">{cat.name[lang]}</h2>
+              </div>
+              <span class="category-count font-mono text-xs tabular-nums">{cat.skills.length}</span>
+            </div>
 
-          <ul class="grid grid-cols-1 gap-x-12 gap-y-px sm:grid-cols-2 lg:grid-cols-3">
-            {cat.skills.map((s) => (
-              <li
-                title={tip(s)}
-                class="skill-row flex items-center justify-between gap-4 border-b border-ink-600/35 py-2.5"
-              >
-                <span class="truncate text-[15px] text-text-dim">{s.name}</span>
-                <span class="skill-dots flex shrink-0 items-center gap-1" aria-label={`${s.level}%`}>
-                  {[0, 1, 2, 3, 4].map((i) => (
-                    <span
-                      class="h-1.5 w-1.5 rounded-full"
-                      style={i < dots(s.level) ? `background:${cat.color};opacity:.65` : 'background:var(--color-ink-600)'}
-                    ></span>
-                  ))}
-                </span>
-                <span class="skill-pct shrink-0 font-mono text-xs tabular-nums" style={`color:${cat.color}`}>{s.level}%</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+            <ul class="grid grid-cols-1 gap-x-12 gap-y-px sm:grid-cols-2 lg:grid-cols-3">
+              {cat.skills.map((s) => (
+                <li
+                  title={tip(s)}
+                  class="skill-row flex items-center justify-between gap-4 border-b border-ink-600/35 py-2.5"
+                >
+                  <span class="truncate text-[15px] text-text-dim">{s.name}</span>
+                  <span class="skill-dots flex shrink-0 items-center gap-1" aria-label={`${s.level}%`}>
+                    {[0, 1, 2, 3, 4].map((i) => (
+                      <span
+                        class="h-1.5 w-1.5 rounded-full"
+                        style={i < dots(s.level) ? `background:${cat.color};opacity:.68` : 'background:var(--color-ink-600)'}
+                      ></span>
+                    ))}
+                  </span>
+                  <span class="skill-pct shrink-0 font-mono text-xs tabular-nums" style={`color:${cat.color}`}>{s.level}%</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
 
-      <p class="mt-8 font-mono text-xs text-muted/70">{t('skills.source')}: <a href="https://skills.paoloronco.it" class="text-accent hover:underline">skills.paoloronco.it</a></p>
+      <p class="px-1 pt-8 font-mono text-xs text-muted/70">{t('skills.source')}: <a href="https://skills.paoloronco.it" class="text-accent hover:underline">skills.paoloronco.it</a></p>
     </section>
   </div>
 
@@ -98,14 +108,79 @@ const tip = (s: { desc?: Record<string, string>; tools?: string[] }) =>
       -webkit-mask-image: linear-gradient(to bottom, black 0%, black 86%, transparent 100%);
     }
 
-    .skills-glass {
+    .skills-intro-card,
+    .skills-category-card {
       border: 1px solid color-mix(in oklab, var(--color-ink-500) 70%, transparent);
-      border-radius: 1.5rem;
-      background:
-        linear-gradient(180deg, color-mix(in oklab, var(--color-ink-800) 78%, transparent), color-mix(in oklab, var(--color-ink-900) 70%, transparent));
-      box-shadow: 0 24px 80px color-mix(in oklab, black 34%, transparent);
+      border-radius: 8px;
       backdrop-filter: blur(14px) saturate(1.08);
       -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    }
+
+    .skills-intro-card {
+      background:
+        radial-gradient(42rem 18rem at 8% 0%, color-mix(in oklab, var(--color-accent) 18%, transparent), transparent 70%),
+        linear-gradient(135deg, color-mix(in oklab, var(--color-ink-700) 78%, transparent), color-mix(in oklab, var(--color-ink-900) 76%, transparent));
+      box-shadow: 0 24px 80px color-mix(in oklab, black 34%, transparent);
+    }
+
+    .skills-category-stack {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .skills-category-card {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, color-mix(in oklab, var(--c) var(--tone), transparent), transparent 44%),
+        linear-gradient(180deg, color-mix(in oklab, var(--color-ink-800) 80%, transparent), color-mix(in oklab, var(--color-ink-900) 72%, transparent));
+      box-shadow: 0 18px 56px color-mix(in oklab, black 25%, transparent);
+      transition:
+        border-color 0.28s var(--ease-out-quart),
+        box-shadow 0.28s var(--ease-out-quart),
+        transform 0.28s var(--ease-out-quart);
+    }
+
+    .skills-category-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-top: 1px solid color-mix(in oklab, var(--c) 24%, transparent);
+      opacity: 0.85;
+    }
+
+    .skills-category-card:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(in oklab, var(--c) 42%, var(--color-ink-500));
+      box-shadow: 0 22px 64px color-mix(in oklab, var(--c) 11%, black 28%);
+    }
+
+    .category-mark {
+      width: 0.68rem;
+      height: 0.68rem;
+      flex: 0 0 auto;
+      border-radius: 9999px;
+      background: var(--c);
+      box-shadow: 0 0 0 5px color-mix(in oklab, var(--c) 15%, transparent);
+      opacity: 0.9;
+    }
+
+    .category-count {
+      border: 1px solid color-mix(in oklab, var(--c) 22%, var(--color-ink-600));
+      border-radius: 9999px;
+      background: color-mix(in oklab, var(--c) 10%, transparent);
+      color: color-mix(in oklab, var(--c) 72%, var(--color-text));
+      padding: 0.2rem 0.55rem;
+    }
+
+    .skills-category-card .skill-row {
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .skills-category-card .skill-row:hover {
+      border-bottom-color: color-mix(in oklab, var(--c) 32%, var(--color-ink-600));
+      background: color-mix(in oklab, var(--c) 5%, transparent);
     }
 
     @media (max-width: 640px) {
@@ -113,8 +188,9 @@ const tip = (s: { desc?: Record<string, string>; tools?: string[] }) =>
         padding-inline: 0.75rem;
       }
 
-      .skills-glass {
-        border-radius: 1.15rem;
+      .skills-intro-card,
+      .skills-category-card {
+        border-radius: 8px;
       }
     }
   </style>
