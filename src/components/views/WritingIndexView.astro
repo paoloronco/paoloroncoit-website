@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import CmdPath from '@/components/CmdPath.astro';
+import ReadableModeToggle from '@/components/ReadableModeToggle.astro';
 import { getLangFromUrl, useTranslations, localizePath, entryLang, entrySlug } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -21,13 +22,15 @@ const allTags = [...tagCount.entries()].sort((a, b) => b[1] - a[1]).map(([tag]) 
 ---
 
 <Base title="Writing" description={t('writing.subtitle')} path="/writing">
-  <section class="mx-auto max-w-3xl px-5 pt-16 pb-8">
+  <div class="readable-scope">
+  <section class="readable-shell mx-auto max-w-3xl px-5 pt-16 pb-8">
     <CmdPath cmd="ls" arg="~/writing" note={`${posts.length}`} />
     <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text sm:text-5xl" style="animation-delay:.12s">Writing</h1>
     <p class="anim-rise mt-3 text-text-dim" style="animation-delay:.2s">{t('writing.subtitle')}</p>
+    <ReadableModeToggle lang={lang} />
 
     <!-- Ricerca -->
-    <div class="anim-rise mt-8" style="animation-delay:.28s">
+    <div class="anim-rise mt-8" style="animation-delay:.34s">
       <div class="relative">
         <svg class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path>
@@ -37,42 +40,42 @@ const allTags = [...tagCount.entries()].sort((a, b) => b[1] - a[1]).map(([tag]) 
           data-search-input
           placeholder={t('writing.search')}
           autocomplete="off"
-          class="w-full rounded-lg border border-ink-600 bg-ink-800/75 py-2.5 pl-10 pr-4 text-sm text-text backdrop-blur-md placeholder:text-muted transition-colors focus:border-accent focus:outline-none"
+          class="readable-input w-full rounded-lg border border-ink-600 bg-ink-800/75 py-2.5 pl-10 pr-4 text-sm text-text backdrop-blur-md placeholder:text-muted transition-colors focus:border-accent focus:outline-none"
         />
       </div>
 
       <!-- Filtro tag -->
-      <div class="mt-3 flex flex-wrap gap-2" data-tag-bar>
-        <button data-tag="__all__" class="rounded-full border border-accent bg-ink-900/45 px-3 py-1 font-mono text-xs text-accent backdrop-blur-sm transition-colors">{t('writing.allTags')}</button>
+      <div class="readable-filters mt-3 flex flex-wrap gap-2" data-tag-bar>
+        <button data-tag="__all__" class="readable-chip rounded-full border border-accent bg-ink-900/45 px-3 py-1 font-mono text-xs text-accent backdrop-blur-sm transition-colors">{t('writing.allTags')}</button>
         {allTags.map((tag) => (
-          <button data-tag={tag} class="rounded-full border border-ink-600 bg-ink-900/45 px-3 py-1 font-mono text-xs text-muted backdrop-blur-sm transition-colors hover:text-text">#{tag}</button>
+          <button data-tag={tag} class="readable-chip rounded-full border border-ink-600 bg-ink-900/45 px-3 py-1 font-mono text-xs text-muted backdrop-blur-sm transition-colors hover:text-text">#{tag}</button>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-3xl px-5 pb-20">
+  <section class="readable-shell mx-auto max-w-3xl px-5 pb-20">
     {posts.length === 0 && (
       <p class="rounded-card border border-dashed border-ink-600 p-8 text-center text-muted">{t('writing.empty')}</p>
     )}
 
-    <ul data-post-list class="overflow-hidden rounded-card border border-ink-600/80 bg-ink-900/45 shadow-2xl shadow-ink-900/30 backdrop-blur-md">
+    <ul data-post-list class="readable-panel overflow-hidden rounded-card border border-ink-600/80 bg-ink-900/45 shadow-2xl shadow-ink-900/30 backdrop-blur-md">
       {posts.map((p, i) => {
         const tags = p.data.tags ?? [];
         const hay = `${p.data.title} ${p.data.description} ${tags.join(' ')}`.toLowerCase();
         return (
           <li data-post data-search={hay} data-tags={tags.join(' ')} data-reveal style={`--i:${Math.min(i, 8)}`} class="border-b border-ink-600/70 last:border-b-0">
-            <a href={localizePath(`/writing/${entrySlug(p.id)}`, lang)} class="group block px-4 py-5 transition-colors hover:bg-ink-800/45 sm:px-5">
+            <a href={localizePath(`/writing/${entrySlug(p.id)}`, lang)} class="readable-card group block px-4 py-5 transition-colors hover:bg-ink-800/45 sm:px-5">
               <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
-                <time class="font-mono text-xs text-muted">{fmt(p.data.pubDate)}</time>
+                <time class="readable-meta font-mono text-xs text-muted">{fmt(p.data.pubDate)}</time>
                 <span class="text-ink-500">·</span>
-                <span class="font-mono text-xs text-muted">{readMin(p.body)} {t('writing.min')}</span>
+                <span class="readable-meta font-mono text-xs text-muted">{readMin(p.body)} {t('writing.min')}</span>
                 <div class="flex flex-wrap gap-1.5">
                   {tags.slice(0, 3).map((tag) => <span class="font-mono text-[11px] text-accent/80">#{tag}</span>)}
                 </div>
               </div>
-              <h2 class="mt-1.5 text-lg font-medium leading-snug text-text-dim transition-colors group-hover:text-accent">{p.data.title}</h2>
-              <p class="mt-1 text-sm text-muted">{p.data.description}</p>
+              <h2 class="readable-title mt-1.5 text-lg font-medium leading-snug text-text-dim transition-colors group-hover:text-accent">{p.data.title}</h2>
+              <p class="readable-summary mt-1 text-sm text-muted">{p.data.description}</p>
             </a>
           </li>
         );
@@ -81,6 +84,7 @@ const allTags = [...tagCount.entries()].sort((a, b) => b[1] - a[1]).map(([tag]) 
 
     <p data-no-results hidden class="py-12 text-center text-muted">{t('writing.noResults')}</p>
   </section>
+  </div>
 </Base>
 
 <script is:inline data-astro-rerun>

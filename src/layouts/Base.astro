@@ -49,6 +49,11 @@ const personLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <Analytics />
     <script is:inline>document.documentElement.classList.add('motion');</script>
+    <script is:inline>
+      try {
+        document.documentElement.setAttribute('data-readable-mode', localStorage.getItem('readableMode') === 'true' ? 'true' : 'false');
+      } catch (e) {}
+    </script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />

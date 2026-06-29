@@ -1,0 +1,254 @@
+---
+import type { Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const copy = {
+  it: {
+    title: 'Modalità leggibile',
+    hint: 'Meno effetti, più contrasto, contenuti più lineari.',
+    standard: 'Standard',
+    readable: 'Leggibile',
+    aria: 'Attiva modalità leggibile',
+  },
+  en: {
+    title: 'Readable mode',
+    hint: 'Fewer effects, more contrast, simpler content flow.',
+    standard: 'Standard',
+    readable: 'Readable',
+    aria: 'Enable readable mode',
+  },
+}[lang];
+---
+
+<div class="readable-toggle anim-rise" data-readable-control style="animation-delay:.26s">
+  <div class="min-w-0">
+    <p class="readable-toggle__title">{copy.title}</p>
+    <p class="readable-toggle__hint">{copy.hint}</p>
+  </div>
+  <button
+    type="button"
+    class="readable-switch"
+    role="switch"
+    aria-checked="false"
+    aria-label={copy.aria}
+    data-readable-toggle
+  >
+    <span class="readable-switch__option" data-readable-off>{copy.standard}</span>
+    <span class="readable-switch__option" data-readable-on>{copy.readable}</span>
+    <span class="readable-switch__thumb" aria-hidden="true"></span>
+  </button>
+</div>
+
+<style>
+  .readable-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    border: 1px solid color-mix(in oklab, var(--color-accent) 22%, var(--color-ink-600));
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, color-mix(in oklab, var(--color-accent) 7%, transparent), transparent 58%),
+      color-mix(in oklab, var(--color-ink-800) 78%, transparent);
+    padding: 0.8rem 0.9rem;
+    box-shadow: 0 18px 50px -34px color-mix(in oklab, var(--color-accent) 55%, black);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .readable-toggle__title {
+    color: var(--color-text);
+    font-weight: 650;
+    line-height: 1.2;
+  }
+
+  .readable-toggle__hint {
+    margin-top: 0.15rem;
+    color: var(--color-muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .readable-switch {
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    min-width: 10.8rem;
+    border: 1px solid var(--color-ink-600);
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--color-ink-900) 72%, transparent);
+    padding: 0.2rem;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    cursor: pointer;
+  }
+
+  .readable-switch__option {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.8rem;
+    padding-inline: 0.65rem;
+    transition: color 0.2s var(--ease-out-quart);
+  }
+
+  .readable-switch__thumb {
+    position: absolute;
+    inset-block: 0.2rem;
+    left: 0.2rem;
+    z-index: 1;
+    width: calc(50% - 0.2rem);
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--color-accent) 22%, transparent);
+    transition: transform 0.24s var(--ease-out-quart), background 0.24s var(--ease-out-quart);
+  }
+
+  .readable-switch[aria-checked='false'] [data-readable-off],
+  .readable-switch[aria-checked='true'] [data-readable-on] {
+    color: var(--color-text);
+  }
+
+  .readable-switch[aria-checked='true'] .readable-switch__thumb {
+    transform: translateX(100%);
+    background: color-mix(in oklab, var(--color-ok) 22%, transparent);
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope) {
+    color-scheme: dark;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .anim-rise),
+  :global(html[data-readable-mode='true'] .readable-scope [data-reveal]) {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .readable-shell) {
+    max-width: 56rem;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .readable-grid) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .readable-panel),
+  :global(html[data-readable-mode='true'] .readable-scope .readable-card),
+  :global(html[data-readable-mode='true'] .readable-scope .readable-input),
+  :global(html[data-readable-mode='true'] .readable-scope .readable-chip) {
+    border-color: color-mix(in oklab, var(--color-text-dim) 28%, var(--color-ink-600)) !important;
+    background: color-mix(in oklab, var(--color-ink-900) 92%, var(--color-ink-800)) !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .readable-card) {
+    transform: none !important;
+    padding: 1.15rem !important;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .readable-card:hover) {
+    transform: none !important;
+    background: color-mix(in oklab, var(--color-ink-800) 68%, var(--color-ink-900)) !important;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .readable-title) {
+    color: var(--color-text) !important;
+    font-size: 1.12rem;
+    line-height: 1.35;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .readable-summary) {
+    color: var(--color-text-dim) !important;
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .case-index),
+  :global(html[data-readable-mode='true'] .readable-scope .case-arrow) {
+    display: none;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .readable-filters) {
+    gap: 0.45rem;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .readable-chip) {
+    color: var(--color-text-dim) !important;
+    min-height: 2rem;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .readable-meta) {
+    color: var(--color-text-dim) !important;
+  }
+
+  :global(html[data-readable-mode='true'] .readable-scope .readable-toggle) {
+    background: color-mix(in oklab, var(--color-ink-900) 92%, var(--color-ink-800));
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  @media (max-width: 640px) {
+    .readable-toggle {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .readable-switch {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+</style>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    const KEY = 'readableMode';
+
+    const saved = () => {
+      try { return localStorage.getItem(KEY) === 'true'; } catch (e) { return false; }
+    };
+
+    const setSaved = (on) => {
+      try { localStorage.setItem(KEY, on ? 'true' : 'false'); } catch (e) {}
+    };
+
+    const paint = (on) => {
+      document.documentElement.setAttribute('data-readable-mode', on ? 'true' : 'false');
+      document.querySelectorAll('[data-readable-toggle]').forEach((button) => {
+        button.setAttribute('aria-checked', on ? 'true' : 'false');
+      });
+    };
+
+    const init = () => paint(saved());
+
+    if (!window.__readableModeToggleReady) {
+      window.__readableModeToggleReady = true;
+      document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target : null;
+        const button = target?.closest('[data-readable-toggle]');
+        if (!button) return;
+        const on = button.getAttribute('aria-checked') !== 'true';
+        setSaved(on);
+        paint(on);
+      });
+      document.addEventListener('astro:page-load', init);
+    }
+
+    init();
+  })();
+</script>

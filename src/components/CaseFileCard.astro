@@ -15,7 +15,7 @@ const num = index != null ? String(index).padStart(2, '0') : null;
 <a
   href={href}
   style={`--cat:${color}`}
-  class="group relative flex flex-col overflow-hidden rounded-card border border-ink-600 bg-ink-800/75 p-5 shadow-2xl shadow-ink-900/25 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-[var(--cat)] hover:bg-ink-800/95"
+  class="readable-card group relative flex flex-col overflow-hidden rounded-card border border-ink-600 bg-ink-800/75 p-5 shadow-2xl shadow-ink-900/25 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-[var(--cat)] hover:bg-ink-800/95"
 >
   <!-- barra colore categoria -->
   <span class="absolute inset-x-0 top-0 h-0.5 opacity-80" style={`background:${color}`}></span>
@@ -25,8 +25,8 @@ const num = index != null ? String(index).padStart(2, '0') : null;
     {num && <span class="case-index text-3xl font-semibold">_{num}</span>}
   </div>
 
-  <h3 class="mt-3 text-lg font-semibold text-text transition-colors group-hover:text-[var(--cat)]">{title}</h3>
-  <p class="mt-2 flex-1 text-sm leading-relaxed text-text-dim">{summary}</p>
+  <h3 class="readable-title mt-3 text-lg font-semibold text-text transition-colors group-hover:text-[var(--cat)]">{title}</h3>
+  <p class="readable-summary mt-2 flex-1 text-sm leading-relaxed text-text-dim">{summary}</p>
 
   <div class="mt-4 flex flex-wrap items-center gap-1.5">
     {stack.map((s) => (
