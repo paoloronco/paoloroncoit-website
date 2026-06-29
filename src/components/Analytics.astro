@@ -1,22 +1,18 @@
 ---
-const cookieYesId = import.meta.env.PUBLIC_COOKIEYES_ID?.trim();
 const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID?.trim();
 const microsoftClarityId = import.meta.env.PUBLIC_MICROSOFT_CLARITY_ID?.trim();
 
-const googleAnalyticsEnabled = Boolean(cookieYesId && googleAnalyticsId);
-const microsoftClarityEnabled = Boolean(cookieYesId && microsoftClarityId);
+const googleAnalyticsEnabled = Boolean(googleAnalyticsId);
+const microsoftClarityEnabled = Boolean(microsoftClarityId);
 
-const cookieYesSrc = cookieYesId
-  ? `https://cdn-cookieyes.com/client_data/${encodeURIComponent(cookieYesId)}/script.js`
-  : undefined;
 const googleAnalyticsSrc = googleAnalyticsId
   ? `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleAnalyticsId)}`
   : undefined;
 ---
 
-{cookieYesSrc && (
-  <script is:inline id="cookieyes" type="text/javascript" src={cookieYesSrc}></script>
-)}
+<!-- Start cookieyes banner -->
+<script is:inline id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/c6b1eff957ec8357a86c47c6/script.js"></script>
+<!-- End cookieyes banner -->
 
 {googleAnalyticsEnabled && (
   <>
