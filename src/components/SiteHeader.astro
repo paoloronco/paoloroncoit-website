@@ -13,8 +13,11 @@ const navLabel = (href: string) => t(`nav.${href.replace(/\//g, '')}` as any);
 
 <header class="sticky top-0 z-30 border-b border-ink-600/70 bg-ink-900/80 backdrop-blur-md">
   <div class="mx-auto flex h-14 max-w-5xl items-center gap-5 px-5">
-    <a href={localizePath('/', lang)} class="font-mono text-sm font-semibold tracking-tight text-text hover:text-accent">
-      {site.name.toUpperCase()}
+    <a href={localizePath('/', lang)} class="site-logo" aria-label={`${site.name} home`}>
+      <span class="site-logo__mark" aria-hidden="true">
+        <span>P</span><span>R</span>
+      </span>
+      <span class="site-logo__word">{site.name}</span>
     </a>
 
     <nav class="hidden items-center gap-5 text-sm sm:flex" aria-label="Principale">
@@ -128,3 +131,118 @@ const navLabel = (href: string) => t(`nav.${href.replace(/\//g, '')}` as any);
     });
   })();
 </script>
+
+<style>
+  .site-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.62rem;
+    min-width: 0;
+    color: var(--color-text);
+    text-decoration: none;
+    transition:
+      color 0.24s var(--ease-out-quart),
+      transform 0.28s var(--ease-out-expo);
+  }
+
+  .site-logo:hover {
+    color: var(--color-accent);
+    transform: translateY(-1px);
+  }
+
+  .site-logo__mark {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 auto;
+    border: 1px solid color-mix(in oklab, var(--color-ink-500) 78%, var(--color-accent));
+    border-radius: 0.42rem;
+    background:
+      linear-gradient(135deg, color-mix(in oklab, var(--color-accent) 18%, transparent), transparent 54%),
+      var(--color-ink-800);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    transition:
+      border-color 0.28s var(--ease-out-quart),
+      box-shadow 0.28s var(--ease-out-quart),
+      transform 0.28s var(--ease-out-expo);
+  }
+
+  .site-logo__mark::after {
+    content: '';
+    position: absolute;
+    inset: 0.34rem 50% 0.34rem auto;
+    width: 1px;
+    background: color-mix(in oklab, var(--color-accent) 72%, transparent);
+    transform: rotate(15deg);
+    transform-origin: center;
+  }
+
+  .site-logo__mark span {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 750;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  .site-logo__word {
+    position: relative;
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 680;
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .site-logo__word::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.34rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-accent), transparent);
+    opacity: 0;
+    transform: scaleX(0.45);
+    transform-origin: left;
+    transition:
+      opacity 0.24s var(--ease-out-quart),
+      transform 0.28s var(--ease-out-expo);
+  }
+
+  .site-logo:hover .site-logo__mark {
+    border-color: color-mix(in oklab, var(--color-accent) 72%, var(--color-text));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 14px 30px -22px color-mix(in oklab, var(--color-accent) 85%, transparent);
+    transform: translateY(-1px) rotate(-2deg);
+  }
+
+  .site-logo:hover .site-logo__word::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  @media (max-width: 420px) {
+    .site-logo {
+      gap: 0.5rem;
+    }
+
+    .site-logo__mark {
+      width: 1.9rem;
+      height: 1.9rem;
+    }
+
+    .site-logo__word {
+      font-size: 0.95rem;
+    }
+  }
+</style>
