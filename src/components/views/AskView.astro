@@ -38,8 +38,32 @@ const i18n = {
       const log = document.querySelector('[data-ask-log]');
       const form = document.querySelector('[data-ask-form]');
       const input = document.querySelector('[data-ask-input]');
-      if (!form || !log) return;
+      const submitBtn = form && form.querySelector('button[type="submit"]');
+      if (!form || !log || !input) return;
+      if (window.__askViewCleanup) window.__askViewCleanup();
+      const lifecycle = new AbortController();
+      let activeRequest = null;
+      let activeRequestTimer = null;
       let busy = false;
+      const requestTimeoutMs = 65000;
+
+      const setBusy = (v) => {
+        busy = v;
+        if (input) {
+          input.disabled = v;
+          input.setAttribute('aria-busy', v ? 'true' : 'false');
+        }
+        if (submitBtn) submitBtn.disabled = v;
+        form.toggleAttribute('data-busy', v);
+      };
+
+      window.__askViewCleanup = () => {
+        lifecycle.abort();
+        if (activeRequest) {
+          try { activeRequest.abort(); } catch (_) {}
+        }
+        if (activeRequestTimer) clearTimeout(activeRequestTimer);
+      };
 
       let sid;
       try {
@@ -105,22 +129,46 @@ const i18n = {
 
       const send = async (q) => {
         if (!q || busy) return;
-        busy = true;
+        setBusy(true);
         bubble('me', q);
         const tnode = typing();
+        const request = new AbortController();
+        activeRequest = request;
+        activeRequestTimer = setTimeout(() => request.abort(), requestTimeoutMs);
         try {
-          const r = await fetch('/api/ask', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: q, sessionId: sid }) });
+          const r = await fetch('/api/ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: q, sessionId: sid }),
+            signal: request.signal,
+          });
           const data = await r.json().catch(() => null);
-          tnode.remove();
+          if (tnode && tnode.isConnected) tnode.remove();
           if (!r.ok || !data) bubble('ai', i18n.error);
           else render(data);
         } catch (e) {
-          tnode.remove();
-          bubble('ai', i18n.error);
-        } finally { busy = false; scroll(); }
+          if (tnode && tnode.isConnected) tnode.remove();
+          if (!lifecycle.signal.aborted) bubble('ai', i18n.error);
+        } finally {
+          if (activeRequest === request) activeRequest = null;
+          if (activeRequestTimer) {
+            clearTimeout(activeRequestTimer);
+            activeRequestTimer = null;
+          }
+          setBusy(false);
+          scroll();
+          try { input && input.focus({ preventScroll: true }); } catch (_) {}
+        }
       };
 
-      form.addEventListener('submit', (e) => { e.preventDefault(); const q = input.value.trim(); input.value = ''; send(q); });
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (busy) return;
+        const q = input.value.trim();
+        if (!q) return;
+        input.value = '';
+        send(q);
+      }, { signal: lifecycle.signal });
       const q = new URLSearchParams(location.search).get('q');
       if (q) { input.value = ''; send(q); }
     })();

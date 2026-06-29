@@ -74,10 +74,17 @@ const i18n = {
     const log = panel.querySelector('[data-chatw-log]');
     const form = panel.querySelector('[data-chatw-form]');
     const input = panel.querySelector('[data-chatw-input]');
+    const submitBtn = form && form.querySelector('button[type="submit"]');
+    if (!log || !form || !input) return;
     const iOpen = fab.querySelector('[data-chat-icon-open]');
     const iClose = fab.querySelector('[data-chat-icon-close]');
     const closeBtn = panel.querySelector('[data-chat-close]');
+    if (window.__chatWidgetCleanup) window.__chatWidgetCleanup();
+    const lifecycle = new AbortController();
+    let activeRequest = null;
+    let activeRequestTimer = null;
     let busy = false;
+    const requestTimeoutMs = 65000;
 
     const hasTouchInput = () =>
       (navigator.maxTouchPoints || 0) > 0 ||
@@ -93,6 +100,24 @@ const i18n = {
       }
     };
     const blurInput = () => { try { input && input.blur(); } catch (_) {} };
+    const setBusy = (v) => {
+      busy = v;
+      if (input) {
+        input.disabled = v;
+        input.setAttribute('aria-busy', v ? 'true' : 'false');
+      }
+      if (submitBtn) submitBtn.disabled = v;
+      form && form.toggleAttribute('data-busy', v);
+      panel.toggleAttribute('data-chat-busy', v);
+    };
+
+    window.__chatWidgetCleanup = () => {
+      lifecycle.abort();
+      if (activeRequest) {
+        try { activeRequest.abort(); } catch (_) {}
+      }
+      if (activeRequestTimer) clearTimeout(activeRequestTimer);
+    };
 
     const setCookieOffset = () => {
       const viewportBottom = window.innerHeight;
@@ -111,7 +136,7 @@ const i18n = {
     if (window.__chatCookieResize) window.removeEventListener('resize', window.__chatCookieResize);
     const cookieObserver = new MutationObserver(setCookieOffset);
     cookieObserver.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] });
-    window.addEventListener('resize', setCookieOffset);
+    window.addEventListener('resize', setCookieOffset, { signal: lifecycle.signal });
     window.__chatCookieObserver = cookieObserver;
     window.__chatCookieResize = setCookieOffset;
     setCookieOffset();
@@ -194,41 +219,53 @@ const i18n = {
 
     const send = async (q) => {
       if (!q || busy) return;
-      busy = true;
+      setBusy(true);
       bubble('me', q);
       const t = typing();
+      const request = new AbortController();
+      activeRequest = request;
+      activeRequestTimer = setTimeout(() => request.abort(), requestTimeoutMs);
       try {
         const r = await fetch('/api/ask', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: q, sessionId: sid }),
+          signal: request.signal,
         });
         const data = await r.json().catch(() => null);
-        t.remove();
+        if (t && t.isConnected) t.remove();
         if (!r.ok || !data) bubble('ai', i18n.error);
         else render(data);
       } catch (e) {
-        t.remove();
-        bubble('ai', i18n.error);
+        if (t && t.isConnected) t.remove();
+        if (!lifecycle.signal.aborted) bubble('ai', i18n.error);
       } finally {
-        busy = false;
+        if (activeRequest === request) activeRequest = null;
+        if (activeRequestTimer) {
+          clearTimeout(activeRequestTimer);
+          activeRequestTimer = null;
+        }
+        setBusy(false);
         scroll();
+        if (panel.classList.contains('is-open')) requestAnimationFrame(focusInput);
       }
     };
 
-    fab.addEventListener('click', () => setOpen(!panel.classList.contains('is-open')));
-    closeBtn && closeBtn.addEventListener('click', () => setOpen(false));
+    fab.addEventListener('click', () => setOpen(!panel.classList.contains('is-open')), { signal: lifecycle.signal });
+    closeBtn && closeBtn.addEventListener('click', () => setOpen(false), { signal: lifecycle.signal });
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      if (busy) return;
       const q = input.value.trim();
+      if (!q) return;
       input.value = '';
       send(q);
-    });
+    }, { signal: lifecycle.signal });
 
     // Esc per chiudere (idempotente con le View Transitions)
     if (window.__chatEsc) document.removeEventListener('keydown', window.__chatEsc);
     const onEsc = (e) => { if (e.key === 'Escape') setOpen(false); };
-    document.addEventListener('keydown', onEsc);
+    document.addEventListener('keydown', onEsc, { signal: lifecycle.signal });
     window.__chatEsc = onEsc;
   })();
 </script>
