@@ -1,32 +1,213 @@
 ---
-// Icone social — path ufficiali (Simple Icons). Un solo punto di verità,
-// usato sia nell'hero della home sia nella card About.
+// Icone social — un solo punto di verità, usato nell'hero della home.
 import { site } from '@/data/site';
-const cls =
-  'flex h-9 w-9 items-center justify-center rounded-md border border-ink-600 text-muted transition-colors hover:border-accent hover:text-text';
+
+const links = [
+  {
+    href: site.socials.github,
+    label: 'GitHub',
+    className: 'social-link--github',
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor" class="social-link__svg" aria-hidden="true">
+      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z"/>
+    </svg>`,
+  },
+  {
+    href: site.socials.linkedin,
+    label: 'LinkedIn',
+    className: 'social-link--linkedin',
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor" class="social-link__svg social-link__svg--sm" aria-hidden="true">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+    </svg>`,
+  },
+  {
+    href: site.socials.huggingface,
+    label: 'HuggingFace',
+    className: 'social-link--hf',
+    icon: '<span class="social-link__hf" aria-hidden="true">HF</span>',
+  },
+  {
+    href: site.socials.n8n,
+    label: 'n8n',
+    className: 'social-link--n8n',
+    icon: `<svg viewBox="0 0 576 160" class="social-link__n8n" aria-hidden="true">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M272 64C257.089 64 244.561 53.8018 241.008 40H204.331C196.51 40 189.835 45.6546 188.549 53.3696L187.234 61.2608C185.985 68.7531 182.195 75.2738 176.835 80C182.195 84.7262 185.985 91.2469 187.234 98.7392L188.549 106.63C189.835 114.345 196.51 120 204.331 120H209.008C212.561 106.198 225.089 96 240 96C257.673 96 272 110.327 272 128C272 145.673 257.673 160 240 160C225.089 160 212.56 149.802 209.008 136H204.331C188.688 136 175.338 124.691 172.766 109.261L171.451 101.37C170.165 93.6546 163.49 88 155.669 88H142.992C139.44 101.802 126.911 112 112 112C97.0893 112 84.5605 101.802 81.0081 88H62.9919C59.4395 101.802 46.9107 112 32 112C14.3269 112 0 97.6731 0 80C0 62.3269 14.3269 48 32 48C46.9107 48 59.4395 58.1982 62.9919 72H81.0081C84.5605 58.1982 97.0893 48 112 48C126.911 48 139.44 58.1982 142.992 72H155.669C163.49 72 170.165 66.3454 171.451 58.6304L172.766 50.7392C175.338 35.3092 188.688 24 204.331 24L241.008 24C244.56 10.1982 257.089 0 272 0C289.673 0 304 14.3269 304 32C304 49.6731 289.673 64 272 64ZM272 48C280.837 48 288 40.8366 288 32C288 23.1634 280.837 16 272 16C263.163 16 256 23.1634 256 32C256 40.8366 263.163 48 272 48ZM32 96C40.8366 96 48 88.8366 48 80C48 71.1634 40.8366 64 32 64C23.1634 64 16 71.1634 16 80C16 88.8366 23.1634 96 32 96ZM128 80C128 88.8366 120.837 96 112 96C103.163 96 96 88.8366 96 80C96 71.1634 103.163 64 112 64C120.837 64 128 71.1634 128 80ZM256 128C256 136.837 248.837 144 240 144C231.163 144 224 136.837 224 128C224 119.163 231.163 112 240 112C248.837 112 256 119.163 256 128Z" fill="#EA4B71"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M480.023 69.1834V68.421C485.605 65.6252 491.188 60.7962 491.188 51.2651C491.188 37.5405 479.896 29.2803 464.29 29.2803C448.304 29.2803 436.885 38.0488 436.885 51.5193C436.885 60.6691 442.214 65.6252 448.05 68.421V69.1834C441.579 71.4709 433.84 78.3332 433.84 89.7704C433.84 103.622 445.259 113.28 464.163 113.28C483.068 113.28 494.106 103.622 494.106 89.7704C494.106 78.3332 486.494 71.598 480.023 69.1834ZM464.163 40.9717C470.507 40.9717 475.202 45.0382 475.202 51.9005C475.202 58.7629 470.38 62.8294 464.163 62.8294C457.946 62.8294 452.744 58.7629 452.744 51.9005C452.744 44.9111 457.693 40.9717 464.163 40.9717ZM464.163 101.081C456.804 101.081 450.841 96.3786 450.841 88.3726C450.841 81.129 455.789 75.6645 464.036 75.6645C472.156 75.6645 477.105 81.0019 477.105 88.6267C477.105 96.3786 471.395 101.081 464.163 101.081Z" fill="currentColor"/>
+      <path d="M513.68 112.009H529.92V77.5707C529.92 66.2606 536.771 61.3045 544.511 61.3045C552.123 61.3045 558.087 66.3877 558.087 76.8083V112.009H574.327V73.5042C574.327 56.8567 564.684 47.1986 549.586 47.1986C540.07 47.1986 534.741 51.011 530.935 55.9671H529.92L528.524 48.4694H513.68V112.009Z" fill="currentColor"/>
+      <path d="M369.92 112.009H353.68V48.4694H368.524L369.92 55.9671H370.935C374.741 51.011 380.07 47.1986 389.586 47.1986C404.684 47.1986 414.327 56.8567 414.327 73.5042V112.009H398.087V76.8083C398.087 66.3877 392.123 61.3045 384.511 61.3045C376.771 61.3045 369.92 66.2606 369.92 77.5707V112.009Z" fill="currentColor"/>
+    </svg>`,
+  },
+];
 ---
-<a href={site.socials.github} target="_blank" rel="noopener" aria-label="GitHub" class={cls}>
-  <svg viewBox="0 0 24 24" fill="currentColor" class="h-[18px] w-[18px]" aria-hidden="true">
-    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z"/>
-  </svg>
-</a>
-<a href={site.socials.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn" class={cls}>
-  <svg viewBox="0 0 24 24" fill="currentColor" class="h-[17px] w-[17px]" aria-hidden="true">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
-  </svg>
-</a>
-<a href={site.socials.huggingface} target="_blank" rel="noopener" aria-label="Hugging Face" class={cls}>
-  <span class="font-mono text-[11px] font-bold">HF</span>
-</a>
-<a href={site.socials.n8n} target="_blank" rel="noopener" aria-label="n8n Creator" title="n8n Creator" class={cls}>
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="h-[20px] w-[20px]" aria-hidden="true">
-    <circle cx="5" cy="12" r="2.2" />
-    <circle cx="12" cy="7" r="2.2" />
-    <circle cx="12" cy="17" r="2.2" />
-    <circle cx="19" cy="12" r="2.2" />
-    <path d="M7 11l3.1-2.2" />
-    <path d="M7 13l3.1 2.2" />
-    <path d="M13.9 8.8L17 11" />
-    <path d="M13.9 15.2L17 13" />
-  </svg>
-</a>
+
+{links.map((link) => (
+  <a
+    href={link.href}
+    target="_blank"
+    rel="noopener"
+    aria-label={link.label}
+    title={link.label}
+    class={`social-link ${link.className}`}
+  >
+    <span class="social-link__mark" set:html={link.icon} />
+    <span class="social-link__label" aria-hidden="true">{link.label}</span>
+  </a>
+))}
+
+<style>
+  .social-link {
+    --brand: var(--color-accent);
+    --brand-soft: color-mix(in oklab, var(--brand) 18%, transparent);
+
+    display: inline-flex;
+    width: 2.25rem;
+    height: 2.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    overflow: hidden;
+    border: 1px solid var(--color-ink-600);
+    border-radius: 0.45rem;
+    background: color-mix(in oklab, var(--color-ink-800) 28%, transparent);
+    color: var(--color-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      width 0.36s var(--ease-out-expo),
+      transform 0.36s var(--ease-out-expo),
+      border-color 0.25s var(--ease-out-quart),
+      background 0.25s var(--ease-out-quart),
+      color 0.25s var(--ease-out-quart),
+      box-shadow 0.36s var(--ease-out-expo);
+  }
+
+  .social-link--github { --brand: #f3f6fc; }
+  .social-link--linkedin { --brand: #0a66c2; }
+  .social-link--hf { --brand: #ffd21e; }
+  .social-link--n8n {
+    --brand: #ea4b71;
+    width: 3.6rem;
+    color: var(--color-text);
+  }
+
+  .social-link__mark {
+    display: inline-flex;
+    min-width: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    transition:
+      transform 0.36s var(--ease-out-expo),
+      color 0.25s var(--ease-out-quart);
+  }
+
+  :global(.social-link__svg) {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  :global(.social-link__svg--sm) {
+    width: 1.0625rem;
+    height: 1.0625rem;
+  }
+
+  :global(.social-link__hf) {
+    color: #ffd21e;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  :global(.social-link__n8n) {
+    width: 2.55rem;
+    height: auto;
+    color: var(--color-text);
+    transition: width 0.36s var(--ease-out-expo), color 0.25s var(--ease-out-quart);
+  }
+
+  .social-link__label {
+    max-width: 0;
+    opacity: 0;
+    transform: translateX(-0.2rem);
+    color: var(--brand);
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 650;
+    letter-spacing: 0;
+    transition:
+      max-width 0.36s var(--ease-out-expo),
+      opacity 0.22s var(--ease-out-quart),
+      transform 0.36s var(--ease-out-expo);
+  }
+
+  .social-link--n8n .social-link__label {
+    display: none;
+  }
+
+  .social-link:hover,
+  .social-link:focus-visible {
+    border-color: color-mix(in oklab, var(--brand) 72%, var(--color-ink-600));
+    background: var(--brand-soft);
+    color: var(--brand);
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px -24px color-mix(in oklab, var(--brand) 70%, transparent);
+  }
+
+  .social-link:hover .social-link__mark,
+  .social-link:focus-visible .social-link__mark {
+    transform: scale(1.12);
+  }
+
+  .social-link:hover .social-link__label,
+  .social-link:focus-visible .social-link__label {
+    max-width: 7.5rem;
+    opacity: 1;
+    transform: none;
+  }
+
+  .social-link--n8n:hover,
+  .social-link--n8n:focus-visible {
+    width: 5.9rem;
+  }
+
+  .social-link--n8n:hover :global(.social-link__n8n),
+  .social-link--n8n:focus-visible :global(.social-link__n8n) {
+    width: 4.85rem;
+  }
+
+  @media (min-width: 768px) {
+    .social-link:hover,
+    .social-link:focus-visible {
+      width: 7.5rem;
+    }
+
+    .social-link--linkedin:hover,
+    .social-link--linkedin:focus-visible {
+      width: 7.2rem;
+    }
+
+    .social-link--hf:hover,
+    .social-link--hf:focus-visible {
+      width: 8.35rem;
+    }
+
+    .social-link--n8n:hover,
+    .social-link--n8n:focus-visible {
+      width: 6.5rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .social-link__label {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .social-link,
+    .social-link__mark,
+    .social-link__label,
+    :global(.social-link__n8n) {
+      transition-duration: 0.01ms;
+    }
+  }
+</style>
