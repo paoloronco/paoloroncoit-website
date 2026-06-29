@@ -27,7 +27,7 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
         <button
           data-filter={i === 0 ? '__all__' : c}
           class:list={[
-            'rounded-full border px-3 py-1 font-mono text-xs transition-colors',
+            'rounded-full border bg-ink-900/45 px-3 py-1 font-mono text-xs backdrop-blur-sm transition-colors',
             i === 0 ? 'border-accent text-accent' : 'border-ink-600 text-muted hover:text-text',
           ]}
         >{c}</button>
