@@ -464,19 +464,22 @@ a.chat-card:hover { border-color: color-mix(in oklab, var(--color-accent) 55%, t
 }
 .term__body {
   margin: 0;
-  padding: 1.05rem 1.15rem 1.25rem;
+  padding: 0.65rem 1.15rem 1.15rem;
   font-size: 0.8rem;
   line-height: 1.8;
   /* niente min-height: il terminale cresce col contenuto, poi scrolla internamente */
   max-height: clamp(15rem, 46vh, 24rem);
   overflow-y: auto;
-  white-space: pre-wrap;   /* responsive: le righe lunghe vanno a capo */
+  white-space: normal;
   word-break: break-word;
   cursor: text;
 }
 .term__body::-webkit-scrollbar { width: 8px; }
 .term__body::-webkit-scrollbar-thumb { background: var(--color-ink-500); border-radius: 4px; }
-.term__line { display: block; }
+.term__line {
+  display: block;
+  white-space: pre-wrap;   /* responsive: output e righe lunghe vanno a capo */
+}
 .term__promptwrap {
   display: inline-block;
   flex: 0 0 auto;
@@ -498,6 +501,7 @@ a.chat-card:hover { border-color: color-mix(in oklab, var(--color-accent) 55%, t
   display: flex;
   align-items: baseline;
   min-width: 0;
+  white-space: normal;
 }
 .term__field {
   flex: 1 1 auto;
