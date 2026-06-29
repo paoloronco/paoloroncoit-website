@@ -60,7 +60,7 @@ targets:
   - id: http  
     label: wp-ai-chatbot  
     config:  
-      url: https://n8n.prhomelab.com/webhook/wp-ai-chatbot  
+      url: https://n8n.prhomelab.com/webhook/paoloroncoit-chatbot
       method: POST  
       headers:  
         Content-Type: application/json  

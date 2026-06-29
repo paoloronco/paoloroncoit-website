@@ -60,7 +60,7 @@ targets:
   - id: http  
     label: wp-ai-chatbot  
     config:  
-      url: https://n8n.prhomelab.com/webhook/wp-ai-chatbot  
+      url: https://n8n.prhomelab.com/webhook/paoloroncoit-chatbot
       method: POST  
       headers:  
         Content-Type: application/json  
@@ -216,4 +216,3 @@ AI security isn't a checkbox. It's an iterative process: build, test, measure, i
 * * *
 
 _Want to dig into the chatbot's architecture? Read the technical article: [WordPress AI Chatbot with n8n, Qdrant and MongoDB Vector Store](https://paoloronco.it/en/writing/wordpress-ai-chatbot-trasformare-contenuti-in-un-sistema-interrogabile-n8n-qdrant-mongodb-vector-store/). The chatbot is live at [paoloronco.it/ai-chatbot/](https://paoloronco.it/ai-chatbot/)._
-

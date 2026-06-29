@@ -3,7 +3,7 @@
 // Il sito resta statico: solo questa route gira lato server (prerender = false).
 //
 // Env (Vercel → Settings → Environment Variables):
-//   N8N_WEBHOOK_URL         es. https://n8n.prhomelab.com/webhook/wp-ai-chatbot
+//   N8N_WEBHOOK_URL         es. https://n8n.prhomelab.com/webhook/paoloroncoit-chatbot
 //   N8N_AUTH_HEADER_NAME    es. Authorization        (opzionale, default Authorization)
 //   N8N_AUTH_HEADER_VALUE   es. Bearer <token>
 //   SITE_HOME_URL           es. https://paoloronco.it/   (opzionale)
