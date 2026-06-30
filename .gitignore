@@ -24,3 +24,7 @@ avvia-sito.bat
 
 # internal docs
 docs/superpowers/
+
+# local scripts / internal docs
+traduci-articoli.bat
+PROPOSAL.md
