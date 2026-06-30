@@ -7,10 +7,12 @@ const lang = getLangFromUrl(Astro.url);
 const L = (p: string) => localizePath(p, lang);
 const en = lang === 'en';
 const g = en ? { nav: 'Navigate', act: 'Actions', post: 'Articles' } : { nav: 'Naviga', act: 'Azioni', post: 'Articoli' };
+const certificatesPath = en ? '/en/certifications' : '/certificati';
 
 const navCommands = [
   { group: g.nav, name: 'Home', href: L('/'), keys: 'home start', kind: 'nav' },
   { group: g.nav, name: 'CV', href: L('/cv'), keys: 'curriculum cv esperienza experience', kind: 'nav' },
+  { group: g.nav, name: en ? 'Certifications' : 'Certificati', href: certificatesPath, keys: 'certificati certificazioni certificates certifications docs pdf badge', kind: 'nav' },
   { group: g.nav, name: 'Projects', sub: en ? 'case files' : 'progetti', href: L('/projects'), keys: 'progetti portfolio case projects work', kind: 'nav' },
   { group: g.nav, name: 'Writing', sub: en ? 'articles' : 'articoli', href: L('/writing'), keys: 'articoli blog post articles', kind: 'nav' },
   { group: g.nav, name: 'Skills', sub: en ? 'technical skills' : 'competenze tecniche', href: L('/skills'), keys: 'competenze skill tecnologie tool skills', kind: 'nav' },

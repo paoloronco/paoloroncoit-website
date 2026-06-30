@@ -38,6 +38,8 @@ const languages = [
   { lang: t('lang.en'), level: t('level.advanced') },
   { lang: t('lang.es'), level: t('level.basic') },
 ];
+
+const certificatesPath = en ? '/en/certifications' : '/certificati';
 ---
 <Base title="CV" description={t('cv.skillsCardDesc')} path="/cv">
   <section class="mx-auto max-w-3xl px-5 pt-16 pb-16">
@@ -89,7 +91,9 @@ const languages = [
 
     <div class="mt-12 mb-4 flex items-baseline justify-between">
       <h2 class="kicker">{t('cv.certs')}</h2>
-      <span class="font-mono text-xs text-muted">{certs.length}</span>
+      <a href={certificatesPath} class="font-mono text-xs text-accent transition-colors hover:text-text">
+        {en ? 'all documents' : 'tutti i documenti'} →
+      </a>
     </div>
     <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
       {certs.map((c, i) => (
