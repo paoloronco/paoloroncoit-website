@@ -21,3 +21,6 @@ avvia-sito.bat
 
 # vercel
 .vercel
+
+# internal docs
+docs/superpowers/
