@@ -1,0 +1,48 @@
+---
+import Base from '@/layouts/Base.astro';
+import CmdPath from '@/components/CmdPath.astro';
+import { getLangFromUrl, useTranslations, localizePath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const links = [
+  { href: '/', label: lang === 'en' ? 'Home' : 'Home' },
+  { href: '/projects', label: t('nav.projects') },
+  { href: '/writing', label: t('nav.writing') },
+  { href: '/cv', label: t('nav.cv') },
+];
+---
+
+<Base
+  title="404"
+  description={lang === 'en' ? 'Page not found.' : 'Pagina non trovata.'}
+  path="/404"
+>
+  <section class="mx-auto max-w-5xl px-5 pt-16 pb-32">
+    <CmdPath cmd="cd" arg="~" note={lang === 'en' ? 'path not found' : 'percorso non trovato'} />
+
+    <div class="mt-10 border-y border-ink-600/70 py-12">
+      <p class="kicker anim-rise text-accent" style="animation-delay:.1s">404</p>
+      <h1 class="anim-rise mt-3 text-5xl font-semibold tracking-tight text-text sm:text-7xl" style="animation-delay:.18s">
+        {lang === 'en' ? 'Not found' : 'Non trovato'}
+      </h1>
+      <p class="anim-rise mt-5 max-w-md text-base leading-relaxed text-text-dim" style="animation-delay:.28s">
+        {lang === 'en'
+          ? "The page you're looking for doesn't exist or has been moved."
+          : 'La pagina che cerchi non esiste o è stata spostata.'}
+      </p>
+
+      <nav class="anim-rise mt-8 flex flex-wrap gap-3" style="animation-delay:.38s" aria-label={lang === 'en' ? 'Useful pages' : 'Pagine utili'}>
+        {links.map((l) => (
+          <a
+            href={localizePath(l.href, lang)}
+            class="rounded-md border border-ink-600/70 px-4 py-2 text-sm text-text-dim transition-colors hover:border-accent/60 hover:text-accent"
+          >
+            {l.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+</Base>
