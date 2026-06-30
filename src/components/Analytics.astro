@@ -4,35 +4,58 @@ const microsoftClarityId = import.meta.env.PUBLIC_MICROSOFT_CLARITY_ID?.trim();
 
 const googleAnalyticsEnabled = Boolean(googleAnalyticsId);
 const microsoftClarityEnabled = Boolean(microsoftClarityId);
-
-const googleAnalyticsSrc = googleAnalyticsId
-  ? `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleAnalyticsId)}`
-  : undefined;
+const analyticsEnabled = googleAnalyticsEnabled || microsoftClarityEnabled;
 ---
 
 <!-- Start cookieyes banner -->
 <script is:inline id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/c6b1eff957ec8357a86c47c6/script.js"></script>
 <!-- End cookieyes banner -->
 
-{googleAnalyticsEnabled && (
-  <>
-    <script is:inline type="text/plain" data-cookieyes="cookieyes-analytics" async src={googleAnalyticsSrc}></script>
-    <script is:inline type="text/plain" data-cookieyes="cookieyes-analytics" define:vars={{ googleAnalyticsId }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', googleAnalyticsId);
-    </script>
-  </>
-)}
+{analyticsEnabled && (
+  <script is:inline define:vars={{ googleAnalyticsId, microsoftClarityId }}>
+    (function () {
+      function hasAnalyticsConsent(detail) {
+        if (!detail) return false;
+        if (detail.categories && detail.categories.analytics) return true;
+        return Array.isArray(detail.accepted) && detail.accepted.indexOf('analytics') !== -1;
+      }
 
-{microsoftClarityEnabled && (
-  <script is:inline type="text/plain" data-cookieyes="cookieyes-analytics" define:vars={{ microsoftClarityId }}>
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", microsoftClarityId);
-    window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
+      function loadGoogleAnalytics() {
+        if (!googleAnalyticsId || window.__paoloGoogleAnalyticsLoaded) return;
+        window.__paoloGoogleAnalyticsLoaded = true;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function gtag(){ window.dataLayer.push(arguments); };
+        window.gtag('js', new Date());
+        window.gtag('config', googleAnalyticsId);
+
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(googleAnalyticsId);
+        document.head.appendChild(script);
+      }
+
+      function loadMicrosoftClarity() {
+        if (!microsoftClarityId || window.__paoloMicrosoftClarityLoaded) return;
+        window.__paoloMicrosoftClarityLoaded = true;
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", microsoftClarityId);
+        window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
+      }
+
+      function loadAnalytics() {
+        loadGoogleAnalytics();
+        loadMicrosoftClarity();
+      }
+
+      function handleConsent(eventData) {
+        if (hasAnalyticsConsent(eventData && eventData.detail)) loadAnalytics();
+      }
+
+      document.addEventListener('cookieyes_banner_load', handleConsent);
+      document.addEventListener('cookieyes_consent_update', handleConsent);
+    })();
   </script>
 )}
