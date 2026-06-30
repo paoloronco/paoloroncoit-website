@@ -15,6 +15,8 @@ const subtitle = en
   : 'Certificazioni, badge e documenti di supporto raccolti in un unico posto.';
 const countLabel = en ? 'documents' : 'documenti';
 const openLabel = en ? 'Open' : 'Apri';
+const previewLabel = en ? 'Preview' : 'Anteprima';
+const openTabLabel = en ? 'Open in new tab' : 'Apri in nuova tab';
 
 const fileUrl = (file: string) => `/certificati/${encodeURIComponent(file)}`;
 const assetHref = (asset: CertificateAsset) => asset.url ?? (asset.file ? fileUrl(asset.file) : '#');
@@ -24,6 +26,11 @@ const assetKind = (asset: CertificateAsset) => {
   if (asset.type === 'image') return en ? 'Image' : 'Immagine';
   return en ? 'Text' : 'Testo';
 };
+
+const firstPreviewEntry = certificateEntries.find((entry) => entry.assets.some((asset) => asset.type === 'pdf' && asset.file));
+const firstPreviewAsset = firstPreviewEntry?.assets.find((asset) => asset.type === 'pdf' && asset.file);
+const firstPreviewCert = firstPreviewEntry ? resolveCert(firstPreviewEntry.title) : undefined;
+const firstPreviewUrl = firstPreviewAsset ? assetHref(firstPreviewAsset) : '';
 ---
 
 <Base title={pageTitle} description={subtitle} path={pagePath}>
@@ -41,32 +48,62 @@ const assetKind = (asset: CertificateAsset) => {
       </div>
     </div>
 
-    <div class="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-2">
-      {certificateEntries.map((entry, i) => {
-        const cert = resolveCert(entry.title);
-        const preview = entry.assets.find((asset) => asset.type === 'image' && asset.file);
-        return (
-          <article
-            data-reveal
-            style={`--c:${cert.color};--i:${Math.min(i, 8)}`}
-            class="group overflow-hidden rounded-xl border border-ink-600 bg-ink-800/40 transition-all hover:-translate-y-0.5 hover:border-[var(--c)] hover:bg-ink-800"
-          >
-            <div class="flex gap-4 p-4 sm:p-5">
-              {cert.logo ? (
-                <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper px-3 py-2.5 shadow-md shadow-black/30 ring-1 ring-black/5">
-                  <img src={cert.logo} alt={cert.issuer} width="80" height="48" loading="lazy" class="max-h-11 max-w-full object-contain" />
-                </span>
-              ) : (
-                <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold shadow-md shadow-black/30" style={`color:${cert.color}`}>
-                  {cert.initials}
-                </span>
-              )}
+    <div class="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.9fr)] lg:items-start">
+      <div class="grid grid-cols-1 gap-4">
+        {certificateEntries.map((entry, i) => {
+          const cert = resolveCert(entry.title);
+          const preview = entry.assets.find((asset) => asset.type === 'image' && asset.file);
+          const primaryPdf = entry.assets.find((asset) => asset.type === 'pdf' && asset.file);
+          const isSelected = firstPreviewEntry?.title === entry.title;
+          return (
+            <article
+              data-reveal
+              data-cert-card
+              data-selected={isSelected ? 'true' : 'false'}
+              style={`--c:${cert.color};--i:${Math.min(i, 8)}`}
+              class="group overflow-hidden rounded-xl border border-ink-600 bg-ink-800/40 transition-all hover:-translate-y-0.5 hover:border-[var(--c)] hover:bg-ink-800 data-[selected=true]:border-[var(--c)] data-[selected=true]:bg-ink-800"
+            >
+              <button
+                type="button"
+                data-cert-trigger={primaryPdf ? 'true' : undefined}
+                data-preview-url={primaryPdf ? assetHref(primaryPdf) : undefined}
+                data-preview-name={cert.name}
+                data-preview-issuer={cert.issuer}
+                disabled={!primaryPdf}
+                class="flex w-full gap-4 p-4 text-left transition-colors enabled:cursor-pointer enabled:hover:bg-ink-900/20 disabled:cursor-default sm:p-5"
+              >
+                {cert.logo ? (
+                  <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper px-3 py-2.5 shadow-md shadow-black/30 ring-1 ring-black/5">
+                    <img src={cert.logo} alt={cert.issuer} width="80" height="48" loading="lazy" class="max-h-11 max-w-full object-contain" />
+                  </span>
+                ) : (
+                  <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold shadow-md shadow-black/30" style={`color:${cert.color}`}>
+                    {cert.initials}
+                  </span>
+                )}
 
-              <div class="min-w-0 flex-1">
-                <p class="font-display text-lg font-semibold leading-snug text-text">{cert.name}</p>
-                <p class="mt-1 text-xs uppercase tracking-wide text-muted">{cert.issuer}</p>
-                <div class="mt-4 flex flex-wrap gap-2">
-                  {entry.assets.map((asset) => (
+                <span class="min-w-0 flex-1">
+                  <span class="block font-display text-lg font-semibold leading-snug text-text">{cert.name}</span>
+                  <span class="mt-1 block text-xs uppercase tracking-wide text-muted">{cert.issuer}</span>
+                  {primaryPdf && <span class="mt-3 inline-flex font-mono text-[11px] uppercase tracking-wide text-accent">{previewLabel}</span>}
+                </span>
+              </button>
+
+              <div class="flex flex-wrap gap-2 border-t border-ink-600 bg-ink-900/25 p-3 sm:px-5">
+                {primaryPdf && (
+                  <a
+                    href={assetHref(primaryPdf)}
+                    target="_blank"
+                    rel="noopener"
+                    class="inline-flex items-center gap-2 rounded-md border border-ink-600 bg-ink-900/35 px-3 py-2 text-xs font-medium text-text-dim transition-colors hover:border-[var(--c)] hover:text-text"
+                  >
+                    <span class="font-mono text-[10px] text-accent">PDF</span>
+                    <span>{openTabLabel}</span>
+                  </a>
+                )}
+                {entry.assets
+                  .filter((asset) => asset !== primaryPdf)
+                  .map((asset) => (
                     <a
                       href={assetHref(asset)}
                       target="_blank"
@@ -77,19 +114,133 @@ const assetKind = (asset: CertificateAsset) => {
                       <span>{asset.label || openLabel}</span>
                     </a>
                   ))}
-                </div>
               </div>
-            </div>
 
-            {preview?.file && (
-              <a href={fileUrl(preview.file)} target="_blank" rel="noopener" class="block border-t border-ink-600 bg-ink-900/25 p-3">
-                <img src={fileUrl(preview.file)} alt={entry.title} loading="lazy" class="h-28 w-full rounded-md object-contain" />
-              </a>
-            )}
-          </article>
-        );
-      })}
+              {preview?.file && (
+                <button
+                  type="button"
+                  data-cert-trigger={primaryPdf ? 'true' : undefined}
+                  data-preview-url={primaryPdf ? assetHref(primaryPdf) : undefined}
+                  data-preview-name={cert.name}
+                  data-preview-issuer={cert.issuer}
+                  disabled={!primaryPdf}
+                  class="block w-full border-t border-ink-600 bg-ink-900/25 p-3 disabled:cursor-default"
+                >
+                  <img src={fileUrl(preview.file)} alt={entry.title} loading="lazy" class="h-28 w-full rounded-md object-contain" />
+                </button>
+              )}
+            </article>
+          );
+        })}
+      </div>
+
+      <aside
+        data-cert-preview-panel
+        class="preview-panel sticky top-24 overflow-hidden rounded-xl border border-ink-600 bg-ink-900/65 shadow-2xl shadow-black/30"
+      >
+        <div class="flex flex-wrap items-start justify-between gap-3 border-b border-ink-600 p-4">
+          <div class="min-w-0">
+            <p class="font-mono text-[11px] uppercase tracking-wide text-accent">{previewLabel}</p>
+            <h2 data-preview-title-target class="mt-1 font-display text-xl font-semibold leading-tight text-text">{firstPreviewCert?.name}</h2>
+            <p data-preview-issuer-target class="mt-1 text-xs uppercase tracking-wide text-muted">{firstPreviewCert?.issuer}</p>
+          </div>
+          <a
+            data-preview-open
+            href={firstPreviewUrl}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex shrink-0 items-center rounded-md border border-ink-600 px-3 py-2 text-xs font-medium text-text-dim transition-colors hover:border-accent hover:text-text"
+          >
+            {openTabLabel}
+          </a>
+        </div>
+
+        <div class="preview-stage bg-paper">
+          <iframe
+            data-preview-frame
+            src={firstPreviewUrl}
+            title={firstPreviewCert?.name}
+            loading="lazy"
+            class="h-[68vh] min-h-[30rem] w-full bg-paper"
+          ></iframe>
+        </div>
+      </aside>
     </div>
   </section>
-</Base>
 
+  <script>
+    const previewTriggers = document.querySelectorAll('[data-cert-trigger]');
+    const previewCards = document.querySelectorAll('[data-cert-card]');
+    const previewPanel = document.querySelector('[data-cert-preview-panel]');
+    const previewFrame = document.querySelector('[data-preview-frame]');
+    const previewTitle = document.querySelector('[data-preview-title-target]');
+    const previewIssuer = document.querySelector('[data-preview-issuer-target]');
+    const previewOpen = document.querySelector('[data-preview-open]');
+
+    const setPreview = (trigger: Element) => {
+      const url = trigger.getAttribute('data-preview-url');
+      const title = trigger.getAttribute('data-preview-name') || '';
+      const issuer = trigger.getAttribute('data-preview-issuer') || '';
+      if (!url || !previewFrame || !previewTitle || !previewIssuer || !previewOpen) return;
+
+      previewCards.forEach((card) => {
+        card.setAttribute('data-selected', String(card.contains(trigger)));
+      });
+
+      previewPanel?.classList.remove('is-ready');
+      previewPanel?.classList.add('is-changing');
+
+      window.setTimeout(() => {
+        if (previewFrame.getAttribute('src') !== url) previewFrame.setAttribute('src', url);
+        previewFrame.setAttribute('title', title);
+        previewTitle.textContent = title;
+        previewIssuer.textContent = issuer;
+        previewOpen.setAttribute('href', url);
+        previewPanel?.classList.remove('is-changing');
+        previewPanel?.classList.add('is-ready');
+      }, 120);
+    };
+
+    previewTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => setPreview(trigger));
+    });
+  </script>
+
+  <style>
+    .preview-panel {
+      transform-origin: top center;
+      transition:
+        border-color 220ms cubic-bezier(0.25, 1, 0.5, 1),
+        transform 260ms cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 260ms cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .preview-panel.is-changing {
+      opacity: 0.72;
+      transform: translateY(6px) scale(0.992);
+    }
+
+    .preview-panel.is-ready {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .preview-stage iframe {
+      transition:
+        opacity 220ms cubic-bezier(0.25, 1, 0.5, 1),
+        transform 220ms cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .preview-panel.is-changing .preview-stage iframe {
+      opacity: 0.45;
+      transform: translateY(4px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .preview-panel,
+      .preview-stage iframe {
+        transition: none;
+      }
+    }
+  </style>
+</Base>

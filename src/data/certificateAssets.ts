@@ -108,9 +108,4 @@ export const certificateEntries: CertificateEntry[] = [
     title: 'Corso Crescere in digitale',
     assets: [{ label: 'PDF', type: 'pdf', file: '16 - certificato Corso Crescere in digitale.pdf' }],
   },
-  {
-    title: 'Certificate links archive',
-    assets: [{ label: 'Text', type: 'text', file: 'CERTIFICATES LINKS.txt' }],
-  },
 ];
-
