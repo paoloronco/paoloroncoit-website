@@ -26,7 +26,7 @@ export const ui = {
 
     // home
     'home.intro':
-      `Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab metto le mani su automazioni, LLM e tutto ciò che vale la pena capire a fondo.`,
+      `Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab sperimento con automazioni, LLM e tutto ciò che vale la pena capire a fondo.`,
     'home.ctaWork': 'Esplora i progetti →',
     'home.ctaWriting': 'Leggi gli articoli',
     'home.status': 'Disponibile per collaborazioni',
