@@ -26,7 +26,7 @@ export const ui = {
 
     // home
     'home.intro':
-      `Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab sperimento con automazioni, LLM e tutto ciò che vale la pena capire a fondo.`,
+      `Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab sperimento con automazioni, LLM e tecnologie da esplorare con metodo.`,
     'home.ctaWork': 'Esplora i progetti →',
     'home.ctaWriting': 'Leggi gli articoli',
     'home.status': 'Disponibile per collaborazioni',
@@ -186,7 +186,7 @@ export const ui = {
     'lang.switch': 'Language',
 
     'home.intro':
-      `Cyber Security Analyst at Deloitte, in the ${enterpriseSecurityArea}. I work on cloud security, infrastructure and AI applied to defense. In my homelab I get hands-on with automation, LLMs and anything worth understanding in depth.`,
+      `Cyber Security Analyst at Deloitte, in the ${enterpriseSecurityArea}. I work on cloud security, infrastructure and AI applied to defense. In my homelab I get hands-on with automation, LLMs and technologies worth exploring methodically.`,
     'home.ctaWork': 'Explore the projects →',
     'home.ctaWriting': 'Read the articles',
     'home.status': 'Available for collaborations',
