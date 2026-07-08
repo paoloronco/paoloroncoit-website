@@ -368,8 +368,8 @@ def draw_languages(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
     for i, (name, level) in enumerate(langs):
         cx = x + 12 + i * (chip_w + 5)
         rounded_card(c, cx, cy + 2, chip_w, 28, fill=colors.HexColor("#ffffff"))
-        center_text(c, name, cx + chip_w / 2, cy - 10.2, 7.6, TEXT, "Helvetica-Bold")
-        center_text(c, level, cx + chip_w / 2, cy - 20.7, 6.4, MUTED, "Helvetica-Bold")
+        center_text(c, name, cx + chip_w / 2, cy - 8.8, 7.6, TEXT, "Helvetica-Bold")
+        center_text(c, level, cx + chip_w / 2, cy - 18.8, 6.4, MUTED, "Helvetica-Bold")
     return y - panel_h - 10
 
 
