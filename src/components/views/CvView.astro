@@ -2,42 +2,42 @@
 import Base from '@/layouts/Base.astro';
 import CmdPath from '@/components/CmdPath.astro';
 import { resolveCert } from '@/data/certs';
-import { enterpriseSecurityArea } from '@/data/site';
+import cvContent from '@/data/cv-content.json';
 import { getLangFromUrl, useTranslations, localizePath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const en = lang === 'en';
 
-const experience: { period: string; role: string; sub?: string; org: string }[] = [
-  { period: en ? 'Nov 2024 — present' : 'Nov 2024 — presente', role: 'Cyber Security Analyst', sub: enterpriseSecurityArea, org: 'Deloitte Consulting' },
-  { period: en ? 'Jul 2024 — Oct 2024' : 'Lug 2024 — Ott 2024', role: 'Junior System Administrator', org: en ? 'Dylog s.p.a. — Turin' : 'Dylog s.p.a. — Torino' },
-  { period: en ? 'Jan 2018 — Feb 2018' : 'Gen 2018 — Feb 2018', role: en ? 'IT Services / CED' : 'Servizi IT / CED', org: 'Comune di Grugliasco' },
-  { period: en ? 'Jan 2018 — Feb 2018' : 'Gen 2018 — Feb 2018', role: 'Accounting Services / IT Services', org: 'FIM-CISL Torino e Canavese' },
-  { period: en ? 'Mar 2017 — Apr 2017' : 'Mar 2017 — Apr 2017', role: 'IT Services', org: 'PerMicro s.p.a. — Gruppo BNP Paribas' },
-];
+type Localized = string | { it?: string; en?: string };
+const pick = (value: Localized | undefined) => {
+  if (!value) return '';
+  if (typeof value === 'string') return value;
+  return value[lang] ?? value.it ?? value.en ?? '';
+};
 
-const education = [
-  { type: t('edu.corso'), title: 'CyberSecurity', org: en ? 'Istituto Volta — Milan' : 'Istituto Volta — Milano' },
-  { type: t('edu.laurea'), title: 'Scienze della Comunicazione, Digital Entertainment and Marketing', org: 'Università eCampus — Novedrate (CO)' },
-  { type: t('edu.diploma'), title: 'Amministrazione, Finanza e Marketing', org: 'IIS Gobetti Marchesini Casale Arduino — Torino' },
-];
+const experience = cvContent.experience.map((item) => ({
+  period: pick(item.period),
+  role: pick(item.role),
+  sub: pick(item.sub),
+  org: pick(item.org),
+}));
 
-const certs = [
-  'CompTIA Security+', 'CompTIA AI Essentials', 'Splunk Core Certified User',
-  'Google Cybersecurity Professional Certificate', 'Google IT Support', 'AWS Cloud Essentials',
-  'Google Cloud Digital Leader', 'Google Cloud Generative AI Leader', 'Google Cloud Associate Cloud Engineer',
-  'Cisco NetAcad — Get Connected',
-  'Cisco NetAcad — Introduction to CyberSecurity',
-  'Cisco NetAcad — NDG Linux Unchained',
-  'Intel Network Academy',
-].map((cert) => resolveCert(cert));
+const education = cvContent.education.map((item) => ({
+  type: pick(item.type),
+  title: pick(item.siteTitle ?? item.title),
+  org: pick(item.siteOrg ?? item.org),
+}));
 
-const languages = [
-  { lang: t('lang.it'), level: t('level.native') },
-  { lang: t('lang.en'), level: t('level.advanced') },
-  { lang: t('lang.es'), level: t('level.basic') },
-];
+const certs = cvContent.certifications
+  .filter((cert) => cert.cvPageOrder)
+  .sort((a, b) => (a.cvPageOrder ?? 0) - (b.cvPageOrder ?? 0))
+  .map((cert) => resolveCert(pick(cert.siteName ?? cert.name), cert.provider));
+
+const languages = cvContent.languages.map((item) => ({
+  lang: pick(item.name),
+  level: pick(item.level),
+}));
 
 const certificatesPath = en ? '/en/certifications' : '/certificati';
 const cvPdfPath = en ? '/cv-en.pdf' : '/cv-it.pdf';

@@ -1,0 +1,362 @@
+{
+  "profile": {
+    "name": "Paolo Ronco",
+    "role": {
+      "it": "Cyber Security Analyst - Deloitte",
+      "en": "Cyber Security Analyst - Deloitte"
+    },
+    "summary": {
+      "it": "Cyber Security Analyst in Deloitte, nell'Enterprise Cloud & AI Security Team. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab progetto, sperimento e documento soluzioni di automazione, LLM e infrastrutture self-hosted.",
+      "en": "Cyber Security Analyst at Deloitte, in the Enterprise Cloud & AI Security Team. I work on cloud security, infrastructure and AI applied to defense. In my homelab I build, test and document automation, LLM and self-hosted infrastructure solutions."
+    },
+    "siteLabel": "paoloronco.it",
+    "siteUrl": "https://paoloronco.it",
+    "email": "info@paoloronco.it",
+    "linkedinLabel": "linkedin.com/in/paolo-ronco",
+    "linkedinUrl": "http://linkedin.com/in/paolo-ronco",
+    "location": {
+      "it": "Torino, Italia",
+      "en": "Turin, Italy"
+    }
+  },
+  "focus": [
+    {
+      "title": "Cyber Security",
+      "description": {
+        "it": "Zero Trust, IAM, detection, vulnerability management.",
+        "en": "Zero Trust, IAM, detection, vulnerability management."
+      }
+    },
+    {
+      "title": "AI / LLM",
+      "description": {
+        "it": "RAG, agenti, LLM self-hosted e AI red teaming.",
+        "en": "RAG, agents, self-hosted LLMs and AI red teaming."
+      }
+    },
+    {
+      "title": "Automation",
+      "description": {
+        "it": "n8n, Make, GitHub Actions, workflow e API.",
+        "en": "n8n, Make, GitHub Actions, workflows and APIs."
+      }
+    },
+    {
+      "title": "Cloud & DevSecOps",
+      "description": {
+        "it": "GCP, AWS, Azure, OCI, container e CI/CD.",
+        "en": "GCP, AWS, Azure, OCI, containers and CI/CD."
+      }
+    }
+  ],
+  "experience": [
+    {
+      "period": {
+        "it": "Nov 2024 — presente",
+        "en": "Nov 2024 — present"
+      },
+      "pdfPeriod": {
+        "it": "Nov 2024 - presente",
+        "en": "Nov 2024 - present"
+      },
+      "role": "Cyber Security Analyst",
+      "sub": "Enterprise Cloud & AI Security Team",
+      "org": "Deloitte Consulting",
+      "pdfOrg": "Deloitte Consulting - Enterprise Cloud & AI Security Team",
+      "description": {
+        "it": "Cloud security, threat management, hardening e supporto su GCP, AWS e Azure.",
+        "en": "Cloud security, threat management, hardening and support on GCP, AWS and Azure."
+      }
+    },
+    {
+      "period": {
+        "it": "Lug 2024 — Ott 2024",
+        "en": "Jul 2024 — Oct 2024"
+      },
+      "pdfPeriod": {
+        "it": "Lug 2024 - Ott 2024",
+        "en": "Jul 2024 - Oct 2024"
+      },
+      "role": "Junior System Administrator",
+      "org": {
+        "it": "Dylog s.p.a. — Torino",
+        "en": "Dylog s.p.a. — Turin"
+      },
+      "pdfOrg": {
+        "it": "Dylog Italia S.p.A. - Torino",
+        "en": "Dylog Italia S.p.A. - Turin"
+      },
+      "description": {
+        "it": "Migrazioni, configurazioni, supporto software, Windows Server e Active Directory.",
+        "en": "Migrations, configuration, software support, Windows Server and Active Directory."
+      }
+    },
+    {
+      "period": {
+        "it": "Gen 2018 — Feb 2018",
+        "en": "Jan 2018 — Feb 2018"
+      },
+      "pdfPeriod": {
+        "it": "Gen 2018 - Feb 2018",
+        "en": "Jan 2018 - Feb 2018"
+      },
+      "role": {
+        "it": "Servizi IT / CED",
+        "en": "IT Services / CED"
+      },
+      "org": "Comune di Grugliasco",
+      "description": {
+        "it": "Supporto CED, assistenza utenti e attivita operative IT.",
+        "en": "CED support, user assistance and IT operations."
+      }
+    },
+    {
+      "period": {
+        "it": "Gen 2018 — Feb 2018",
+        "en": "Jan 2018 — Feb 2018"
+      },
+      "pdfPeriod": {
+        "it": "Gen 2018 - Feb 2018",
+        "en": "Jan 2018 - Feb 2018"
+      },
+      "role": {
+        "it": "Servizi amministrativi / IT",
+        "en": "Accounting Services / IT Services"
+      },
+      "org": "FIM-CISL Torino e Canavese",
+      "description": {
+        "it": "Supporto amministrativo e servizi IT.",
+        "en": "Administrative support and IT services."
+      }
+    },
+    {
+      "period": "Mar 2017 — Apr 2017",
+      "pdfPeriod": "Mar 2017 - Apr 2017",
+      "role": "IT Services",
+      "org": "PerMicro s.p.a. — Gruppo BNP Paribas",
+      "pdfOrg": "PerMicro S.p.A. - Gruppo BNP Paribas",
+      "description": {
+        "it": "Tirocinio curriculare, reti e supporto infrastrutturale.",
+        "en": "Curricular internship, networking and infrastructure support."
+      }
+    }
+  ],
+  "skills": [
+    {
+      "name": "Security",
+      "rows": [["CSPM", "CNAPP", "SIEM"], ["SOAR", "EDR/XDR", "GRC"]]
+    },
+    {
+      "name": "Cloud",
+      "rows": [["GCP", "AWS", "Azure"], ["OCI", "IAM", "Storage"]]
+    },
+    {
+      "name": "Platform",
+      "rows": [["Docker", "Linux", "Proxmox"], ["GitHub", "CI/CD"]]
+    },
+    {
+      "name": "AI Ops",
+      "rows": [["OpenAI API", "RAG"], ["Ollama", "MCP", "PromptFoo"]]
+    }
+  ],
+  "languages": [
+    {
+      "name": {
+        "it": "Italiano",
+        "en": "Italian"
+      },
+      "level": {
+        "it": "Madrelingua",
+        "en": "Native"
+      }
+    },
+    {
+      "name": {
+        "it": "Inglese",
+        "en": "English"
+      },
+      "level": {
+        "it": "Avanzato",
+        "en": "Advanced"
+      }
+    },
+    {
+      "name": {
+        "it": "Spagnolo",
+        "en": "Spanish"
+      },
+      "level": {
+        "it": "Base",
+        "en": "Basic"
+      }
+    }
+  ],
+  "education": [
+    {
+      "type": {
+        "it": "Corso",
+        "en": "Course"
+      },
+      "period": "2022 - 2023",
+      "title": "CyberSecurity",
+      "org": {
+        "it": "Istituto Volta - Milano",
+        "en": "Istituto Volta - Milan"
+      },
+      "siteOrg": {
+        "it": "Istituto Volta — Milano",
+        "en": "Istituto Volta — Milan"
+      }
+    },
+    {
+      "type": {
+        "it": "Laurea",
+        "en": "Degree"
+      },
+      "period": "2019 - 2022",
+      "title": {
+        "it": "Scienze della Comunicazione",
+        "en": "Communication Sciences"
+      },
+      "siteTitle": "Scienze della Comunicazione, Digital Entertainment and Marketing",
+      "org": "Universita eCampus",
+      "siteOrg": "Università eCampus — Novedrate (CO)"
+    },
+    {
+      "type": {
+        "it": "Diploma",
+        "en": "Diploma"
+      },
+      "period": "2014 - 2018",
+      "title": {
+        "it": "Amministrazione, Finanza e Marketing",
+        "en": "Administration, Finance and Marketing"
+      },
+      "org": "IIS Gobetti Marchesini Casale Arduino",
+      "siteOrg": "IIS Gobetti Marchesini Casale Arduino — Torino"
+    }
+  ],
+  "certifications": [
+    {
+      "provider": "CompTIA",
+      "name": "Security+",
+      "siteName": "CompTIA Security+",
+      "file": "1 CompTIA Security+ ce certificate.pdf",
+      "cvPageOrder": 1
+    },
+    {
+      "provider": "CompTIA",
+      "name": "AI Essentials",
+      "siteName": "CompTIA AI Essentials",
+      "file": "1a CompTIA-AI-Essentials.pdf",
+      "cvPageOrder": 2
+    },
+    {
+      "provider": "EC-Council",
+      "name": "Ethical Hacking Essentials",
+      "siteName": "EC-Council Ethical Hacking Essentials",
+      "file": "2 EcCouncil Ethical Hacking Essentials - EHE.pdf"
+    },
+    {
+      "provider": "Google Cloud",
+      "name": "Generative AI Leader",
+      "siteName": "Google Cloud Generative AI Leader",
+      "file": "GenerativeAILeader20251024-30-a9cl88.pdf",
+      "cvPageOrder": 8
+    },
+    {
+      "provider": "Google Cloud",
+      "name": "Digital Leader",
+      "siteName": "Google Cloud Digital Leader",
+      "file": "CloudDigitalLeader20260427-32-hy8vki.pdf",
+      "cvPageOrder": 7
+    },
+    {
+      "provider": "Google Cloud",
+      "name": "Associate Cloud Engineer",
+      "siteName": "Google Cloud Associate Cloud Engineer",
+      "file": "AssociateCloudEngineer20260708-7-owa87.pdf",
+      "cvPageOrder": 9
+    },
+    {
+      "provider": "Splunk",
+      "name": "Core Certified User",
+      "siteName": "Splunk Core Certified User",
+      "file": "10 SplunkCoreCertifiedUser.pdf",
+      "cvPageOrder": 3
+    },
+    {
+      "provider": "Cisco",
+      "name": "NetAcad - Get Connected",
+      "siteName": "Cisco NetAcad — Get Connected",
+      "file": "3 Cisco NetCAD - Get Connected 2022.pdf",
+      "cvPageOrder": 10
+    },
+    {
+      "provider": "Cisco",
+      "name": "NetAcad - Introduction to CyberSecurity",
+      "siteName": "Cisco NetAcad — Introduction to CyberSecurity",
+      "file": "4 Cisco NetCAD - Introduction to CyberSecurity 2022.pdf",
+      "cvPageOrder": 11
+    },
+    {
+      "provider": "Cisco",
+      "name": "NetAcad - NDG Linux Unchained",
+      "siteName": "Cisco NetAcad — NDG Linux Unchained",
+      "file": "5 Cisco NetCAD - NDG Linux Unchained.pdf",
+      "cvPageOrder": 12
+    },
+    {
+      "provider": "Google",
+      "name": "Cybersecurity Professional Certificate",
+      "siteName": "Google Cybersecurity Professional Certificate",
+      "file": "10 Coursea - Google Cyber Security Professional Certificate.pdf",
+      "cvPageOrder": 4
+    },
+    {
+      "provider": "Intel",
+      "name": "Network Academy - Network Transformation 101",
+      "siteName": "Intel Network Academy",
+      "file": "9 Coursea - Intel® Network Academy - Network Transformation 101.pdf",
+      "cvPageOrder": 13
+    },
+    {
+      "provider": "Google",
+      "name": "IT Support - Technical Support Fundamentals",
+      "siteName": "Google IT Support",
+      "file": "7 Coursea - Google IT Support - Technical Support Fundamentals.pdf",
+      "cvPageOrder": 5
+    },
+    {
+      "provider": "IBM",
+      "name": "Introduction to Hardware and Operating Systems",
+      "siteName": "IBM Introduction to Hardware and Operating Systems",
+      "file": "8 Coursea - IBM - Introduction to Hardware and Operating Systems.pdf"
+    },
+    {
+      "provider": "Google",
+      "name": {
+        "it": "Fondamenti di Marketing Digitale",
+        "en": "Digital Marketing Fundamentals"
+      },
+      "siteName": "Google Fondamenti di Marketing Digitale",
+      "file": "6 Google Fondamenti di Marketing Digitale.pdf"
+    },
+    {
+      "provider": "AWS",
+      "name": "Knowledge: Cloud Essentials",
+      "siteName": "AWS Cloud Essentials",
+      "file": "15 AWS CAWS Knowledge Cloud Essentials.pdf",
+      "cvPageOrder": 6
+    },
+    {
+      "provider": "Unioncamere + Google",
+      "name": {
+        "it": "Corso Crescere in Digitale",
+        "en": "Crescere in Digitale Course"
+      },
+      "siteName": "Unioncamere + Google Corso Crescere in Digitale",
+      "file": "16 - certificato Corso Crescere in digitale.pdf"
+    }
+  ]
+}

@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from shutil import copyfile
 from urllib.parse import quote
+import json
 import textwrap
 
 from PIL import Image, ImageDraw
@@ -17,8 +18,10 @@ PUBLIC = ROOT / "public"
 TMP = ROOT / "tmp" / "pdfs"
 PHOTO = PUBLIC / "paolo.png"
 LOGOS = PUBLIC / "logos"
-SITE = "https://paoloronco.it"
-LINKEDIN = "http://linkedin.com/in/paolo-ronco"
+DATA = json.loads((ROOT / "src" / "data" / "cv-content.json").read_text(encoding="utf-8"))
+PROFILE = DATA["profile"]
+SITE = PROFILE["siteUrl"].rstrip("/")
+LINKEDIN = PROFILE["linkedinUrl"]
 
 W, H = A4
 M = 26
@@ -46,6 +49,12 @@ TOOL = colors.HexColor("#34d399")
 
 def tr(lang: str, it: str, en: str) -> str:
     return en if lang == "en" else it
+
+
+def pick(value, lang: str) -> str:
+    if isinstance(value, dict):
+        return str(value.get(lang) or value.get("it") or value.get("en") or "")
+    return str(value)
 
 
 def wrap(value: str, chars: int) -> list[str]:
@@ -246,23 +255,8 @@ def cert_pdf_url(file_name: str) -> str:
 
 def certs(lang: str) -> list[dict[str, str]]:
     return [
-        {"provider": "CompTIA", "name": "Security+", "file": "1 CompTIA Security+ ce certificate.pdf"},
-        {"provider": "CompTIA", "name": "AI Essentials", "file": "1a CompTIA-AI-Essentials.pdf"},
-        {"provider": "EC-Council", "name": "Ethical Hacking Essentials", "file": "2 EcCouncil Ethical Hacking Essentials - EHE.pdf"},
-        {"provider": "Google Cloud", "name": "Generative AI Leader", "file": "GenerativeAILeader20251024-30-a9cl88.pdf"},
-        {"provider": "Google Cloud", "name": "Digital Leader", "file": "CloudDigitalLeader20260427-32-hy8vki.pdf"},
-        {"provider": "Google Cloud", "name": "Associate Cloud Engineer", "file": "AssociateCloudEngineer20260708-7-owa87.pdf"},
-        {"provider": "Splunk", "name": "Core Certified User", "file": "10 SplunkCoreCertifiedUser.pdf"},
-        {"provider": "Cisco", "name": "NetAcad - Get Connected", "file": "3 Cisco NetCAD - Get Connected 2022.pdf"},
-        {"provider": "Cisco", "name": "NetAcad - Introduction to CyberSecurity", "file": "4 Cisco NetCAD - Introduction to CyberSecurity 2022.pdf"},
-        {"provider": "Cisco", "name": "NetAcad - NDG Linux Unchained", "file": "5 Cisco NetCAD - NDG Linux Unchained.pdf"},
-        {"provider": "Google", "name": "Cybersecurity Professional Certificate", "file": "10 Coursea - Google Cyber Security Professional Certificate.pdf"},
-        {"provider": "Intel", "name": "Network Academy - Network Transformation 101", "file": "9 Coursea - Intel® Network Academy - Network Transformation 101.pdf"},
-        {"provider": "Google", "name": "IT Support - Technical Support Fundamentals", "file": "7 Coursea - Google IT Support - Technical Support Fundamentals.pdf"},
-        {"provider": "IBM", "name": "Introduction to Hardware and Operating Systems", "file": "8 Coursea - IBM - Introduction to Hardware and Operating Systems.pdf"},
-        {"provider": "Google", "name": tr(lang, "Fondamenti di Marketing Digitale", "Digital Marketing Fundamentals"), "file": "6 Google Fondamenti di Marketing Digitale.pdf"},
-        {"provider": "AWS", "name": "Knowledge: Cloud Essentials", "file": "15 AWS CAWS Knowledge Cloud Essentials.pdf"},
-        {"provider": "Unioncamere + Google", "name": tr(lang, "Corso Crescere in Digitale", "Crescere in Digitale Course"), "file": "16 - certificato Corso Crescere in digitale.pdf"},
+        {"provider": item["provider"], "name": pick(item["name"], lang), "file": item["file"]}
+        for item in DATA["certifications"]
     ]
 
 
@@ -276,35 +270,26 @@ def draw_header(c: canvas.Canvas, lang: str, photo: Path) -> None:
 
     c.drawImage(ImageReader(str(photo)), W - M - 126, H - 148, width=112, height=112, mask="auto")
 
-    text(c, "Paolo Ronco", M + 20, H - 65, 28, WHITE, "Helvetica-Bold")
-    text(c, tr(lang, "Cyber Security Analyst - Deloitte", "Cyber Security Analyst - Deloitte"), M + 22, H - 84, 10.5, colors.HexColor("#c4cdda"), "Helvetica-Bold")
+    text(c, PROFILE["name"], M + 20, H - 65, 28, WHITE, "Helvetica-Bold")
+    text(c, pick(PROFILE["role"], lang), M + 22, H - 84, 10.5, colors.HexColor("#c4cdda"), "Helvetica-Bold")
 
-    summary = tr(
-        lang,
-        "Cyber Security Analyst in Deloitte, nell'Enterprise Cloud & AI Security Team. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab progetto, sperimento e documento soluzioni di automazione, LLM e infrastrutture self-hosted.",
-        "Cyber Security Analyst at Deloitte, in the Enterprise Cloud & AI Security Team. I work on cloud security, infrastructure and AI applied to defense. In my homelab I build, test and document automation, LLM and self-hosted infrastructure solutions.",
-    )
+    summary = pick(PROFILE["summary"], lang)
     wrapped(c, summary, M + 22, H - 104, W - (M * 2) - 178, 8.8, 10.5, colors.HexColor("#e4e9f4"), "Helvetica")
 
-    pill(c, "paoloronco.it", M + 20, H - 143, 76, INK_700, INK_500, colors.HexColor("#dce7ff"), 7.0)
-    pill(c, "info@paoloronco.it", M + 102, H - 143, 96, INK_700, INK_500, colors.HexColor("#dce7ff"), 7.0)
-    pill(c, "linkedin.com/in/paolo-ronco", M + 204, H - 143, 134, INK_700, INK_500, colors.HexColor("#dce7ff"), 7.0)
-    pill(c, tr(lang, "Torino, Italia", "Turin, Italy"), M + 344, H - 143, 72, INK_700, INK_500, colors.HexColor("#dce7ff"), 7.0)
+    pill(c, PROFILE["siteLabel"], M + 20, H - 143, 76, INK_700, INK_500, colors.HexColor("#dce7ff"), 7.0)
+    pill(c, PROFILE["email"], M + 102, H - 143, 96, INK_700, INK_500, colors.HexColor("#dce7ff"), 7.0)
+    pill(c, PROFILE["linkedinLabel"], M + 204, H - 143, 134, INK_700, INK_500, colors.HexColor("#dce7ff"), 7.0)
+    pill(c, pick(PROFILE["location"], lang), M + 344, H - 143, 72, INK_700, INK_500, colors.HexColor("#dce7ff"), 7.0)
 
     c.linkURL(SITE, (M + 20, H - 143, M + 96, H - 128), relative=0, thickness=0)
-    c.linkURL(f"mailto:info@paoloronco.it", (M + 102, H - 143, M + 198, H - 128), relative=0, thickness=0)
+    c.linkURL(f"mailto:{PROFILE['email']}", (M + 102, H - 143, M + 198, H - 128), relative=0, thickness=0)
     c.linkURL(LINKEDIN, (M + 204, H - 143, M + 338, H - 128), relative=0, thickness=0)
 
 
 def draw_focus(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
     panel_h = 122
     cy = section_box(c, tr(lang, "Focus", "Focus"), x, y, COL_W, panel_h)
-    items = [
-        ("Cyber Security", tr(lang, "Zero Trust, IAM, detection, vulnerability management.", "Zero Trust, IAM, detection, vulnerability management.")),
-        ("AI / LLM", tr(lang, "RAG, agenti, LLM self-hosted e AI red teaming.", "RAG, agents, self-hosted LLMs and AI red teaming.")),
-        ("Automation", tr(lang, "n8n, Make, GitHub Actions, workflow e API.", "n8n, Make, GitHub Actions, workflows and APIs.")),
-        ("Cloud & DevSecOps", tr(lang, "GCP, AWS, Azure, OCI, container e CI/CD.", "GCP, AWS, Azure, OCI, containers and CI/CD.")),
-    ]
+    items = [(item["title"], pick(item["description"], lang)) for item in DATA["focus"]]
     col_w = (COL_W - 34) / 2
     for i, (title, desc) in enumerate(items):
         cx = x + 12 + (i % 2) * (col_w + 10)
@@ -321,35 +306,12 @@ def draw_experience(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
     cy = section_box(c, tr(lang, "Esperienza", "Experience"), x, y, COL_W, panel_h)
     jobs = [
         (
-            "Nov 2024 - " + tr(lang, "presente", "present"),
-            "Cyber Security Analyst",
-            "Deloitte Consulting - Enterprise Cloud & AI Security Team",
-            tr(lang, "Cloud security, threat management, hardening e supporto su GCP, AWS e Azure.", "Cloud security, threat management, hardening and support on GCP, AWS and Azure."),
-        ),
-        (
-            tr(lang, "Lug 2024 - Ott 2024", "Jul 2024 - Oct 2024"),
-            "Junior System Administrator",
-            tr(lang, "Dylog Italia S.p.A. - Torino", "Dylog Italia S.p.A. - Turin"),
-            tr(lang, "Migrazioni, configurazioni, supporto software, Windows Server e Active Directory.", "Migrations, configuration, software support, Windows Server and Active Directory."),
-        ),
-        (
-            tr(lang, "Gen 2018 - Feb 2018", "Jan 2018 - Feb 2018"),
-            tr(lang, "Servizi IT / CED", "IT Services / CED"),
-            "Comune di Grugliasco",
-            tr(lang, "Supporto CED, assistenza utenti e attivita operative IT.", "CED support, user assistance and IT operations."),
-        ),
-        (
-            tr(lang, "Gen 2018 - Feb 2018", "Jan 2018 - Feb 2018"),
-            tr(lang, "Servizi amministrativi / IT", "Accounting Services / IT Services"),
-            "FIM-CISL Torino e Canavese",
-            tr(lang, "Supporto amministrativo e servizi IT.", "Administrative support and IT services."),
-        ),
-        (
-            "Mar 2017 - Apr 2017",
-            "IT Services",
-            "PerMicro S.p.A. - Gruppo BNP Paribas",
-            tr(lang, "Tirocinio curriculare, reti e supporto infrastrutturale.", "Curricular internship, networking and infrastructure support."),
-        ),
+            pick(item.get("pdfPeriod", item["period"]), lang),
+            pick(item["role"], lang),
+            pick(item.get("pdfOrg", item["org"]), lang),
+            pick(item["description"], lang),
+        )
+        for item in DATA["experience"]
     ]
     row_heights = [50, 48, 36, 36, 36]
     row_gap = 5
@@ -381,12 +343,7 @@ def draw_skills(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
     skills_link_label = tr(lang, "Pagina completa: paoloronco.it/skills", "Full page: paoloronco.it/skills")
     right_text(c, skills_link_label, x + COL_W - 12, y - 17, 6.6, ACCENT, "Helvetica-Bold")
     c.linkURL(f"{SITE}/skills/", (x + COL_W - 122, y - 24, x + COL_W - 12, y - 10), relative=0, thickness=0)
-    groups = [
-        ("Security", [["CSPM", "CNAPP", "SIEM"], ["SOAR", "EDR/XDR", "GRC"]]),
-        ("Cloud", [["GCP", "AWS", "Azure"], ["OCI", "IAM", "Storage"]]),
-        ("Platform", [["Docker", "Linux", "Proxmox"], ["GitHub", "CI/CD"]]),
-        ("AI Ops", [["OpenAI API", "RAG"], ["Ollama", "MCP", "PromptFoo"]]),
-    ]
+    groups = [(item["name"], item["rows"]) for item in DATA["skills"]]
     group_w = (COL_W - 34) / 2
     group_h = 52
     for idx, (name, rows) in enumerate(groups):
@@ -406,11 +363,7 @@ def draw_skills(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
 def draw_languages(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
     panel_h = 72
     cy = section_box(c, tr(lang, "Lingue", "Languages"), x, y, COL_W, panel_h)
-    langs = [
-        (tr(lang, "Italiano", "Italian"), tr(lang, "Madrelingua", "Native")),
-        (tr(lang, "Inglese", "English"), tr(lang, "Avanzato", "Advanced")),
-        (tr(lang, "Spagnolo", "Spanish"), tr(lang, "Base", "Basic")),
-    ]
+    langs = [(pick(item["name"], lang), pick(item["level"], lang)) for item in DATA["languages"]]
     chip_w = (COL_W - 34) / 3
     for i, (name, level) in enumerate(langs):
         cx = x + 12 + i * (chip_w + 5)
@@ -425,9 +378,8 @@ def draw_education(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
     cy = section_box(c, tr(lang, "Formazione", "Education"), x, y, COL_W, panel_h)
     cy += 3.2
     education = [
-        ("2022 - 2023", "CyberSecurity", tr(lang, "Istituto Volta - Milano", "Istituto Volta - Milan")),
-        ("2019 - 2022", tr(lang, "Scienze della Comunicazione", "Communication Sciences"), "Universita eCampus"),
-        ("2014 - 2018", tr(lang, "Amministrazione, Finanza e Marketing", "Administration, Finance and Marketing"), "IIS Gobetti Marchesini Casale Arduino"),
+        (item["period"], pick(item["title"], lang), pick(item["org"], lang))
+        for item in DATA["education"]
     ]
     for period, title, org in education:
         text(c, period, x + 12, cy, 7.0, ACCENT, "Helvetica-Bold")
