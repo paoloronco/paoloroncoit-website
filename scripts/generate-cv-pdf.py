@@ -110,6 +110,16 @@ def section_box(c: canvas.Canvas, title: str, x: float, y: float, w: float, h: f
     return y - 43
 
 
+def date_label(c: canvas.Canvas, value: str, x: float, y: float) -> None:
+    upper = value.upper()
+    if " - " in upper:
+        start, end = upper.split(" - ", 1)
+        text(c, f"{start} -", x, y, 6.25, ACCENT, "Helvetica-Bold")
+        text(c, end, x, y - 7.1, 6.25, ACCENT, "Helvetica-Bold")
+        return
+    wrapped(c, upper, x, y, 48, 6.25, 7.0, ACCENT, "Helvetica-Bold")
+
+
 def rounded_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, fill=PAPER, stroke=colors.HexColor("#dde3ee")) -> None:
     c.setFillColor(fill)
     c.setStrokeColor(stroke)
@@ -320,24 +330,30 @@ def draw_experience(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
         ),
     ]
     row_heights = [50, 49, 40, 40, 40]
+    date_x = x + 12
+    content_x = x + 69
+    content_w = COL_W - 81
     for i, (period, role, org, desc) in enumerate(jobs):
         row_top = cy
         row_h = row_heights[i]
-        text(c, period.upper(), x + 12, row_top, 7.0, ACCENT, "Helvetica-Bold")
-        text(c, role, x + 12, row_top - 12, 8.8, TEXT, "Helvetica-Bold")
-        text(c, org, x + 12, row_top - 23, 7.0, MUTED, "Helvetica-Bold")
-        wrapped(c, desc, x + 12, row_top - 33, COL_W - 24, 6.35, 7.2, MUTED, "Helvetica")
+        date_label(c, period, date_x, row_top - 1)
+        wrapped(c, role, content_x, row_top, content_w, 8.25, 8.9, TEXT, "Helvetica-Bold")
+        text(c, org, content_x, row_top - 11.5, 6.85, MUTED, "Helvetica-Bold")
+        wrapped(c, desc, content_x, row_top - 21.5, content_w, 6.25, 7.0, MUTED, "Helvetica")
         cy -= row_h
         if i < len(jobs) - 1:
             c.setStrokeColor(colors.HexColor("#e2e7f0"))
             c.setLineWidth(0.4)
-            c.line(x + 12, cy + 5, x + COL_W - 12, cy + 5)
+            c.line(x + 12, cy + 4, x + COL_W - 12, cy + 4)
     return y - panel_h - 10
 
 
 def draw_skills(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
     panel_h = 154
     cy = section_box(c, tr(lang, "Skills", "Skills"), x, y, COL_W, panel_h)
+    skills_link_label = tr(lang, "Pagina completa: paoloronco.it/skills", "Full page: paoloronco.it/skills")
+    right_text(c, skills_link_label, x + COL_W - 12, y - 17, 6.6, ACCENT, "Helvetica-Bold")
+    c.linkURL(f"{SITE}/skills/", (x + COL_W - 122, y - 24, x + COL_W - 12, y - 10), relative=0, thickness=0)
     groups = [
         ("Security", [["CSPM", "CNAPP", "SIEM"], ["SOAR", "EDR/XDR", "GRC"]]),
         ("Cloud", [["GCP", "AWS", "Azure"], ["OCI", "IAM", "Storage"]]),
@@ -356,9 +372,6 @@ def draw_skills(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
             for item in row:
                 tag_w = mini_tag(c, item, tx, ty)
                 tx += tag_w + 3
-
-    c.linkURL(f"{SITE}/skills/", (x + 12, y - panel_h + 10, x + COL_W - 12, y - panel_h + 25), relative=0, thickness=0)
-    text(c, tr(lang, "Pagina completa: paoloronco.it/skills", "Full page: paoloronco.it/skills"), x + 12, y - panel_h + 14, 7.4, ACCENT, "Helvetica-Bold")
     return y - panel_h - 10
 
 
@@ -382,6 +395,7 @@ def draw_languages(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
 def draw_education(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
     panel_h = 88
     cy = section_box(c, tr(lang, "Formazione", "Education"), x, y, COL_W, panel_h)
+    cy += 3.2
     education = [
         ("2022 - 2023", "CyberSecurity", tr(lang, "Istituto Volta - Milano", "Istituto Volta - Milan")),
         ("2019 - 2022", tr(lang, "Scienze della Comunicazione", "Communication Sciences"), "Universita eCampus"),
@@ -391,7 +405,7 @@ def draw_education(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
         text(c, period, x + 12, cy, 7.0, ACCENT, "Helvetica-Bold")
         text(c, title, x + 70, cy, 8.0, TEXT, "Helvetica-Bold")
         text(c, org, x + 70, cy - 8.4, 6.45, MUTED, "Helvetica")
-        cy -= 17.7
+        cy -= 17.0
     return y - panel_h - 10
 
 
