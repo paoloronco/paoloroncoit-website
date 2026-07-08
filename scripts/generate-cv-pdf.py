@@ -241,7 +241,7 @@ def draw_header(c: canvas.Canvas, lang: str, photo: Path) -> None:
     c.setFillColor(ACCENT)
     c.roundRect(M, H - 34, 184, 5, 2.5, stroke=0, fill=1)
 
-    c.drawImage(ImageReader(str(photo)), W - M - 120, H - 142, width=104, height=104, mask="auto")
+    c.drawImage(ImageReader(str(photo)), W - M - 126, H - 148, width=112, height=112, mask="auto")
 
     text(c, "Paolo Ronco", M + 20, H - 65, 28, WHITE, "Helvetica-Bold")
     text(c, tr(lang, "Cyber Security Analyst - Deloitte", "Cyber Security Analyst - Deloitte"), M + 22, H - 84, 10.5, colors.HexColor("#c4cdda"), "Helvetica-Bold")
@@ -249,9 +249,9 @@ def draw_header(c: canvas.Canvas, lang: str, photo: Path) -> None:
     summary = tr(
         lang,
         "Cyber Security Analyst in Deloitte, nell'Enterprise Cloud & AI Security Team. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab progetto, sperimento e documento soluzioni di automazione, LLM e infrastrutture self-hosted.",
-        "Cyber Security Analyst at Deloitte, in the Enterprise Cloud & AI Security Team. I work on cloud security, infrastructure and AI applied to defense. In my homelab I design, experiment with and document automation, LLM and self-hosted infrastructure solutions.",
+        "Cyber Security Analyst at Deloitte, in the Enterprise Cloud & AI Security Team. I work on cloud security, infrastructure and AI applied to defense. In my homelab I build, test and document automation, LLM and self-hosted infrastructure solutions.",
     )
-    wrapped(c, summary, M + 22, H - 104, W - (M * 2) - 158, 9.0, 10.8, colors.HexColor("#e4e9f4"), "Helvetica")
+    wrapped(c, summary, M + 22, H - 104, W - (M * 2) - 178, 8.8, 10.5, colors.HexColor("#e4e9f4"), "Helvetica")
 
     pill(c, "paoloronco.it", M + 20, H - 143, 76, INK_700, INK_500, colors.HexColor("#dce7ff"), 7.0)
     pill(c, "info@paoloronco.it", M + 102, H - 143, 96, INK_700, INK_500, colors.HexColor("#dce7ff"), 7.0)
@@ -285,20 +285,20 @@ def draw_focus(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
 
 
 def draw_experience(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
-    panel_h = 258
+    panel_h = 270
     cy = section_box(c, tr(lang, "Esperienza", "Experience"), x, y, COL_W, panel_h)
     jobs = [
         (
             "Nov 2024 - " + tr(lang, "presente", "present"),
             "Cyber Security Analyst",
             "Deloitte Consulting - Enterprise Cloud & AI Security Team",
-            tr(lang, "Cloud security, threat management, risk mitigation, hardening e supporto a piattaforme GCP, AWS e Azure.", "Cloud security, threat management, risk mitigation, hardening and support on GCP, AWS and Azure platforms."),
+            tr(lang, "Cloud security, threat management, hardening e supporto su GCP, AWS e Azure.", "Cloud security, threat management, hardening and support on GCP, AWS and Azure."),
         ),
         (
             tr(lang, "Lug 2024 - Ott 2024", "Jul 2024 - Oct 2024"),
             "Junior System Administrator",
             tr(lang, "Dylog Italia S.p.A. - Torino", "Dylog Italia S.p.A. - Turin"),
-            tr(lang, "Migrazioni, configurazioni, assistenza software, Windows Server e Active Directory.", "Migrations, configuration, software support, Windows Server and Active Directory."),
+            tr(lang, "Migrazioni, configurazioni, supporto software, Windows Server e Active Directory.", "Migrations, configuration, software support, Windows Server and Active Directory."),
         ),
         (
             tr(lang, "Gen 2018 - Feb 2018", "Jan 2018 - Feb 2018"),
@@ -319,17 +319,19 @@ def draw_experience(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
             tr(lang, "Tirocinio curriculare, reti e supporto infrastrutturale.", "Curricular internship, networking and infrastructure support."),
         ),
     ]
+    row_heights = [50, 49, 40, 40, 40]
     for i, (period, role, org, desc) in enumerate(jobs):
-        text(c, period.upper(), x + 12, cy, 7.0, ACCENT, "Helvetica-Bold")
-        text(c, role, x + 12, cy - 12, 8.9, TEXT, "Helvetica-Bold")
-        text(c, org, x + 12, cy - 23, 7.1, MUTED, "Helvetica-Bold")
-        wrapped(c, desc, x + 12, cy - 33, COL_W - 24, 6.6, 7.4, MUTED, "Helvetica")
-        cy -= 34 if i >= 2 else 42
+        row_top = cy
+        row_h = row_heights[i]
+        text(c, period.upper(), x + 12, row_top, 7.0, ACCENT, "Helvetica-Bold")
+        text(c, role, x + 12, row_top - 12, 8.8, TEXT, "Helvetica-Bold")
+        text(c, org, x + 12, row_top - 23, 7.0, MUTED, "Helvetica-Bold")
+        wrapped(c, desc, x + 12, row_top - 33, COL_W - 24, 6.35, 7.2, MUTED, "Helvetica")
+        cy -= row_h
         if i < len(jobs) - 1:
             c.setStrokeColor(colors.HexColor("#e2e7f0"))
             c.setLineWidth(0.4)
-            c.line(x + 12, cy + 4, x + COL_W - 12, cy + 4)
-            cy -= 6
+            c.line(x + 12, cy + 5, x + COL_W - 12, cy + 5)
     return y - panel_h - 10
 
 
@@ -388,8 +390,8 @@ def draw_education(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
     for period, title, org in education:
         text(c, period, x + 12, cy, 7.0, ACCENT, "Helvetica-Bold")
         text(c, title, x + 70, cy, 8.0, TEXT, "Helvetica-Bold")
-        text(c, org, x + 70, cy - 9, 6.8, MUTED, "Helvetica")
-        cy -= 19
+        text(c, org, x + 70, cy - 8.4, 6.45, MUTED, "Helvetica")
+        cy -= 17.7
     return y - panel_h - 10
 
 
@@ -399,7 +401,7 @@ def draw_certifications(c: canvas.Canvas, lang: str, x: float, y: float, w: floa
     cell_gap = 8
     row_gap = 2
     cell_w = (w - cell_gap * (cols - 1)) / cols
-    cell_h = 22
+    cell_h = 21.5
     rows = (len(data) + cols - 1) // cols
     panel_h = 43 + rows * cell_h + (rows - 1) * row_gap + 7
     cy = section_box(c, tr(lang, "Certificazioni", "Certifications"), x, y, w, panel_h)
@@ -410,17 +412,17 @@ def draw_certifications(c: canvas.Canvas, lang: str, x: float, y: float, w: floa
         row_y = cy - row * (cell_h + row_gap)
         inner_w = cell_w - 24
         rounded_card(c, cx, row_y, inner_w, cell_h, fill=colors.HexColor("#ffffff"))
-        draw_logo(c, cert["provider"], cx + 8, row_y - cell_h + 5, 38, 11)
+        draw_logo(c, cert["provider"], cx + 8, row_y - cell_h + 4.8, 40, 11)
         tx = cx + 58
-        text(c, cert["provider"], tx, row_y - 8, 5.8, MUTED, "Helvetica-Bold")
+        text(c, cert["provider"], tx, row_y - 8, 5.7, MUTED, "Helvetica-Bold")
         name = cert["name"]
         text_w = inner_w - 66
         max_chars = max(24, int(text_w / (6.5 * 0.43)))
         lines = wrap(name, max_chars)[:2]
-        ly = row_y - 16
+        ly = row_y - 15.8
         for line in lines:
-            text(c, line, tx, ly, 6.5, TEXT, "Helvetica-Bold")
-            ly -= 6.5
+            text(c, line, tx, ly, 6.25, TEXT, "Helvetica-Bold")
+            ly -= 6.2
         c.linkURL(cert_pdf_url(cert["file"]), (cx, row_y - cell_h, cx + inner_w, row_y), relative=0, thickness=0)
     return y - panel_h - 4
 
