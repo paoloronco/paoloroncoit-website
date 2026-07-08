@@ -286,11 +286,10 @@ def draw_focus(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
     for i, (title, desc) in enumerate(items):
         cx = x + 12 + (i % 2) * (col_w + 10)
         row_y = cy - (i // 2) * 44
-        text(c, title, cx, row_y, 8.8, TEXT, "Helvetica-Bold")
-        wrapped(c, desc, cx, row_y - 12, col_w, 7.4, 8.5, MUTED, "Helvetica")
-    c.setStrokeColor(colors.HexColor("#e2e7f0"))
-    c.setLineWidth(0.4)
-    c.line(x + COL_W / 2, cy + 8, x + COL_W / 2, y - panel_h + 12)
+        card_top = row_y + 10
+        rounded_card(c, cx, card_top, col_w, 38, fill=colors.HexColor("#ffffff"), stroke=colors.HexColor("#e5ebf4"))
+        text(c, title, cx + 8, card_top - 15, 8.55, TEXT, "Helvetica-Bold")
+        wrapped(c, desc, cx + 8, card_top - 27.5, col_w - 16, 7.0, 8.0, MUTED, "Helvetica")
     return y - panel_h - 10
 
 
@@ -361,14 +360,15 @@ def draw_skills(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
         ("AI Ops", [["OpenAI API", "RAG"], ["Ollama", "MCP", "PromptFoo"]]),
     ]
     group_w = (COL_W - 34) / 2
-    group_h = 45
+    group_h = 52
     for idx, (name, rows) in enumerate(groups):
         gx = x + 12 + (idx % 2) * (group_w + 10)
         gy = cy - (idx // 2) * (group_h + 8)
-        text(c, name, gx, gy, 8.0, TEXT, "Helvetica-Bold")
+        rounded_card(c, gx, gy + 8, group_w, 51, fill=colors.HexColor("#ffffff"), stroke=colors.HexColor("#e5ebf4"))
+        text(c, name, gx + 8, gy - 5, 8.0, TEXT, "Helvetica-Bold")
         for row_idx, row in enumerate(rows):
-            tx = gx
-            ty = gy - 24 - row_idx * 13
+            tx = gx + 8
+            ty = gy - 27 - row_idx * 13
             for item in row:
                 tag_w = mini_tag(c, item, tx, ty)
                 tx += tag_w + 3
