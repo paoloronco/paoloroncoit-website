@@ -65,8 +65,6 @@ const certs = [
   'Intel Network Academy',
 ].map((cert) => resolveCert(cert));
 
-const certColumns = [certs.slice(0, Math.ceil(certs.length / 2)), certs.slice(Math.ceil(certs.length / 2))];
-
 const topSkills = [
   'Cloud Security',
   'SIEM / SOAR',
@@ -111,7 +109,6 @@ const profileSummary = en
   : 'Profilo focalizzato sulla sicurezza cloud enterprise, automazione e applicazione pratica dell’AI, con focus su riduzione del rischio, resilienza e playbook operativi.';
 
 const roleTitle = 'Cyber Security Analyst';
-const yearLabel = en ? '2023' : '2023';
 ---
 
 <main class={`cv-print-page ${printMode ? 'is-print' : ''}`}>
@@ -132,11 +129,13 @@ const yearLabel = en ? '2023' : '2023';
         <h2>{sectionTitle}</h2>
         <ul class="timeline" aria-label={sectionTitle}>
           {experience.map((e) => (
-            <li>
+            <li class="timeline-item">
               <p class="period">{e.period}</p>
-              <p class="title">{e.role}</p>
-              {e.sub && <p class="subtle">{e.sub}</p>}
-              <p class="muted">{e.org}</p>
+              <div class="timeline-content">
+                <p class="title">{e.role}</p>
+                {e.sub && <p class="subtle">{e.sub}</p>}
+                <p class="muted">{e.org}</p>
+              </div>
             </li>
           ))}
         </ul>
@@ -145,15 +144,11 @@ const yearLabel = en ? '2023' : '2023';
       <section class="panel">
         <h2>{certTitle}</h2>
         <div class="cert-grid">
-          {certColumns.map((column) => (
-            <ul class="cert-col">
-              {column.map((c) => (
-                <li>
-                  <p class="issuer">{c.issuer}</p>
-                  <p class="name">{c.name}</p>
-                </li>
-              ))}
-            </ul>
+          {certs.map((c) => (
+            <article class="cert-col">
+              <p class="issuer">{c.issuer}</p>
+              <p class="name">{c.name}</p>
+            </article>
           ))}
         </div>
       </section>
@@ -181,7 +176,6 @@ const yearLabel = en ? '2023' : '2023';
           <ul class="education">
             {education.map((e) => (
               <li>
-                <p class="period">{yearLabel}</p>
                 <p class="title">{e.type}</p>
                 <p class="name">{e.title}</p>
                 <p class="muted">{e.org}</p>
@@ -220,15 +214,15 @@ const yearLabel = en ? '2023' : '2023';
 
   :root {
     --cv-text: #0f172a;
-    --cv-muted: #475569;
-    --cv-line: #d1d5db;
+    --cv-muted: #4b5563;
+    --cv-line: #d4dbe6;
     --cv-head: #111827;
-    --cv-soft: #64748b;
+    --cv-soft: #6b7280;
   }
 
   .cv-print-page {
     margin: 0;
-    padding: 12mm;
+    padding: 8mm;
     background: #fff;
     color: var(--cv-text);
   }
@@ -243,39 +237,40 @@ const yearLabel = en ? '2023' : '2023';
     min-height: 277mm;
     margin: 0 auto;
     display: grid;
-    gap: 4mm;
-    font: 10.5px / 1.35 Arial, sans-serif;
+    gap: 3.6mm;
+    font: 10px / 1.35 Inter, Arial, sans-serif;
   }
 
   .cv-header {
-    position: relative;
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 12px;
-    align-items: center;
-    padding: 8px 10px;
+    grid-template-columns: 72px 1fr;
+    gap: 10px;
+    align-items: stretch;
+    padding: 6px;
     border: 1px solid #cbd5e1;
     background: #0f172a;
     color: #f8fafc;
   }
 
   .cv-avatar {
-    width: 84px;
-    height: 84px;
-    border-radius: 6px;
+    width: 72px;
+    height: 72px;
+    border-radius: 5px;
     object-fit: cover;
-    border: 1px solid rgba(248, 250, 252, 0.4);
+    object-position: center top;
+    border: 1px solid rgba(248, 250, 252, 0.35);
   }
 
   .cv-intro {
     display: grid;
-    gap: 3px;
+    gap: 2px;
+    min-width: 0;
   }
 
   .kicker {
     margin: 0;
     color: #93c5fd;
-    font-size: 10px;
+    font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-weight: 700;
@@ -283,55 +278,59 @@ const yearLabel = en ? '2023' : '2023';
 
   h1 {
     margin: 0;
-    font-size: 28px;
-    line-height: 1;
+    font-size: 24px;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
   }
 
   .role {
     margin: 0;
-    font-size: 12px;
+    font-size: 10.8px;
     color: #bfdbfe;
   }
 
   .summary {
-    margin: 0;
-    max-width: 640px;
-    font-size: 10px;
-    line-height: 1.35;
+    margin: 1px 0 0;
+    max-width: 610px;
+    font-size: 9.2px;
+    line-height: 1.3;
     color: #cbd5e1;
   }
 
   .contact {
     margin: 0;
-    justify-self: stretch;
+    align-self: end;
     text-align: right;
-    color: #94a3b8;
-    font-size: 10px;
+    color: #cbd5e1;
+    font-size: 9px;
     font-weight: 500;
-    border-top: 1px solid rgba(148, 163, 184, 0.4);
-    padding-top: 4px;
+    border-top: 1px solid rgba(148, 163, 184, 0.45);
+    padding-top: 3px;
     grid-column: 1 / -1;
   }
 
   .top-grid,
   .bottom-grid {
     display: grid;
-    gap: 4mm;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.88fr);
+    gap: 3.6mm;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: start;
   }
 
   .panel {
     border: 1px solid var(--cv-line);
     background: #f8fafc;
-    padding: 7px 8px;
+    padding: 5px 6px;
     min-height: 0;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 3px;
   }
 
   h2,
   h3 {
-    margin: 0 0 7px;
-    font-size: 10px;
+    margin: 0;
+    font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--cv-soft);
@@ -339,64 +338,82 @@ const yearLabel = en ? '2023' : '2023';
   }
 
   .timeline,
-  .cert-col,
+  .cert-grid,
   .skill-list,
-  .education {
+  .education,
+  .lang-grid {
     margin: 0;
     padding: 0;
     list-style: none;
-    display: grid;
-    gap: 5px;
   }
 
-  .timeline li {
-    border: 1px solid var(--cv-line);
-    border-radius: 3px;
-    padding: 5px 6px;
-    background: #fff;
+  .timeline {
+    display: grid;
+    gap: 3px;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 5px;
+    padding: 2px 0;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .timeline-item:first-child {
+    border-top: 0;
+    padding-top: 0;
   }
 
   .period {
     margin: 0;
     color: #1d4ed8;
-    font-size: 10px;
+    font-size: 8.8px;
     font-weight: 700;
     font-family: 'Courier New', monospace;
+    line-height: 1.2;
+  }
+
+  .timeline-content {
+    display: grid;
+    gap: 1px;
   }
 
   .title {
-    margin: 2px 0 0;
-    font-size: 11px;
+    margin: 0;
+    font-size: 10.4px;
     font-weight: 700;
     color: var(--cv-head);
   }
 
   .subtle,
   .muted {
-    margin: 2px 0 0;
+    margin: 0;
     color: var(--cv-muted);
-    font-size: 9.8px;
+    font-size: 9px;
+    line-height: 1.28;
   }
 
   .cert-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5px;
   }
 
-  .cert-col li {
+  .cert-col {
     border: 1px solid var(--cv-line);
-    border-radius: 3px;
-    padding: 5px 6px;
+    border-radius: 2px;
     background: #fff;
+    padding: 3px 4px;
+    min-height: 23px;
   }
 
   .issuer {
     margin: 0;
-    color: #2563eb;
-    font-size: 8.6px;
+    color: #1d4ed8;
+    font-size: 7.8px;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
     font-weight: 700;
   }
 
@@ -404,52 +421,64 @@ const yearLabel = en ? '2023' : '2023';
     margin: 1px 0 0;
     color: var(--cv-head);
     font-weight: 600;
-    font-size: 10px;
+    font-size: 9.2px;
+    line-height: 1.22;
   }
 
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 5px;
+    gap: 2.5px;
+  }
+
+  .skill-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 2.5px;
   }
 
   .skill-list li,
-  .education li {
+  .education li,
+  .lang-grid p {
     border: 1px solid var(--cv-line);
-    border-radius: 3px;
     background: #fff;
-    padding: 4px 5px;
-    min-height: 17px;
+    padding: 3px 4px;
+    line-height: 1.2;
   }
 
   .right-stack {
     display: grid;
-    gap: 5px;
+    gap: 2.8px;
   }
 
   .mini h3 {
-    font-size: 9px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+  }
+
+  .education li {
+    display: grid;
+    gap: 1px;
+    border-radius: 2px;
+    min-height: 36px;
   }
 
   .education .name {
-    margin: 1px 0 0;
-    font-size: 10px;
+    margin: 0;
     color: var(--cv-head);
     font-weight: 600;
+    font-size: 9.6px;
+    line-height: 1.2;
   }
 
-  .education .period {
-    margin: 0;
-    color: #475569;
-    text-transform: none;
-    font-size: 8.8px;
+  .education .muted {
+    margin-top: 1px;
   }
 
   .lang-grid {
-    margin: 0;
     display: grid;
-    gap: 4px;
+    gap: 2.5px;
   }
 
   .lang-grid p {
@@ -457,23 +486,20 @@ const yearLabel = en ? '2023' : '2023';
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 8px;
-    border: 1px solid var(--cv-line);
-    background: #fff;
-    border-radius: 3px;
-    padding: 4px 5px;
     color: var(--cv-head);
     font-weight: 600;
+    align-items: center;
   }
 
   .lang-grid span:last-child {
     color: #1d4ed8;
     font-weight: 700;
-    font-size: 9px;
+    font-size: 8.8px;
   }
 
   @media (max-width: 900px) {
     .cv-print-page {
-      padding: 8mm;
+      padding: 7mm;
     }
 
     .cv-sheet,
@@ -484,30 +510,31 @@ const yearLabel = en ? '2023' : '2023';
       gap: 3mm;
     }
 
-    .skills-grid {
+    .skills-grid,
+    .cert-grid {
       grid-template-columns: 1fr;
     }
   }
 
   @media print {
     .cv-print-page {
-      padding: 5mm;
+      padding: 5.5mm;
     }
 
     .cv-sheet {
-      width: calc(210mm - 10mm);
+      width: calc(210mm - 11mm);
       gap: 3mm;
       min-height: auto;
     }
 
     .cv-avatar {
-      width: 72px;
-      height: 72px;
+      width: 68px;
+      height: 68px;
     }
 
     .panel,
-    .timeline li,
-    .cert-col li,
+    .timeline-item,
+    .cert-col,
     .education li,
     .skill-list li,
     .lang-grid p {
