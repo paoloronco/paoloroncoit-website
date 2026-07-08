@@ -12,7 +12,9 @@ const profiles = [
     handle: '@paoloronco',
     note: t('contact.githubNote'),
     href: site.socials.github,
-    logo: '/logos/social/github.png',
+    logo: '/logos/social/github-mark.png',
+    logoWrapClass: 'contact-profile__logo-wrap--mark',
+    logoClass: 'contact-profile__logo--mark',
     accent: '#f3f6fc',
   },
   {
@@ -21,6 +23,7 @@ const profiles = [
     note: t('contact.linkedinNote'),
     href: site.socials.linkedin,
     logo: '/logos/social/linkedin.png',
+    logoClass: 'contact-profile__logo--wordmark',
     accent: '#0a66c2',
   },
   {
@@ -29,6 +32,7 @@ const profiles = [
     note: t('contact.hfNote'),
     href: site.socials.huggingface,
     logo: '/logos/social/huggingface.png',
+    logoClass: 'contact-profile__logo--wordmark contact-profile__logo--hf',
     accent: '#ffd21e',
   },
 ];
@@ -64,15 +68,22 @@ const profiles = [
             href={profile.href}
             target="_blank"
             rel="noopener"
+            aria-label={`${profile.label}: ${profile.handle}`}
             data-reveal
             style={`--i:${i}; --profile-accent:${profile.accent}`}
             class="contact-profile group"
           >
-            <span class="contact-profile__top">
-              <span class="contact-profile__logo-wrap" aria-hidden="true">
-                <img src={profile.logo} alt={profile.label} width="34" height="34" loading="lazy" />
+            <span class="contact-profile__brand" aria-hidden="true">
+              <span class={`contact-profile__logo-wrap ${profile.logoWrapClass ?? ''}`}>
+                <img
+                  src={profile.logo}
+                  alt=""
+                  width="180"
+                  height="54"
+                  loading="lazy"
+                  class={profile.logoClass}
+                />
               </span>
-              <span class="contact-profile__name">{profile.label}</span>
             </span>
             <span class="contact-profile__handle">{profile.handle}</span>
             <span class="contact-profile__note">{profile.note}</span>
@@ -180,36 +191,50 @@ const profiles = [
     transform: translateY(-3px);
   }
 
-  .contact-profile__top {
+  .contact-profile__brand {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
+    min-height: 4.15rem;
+    border-bottom: 1px solid color-mix(in oklab, var(--profile-accent) 30%, var(--color-ink-600));
+    padding-bottom: 0.9rem;
   }
 
   .contact-profile__logo-wrap {
-    width: 2.25rem;
-    height: 2.25rem;
-    display: inline-flex;
+    display: flex;
+    min-height: 3.25rem;
+    width: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     border: 1px solid color-mix(in oklab, var(--profile-accent) 60%, var(--color-ink-600));
-    border-radius: 0.42rem;
+    border-radius: 0.58rem;
     background: color-mix(in oklab, var(--profile-accent) 14%, transparent);
-    color: var(--profile-accent);
+    padding: 0.65rem 0.75rem;
+  }
+
+  .contact-profile__logo-wrap--mark {
+    justify-content: center;
   }
 
   .contact-profile__logo-wrap img {
-    width: 1.2rem;
-    height: 1.2rem;
+    display: block;
+    width: auto;
+    height: auto;
+    max-height: 2.15rem;
+    max-width: 10.5rem;
     object-fit: contain;
-    object-position: center;
+    object-position: left center;
   }
 
-  .contact-profile__name {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    font-weight: 680;
-    letter-spacing: 0;
+  .contact-profile__logo-wrap .contact-profile__logo--mark {
+    max-height: 2.85rem;
+    max-width: 2.85rem;
+    filter: invert(1) brightness(0.94);
+    opacity: 0.92;
+  }
+
+  .contact-profile__logo-wrap .contact-profile__logo--hf {
+    max-height: 2.45rem;
+    max-width: 11.25rem;
   }
 
   .contact-profile__handle {
