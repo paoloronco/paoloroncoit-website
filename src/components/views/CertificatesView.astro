@@ -13,7 +13,6 @@ const pagePath = en ? '/certifications' : '/certificati';
 const subtitle = en
   ? 'Verified certificates, badges and supporting documents collected in one place.'
   : 'Certificazioni, badge e documenti di supporto raccolti in un unico posto.';
-const countLabel = en ? 'documents' : 'documenti';
 const searchLabel = en ? 'Search certifications' : 'Cerca certificazioni';
 const searchPlaceholder = en ? 'Search by vendor, skill, certificate or file...' : 'Cerca per ente, competenza, certificazione o file...';
 const allLabel = en ? 'All' : 'Tutto';
@@ -81,29 +80,15 @@ const issuerFilters = [...new Set(entries.map((entry) => entry.cert.issuer).filt
   a.localeCompare(b)
 );
 const typeFilters = [...new Set(entries.flatMap((entry) => entry.assetTypes))].sort();
-const assetCount = entries.reduce((count, entry) => count + entry.assets.length, 0);
 ---
 
 <Base title={pageTitle} description={subtitle} path={pagePath}>
   <section class="mx-auto max-w-6xl px-5 py-16">
-    <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
-      <div class="max-w-3xl">
-        <CmdPath cmd="find" arg={en ? '~/certifications -type f' : '~/certificati -type f'} />
-        <p class="kicker mt-5 text-accent">{en ? 'Evidence vault' : 'Archivio evidenze'}</p>
-        <h1 class="mt-3 text-4xl font-semibold tracking-tight text-text sm:text-6xl">{pageTitle}</h1>
-        <p class="mt-5 text-base leading-relaxed text-text-dim">{subtitle}</p>
-      </div>
-
-      <div class="grid grid-cols-2 gap-3 text-sm">
-        <div class="rounded-xl border border-ink-600 bg-ink-800/45 p-4">
-          <p class="font-display text-3xl font-semibold text-text">{entries.length}</p>
-          <p class="mt-1 font-mono text-[11px] uppercase tracking-wide text-muted">{en ? 'Certifications' : 'Certificazioni'}</p>
-        </div>
-        <div class="rounded-xl border border-ink-600 bg-ink-800/45 p-4">
-          <p class="font-display text-3xl font-semibold text-text">{assetCount}</p>
-          <p class="mt-1 font-mono text-[11px] uppercase tracking-wide text-muted">{countLabel}</p>
-        </div>
-      </div>
+    <div class="max-w-3xl">
+      <CmdPath cmd="find" arg={en ? '~/certifications -type f' : '~/certificati -type f'} />
+      <p class="kicker mt-5 text-accent">{en ? 'Evidence vault' : 'Archivio evidenze'}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-text sm:text-6xl">{pageTitle}</h1>
+      <p class="mt-5 text-base leading-relaxed text-text-dim">{subtitle}</p>
     </div>
 
     <div class="mt-10 rounded-xl border border-ink-600 bg-ink-800/55 p-4 shadow-2xl shadow-black/20 sm:p-5">
@@ -122,10 +107,7 @@ const assetCount = entries.reduce((count, entry) => count + entry.assets.length,
           </span>
         </label>
 
-        <div class="flex items-center justify-between gap-3 lg:justify-end">
-          <p class="font-mono text-xs text-muted">
-            <span data-result-count>{entries.length}</span> / {entries.length}
-          </p>
+        <div class="flex justify-end">
           <button
             type="button"
             data-clear-search
@@ -251,7 +233,6 @@ const assetCount = entries.reduce((count, entry) => count + entry.assets.length,
     const clearButton = document.querySelector<HTMLButtonElement>('[data-clear-search]');
     const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-cert-card]'));
     const filters = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-cert-filter]'));
-    const resultCount = document.querySelector<HTMLElement>('[data-result-count]');
     const emptyState = document.querySelector<HTMLElement>('[data-empty-state]');
     let activeFilter = 'all';
 
@@ -293,7 +274,6 @@ const assetCount = entries.reduce((count, entry) => count + entry.assets.length,
         if (show) visible += 1;
       });
 
-      if (resultCount) resultCount.textContent = String(visible);
       if (emptyState) emptyState.hidden = visible !== 0;
     };
 
