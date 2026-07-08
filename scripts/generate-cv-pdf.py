@@ -345,7 +345,8 @@ def draw_experience(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
             tr(lang, "Tirocinio curriculare, reti e supporto infrastrutturale.", "Curricular internship, networking and infrastructure support."),
         ),
     ]
-    row_heights = [56, 54, 38, 38, 38]
+    row_heights = [50, 48, 36, 36, 36]
+    row_gap = 5
     date_x = x + 12
     content_x = x + 69
     content_w = COL_W - 81
@@ -357,12 +358,14 @@ def draw_experience(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
         org_y = row_top - 10.4 - (role_lines - 1) * 8.8
         org_lines = draw_limited_lines(c, org, content_x, org_y, 42, 2, 6.55, 7.2, MUTED, "Helvetica-Bold")
         desc_y = org_y - 10.3 - (org_lines - 1) * 7.2
-        draw_limited_lines(c, desc, content_x, desc_y, 52, 2, 6.15, 6.9, MUTED, "Helvetica")
+        draw_limited_lines(c, desc, content_x, desc_y, 58, 2, 6.15, 6.9, MUTED, "Helvetica")
         cy -= row_h
         if i < len(jobs) - 1:
-            c.setStrokeColor(colors.HexColor("#e2e7f0"))
-            c.setLineWidth(0.4)
-            c.line(x + 12, cy + 2, x + COL_W - 12, cy + 2)
+            divider_y = cy + 5
+            c.setStrokeColor(colors.HexColor("#e8edf5"))
+            c.setLineWidth(0.32)
+            c.line(content_x, divider_y, x + COL_W - 12, divider_y)
+            cy -= row_gap
     return y - panel_h - 10
 
 
