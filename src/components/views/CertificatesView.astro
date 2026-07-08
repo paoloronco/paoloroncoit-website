@@ -80,6 +80,10 @@ const issuerFilters = [...new Set(entries.map((entry) => entry.cert.issuer).filt
   a.localeCompare(b)
 );
 const typeFilters = [...new Set(entries.flatMap((entry) => entry.assetTypes))].sort();
+const issuerBadgeStyle = (color: string) =>
+  `border-color:color-mix(in oklab, ${color} 38%, var(--color-ink-600));background:color-mix(in oklab, ${color} 12%, transparent);color:color-mix(in oklab, ${color} 78%, var(--color-text));`;
+const logoFrameStyle = (color: string) =>
+  `box-shadow:0 0 0 1px color-mix(in oklab, ${color} 28%, transparent), 0 18px 34px -24px ${color};`;
 ---
 
 <Base title={pageTitle} description={subtitle} path={pagePath}>
@@ -158,12 +162,12 @@ const typeFilters = [...new Set(entries.flatMap((entry) => entry.assetTypes))].s
           data-issuer={entry.cert.issuer.toLowerCase()}
           data-types={entry.assetTypes.join(' ')}
           style={`--c:${entry.cert.color};--i:${Math.min(i, 8)}`}
-          class="cert-card group flex min-h-[18rem] flex-col overflow-hidden rounded-xl border border-ink-600 bg-ink-800/45 transition-all hover:-translate-y-1 hover:border-[var(--c)] hover:bg-ink-800"
+          class="cert-card group flex min-h-[18rem] flex-col overflow-hidden rounded-xl border border-ink-600 bg-ink-800/65 shadow-lg shadow-black/10 transition-all hover:-translate-y-1 hover:border-[var(--c)] hover:bg-ink-800 hover:shadow-2xl hover:shadow-black/25"
         >
           <div class="flex min-h-[12.5rem] flex-col p-5">
             <div class="flex gap-4">
               {entry.cert.logo ? (
-                <span class="flex h-16 w-32 shrink-0 items-center justify-center rounded-xl bg-paper px-1.5 py-2 shadow-md shadow-black/30 ring-1 ring-black/5">
+                <span class="flex h-16 w-32 shrink-0 items-center justify-center rounded-xl bg-paper px-1.5 py-2 ring-1 ring-black/5" style={logoFrameStyle(entry.cert.color)}>
                   <img
                     src={entry.cert.logo}
                     alt={entry.cert.issuer}
@@ -177,14 +181,14 @@ const typeFilters = [...new Set(entries.flatMap((entry) => entry.assetTypes))].s
                   />
                 </span>
               ) : (
-                <span class="flex h-16 w-24 shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold shadow-md shadow-black/30" style={`color:${entry.cert.color}`}>
+                <span class="flex h-16 w-24 shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold" style={`color:${entry.cert.color};${logoFrameStyle(entry.cert.color)}`}>
                   {entry.cert.initials}
                 </span>
               )}
 
               <div class="min-w-0">
-                <p class="font-mono text-[11px] uppercase tracking-wide text-muted">{entry.cert.issuer}</p>
-                <h2 class="mt-1 font-display text-xl font-semibold leading-tight text-text">{entry.cert.name}</h2>
+                <p class="inline-flex max-w-full rounded-md border px-2 py-1 font-mono text-[11px] font-semibold uppercase tracking-wide" style={issuerBadgeStyle(entry.cert.color)}>{entry.cert.issuer}</p>
+                <h2 class="mt-2 font-display text-2xl font-semibold leading-tight text-text">{entry.cert.name}</h2>
               </div>
             </div>
 
