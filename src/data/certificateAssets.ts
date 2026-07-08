@@ -37,6 +37,10 @@ export const certificateEntries: CertificateEntry[] = [
     assets: [{ label: 'PDF', type: 'pdf', file: 'CloudDigitalLeader20260427-32-hy8vki.pdf' }],
   },
   {
+    title: 'Google Cloud Associate Cloud Engineer',
+    assets: [{ label: 'PDF', type: 'pdf', file: 'AssociateCloudEngineer20260708-7-owa87.pdf' }],
+  },
+  {
     title: 'Google Cloud Generative AI Leader',
     assets: [{ label: 'PDF', type: 'pdf', file: 'GenerativeAILeader20251024-30-a9cl88.pdf' }],
   },
@@ -71,34 +75,6 @@ export const certificateEntries: CertificateEntry[] = [
   {
     title: 'Intel Network Academy - Network Transformation 101',
     assets: [{ label: 'PDF', type: 'pdf', file: '9 Coursea - Intel\u00ae Network Academy - Network Transformation 101.pdf' }],
-  },
-  {
-    title: 'Google Cloud Skill Boost - Security & Identify Fundamentals',
-    assets: [
-      { label: 'Badge', type: 'web', url: 'https://www.cloudskillsboost.google/public_profiles/394043de-e04e-4006-afaf-02a2608acfc8/badges/3634227' },
-      { label: 'Image', type: 'image', file: '11a - Google Cloud Skill Boost - Security & Identify Fundamentals.png' },
-    ],
-  },
-  {
-    title: 'Google Cloud Skill Boost - Networking Fundamentals in Google Cloud',
-    assets: [
-      { label: 'Badge', type: 'web', url: 'https://www.cloudskillsboost.google/public_profiles/394043de-e04e-4006-afaf-02a2608acfc8/badges/3569015' },
-      { label: 'Image', type: 'image', file: '12a - Google Cloud Skill Boost - Networking Fundamentals in Google Cloud.png' },
-    ],
-  },
-  {
-    title: 'Google Cloud Skill Boost - Baseline Infrastructure',
-    assets: [
-      { label: 'Badge', type: 'web', url: 'https://www.cloudskillsboost.google/public_profiles/394043de-e04e-4006-afaf-02a2608acfc8/badges/3552518' },
-      { label: 'Image', type: 'image', file: '13a - Google Cloud Skill Boost - Baseline Infrastructure.png' },
-    ],
-  },
-  {
-    title: 'Google Cloud Skill Boost - Google Cloud Essentials',
-    assets: [
-      { label: 'Badge', type: 'web', url: 'https://www.cloudskillsboost.google/public_profiles/394043de-e04e-4006-afaf-02a2608acfc8/badges/3551976' },
-      { label: 'Image', type: 'image', file: '14a - Google Cloud Skill Boost - Google Cloud Essentials.png' },
-    ],
   },
   {
     title: 'AWS CAWS Knowledge Cloud Essentials',
