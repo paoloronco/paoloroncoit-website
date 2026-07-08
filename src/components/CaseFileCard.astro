@@ -49,7 +49,7 @@ const num = index != null ? String(index).padStart(2, '0') : null;
   <h3 class="readable-title mt-3 text-lg font-semibold text-text transition-colors group-hover:text-[var(--cat)]">{title}</h3>
   <p class="readable-summary mt-2 flex-1 text-sm leading-relaxed text-text-dim">{summary}</p>
 
-  <div class="mt-4 flex flex-wrap items-center gap-1.5">
+  <div class="casefile-meta mt-4 flex flex-wrap items-center gap-1.5">
     {stack.map((s) => (
       <span class="rounded border border-ink-600 px-1.5 py-0.5 font-mono text-[10px] text-muted transition-colors group-hover:text-text-dim">{s}</span>
     ))}
@@ -60,7 +60,7 @@ const num = index != null ? String(index).padStart(2, '0') : null;
 <style>
   :global(html:not([data-readable-mode='true']) .casefile-card-hybrid) {
     padding: 1.45rem;
-    min-height: 214px;
+    min-height: 255px;
     background: color-mix(in oklab, var(--color-ink-800) 85%, transparent);
     box-shadow: 0 18px 40px -34px color-mix(in oklab, var(--color-ink-900) 70%, black);
   }
@@ -78,5 +78,14 @@ const num = index != null ? String(index).padStart(2, '0') : null;
   :global(html:not([data-readable-mode='true']) .casefile-card-hybrid .readable-summary) {
     font-size: 0.94rem;
     line-height: 1.72;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 6.6rem;
+  }
+
+  :global(html:not([data-readable-mode='true']) .casefile-card-hybrid .casefile-meta) {
+    margin-top: auto;
   }
 </style>

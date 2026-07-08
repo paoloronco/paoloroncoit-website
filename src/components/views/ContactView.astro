@@ -12,7 +12,7 @@ const profiles = [
     handle: '@paoloronco',
     note: t('contact.githubNote'),
     href: site.socials.github,
-    mark: 'GH',
+    logo: '/logos/social/github.png',
     accent: '#f3f6fc',
   },
   {
@@ -20,7 +20,7 @@ const profiles = [
     handle: 'paolo-ronco',
     note: t('contact.linkedinNote'),
     href: site.socials.linkedin,
-    mark: 'in',
+    logo: '/logos/social/linkedin.png',
     accent: '#0a66c2',
   },
   {
@@ -28,7 +28,7 @@ const profiles = [
     handle: '@paoloronco',
     note: t('contact.hfNote'),
     href: site.socials.huggingface,
-    mark: 'HF',
+    logo: '/logos/social/huggingface.png',
     accent: '#ffd21e',
   },
 ];
@@ -51,7 +51,7 @@ const profiles = [
       >
         <span class="contact-email__meta">{t('contact.email')}</span>
         <span class="contact-email__value">{site.email}</span>
-        <span class="contact-email__note">{t('contact.emailNote')}</span>
+        {t('contact.emailNote') && <span class="contact-email__note">{t('contact.emailNote')}</span>}
         <span class="contact-email__arrow" aria-hidden="true">-&gt;</span>
       </a>
     </div>
@@ -69,7 +69,9 @@ const profiles = [
             class="contact-profile group"
           >
             <span class="contact-profile__top">
-              <span class="contact-profile__mark" aria-hidden="true">{profile.mark}</span>
+              <span class="contact-profile__logo-wrap" aria-hidden="true">
+                <img src={profile.logo} alt={profile.label} width="34" height="34" loading="lazy" />
+              </span>
               <span class="contact-profile__name">{profile.label}</span>
             </span>
             <span class="contact-profile__handle">{profile.handle}</span>
@@ -184,20 +186,23 @@ const profiles = [
     gap: 0.65rem;
   }
 
-  .contact-profile__mark {
-    display: inline-flex;
+  .contact-profile__logo-wrap {
     width: 2.25rem;
     height: 2.25rem;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     border: 1px solid color-mix(in oklab, var(--profile-accent) 60%, var(--color-ink-600));
     border-radius: 0.42rem;
     background: color-mix(in oklab, var(--profile-accent) 14%, transparent);
     color: var(--profile-accent);
-    font-family: var(--font-display);
-    font-size: 0.8rem;
-    font-weight: 760;
-    letter-spacing: 0;
+  }
+
+  .contact-profile__logo-wrap img {
+    width: 1.2rem;
+    height: 1.2rem;
+    object-fit: contain;
+    object-position: center;
   }
 
   .contact-profile__name {

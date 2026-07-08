@@ -45,7 +45,7 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
     ) : (
       <div class="readable-grid grid grid-cols-1 gap-4 md:grid-cols-2" data-grid>
         {projects.map((p, i) => (
-          <div data-category={p.data.category} data-reveal style={`--i:${i + 1}`}>
+          <div class="project-card" data-category={p.data.category} data-reveal style={`--i:${i + 1}`}>
             <CaseFileCard
               href={localizePath(`/projects/${entrySlug(p.id)}`, lang)}
               title={p.data.title}
@@ -62,6 +62,31 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
   </section>
   </div>
 </Base>
+
+<style>
+  .readable-grid {
+    align-items: stretch;
+    grid-auto-rows: 1fr;
+  }
+
+  .project-card {
+    display: flex;
+  }
+
+  :global(html:not([data-readable-mode='true']) .project-card) {
+    min-height: 255px;
+  }
+
+  :global(html:not([data-readable-mode='true']) .project-card > a) {
+    width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    :global(html:not([data-readable-mode='true']) .project-card) {
+      min-height: 235px;
+    }
+  }
+</style>
 
 <script is:inline data-astro-rerun>
   (() => {
