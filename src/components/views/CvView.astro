@@ -31,7 +31,7 @@ const certs = [
   'Cisco NetAcad — Introduction to CyberSecurity',
   'Cisco NetAcad — NGD Linux Unhatched',
   'Intel Network Academy',
-].map(resolveCert);
+].map((cert) => resolveCert(cert));
 
 const languages = [
   { lang: t('lang.it'), level: t('level.native') },
@@ -103,11 +103,11 @@ const certificatesPath = en ? '/en/certifications' : '/certificati';
           class="group flex items-center gap-4 rounded-xl border border-ink-600 bg-ink-800/40 p-4 transition-all hover:-translate-y-0.5 hover:border-[var(--c)] hover:bg-ink-800"
         >
           {c.logo ? (
-            <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper px-3 py-2.5 shadow-md shadow-black/30 ring-1 ring-black/5">
-              <img src={c.logo} alt={c.issuer} width="80" height="48" loading="lazy" class="max-h-11 max-w-full object-contain" />
+            <span class="flex h-16 w-24 shrink-0 items-center justify-center rounded-xl bg-paper px-2 py-2.5 shadow-md shadow-black/30 ring-1 ring-black/5">
+              <img src={c.logo} alt={c.issuer} width="88" height="48" loading="lazy" class="max-h-12 max-w-full object-contain" />
             </span>
           ) : (
-            <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold shadow-md shadow-black/30" style={`color:${c.color}`}>{c.initials}</span>
+            <span class="flex h-16 w-24 shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold shadow-md shadow-black/30" style={`color:${c.color}`}>{c.initials}</span>
           )}
           <div class="min-w-0">
             <p class="font-display text-base font-semibold leading-snug text-text">{c.name}</p>

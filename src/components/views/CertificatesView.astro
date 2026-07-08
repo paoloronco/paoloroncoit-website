@@ -24,22 +24,14 @@ const emptyText = en
 
 const fileUrl = (file: string) => `/certificati/${encodeURIComponent(file)}`;
 const assetHref = (asset: CertificateAsset) => asset.url ?? (asset.file ? fileUrl(asset.file) : '#');
-const assetKind = (asset: CertificateAsset) => {
-  if (asset.type === 'pdf') return 'PDF';
-  if (asset.type === 'web') return 'Badge';
-  if (asset.type === 'image') return en ? 'Image' : 'Immagine';
-  return en ? 'Text' : 'Testo';
-};
 const assetVerb = (asset: CertificateAsset) => {
   if (asset.type === 'pdf') return en ? 'View PDF' : 'Vedi PDF';
   if (asset.type === 'web') return en ? 'Open badge' : 'Apri badge';
-  if (asset.type === 'image') return en ? 'Open image' : 'Apri immagine';
   return en ? 'Open' : 'Apri';
 };
 const assetTypeLabel = (type: CertificateAsset['type']) => {
   if (type === 'pdf') return 'PDF';
   if (type === 'web') return 'Badge';
-  if (type === 'image') return en ? 'Images' : 'Immagini';
   return en ? 'Text' : 'Testo';
 };
 
@@ -47,19 +39,29 @@ type ResolvedEntry = {
   title: string;
   cert: ResolvedCert;
   assets: CertificateAsset[];
+  credlyUrl?: string;
   search: string;
   assetTypes: CertificateAsset['type'][];
 };
 
 const entries: ResolvedEntry[] = certificateEntries.map((entry) => {
-  const cert = resolveCert(entry.title);
-  const assetTypes = [...new Set(entry.assets.map((asset) => asset.type))];
+  const cert = resolveCert(entry.title, entry.issuer);
+  const assets = entry.assets.filter((asset) => asset.type !== 'image');
+  const assetTypes = [
+    ...new Set([
+      ...assets.map((asset) => asset.type),
+      ...(entry.credlyUrl ? (['web'] satisfies CertificateAsset['type'][]) : []),
+    ]),
+  ];
   const search = [
     entry.title,
+    entry.issuer,
     cert.name,
     cert.issuer,
     cert.initials,
-    ...entry.assets.flatMap((asset) => [asset.label, asset.type, asset.file, asset.url]),
+    entry.credlyUrl ? 'credly badge verified' : '',
+    entry.credlyUrl,
+    ...assets.flatMap((asset) => [asset.label, asset.type, asset.file, asset.url]),
   ]
     .filter(Boolean)
     .join(' ')
@@ -68,7 +70,8 @@ const entries: ResolvedEntry[] = certificateEntries.map((entry) => {
   return {
     title: entry.title,
     cert,
-    assets: entry.assets,
+    assets,
+    credlyUrl: entry.credlyUrl,
     search,
     assetTypes,
   };
@@ -78,7 +81,7 @@ const issuerFilters = [...new Set(entries.map((entry) => entry.cert.issuer).filt
   a.localeCompare(b)
 );
 const typeFilters = [...new Set(entries.flatMap((entry) => entry.assetTypes))].sort();
-const assetCount = entries.reduce((count, entry) => count + entry.assets.length, 0);
+const assetCount = entries.reduce((count, entry) => count + entry.assets.length + (entry.credlyUrl ? 1 : 0), 0);
 ---
 
 <Base title={pageTitle} description={subtitle} path={pagePath}>
@@ -175,30 +178,40 @@ const assetCount = entries.reduce((count, entry) => count + entry.assets.length,
           style={`--c:${entry.cert.color};--i:${Math.min(i, 8)}`}
           class="cert-card group flex min-h-[18rem] flex-col overflow-hidden rounded-xl border border-ink-600 bg-ink-800/45 transition-all hover:-translate-y-1 hover:border-[var(--c)] hover:bg-ink-800"
         >
-          <div class="flex gap-4 p-5">
-            {entry.cert.logo ? (
-              <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper px-3 py-2.5 shadow-md shadow-black/30 ring-1 ring-black/5">
-                <img src={entry.cert.logo} alt={entry.cert.issuer} width="80" height="48" loading="lazy" class="max-h-11 max-w-full object-contain" />
-              </span>
-            ) : (
-              <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold shadow-md shadow-black/30" style={`color:${entry.cert.color}`}>
-                {entry.cert.initials}
-              </span>
-            )}
-
-            <div class="min-w-0">
-              <p class="font-mono text-[11px] uppercase tracking-wide text-muted">{entry.cert.issuer}</p>
-              <h2 class="mt-1 font-display text-xl font-semibold leading-tight text-text">{entry.cert.name}</h2>
-            </div>
-          </div>
-
-          <div class="px-5 pb-4">
-            <div class="flex flex-wrap gap-2">
-              {entry.assetTypes.map((type) => (
-                <span class="rounded-md border border-ink-600 bg-ink-900/35 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted">
-                  {assetTypeLabel(type)}
+          <div class="flex min-h-[12.5rem] flex-col p-5">
+            <div class="flex gap-4">
+              {entry.cert.logo ? (
+                <span class="flex h-16 w-24 shrink-0 items-center justify-center rounded-xl bg-paper px-2 py-2.5 shadow-md shadow-black/30 ring-1 ring-black/5">
+                  <img src={entry.cert.logo} alt={entry.cert.issuer} width="88" height="48" loading="lazy" class="max-h-12 max-w-full object-contain" />
                 </span>
-              ))}
+              ) : (
+                <span class="flex h-16 w-24 shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold shadow-md shadow-black/30" style={`color:${entry.cert.color}`}>
+                  {entry.cert.initials}
+                </span>
+              )}
+
+              <div class="min-w-0">
+                <p class="font-mono text-[11px] uppercase tracking-wide text-muted">{entry.cert.issuer}</p>
+                <h2 class="mt-1 font-display text-xl font-semibold leading-tight text-text">{entry.cert.name}</h2>
+              </div>
+            </div>
+
+            <div class="mt-auto flex h-9 items-end">
+              {entry.credlyUrl ? (
+                <a
+                  href={entry.credlyUrl}
+                  target="_blank"
+                  rel="noopener"
+                  data-credly-link
+                  class="inline-flex h-8 items-center gap-2 rounded-md border border-[#f36f21]/55 bg-[#f36f21]/12 px-2.5 text-xs font-semibold text-text transition-colors hover:border-[#f36f21] hover:bg-[#f36f21]/18"
+                >
+                  <span class="flex h-5 w-5 items-center justify-center rounded-sm bg-[#f36f21] font-display text-[11px] font-bold leading-none text-ink-900">C</span>
+                  <span>Credly</span>
+                  <span class="font-mono text-[10px] text-[#f36f21]">↗</span>
+                </a>
+              ) : (
+                <span class="h-8" aria-hidden="true"></span>
+              )}
             </div>
           </div>
 
@@ -211,10 +224,7 @@ const assetCount = entries.reduce((count, entry) => count + entry.assets.length,
                   rel="noopener"
                   class="group/link flex items-center justify-between gap-3 rounded-lg border border-ink-600 bg-ink-900/40 px-3 py-3 text-sm text-text-dim transition-colors hover:border-[var(--c)] hover:text-text"
                 >
-                  <span class="min-w-0">
-                    <span class="block font-medium">{assetVerb(asset)}</span>
-                    <span class="mt-0.5 block truncate font-mono text-[10px] uppercase tracking-wide text-muted">{assetKind(asset)}</span>
-                  </span>
+                  <span class="min-w-0 font-medium">{assetVerb(asset)}</span>
                   <span class="shrink-0 font-mono text-xs text-accent transition-transform group-hover/link:translate-x-0.5">↗</span>
                 </a>
               ))}

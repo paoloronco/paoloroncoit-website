@@ -24,12 +24,20 @@ const ISSUERS: Issuer[] = [
   { id: 'aws', name: 'AWS', keywords: ['aws', 'amazon web services', 'amazon'], color: 'var(--color-cat-automation)', logo: 'aws' },
   { id: 'comptia', name: 'CompTIA', keywords: ['comptia'], color: 'var(--color-cat-security)', logo: 'comptia' },
   { id: 'cisco', name: 'Cisco', keywords: ['cisco', 'netcad', 'netacad'], color: 'var(--color-cat-cloud)', logo: 'cisco' },
+  { id: 'ibm', name: 'IBM', keywords: ['ibm'], color: 'var(--color-accent)', logo: 'ibm' },
   { id: 'intel', name: 'Intel', keywords: ['intel'], color: 'var(--color-accent)', logo: 'intel' },
   { id: 'splunk', name: 'Splunk', keywords: ['splunk'], color: 'var(--color-cat-ai)', logo: 'splunk' },
   { id: 'microsoft', name: 'Microsoft', keywords: ['microsoft', 'azure', 'az-900', 'sc-900'], color: 'var(--color-cat-cloud)' },
   { id: 'oracle', name: 'Oracle', keywords: ['oracle', 'oci'], color: 'var(--color-cat-security)' },
   { id: 'isc2', name: 'ISC2', keywords: ['isc2', 'cissp', 'cc certified'], color: 'var(--color-cat-ai)' },
-  { id: 'ec-council', name: 'EC-Council', keywords: ['ec-council', 'ceh'], color: 'var(--color-cat-automation)' },
+  { id: 'ec-council', name: 'EC-Council', keywords: ['ec-council', 'ehe', 'ethical hacking essentials', 'ceh'], color: 'var(--color-cat-automation)', logo: 'ec-council' },
+  {
+    id: 'unioncamere-google',
+    name: 'Unioncamere + Google',
+    keywords: ['unioncamere + google', 'unioncamere', 'crescere in digitale'],
+    color: 'var(--color-cat-tool)',
+    logo: 'unioncamere-google',
+  },
   { id: 'offsec', name: 'OffSec', keywords: ['offensive security', 'offsec', 'oscp'], color: 'var(--color-cat-security)' },
   { id: 'hashicorp', name: 'HashiCorp', keywords: ['hashicorp', 'terraform'], color: 'var(--color-cat-ai)' },
 ];
@@ -75,9 +83,12 @@ function stripIssuer(raw: string, issuer: Issuer): string {
   return out;
 }
 
-export function resolveCert(raw: string): ResolvedCert {
+export function resolveCert(raw: string, issuerOverride?: string): ResolvedCert {
   const norm = normalize(raw);
   const issuer =
+    (issuerOverride
+      ? ISSUERS.find((i) => normalize(i.name) === normalize(issuerOverride) || i.keywords.some((k) => normalize(k) === normalize(issuerOverride)))
+      : null) ??
     ISSUERS.find((i) => i.keywords.some((k) => norm.includes(normalize(k)))) ?? null;
 
   if (!issuer) {

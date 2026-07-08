@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 88" role="img" aria-labelledby="title">
+  <title id="title">EC-Council</title>
+  <rect width="260" height="88" rx="10" fill="#fff"/>
+  <g transform="translate(16 17)">
+    <circle cx="27" cy="27" r="27" fill="#d71920"/>
+    <path fill="#fff" d="M16 17h23v6H24v7h13v6H24v8h16v6H16V17z"/>
+  </g>
+  <text x="82" y="39" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800">EC-Council</text>
+  <text x="83" y="60" fill="#d71920" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="2">CERTIFIED</text>
+</svg>
