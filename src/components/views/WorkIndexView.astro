@@ -43,10 +43,18 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
     {projects.length === 0 ? (
       <p class="rounded-card border border-dashed border-ink-600 p-8 text-center text-muted">{t('work.empty')}</p>
     ) : (
-      <div class="readable-grid grid grid-cols-1 gap-3 md:grid-cols-2" data-grid>
+      <div class="readable-grid grid grid-cols-1 gap-4 md:grid-cols-2" data-grid>
         {projects.map((p, i) => (
           <div data-category={p.data.category} data-reveal style={`--i:${i + 1}`}>
-            <CaseFileCard href={localizePath(`/projects/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} index={i + 1} />
+            <CaseFileCard
+              href={localizePath(`/projects/${entrySlug(p.id)}`, lang)}
+              title={p.data.title}
+              summary={p.data.summary}
+              category={p.data.category}
+              stack={p.data.stack}
+              index={i + 1}
+              variant="hybrid"
+            />
           </div>
         ))}
       </div>
