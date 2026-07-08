@@ -32,9 +32,9 @@ if (!python) {
   process.exit(1);
 }
 
-const deps = run(python, ['-c', 'import PIL, reportlab']);
+const deps = run(python, ['-c', 'from PIL import Image, ImageDraw; import reportlab.lib.pagesizes']);
 if (deps.status !== 0) {
-  const install = run(python, ['-m', 'pip', 'install', '-r', 'requirements.txt', '--disable-pip-version-check']);
+  const install = run(python, ['-m', 'pip', 'install', '--force-reinstall', '--upgrade', '-r', 'requirements.txt', '--disable-pip-version-check']);
   if (install.status !== 0) process.exit(install.status ?? 1);
 }
 
