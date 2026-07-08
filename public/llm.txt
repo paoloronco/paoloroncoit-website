@@ -1,0 +1,13 @@
+# Paolo Ronco
+
+> Cyber Security Analyst at Deloitte (Enterprise Security - Cloud & AI). I work at the intersection of security, cloud, and AI/LLM, with a homelab where I experiment with automations and models.
+
+## Pages
+- [Work](https://paoloronco.it/en/projects): projects as case files (problem/solution/stack/outcome)
+- [Writing](https://paoloronco.it/en/writing): articles on security, AI, automation, self-hosting
+- [CV](https://paoloronco.it/en/cv): experience, certifications, education
+- [Skills](https://paoloronco.it/en/skills): full technical skill set with levels and tools
+- [About](https://paoloronco.it/en/about): who I am and how my infrastructure is built
+
+## Topics
+Cyber Security, applied AI/LLM, automation (n8n), cloud, DevSecOps, open source, self-hosting.

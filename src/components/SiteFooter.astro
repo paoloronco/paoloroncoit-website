@@ -13,17 +13,20 @@ const year = new Date().getFullYear();
       <p class="mt-1">{site.role}</p>
       <p class="mt-1">{site.domains.join(' · ')}</p>
     </div>
-    <div class="flex w-full flex-nowrap items-center justify-between gap-3 overflow-x-auto whitespace-nowrap text-[13px] sm:w-auto sm:justify-start sm:gap-x-5 sm:text-sm">
-      <a class="hover:text-accent" href={site.socials.github}>GitHub</a>
-      <a class="hover:text-accent" href={site.socials.huggingface} aria-label="Hugging Face">
-        <span class="sm:hidden">HF</span><span class="hidden sm:inline">Hugging Face</span>
-      </a>
-      <a class="hover:text-accent" href={site.socials.linkedin}>LinkedIn</a>
-      <a class="hover:text-accent" href="/rss.xml">RSS</a>
-      <a class="hover:text-accent" href="/llms.txt" aria-label="llms.txt">llms.txt</a>
-      <a class="hover:text-accent" href="/.well-known/security.txt" aria-label="security.txt">
-        <span class="sm:hidden">Security</span><span class="hidden sm:inline">security.txt</span>
-      </a>
+    <div class="flex w-full flex-col items-start gap-2 overflow-x-auto whitespace-nowrap text-[13px] sm:w-auto sm:items-end sm:text-sm">
+      <nav class="flex w-full flex-nowrap items-center justify-between gap-3 sm:w-auto sm:justify-start sm:gap-x-5" aria-label="Social links">
+        <a class="hover:text-accent" href={site.socials.github}>GitHub</a>
+        <a class="hover:text-accent" href={site.socials.huggingface} aria-label="Hugging Face">
+          <span class="sm:hidden">HF</span><span class="hidden sm:inline">Hugging Face</span>
+        </a>
+        <a class="hover:text-accent" href={site.socials.linkedin}>LinkedIn</a>
+        <a class="hover:text-accent" href="/rss.xml">RSS</a>
+      </nav>
+      <nav class="flex w-full flex-nowrap items-center justify-between gap-3 font-mono text-xs text-muted/75 sm:w-auto sm:justify-start sm:gap-x-4" aria-label="Machine-readable files">
+        <a class="hover:text-accent" href="/llm.txt">llm.txt</a>
+        <a class="hover:text-accent" href="/.well-known/security.txt">security.txt</a>
+        <a class="hover:text-accent" href="/robots.txt">robots.txt</a>
+      </nav>
     </div>
   </div>
 
