@@ -40,6 +40,8 @@ const languages = [
 ];
 
 const certificatesPath = en ? '/en/certifications' : '/certificati';
+const cvPdfPath = en ? '/cv-en.pdf' : '/cv-it.pdf';
+const cvDownloadName = en ? 'Paolo-Ronco-CV-EN.pdf' : 'Paolo-Ronco-CV-IT.pdf';
 const issuerBadgeStyle = (_color: string) =>
   'border-color:color-mix(in oklab, var(--color-ink-500) 68%, transparent);background:color-mix(in oklab, var(--color-ink-700) 58%, transparent);color:var(--color-text-dim);';
 const logoFrameStyle = (_color: string) =>
@@ -52,7 +54,7 @@ const logoFrameStyle = (_color: string) =>
         <CmdPath cmd="cat" arg="resume.md" />
         <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text" style="animation-delay:.12s">CV</h1>
       </div>
-      <a href="/cv.pdf" download="Paolo-Ronco-CV.pdf" class="rounded-md border border-ink-500 px-3 py-2 text-sm text-text-dim hover:border-accent hover:text-text">{t('cv.downloadPdf')}</a>
+      <a href={cvPdfPath} download={cvDownloadName} class="rounded-md border border-ink-500 px-3 py-2 text-sm text-text-dim hover:border-accent hover:text-text">{t('cv.downloadPdf')}</a>
     </div>
 
     <h2 class="kicker mt-12 mb-6">{t('cv.experience')}</h2>

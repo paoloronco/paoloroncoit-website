@@ -8,6 +8,7 @@ const L = (p: string) => localizePath(p, lang);
 const en = lang === 'en';
 const g = en ? { nav: 'Navigate', act: 'Actions', post: 'Articles' } : { nav: 'Naviga', act: 'Azioni', post: 'Articoli' };
 const certificatesPath = en ? '/en/certifications' : '/certificati';
+const cvPdfPath = en ? '/cv-en.pdf' : '/cv-it.pdf';
 
 const navCommands = [
   { group: g.nav, name: 'Home', href: L('/'), keys: 'home start', kind: 'nav' },
@@ -17,7 +18,7 @@ const navCommands = [
   { group: g.nav, name: 'Writing', sub: en ? 'articles' : 'articoli', href: L('/writing'), keys: 'articoli blog post articles', kind: 'nav' },
   { group: g.nav, name: 'Skills', sub: en ? 'technical skills' : 'competenze tecniche', href: L('/skills'), keys: 'competenze skill tecnologie tool skills', kind: 'nav' },
   { group: g.nav, name: 'About', href: L('/about'), keys: 'chi sono bio infra about', kind: 'nav' },
-  { group: g.act, name: en ? 'Download CV (PDF)' : 'Scarica il CV (PDF)', href: '/cv.pdf', keys: 'download pdf scarica', kind: 'act' },
+  { group: g.act, name: en ? 'Download CV (PDF)' : 'Scarica il CV (PDF)', href: cvPdfPath, keys: 'download pdf scarica', kind: 'act' },
   { group: g.act, name: en ? 'Contact' : 'Contatti', href: L('/contact'), keys: 'email scrivi contact contatti', kind: 'act' },
   { group: g.act, name: 'AI Assistant', href: L('/ask'), keys: 'chatbot ai chiedi assistente ask', kind: 'act' },
 ];

@@ -61,7 +61,8 @@ const T = {
   lang,
   role: `Cyber Security Analyst · Deloitte · ${enterpriseSecurityArea}`,
   email: site.email,
-  cvpdf: '/cv.pdf',
+  cvpdf: en ? '/cv-en.pdf' : '/cv-it.pdf',
+  cvpdfLabel: en ? 'cv-en.pdf ↓' : 'cv-it.pdf ↓',
   focus,
   links: [
     { label: 'GitHub', handle: '@paoloronco', href: site.socials.github },
@@ -320,7 +321,7 @@ const T = {
         writings: async () => commands.writing(),
         articles: () => commands.writing(),
         blog: () => commands.writing(),
-        cv: () => `<span class="term__resp">${esc(T.s.dCv)}</span>\n<span class="term__muted">→</span> ${link(T.paths.cv, T.paths.cv)}  <span class="term__muted">·</span>  ${link(T.cvpdf, 'cv.pdf ↓')}`,
+        cv: () => `<span class="term__resp">${esc(T.s.dCv)}</span>\n<span class="term__muted">→</span> ${link(T.paths.cv, T.paths.cv)}  <span class="term__muted">·</span>  ${link(T.cvpdf, T.cvpdfLabel)}`,
         resume: () => commands.cv(),
         contact: () => `<span class="term__resp">${esc(T.s.dContact)}</span>\n<span class="term__muted">→</span> ${link('mailto:' + T.email, T.email)}`,
         email: () => commands.contact(),
@@ -362,7 +363,7 @@ const T = {
       // ---- finto filesystem: cat/less/more leggono; nano/vi/vim "aprono" (sola lettura) ----
       const files = {
         'focus.txt': () => commands.focus(),
-        'cv.md': () => `<span class="term__key"># CV</span>\n<span class="term__resp">${esc(T.role)}</span>\n<span class="term__muted">→</span> ${link(T.paths.cv, T.paths.cv)}  <span class="term__muted">·</span>  ${link(T.cvpdf, 'cv.pdf ↓')}`,
+        'cv.md': () => `<span class="term__key"># CV</span>\n<span class="term__resp">${esc(T.role)}</span>\n<span class="term__muted">→</span> ${link(T.paths.cv, T.paths.cv)}  <span class="term__muted">·</span>  ${link(T.cvpdf, T.cvpdfLabel)}`,
         'skills.json': () =>
           '<span class="term__muted">{</span>\n' +
           T.focus.map(([k, d]) => `  <span class="term__key">"${k}"</span>: <span class="term__resp">"${esc(d)}"</span>`).join(',\n') +
