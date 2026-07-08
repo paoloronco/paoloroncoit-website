@@ -8,7 +8,7 @@ const L = (p: string) => localizePath(p, lang);
 const en = lang === 'en';
 const g = en ? { nav: 'Navigate', act: 'Actions', post: 'Articles' } : { nav: 'Naviga', act: 'Azioni', post: 'Articoli' };
 const certificatesPath = en ? '/en/certifications' : '/certificati';
-const cvPdfPath = en ? '/cv-en.pdf' : '/cv-it.pdf';
+const cvPdfPath = en ? '/en/cv-print?mode=print' : '/cv-print?mode=print';
 
 const navCommands = [
   { group: g.nav, name: 'Home', href: L('/'), keys: 'home start', kind: 'nav' },

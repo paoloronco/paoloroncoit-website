@@ -1,0 +1,520 @@
+---
+import { resolveCert } from '@/data/certs';
+import { enterpriseSecurityArea } from '@/data/site';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const en = lang === 'en';
+const printMode = Astro.url.searchParams.get('mode') === 'print';
+
+const sectionTitle = en ? 'Work Experience' : 'Esperienza';
+const certTitle = en ? 'Certifications' : 'Certificazioni';
+const skillsTitle = en ? 'Main Skills' : 'Competenze principali';
+const educationTitle = en ? 'Education' : 'Formazione';
+const languagesTitle = en ? 'Languages' : 'Lingue';
+
+const experience = [
+  {
+    period: en ? 'Nov 2024 — present' : 'Nov 2024 — presente',
+    role: 'Cyber Security Analyst',
+    sub: enterpriseSecurityArea,
+    org: 'Deloitte Consulting',
+  },
+  {
+    period: en ? 'Jul 2024 — Oct 2024' : 'Lug 2024 — Ott 2024',
+    role: 'Junior System Administrator',
+    org: en ? 'Dylog s.p.a. — Turin' : 'Dylog s.p.a. — Torino',
+  },
+  {
+    period: en ? 'Jan 2018 — Feb 2018' : 'Gen 2018 — Feb 2018',
+    role: en ? 'IT Services / CED' : 'Servizi IT / CED',
+    org: 'Comune di Grugliasco',
+  },
+  {
+    period: en ? 'Jan 2018 — Feb 2018' : 'Gen 2018 — Feb 2018',
+    role: 'Accounting Services / IT Services',
+    org: 'FIM-CISL Torino e Canavese',
+  },
+  {
+    period: en ? 'Mar 2017 — Apr 2017' : 'Mar 2017 — Apr 2017',
+    role: 'IT Services',
+    org: en ? 'PerMicro s.p.a. — BNP Paribas Group' : 'PerMicro s.p.a. — Gruppo BNP Paribas',
+  },
+];
+
+const education = [
+  { type: t('edu.corso'), title: 'CyberSecurity', org: en ? 'Istituto Volta — Milan' : 'Istituto Volta — Milano' },
+  { type: t('edu.laurea'), title: 'Scienze della Comunicazione, Digital Entertainment and Marketing', org: 'Università eCampus — Novedrate (CO)' },
+  { type: t('edu.diploma'), title: 'Amministrazione, Finanza e Marketing', org: 'IIS Gobetti Marchesini Casale Arduino — Torino' },
+];
+
+const certs = [
+  'CompTIA Security+',
+  'CompTIA AI Essentials',
+  'Splunk Core Certified User',
+  'Google Cybersecurity Professional Certificate',
+  'Google IT Support',
+  'AWS Cloud Essentials',
+  'Google Cloud Digital Leader',
+  'Google Cloud Generative AI Leader',
+  'Google Cloud Associate Cloud Engineer',
+  'Cisco NetAcad — Get Connected',
+  'Cisco NetAcad — Introduction to CyberSecurity',
+  'Cisco NetAcad — NDG Linux Unchained',
+  'Intel Network Academy',
+].map((cert) => resolveCert(cert));
+
+const certColumns = [certs.slice(0, Math.ceil(certs.length / 2)), certs.slice(Math.ceil(certs.length / 2))];
+
+const topSkills = [
+  'Cloud Security',
+  'SIEM / SOAR',
+  'IAM',
+  'Zero Trust',
+  'Threat & Vulnerability Management',
+  'Incident Response',
+  'Threat Intelligence',
+  'GRC',
+];
+
+const supportSkills = [
+  'Linux / Proxmox',
+  'n8n / Make / GitHub Actions',
+  'API Orchestration',
+  'Network Architecture',
+  'Automation',
+  'Monitoring',
+  'DevSecOps',
+  'Observability',
+];
+
+const cloudSkills = [
+  'Google Cloud Platform',
+  'AWS',
+  'Azure',
+  'Oracle Cloud Infrastructure',
+  'Containers',
+  'IaC',
+  'CI/CD',
+  'AI & MCP',
+];
+
+const languages = [
+  { lang: t('lang.it'), level: t('level.native') },
+  { lang: t('lang.en'), level: t('level.advanced') },
+  { lang: t('lang.es'), level: t('level.basic') },
+];
+
+const profileSummary = en
+  ? 'Profile focused on enterprise cloud security, automation and practical AI implementation. Focus on risk reduction, resilient architectures and operational playbooks.'
+  : 'Profilo focalizzato sulla sicurezza cloud enterprise, automazione e applicazione pratica dell’AI, con focus su riduzione del rischio, resilienza e playbook operativi.';
+
+const roleTitle = 'Cyber Security Analyst';
+const yearLabel = en ? '2023' : '2023';
+---
+
+<main class={`cv-print-page ${printMode ? 'is-print' : ''}`}>
+  <article class="cv-sheet">
+    <header class="cv-header">
+      <img src="/paolo.png" alt="Paolo Ronco" class="cv-avatar" width="90" height="90" loading="eager" />
+      <div class="cv-intro">
+        <p class="kicker">CV</p>
+        <h1>Paolo Ronco</h1>
+        <p class="role">{roleTitle}</p>
+        <p class="summary">{profileSummary}</p>
+      </div>
+      <p class="contact">paoloronco.it · info@paoloronco.it · linkedin.com/in/paolo-ronco · Torino, Italia</p>
+    </header>
+
+    <section class="top-grid">
+      <section class="panel">
+        <h2>{sectionTitle}</h2>
+        <ul class="timeline" aria-label={sectionTitle}>
+          {experience.map((e) => (
+            <li>
+              <p class="period">{e.period}</p>
+              <p class="title">{e.role}</p>
+              {e.sub && <p class="subtle">{e.sub}</p>}
+              <p class="muted">{e.org}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>{certTitle}</h2>
+        <div class="cert-grid">
+          {certColumns.map((column) => (
+            <ul class="cert-col">
+              {column.map((c) => (
+                <li>
+                  <p class="issuer">{c.issuer}</p>
+                  <p class="name">{c.name}</p>
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </section>
+    </section>
+
+    <section class="bottom-grid">
+      <section class="panel">
+        <h2>{skillsTitle}</h2>
+        <div class="skills-grid">
+          <ul class="skill-list">
+            {topSkills.map((name) => <li>{name}</li>)}
+          </ul>
+          <ul class="skill-list">
+            {supportSkills.map((name) => <li>{name}</li>)}
+          </ul>
+          <ul class="skill-list">
+            {cloudSkills.map((name) => <li>{name}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="panel right-stack">
+        <section class="mini">
+          <h3>{educationTitle}</h3>
+          <ul class="education">
+            {education.map((e) => (
+              <li>
+                <p class="period">{yearLabel}</p>
+                <p class="title">{e.type}</p>
+                <p class="name">{e.title}</p>
+                <p class="muted">{e.org}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="mini">
+          <h3>{languagesTitle}</h3>
+          <div class="lang-grid">
+            {languages.map((l) => (
+              <p><span>{l.lang}</span><span>{l.level}</span></p>
+            ))}
+          </div>
+        </section>
+      </section>
+    </section>
+  </article>
+</main>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(*)::before,
+  :global(*)::after {
+    box-sizing: inherit;
+  }
+
+  :global(*) {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :root {
+    --cv-text: #0f172a;
+    --cv-muted: #475569;
+    --cv-line: #d1d5db;
+    --cv-head: #111827;
+    --cv-soft: #64748b;
+  }
+
+  .cv-print-page {
+    margin: 0;
+    padding: 12mm;
+    background: #fff;
+    color: var(--cv-text);
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  .cv-sheet {
+    width: 210mm;
+    min-height: 277mm;
+    margin: 0 auto;
+    display: grid;
+    gap: 4mm;
+    font: 10.5px / 1.35 Arial, sans-serif;
+  }
+
+  .cv-header {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+    background: #0f172a;
+    color: #f8fafc;
+  }
+
+  .cv-avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid rgba(248, 250, 252, 0.4);
+  }
+
+  .cv-intro {
+    display: grid;
+    gap: 3px;
+  }
+
+  .kicker {
+    margin: 0;
+    color: #93c5fd;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .role {
+    margin: 0;
+    font-size: 12px;
+    color: #bfdbfe;
+  }
+
+  .summary {
+    margin: 0;
+    max-width: 640px;
+    font-size: 10px;
+    line-height: 1.35;
+    color: #cbd5e1;
+  }
+
+  .contact {
+    margin: 0;
+    justify-self: stretch;
+    text-align: right;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 500;
+    border-top: 1px solid rgba(148, 163, 184, 0.4);
+    padding-top: 4px;
+    grid-column: 1 / -1;
+  }
+
+  .top-grid,
+  .bottom-grid {
+    display: grid;
+    gap: 4mm;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.88fr);
+    align-items: start;
+  }
+
+  .panel {
+    border: 1px solid var(--cv-line);
+    background: #f8fafc;
+    padding: 7px 8px;
+    min-height: 0;
+  }
+
+  h2,
+  h3 {
+    margin: 0 0 7px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cv-soft);
+    font-weight: 700;
+  }
+
+  .timeline,
+  .cert-col,
+  .skill-list,
+  .education {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 5px;
+  }
+
+  .timeline li {
+    border: 1px solid var(--cv-line);
+    border-radius: 3px;
+    padding: 5px 6px;
+    background: #fff;
+  }
+
+  .period {
+    margin: 0;
+    color: #1d4ed8;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+  }
+
+  .title {
+    margin: 2px 0 0;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--cv-head);
+  }
+
+  .subtle,
+  .muted {
+    margin: 2px 0 0;
+    color: var(--cv-muted);
+    font-size: 9.8px;
+  }
+
+  .cert-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+
+  .cert-col li {
+    border: 1px solid var(--cv-line);
+    border-radius: 3px;
+    padding: 5px 6px;
+    background: #fff;
+  }
+
+  .issuer {
+    margin: 0;
+    color: #2563eb;
+    font-size: 8.6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+  }
+
+  .cert-col .name {
+    margin: 1px 0 0;
+    color: var(--cv-head);
+    font-weight: 600;
+    font-size: 10px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .skill-list li,
+  .education li {
+    border: 1px solid var(--cv-line);
+    border-radius: 3px;
+    background: #fff;
+    padding: 4px 5px;
+    min-height: 17px;
+  }
+
+  .right-stack {
+    display: grid;
+    gap: 5px;
+  }
+
+  .mini h3 {
+    font-size: 9px;
+    margin-bottom: 4px;
+  }
+
+  .education .name {
+    margin: 1px 0 0;
+    font-size: 10px;
+    color: var(--cv-head);
+    font-weight: 600;
+  }
+
+  .education .period {
+    margin: 0;
+    color: #475569;
+    text-transform: none;
+    font-size: 8.8px;
+  }
+
+  .lang-grid {
+    margin: 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  .lang-grid p {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    border: 1px solid var(--cv-line);
+    background: #fff;
+    border-radius: 3px;
+    padding: 4px 5px;
+    color: var(--cv-head);
+    font-weight: 600;
+  }
+
+  .lang-grid span:last-child {
+    color: #1d4ed8;
+    font-weight: 700;
+    font-size: 9px;
+  }
+
+  @media (max-width: 900px) {
+    .cv-print-page {
+      padding: 8mm;
+    }
+
+    .cv-sheet,
+    .top-grid,
+    .bottom-grid {
+      width: 100%;
+      grid-template-columns: 1fr;
+      gap: 3mm;
+    }
+
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media print {
+    .cv-print-page {
+      padding: 5mm;
+    }
+
+    .cv-sheet {
+      width: calc(210mm - 10mm);
+      gap: 3mm;
+      min-height: auto;
+    }
+
+    .cv-avatar {
+      width: 72px;
+      height: 72px;
+    }
+
+    .panel,
+    .timeline li,
+    .cert-col li,
+    .education li,
+    .skill-list li,
+    .lang-grid p {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+  }
+</style>
+
+{printMode && <script is:inline>setTimeout(() => window.print(), 30);</script>}
