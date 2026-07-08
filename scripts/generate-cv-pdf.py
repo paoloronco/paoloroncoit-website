@@ -120,6 +120,23 @@ def date_label(c: canvas.Canvas, value: str, x: float, y: float) -> None:
     wrapped(c, upper, x, y, 48, 6.25, 7.0, ACCENT, "Helvetica-Bold")
 
 
+def draw_limited_lines(
+    c: canvas.Canvas,
+    value: str,
+    x: float,
+    y: float,
+    chars: int,
+    max_lines: int,
+    size: float,
+    leading: float,
+    color=TEXT,
+    font="Helvetica",
+) -> int:
+    for idx, line in enumerate(wrap(value, chars)[:max_lines]):
+        text(c, line, x, y - idx * leading, size, color, font)
+    return min(len(wrap(value, chars)), max_lines)
+
+
 def rounded_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, fill=PAPER, stroke=colors.HexColor("#dde3ee")) -> None:
     c.setFillColor(fill)
     c.setStrokeColor(stroke)
@@ -328,7 +345,7 @@ def draw_experience(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
             tr(lang, "Tirocinio curriculare, reti e supporto infrastrutturale.", "Curricular internship, networking and infrastructure support."),
         ),
     ]
-    row_heights = [50, 49, 40, 40, 40]
+    row_heights = [56, 54, 38, 38, 38]
     date_x = x + 12
     content_x = x + 69
     content_w = COL_W - 81
@@ -336,14 +353,16 @@ def draw_experience(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
         row_top = cy
         row_h = row_heights[i]
         date_label(c, period, date_x, row_top - 1)
-        wrapped(c, role, content_x, row_top, content_w, 8.25, 8.9, TEXT, "Helvetica-Bold")
-        text(c, org, content_x, row_top - 11.5, 6.85, MUTED, "Helvetica-Bold")
-        wrapped(c, desc, content_x, row_top - 21.5, content_w, 6.25, 7.0, MUTED, "Helvetica")
+        role_lines = draw_limited_lines(c, role, content_x, row_top, 35, 2, 8.0, 8.8, TEXT, "Helvetica-Bold")
+        org_y = row_top - 10.4 - (role_lines - 1) * 8.8
+        org_lines = draw_limited_lines(c, org, content_x, org_y, 42, 2, 6.55, 7.2, MUTED, "Helvetica-Bold")
+        desc_y = org_y - 10.3 - (org_lines - 1) * 7.2
+        draw_limited_lines(c, desc, content_x, desc_y, 52, 2, 6.15, 6.9, MUTED, "Helvetica")
         cy -= row_h
         if i < len(jobs) - 1:
             c.setStrokeColor(colors.HexColor("#e2e7f0"))
             c.setLineWidth(0.4)
-            c.line(x + 12, cy + 4, x + COL_W - 12, cy + 4)
+            c.line(x + 12, cy + 2, x + COL_W - 12, cy + 2)
     return y - panel_h - 10
 
 
