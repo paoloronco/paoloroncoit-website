@@ -2,7 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import CmdPath from '@/components/CmdPath.astro';
 import { certificateEntries, type CertificateAsset } from '@/data/certificateAssets';
-import { resolveCert } from '@/data/certs';
+import { resolveCert, type ResolvedCert } from '@/data/certs';
 import { getLangFromUrl, localizePath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -14,233 +14,297 @@ const subtitle = en
   ? 'Verified certificates, badges and supporting documents collected in one place.'
   : 'Certificazioni, badge e documenti di supporto raccolti in un unico posto.';
 const countLabel = en ? 'documents' : 'documenti';
-const openLabel = en ? 'Open' : 'Apri';
-const previewLabel = en ? 'Preview' : 'Anteprima';
-const openTabLabel = en ? 'Open in new tab' : 'Apri in nuova tab';
+const searchLabel = en ? 'Search certifications' : 'Cerca certificazioni';
+const searchPlaceholder = en ? 'Search by vendor, skill, certificate or file...' : 'Cerca per ente, competenza, certificazione o file...';
+const allLabel = en ? 'All' : 'Tutto';
+const emptyTitle = en ? 'No matching documents' : 'Nessun documento trovato';
+const emptyText = en
+  ? 'Try a vendor, a technology area, or an asset type like PDF or badge.'
+  : 'Prova con un ente, un ambito tecnico o un tipo di asset come PDF o badge.';
 
 const fileUrl = (file: string) => `/certificati/${encodeURIComponent(file)}`;
 const assetHref = (asset: CertificateAsset) => asset.url ?? (asset.file ? fileUrl(asset.file) : '#');
 const assetKind = (asset: CertificateAsset) => {
   if (asset.type === 'pdf') return 'PDF';
-  if (asset.type === 'web') return en ? 'Badge' : 'Badge';
+  if (asset.type === 'web') return 'Badge';
   if (asset.type === 'image') return en ? 'Image' : 'Immagine';
   return en ? 'Text' : 'Testo';
 };
+const assetVerb = (asset: CertificateAsset) => {
+  if (asset.type === 'pdf') return en ? 'View PDF' : 'Vedi PDF';
+  if (asset.type === 'web') return en ? 'Open badge' : 'Apri badge';
+  if (asset.type === 'image') return en ? 'Open image' : 'Apri immagine';
+  return en ? 'Open' : 'Apri';
+};
+const assetTypeLabel = (type: CertificateAsset['type']) => {
+  if (type === 'pdf') return 'PDF';
+  if (type === 'web') return 'Badge';
+  if (type === 'image') return en ? 'Images' : 'Immagini';
+  return en ? 'Text' : 'Testo';
+};
 
-const firstPreviewEntry = certificateEntries.find((entry) => entry.assets.some((asset) => asset.type === 'pdf' && asset.file));
-const firstPreviewAsset = firstPreviewEntry?.assets.find((asset) => asset.type === 'pdf' && asset.file);
-const firstPreviewCert = firstPreviewEntry ? resolveCert(firstPreviewEntry.title) : undefined;
-const firstPreviewUrl = firstPreviewAsset ? assetHref(firstPreviewAsset) : '';
+type ResolvedEntry = {
+  title: string;
+  cert: ResolvedCert;
+  assets: CertificateAsset[];
+  search: string;
+  assetTypes: CertificateAsset['type'][];
+};
+
+const entries: ResolvedEntry[] = certificateEntries.map((entry) => {
+  const cert = resolveCert(entry.title);
+  const assetTypes = [...new Set(entry.assets.map((asset) => asset.type))];
+  const search = [
+    entry.title,
+    cert.name,
+    cert.issuer,
+    cert.initials,
+    ...entry.assets.flatMap((asset) => [asset.label, asset.type, asset.file, asset.url]),
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  return {
+    title: entry.title,
+    cert,
+    assets: entry.assets,
+    search,
+    assetTypes,
+  };
+});
+
+const issuerFilters = [...new Set(entries.map((entry) => entry.cert.issuer).filter((issuer) => issuer !== '—'))].sort((a, b) =>
+  a.localeCompare(b)
+);
+const typeFilters = [...new Set(entries.flatMap((entry) => entry.assetTypes))].sort();
+const assetCount = entries.reduce((count, entry) => count + entry.assets.length, 0);
 ---
 
 <Base title={pageTitle} description={subtitle} path={pagePath}>
-  <section class="mx-auto max-w-5xl px-5 py-16">
-    <div class="max-w-2xl">
-      <CmdPath cmd="ls" arg={en ? '~/certifications' : '~/certificati'} />
-      <p class="kicker mt-5 text-accent">{en ? 'Evidence' : 'Evidenze'}</p>
-      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-text sm:text-6xl">{pageTitle}</h1>
-      <p class="mt-5 text-base leading-relaxed text-text-dim">{subtitle}</p>
-      <div class="mt-7 flex flex-wrap items-center gap-3 font-mono text-xs text-muted">
-        <span class="rounded-md border border-ink-600 bg-ink-800/50 px-3 py-2">{certificateEntries.length} {countLabel}</span>
-        <a href={localizePath('/cv', lang)} class="rounded-md border border-ink-600 px-3 py-2 text-text-dim transition-colors hover:border-accent hover:text-text">
-          {en ? 'Back to CV' : 'Torna al CV'}
-        </a>
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+      <div class="max-w-3xl">
+        <CmdPath cmd="find" arg={en ? '~/certifications -type f' : '~/certificati -type f'} />
+        <p class="kicker mt-5 text-accent">{en ? 'Evidence vault' : 'Archivio evidenze'}</p>
+        <h1 class="mt-3 text-4xl font-semibold tracking-tight text-text sm:text-6xl">{pageTitle}</h1>
+        <p class="mt-5 text-base leading-relaxed text-text-dim">{subtitle}</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 text-sm">
+        <div class="rounded-xl border border-ink-600 bg-ink-800/45 p-4">
+          <p class="font-display text-3xl font-semibold text-text">{entries.length}</p>
+          <p class="mt-1 font-mono text-[11px] uppercase tracking-wide text-muted">{en ? 'Certifications' : 'Certificazioni'}</p>
+        </div>
+        <div class="rounded-xl border border-ink-600 bg-ink-800/45 p-4">
+          <p class="font-display text-3xl font-semibold text-text">{assetCount}</p>
+          <p class="mt-1 font-mono text-[11px] uppercase tracking-wide text-muted">{countLabel}</p>
+        </div>
       </div>
     </div>
 
-    <div class="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.9fr)] lg:items-start">
-      <div class="grid grid-cols-1 gap-4">
-        {certificateEntries.map((entry, i) => {
-          const cert = resolveCert(entry.title);
-          const preview = entry.assets.find((asset) => asset.type === 'image' && asset.file);
-          const primaryPdf = entry.assets.find((asset) => asset.type === 'pdf' && asset.file);
-          const isSelected = firstPreviewEntry?.title === entry.title;
-          return (
-            <article
-              data-reveal
-              data-cert-card
-              data-selected={isSelected ? 'true' : 'false'}
-              style={`--c:${cert.color};--i:${Math.min(i, 8)}`}
-              class="group overflow-hidden rounded-xl border border-ink-600 bg-ink-800/40 transition-all hover:-translate-y-0.5 hover:border-[var(--c)] hover:bg-ink-800 data-[selected=true]:border-[var(--c)] data-[selected=true]:bg-ink-800"
-            >
-              <button
-                type="button"
-                data-cert-trigger={primaryPdf ? 'true' : undefined}
-                data-preview-url={primaryPdf ? assetHref(primaryPdf) : undefined}
-                data-preview-name={cert.name}
-                data-preview-issuer={cert.issuer}
-                disabled={!primaryPdf}
-                class="flex w-full gap-4 p-4 text-left transition-colors enabled:cursor-pointer enabled:hover:bg-ink-900/20 disabled:cursor-default sm:p-5"
-              >
-                {cert.logo ? (
-                  <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper px-3 py-2.5 shadow-md shadow-black/30 ring-1 ring-black/5">
-                    <img src={cert.logo} alt={cert.issuer} width="80" height="48" loading="lazy" class="max-h-11 max-w-full object-contain" />
-                  </span>
-                ) : (
-                  <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold shadow-md shadow-black/30" style={`color:${cert.color}`}>
-                    {cert.initials}
-                  </span>
-                )}
+    <div class="mt-10 rounded-xl border border-ink-600 bg-ink-800/55 p-4 shadow-2xl shadow-black/20 sm:p-5">
+      <div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+        <label class="block">
+          <span class="sr-only">{searchLabel}</span>
+          <span class="relative block">
+            <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 font-mono text-xs text-accent">/</span>
+            <input
+              data-cert-search
+              type="search"
+              autocomplete="off"
+              placeholder={searchPlaceholder}
+              class="h-12 w-full rounded-lg border border-ink-500 bg-ink-900/70 pl-9 pr-4 text-base text-text outline-none transition-colors placeholder:text-muted focus:border-accent"
+            />
+          </span>
+        </label>
 
-                <span class="min-w-0 flex-1">
-                  <span class="block font-display text-lg font-semibold leading-snug text-text">{cert.name}</span>
-                  <span class="mt-1 block text-xs uppercase tracking-wide text-muted">{cert.issuer}</span>
-                  {primaryPdf && <span class="mt-3 inline-flex font-mono text-[11px] uppercase tracking-wide text-accent">{previewLabel}</span>}
-                </span>
-              </button>
-
-              <div class="flex flex-wrap gap-2 border-t border-ink-600 bg-ink-900/25 p-3 sm:px-5">
-                {primaryPdf && (
-                  <a
-                    href={assetHref(primaryPdf)}
-                    target="_blank"
-                    rel="noopener"
-                    class="inline-flex items-center gap-2 rounded-md border border-ink-600 bg-ink-900/35 px-3 py-2 text-xs font-medium text-text-dim transition-colors hover:border-[var(--c)] hover:text-text"
-                  >
-                    <span class="font-mono text-[10px] text-accent">PDF</span>
-                    <span>{openTabLabel}</span>
-                  </a>
-                )}
-                {entry.assets
-                  .filter((asset) => asset !== primaryPdf)
-                  .map((asset) => (
-                    <a
-                      href={assetHref(asset)}
-                      target="_blank"
-                      rel="noopener"
-                      class="inline-flex items-center gap-2 rounded-md border border-ink-600 bg-ink-900/35 px-3 py-2 text-xs font-medium text-text-dim transition-colors hover:border-[var(--c)] hover:text-text"
-                    >
-                      <span class="font-mono text-[10px] text-accent">{assetKind(asset)}</span>
-                      <span>{asset.label || openLabel}</span>
-                    </a>
-                  ))}
-              </div>
-
-              {preview?.file && (
-                <button
-                  type="button"
-                  data-cert-trigger={primaryPdf ? 'true' : undefined}
-                  data-preview-url={primaryPdf ? assetHref(primaryPdf) : undefined}
-                  data-preview-name={cert.name}
-                  data-preview-issuer={cert.issuer}
-                  disabled={!primaryPdf}
-                  class="block w-full border-t border-ink-600 bg-ink-900/25 p-3 disabled:cursor-default"
-                >
-                  <img src={fileUrl(preview.file)} alt={entry.title} loading="lazy" class="h-28 w-full rounded-md object-contain" />
-                </button>
-              )}
-            </article>
-          );
-        })}
+        <div class="flex items-center justify-between gap-3 lg:justify-end">
+          <p class="font-mono text-xs text-muted">
+            <span data-result-count>{entries.length}</span> / {entries.length}
+          </p>
+          <button
+            type="button"
+            data-clear-search
+            class="rounded-md border border-ink-600 px-3 py-2 text-xs font-medium text-text-dim transition-colors hover:border-accent hover:text-text"
+          >
+            {en ? 'Reset' : 'Reset'}
+          </button>
+        </div>
       </div>
 
-      <aside
-        data-cert-preview-panel
-        class="preview-panel sticky top-24 overflow-hidden rounded-xl border border-ink-600 bg-ink-900/65 shadow-2xl shadow-black/30"
-      >
-        <div class="flex flex-wrap items-start justify-between gap-3 border-b border-ink-600 p-4">
-          <div class="min-w-0">
-            <p class="font-mono text-[11px] uppercase tracking-wide text-accent">{previewLabel}</p>
-            <h2 data-preview-title-target class="mt-1 font-display text-xl font-semibold leading-tight text-text">{firstPreviewCert?.name}</h2>
-            <p data-preview-issuer-target class="mt-1 text-xs uppercase tracking-wide text-muted">{firstPreviewCert?.issuer}</p>
-          </div>
-          <a
-            data-preview-open
-            href={firstPreviewUrl}
-            target="_blank"
-            rel="noopener"
-            class="inline-flex shrink-0 items-center rounded-md border border-ink-600 px-3 py-2 text-xs font-medium text-text-dim transition-colors hover:border-accent hover:text-text"
+      <div class="mt-4 flex flex-wrap gap-2" aria-label={en ? 'Certification filters' : 'Filtri certificazioni'}>
+        <button
+          type="button"
+          data-cert-filter="all"
+          aria-pressed="true"
+          class="cert-filter rounded-md border border-accent/60 bg-accent/15 px-3 py-2 text-xs font-medium text-text transition-colors"
+        >
+          {allLabel}
+        </button>
+        {issuerFilters.map((issuer) => (
+          <button
+            type="button"
+            data-cert-filter={issuer.toLowerCase()}
+            aria-pressed="false"
+            class="cert-filter rounded-md border border-ink-600 bg-ink-900/35 px-3 py-2 text-xs font-medium text-text-dim transition-colors hover:border-accent hover:text-text"
           >
-            {openTabLabel}
-          </a>
-        </div>
+            {issuer}
+          </button>
+        ))}
+        {typeFilters.map((type) => (
+          <button
+            type="button"
+            data-cert-filter={type}
+            aria-pressed="false"
+            class="cert-filter rounded-md border border-ink-600 bg-ink-900/35 px-3 py-2 text-xs font-medium text-text-dim transition-colors hover:border-accent hover:text-text"
+          >
+            {assetTypeLabel(type)}
+          </button>
+        ))}
+      </div>
+    </div>
 
-        <div class="preview-stage bg-paper">
-          <iframe
-            data-preview-frame
-            src={firstPreviewUrl}
-            title={firstPreviewCert?.name}
-            loading="lazy"
-            class="h-[68vh] min-h-[30rem] w-full bg-paper"
-          ></iframe>
-        </div>
-      </aside>
+    <div data-cert-grid class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+      {entries.map((entry, i) => (
+        <article
+          data-cert-card
+          data-search={entry.search}
+          data-issuer={entry.cert.issuer.toLowerCase()}
+          data-types={entry.assetTypes.join(' ')}
+          style={`--c:${entry.cert.color};--i:${Math.min(i, 8)}`}
+          class="cert-card group flex min-h-[18rem] flex-col overflow-hidden rounded-xl border border-ink-600 bg-ink-800/45 transition-all hover:-translate-y-1 hover:border-[var(--c)] hover:bg-ink-800"
+        >
+          <div class="flex gap-4 p-5">
+            {entry.cert.logo ? (
+              <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper px-3 py-2.5 shadow-md shadow-black/30 ring-1 ring-black/5">
+                <img src={entry.cert.logo} alt={entry.cert.issuer} width="80" height="48" loading="lazy" class="max-h-11 max-w-full object-contain" />
+              </span>
+            ) : (
+              <span class="flex h-16 w-[5.5rem] shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold shadow-md shadow-black/30" style={`color:${entry.cert.color}`}>
+                {entry.cert.initials}
+              </span>
+            )}
+
+            <div class="min-w-0">
+              <p class="font-mono text-[11px] uppercase tracking-wide text-muted">{entry.cert.issuer}</p>
+              <h2 class="mt-1 font-display text-xl font-semibold leading-tight text-text">{entry.cert.name}</h2>
+            </div>
+          </div>
+
+          <div class="px-5 pb-4">
+            <div class="flex flex-wrap gap-2">
+              {entry.assetTypes.map((type) => (
+                <span class="rounded-md border border-ink-600 bg-ink-900/35 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted">
+                  {assetTypeLabel(type)}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div class="mt-auto border-t border-ink-600 bg-ink-900/25 p-4">
+            <div class="grid gap-2">
+              {entry.assets.map((asset) => (
+                <a
+                  href={assetHref(asset)}
+                  target="_blank"
+                  rel="noopener"
+                  class="group/link flex items-center justify-between gap-3 rounded-lg border border-ink-600 bg-ink-900/40 px-3 py-3 text-sm text-text-dim transition-colors hover:border-[var(--c)] hover:text-text"
+                >
+                  <span class="min-w-0">
+                    <span class="block font-medium">{assetVerb(asset)}</span>
+                    <span class="mt-0.5 block truncate font-mono text-[10px] uppercase tracking-wide text-muted">{assetKind(asset)}</span>
+                  </span>
+                  <span class="shrink-0 font-mono text-xs text-accent transition-transform group-hover/link:translate-x-0.5">↗</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div data-empty-state hidden class="mt-8 rounded-xl border border-ink-600 bg-ink-800/45 p-8 text-center">
+      <p class="font-display text-2xl font-semibold text-text">{emptyTitle}</p>
+      <p class="mt-2 text-sm text-muted">{emptyText}</p>
+    </div>
+
+    <div class="mt-10">
+      <a href={localizePath('/cv', lang)} class="inline-flex rounded-md border border-ink-600 px-3 py-2 text-sm text-text-dim transition-colors hover:border-accent hover:text-text">
+        {en ? 'Back to CV' : 'Torna al CV'}
+      </a>
     </div>
   </section>
 
   <script>
-    const previewTriggers = document.querySelectorAll('[data-cert-trigger]');
-    const previewCards = document.querySelectorAll('[data-cert-card]');
-    const previewPanel = document.querySelector('[data-cert-preview-panel]');
-    const previewFrame = document.querySelector('[data-preview-frame]');
-    const previewTitle = document.querySelector('[data-preview-title-target]');
-    const previewIssuer = document.querySelector('[data-preview-issuer-target]');
-    const previewOpen = document.querySelector('[data-preview-open]');
+    const searchInput = document.querySelector<HTMLInputElement>('[data-cert-search]');
+    const clearButton = document.querySelector<HTMLButtonElement>('[data-clear-search]');
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-cert-card]'));
+    const filters = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-cert-filter]'));
+    const resultCount = document.querySelector<HTMLElement>('[data-result-count]');
+    const emptyState = document.querySelector<HTMLElement>('[data-empty-state]');
+    let activeFilter = 'all';
 
-    const setPreview = (trigger: Element) => {
-      const url = trigger.getAttribute('data-preview-url');
-      const title = trigger.getAttribute('data-preview-name') || '';
-      const issuer = trigger.getAttribute('data-preview-issuer') || '';
-      if (!url || !previewFrame || !previewTitle || !previewIssuer || !previewOpen) return;
+    const normalize = (value: string) =>
+      value
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .trim();
 
-      previewCards.forEach((card) => {
-        card.setAttribute('data-selected', String(card.contains(trigger)));
-      });
-
-      previewPanel?.classList.remove('is-ready');
-      previewPanel?.classList.add('is-changing');
-
-      window.setTimeout(() => {
-        if (previewFrame.getAttribute('src') !== url) previewFrame.setAttribute('src', url);
-        previewFrame.setAttribute('title', title);
-        previewTitle.textContent = title;
-        previewIssuer.textContent = issuer;
-        previewOpen.setAttribute('href', url);
-        previewPanel?.classList.remove('is-changing');
-        previewPanel?.classList.add('is-ready');
-      }, 120);
+    const matchesFilter = (card: HTMLElement) => {
+      if (activeFilter === 'all') return true;
+      const issuer = card.dataset.issuer || '';
+      const types = card.dataset.types || '';
+      return issuer === activeFilter || types.split(' ').includes(activeFilter);
     };
 
-    previewTriggers.forEach((trigger) => {
-      trigger.addEventListener('click', () => setPreview(trigger));
+    const setFilterState = () => {
+      filters.forEach((filter) => {
+        const selected = filter.dataset.certFilter === activeFilter;
+        filter.setAttribute('aria-pressed', String(selected));
+        filter.classList.toggle('border-accent/60', selected);
+        filter.classList.toggle('bg-accent/15', selected);
+        filter.classList.toggle('text-text', selected);
+        filter.classList.toggle('border-ink-600', !selected);
+        filter.classList.toggle('bg-ink-900/35', !selected);
+        filter.classList.toggle('text-text-dim', !selected);
+      });
+    };
+
+    const applyFilters = () => {
+      const query = normalize(searchInput?.value || '');
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const searchable = normalize(card.dataset.search || '');
+        const show = matchesFilter(card) && (!query || searchable.includes(query));
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+
+      if (resultCount) resultCount.textContent = String(visible);
+      if (emptyState) emptyState.hidden = visible !== 0;
+    };
+
+    searchInput?.addEventListener('input', applyFilters);
+    clearButton?.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      activeFilter = 'all';
+      setFilterState();
+      applyFilters();
+      searchInput?.focus();
     });
+
+    filters.forEach((filter) => {
+      filter.addEventListener('click', () => {
+        activeFilter = filter.dataset.certFilter || 'all';
+        setFilterState();
+        applyFilters();
+      });
+    });
+
+    setFilterState();
+    applyFilters();
   </script>
-
-  <style>
-    .preview-panel {
-      transform-origin: top center;
-      transition:
-        border-color 220ms cubic-bezier(0.25, 1, 0.5, 1),
-        transform 260ms cubic-bezier(0.25, 1, 0.5, 1),
-        opacity 260ms cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .preview-panel.is-changing {
-      opacity: 0.72;
-      transform: translateY(6px) scale(0.992);
-    }
-
-    .preview-panel.is-ready {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    .preview-stage iframe {
-      transition:
-        opacity 220ms cubic-bezier(0.25, 1, 0.5, 1),
-        transform 220ms cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .preview-panel.is-changing .preview-stage iframe {
-      opacity: 0.45;
-      transform: translateY(4px);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .preview-panel,
-      .preview-stage iframe {
-        transition: none;
-      }
-    }
-  </style>
 </Base>
