@@ -16,8 +16,8 @@ export interface SkillCategory {
 }
 
 export const skillsTagline: LS = {
-  it: 'Cybersecurity analyst specializzato in difesa cloud, networking resiliente, automazione, AI operations e piattaforme digitali.',
-  en: 'Cybersecurity analyst specialized in cloud defense, resilient networking, automation, AI operations and digital platforms.',
+  it: '',
+  en: '',
 };
 
 const d = (it: string, en: string): LS => ({ it, en });
