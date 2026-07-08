@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from urllib.parse import quote
 import textwrap
 
 from PIL import Image, ImageDraw
@@ -14,24 +15,23 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "public" / "cv.pdf"
 TMP = ROOT / "tmp" / "pdfs"
 PHOTO = ROOT / "public" / "paolo.png"
+LOGOS = ROOT / "public" / "logos"
+SITE = "https://paoloronco.it"
 
 W, H = A4
-M = 34
+SIDEBAR_W = 205
+RIGHT_X = 226
+RIGHT_W = W - RIGHT_X - 24
 
-INK = colors.HexColor("#0a0c12")
-INK_2 = colors.HexColor("#11151f")
-INK_3 = colors.HexColor("#1b2230")
-TEXT = colors.HexColor("#f3f6fc")
-DIM = colors.HexColor("#c4cdda")
-MUTED = colors.HexColor("#647084")
-PAPER = colors.HexColor("#f7f6f3")
-PAPER_2 = colors.HexColor("#ebeef4")
-ACCENT = colors.HexColor("#4f8dff")
-SECURITY = colors.HexColor("#fb7185")
-CLOUD = colors.HexColor("#38bdf8")
-AI = colors.HexColor("#a78bfa")
-AUTO = colors.HexColor("#fbbf24")
-TOOL = colors.HexColor("#34d399")
+NAVY = colors.HexColor("#07345a")
+NAVY_DARK = colors.HexColor("#052943")
+INK = colors.HexColor("#123047")
+TEXT = colors.HexColor("#182335")
+MUTED = colors.HexColor("#6b7280")
+LIGHT = colors.HexColor("#f8fafc")
+LINE = colors.HexColor("#d8dee8")
+WHITE = colors.white
+ACCENT = colors.HexColor("#0b5d9a")
 
 
 def make_photo() -> Path:
@@ -41,280 +41,248 @@ def make_photo() -> Path:
     side = min(src.size)
     left = (src.width - side) // 2
     top = (src.height - side) // 2
-    src = src.crop((left, top, left + side, top + side)).resize((520, 520), Image.LANCZOS)
+    src = src.crop((left, top, left + side, top + side)).resize((420, 420), Image.LANCZOS)
 
     mask = Image.new("L", src.size, 0)
     draw = ImageDraw.Draw(mask)
-    draw.rounded_rectangle((0, 0, src.width, src.height), radius=52, fill=255)
+    draw.ellipse((0, 0, src.width, src.height), fill=255)
 
-    bg = Image.new("RGBA", src.size, (247, 246, 243, 255))
+    bg = Image.new("RGBA", src.size, (7, 52, 90, 255))
     bg.alpha_composite(src)
     bg.putalpha(mask)
     bg.save(target)
     return target
 
 
-def wrap_lines(text: str, width_chars: int) -> list[str]:
-    return textwrap.wrap(text, width=width_chars, break_long_words=False, replace_whitespace=False)
+def wrap(text: str, chars: int) -> list[str]:
+    return textwrap.wrap(text, width=chars, break_long_words=False, replace_whitespace=False)
 
 
-def draw_wrapped(c: canvas.Canvas, text: str, x: float, y: float, width: float, font: str, size: int, leading: int, color, max_lines: int | None = None) -> float:
-    c.setFont(font, size)
+def text(c: canvas.Canvas, value: str, x: float, y: float, size: float, color=TEXT, font="Helvetica") -> None:
     c.setFillColor(color)
-    avg = size * 0.49
-    chars = max(18, int(width / avg))
-    lines = wrap_lines(text, chars)
-    if max_lines is not None:
-        lines = lines[:max_lines]
-    for line in lines:
+    c.setFont(font, size)
+    c.drawString(x, y, value)
+
+
+def wrapped(c: canvas.Canvas, value: str, x: float, y: float, width: float, size: float, leading: float, color=TEXT, font="Helvetica") -> float:
+    chars = max(16, int(width / (size * 0.46)))
+    c.setFillColor(color)
+    c.setFont(font, size)
+    for line in wrap(value, chars):
         c.drawString(x, y, line)
         y -= leading
     return y
 
 
-def pill(c: canvas.Canvas, x: float, y: float, text: str, fill, stroke=None, text_color=INK, font="Helvetica-Bold", size=8, pad_x=7, pad_y=4) -> float:
-    c.setFont(font, size)
-    tw = c.stringWidth(text, font, size)
-    h = size + pad_y * 2
-    w = tw + pad_x * 2
-    c.setFillColor(fill)
-    c.setStrokeColor(stroke or fill)
-    c.roundRect(x, y - h + 2, w, h, 5, stroke=1 if stroke else 0, fill=1)
-    c.setFillColor(text_color)
-    c.drawString(x + pad_x, y - size - pad_y + 4, text)
-    return w
+def hline(c: canvas.Canvas, x: float, y: float, w: float, color=INK) -> None:
+    c.setStrokeColor(color)
+    c.setLineWidth(0.6)
+    c.line(x, y, x + w, y)
 
 
-def section_title(c: canvas.Canvas, x: float, y: float, title: str, color=ACCENT):
-    c.setFillColor(color)
-    c.roundRect(x, y - 9, 18, 3, 1.5, stroke=0, fill=1)
-    c.setFillColor(INK)
-    c.setFont("Helvetica-Bold", 13)
-    c.drawString(x + 25, y - 14, title.upper())
+def section(c: canvas.Canvas, title: str, x: float, y: float, w: float, dark: bool = False) -> float:
+    color = WHITE if dark else INK
+    text(c, title, x, y, 15, color, "Helvetica-Bold")
+    hline(c, x, y - 4, w, WHITE if dark else INK)
+    return y - 17
 
 
-def card(c: canvas.Canvas, x: float, y: float, w: float, h: float, fill=PAPER, stroke=PAPER_2, radius=10):
-    c.setFillColor(fill)
-    c.setStrokeColor(stroke)
-    c.roundRect(x, y - h, w, h, radius, stroke=1, fill=1)
+def logo_path(provider: str) -> Path | None:
+    key = {
+        "CompTIA": "comptia",
+        "Google Cloud": "googlecloud",
+        "Google": "google",
+        "AWS": "aws",
+        "Splunk": "splunk",
+        "Cisco": "cisco",
+        "IBM": "ibm",
+        "Intel": "intel",
+        "EC-Council": "ec-council",
+        "Unioncamere + Google": "unioncamere-google",
+    }.get(provider)
+    if not key:
+        return None
+    path = LOGOS / f"{key}.png"
+    return path if path.exists() else None
 
 
-def small_footer(c: canvas.Canvas, page: int):
-    c.setFillColor(MUTED)
-    c.setFont("Helvetica", 8)
-    c.drawString(M, 20, "paoloronco.it - info@paoloronco.it - linkedin.com/in/paolo-ronco-685a5722a")
-    c.drawRightString(W - M, 20, f"CV - pagina {page}")
+def draw_logo(c: canvas.Canvas, provider: str, x: float, y: float, max_w: float = 34, max_h: float = 12) -> None:
+    path = logo_path(provider)
+    if not path:
+        text(c, provider[:6], x, y, 5.4, MUTED, "Helvetica-Bold")
+        return
+
+    with Image.open(path) as img:
+        iw, ih = img.size
+    scale = min(max_w / iw, max_h / ih)
+    w = iw * scale
+    h = ih * scale
+    c.drawImage(ImageReader(str(path)), x, y - h + 2, width=w, height=h, preserveAspectRatio=True, mask="auto")
 
 
-def draw_hero(c: canvas.Canvas, photo_path: Path):
-    c.setFillColor(INK)
-    c.rect(0, H - 250, W, 250, stroke=0, fill=1)
-    c.setFillColor(INK_2)
-    c.roundRect(M, H - 230, W - (M * 2), 210, 18, stroke=0, fill=1)
-    c.setFillColor(ACCENT)
-    c.roundRect(M, H - 42, 88, 4, 2, stroke=0, fill=1)
+def cert_pdf_url(file_name: str) -> str:
+    return f"{SITE}/certificati/{quote(file_name)}"
 
-    c.setFillColor(TEXT)
-    c.setFont("Helvetica-Bold", 34)
-    c.drawString(M + 26, H - 82, "Paolo Ronco")
-    c.setFont("Helvetica-Bold", 13)
-    c.setFillColor(ACCENT)
-    c.drawString(M + 28, H - 105, "Cyber Security Analyst")
 
-    intro = (
+def draw_sidebar(c: canvas.Canvas, photo: Path) -> None:
+    c.setFillColor(NAVY)
+    c.rect(0, 0, SIDEBAR_W, H, stroke=0, fill=1)
+    c.setFillColor(NAVY_DARK)
+    c.rect(0, 0, SIDEBAR_W, 38, stroke=0, fill=1)
+
+    c.drawImage(ImageReader(str(photo)), 59, 716, width=88, height=88, mask="auto")
+
+    y = section(c, "Contatti", 14, 670, SIDEBAR_W - 28, dark=True)
+    contact_items = [
+        ("Sito web", "paoloronco.it/cv"),
+        ("Email", "info@paoloronco.it"),
+        ("LinkedIn", "linkedin.com/in/paolo-ronco-685a5722a"),
+        ("Residenza", "Torino"),
+    ]
+    for label, value in contact_items:
+        text(c, label, 18, y, 8.7, WHITE, "Helvetica-Bold")
+        text(c, value, 18, y - 10, 7.3, WHITE, "Helvetica")
+        y -= 31
+
+    y = section(c, "Esperienze", 14, y - 9, SIDEBAR_W - 28, dark=True)
+    jobs = [
+        (
+            "Cyber Security Analyst",
+            "Deloitte Consulting",
+            "Nov 2024 - attuale",
+            ["Cloud & AI security", "Threat management", "Risk mitigation"],
+        ),
+        (
+            "Junior System Administrator",
+            "Dylog Italia S.p.A.",
+            "Lug 2024 - Ott 2024",
+            ["Migrazioni e configurazioni", "Assistenza software", "Windows Server / AD"],
+        ),
+        (
+            "IT Services / CED",
+            "Comune di Grugliasco",
+            "Gen 2018 - Feb 2018",
+            ["Supporto IT", "Servizi CED"],
+        ),
+        (
+            "IT Support",
+            "PerMicro S.p.A.",
+            "Mar 2017 - Apr 2017",
+            ["Tirocinio curriculare", "Reti e infrastruttura"],
+        ),
+    ]
+    for role, org, period, bullets in jobs:
+        text(c, "• " + role, 14, y, 8.6, WHITE, "Helvetica-Bold")
+        text(c, org, 25, y - 10, 8.1, WHITE, "Helvetica-Oblique")
+        text(c, period, 25, y - 20, 7.0, colors.HexColor("#d8e9ff"), "Helvetica")
+        by = y - 31
+        for bullet in bullets:
+            text(c, "- " + bullet, 30, by, 6.8, WHITE, "Helvetica")
+            by -= 8.5
+        y = by - 8
+
+    y = section(c, "Lingue", 14, 120, SIDEBAR_W - 28, dark=True)
+    for lang in ["Italiano - Madrelingua", "Inglese - Avanzato", "Spagnolo - Base"]:
+        text(c, lang, 22, y, 8.5, WHITE, "Helvetica-Bold")
+        y -= 18
+
+
+def draw_header(c: canvas.Canvas) -> float:
+    text(c, "Paolo Ronco", RIGHT_X, 806, 23, colors.HexColor("#003963"), "Helvetica-Bold")
+    summary = (
         "Cyber Security Analyst in Deloitte, nell'Enterprise Cloud & AI Security Team. "
-        "Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab progetto, sperimento "
-        "e documento soluzioni di automazione, LLM e infrastrutture self-hosted."
+        "Lavoro su sicurezza cloud, infrastrutture, AI e automazione, con esperienza pratica "
+        "su GCP, AWS, Azure, detection, gestione vulnerabilita, hardening e piattaforme self-hosted."
     )
-    draw_wrapped(c, intro, M + 28, H - 132, 305, "Helvetica", 9, 13, DIM, max_lines=5)
-
-    x = W - M - 138
-    y = H - 196
-    c.setFillColor(ACCENT)
-    c.roundRect(x - 12, y - 12, 136, 136, 28, stroke=0, fill=1)
-    c.setFillColor(CLOUD)
-    c.roundRect(x + 10, y + 12, 126, 126, 26, stroke=0, fill=1)
-    c.drawImage(ImageReader(str(photo_path)), x, y, width=126, height=126, mask="auto")
-
-    tags = ["Cloud Security", "AI Security", "Automation", "DevSecOps"]
-    tx = M + 28
-    ty = H - 205
-    for t in tags:
-        used = pill(c, tx, ty, t, colors.HexColor("#1f2b43"), stroke=colors.HexColor("#33415c"), text_color=TEXT, size=7)
-        tx += used + 6
+    return wrapped(c, summary, RIGHT_X, 785, RIGHT_W, 8.2, 10.2, colors.HexColor("#535b67"), "Helvetica") - 7
 
 
-def draw_experience(c: canvas.Canvas):
-    section_title(c, M, H - 284, "Esperienza")
-    items = [
-        ("Nov 2024 - presente", "Cyber Security Analyst", "Deloitte Consulting - Enterprise Cloud & AI Security Team"),
-        ("Lug 2024 - Ott 2024", "Junior System Administrator", "Dylog s.p.a. - Torino"),
-        ("Gen 2018 - Feb 2018", "Servizi IT / CED", "Comune di Grugliasco"),
-        ("Gen 2018 - Feb 2018", "Accounting Services / IT Services", "FIM-CISL Torino e Canavese"),
-        ("Mar 2017 - Apr 2017", "IT Services", "PerMicro s.p.a. - Gruppo BNP Paribas"),
+def draw_education(c: canvas.Canvas, y: float) -> float:
+    y = section(c, "Istruzione", RIGHT_X, y, RIGHT_W)
+    entries = [
+        ("2022 - 2023", "Istituto Volta Scuola di Specializzazione informatica - Milano", "Corso di CyberSecurity"),
+        ("2019 - 2022", "Universita eCampus", "Laurea triennale in Scienze della Comunicazione"),
+        ("2014 - 2018", "IIS Gobetti Marchesini Casale Arduino - Torino", "Diploma Amministrazione, Finanza e Marketing"),
     ]
-    x = M
-    y = H - 318
-    for period, role, org in items:
-        card(c, x, y, 332, 50, fill=colors.white, stroke=PAPER_2, radius=8)
-        c.setFillColor(ACCENT)
-        c.setFont("Helvetica-Bold", 8)
-        c.drawString(x + 12, y - 17, period)
-        c.setFillColor(INK)
-        c.setFont("Helvetica-Bold", 10)
-        c.drawString(x + 12, y - 31, role)
-        c.setFillColor(MUTED)
-        c.setFont("Helvetica", 8)
-        c.drawString(x + 12, y - 43, org[:72])
-        y -= 58
+    line_x = RIGHT_X + 5
+    c.setStrokeColor(colors.HexColor("#7a8391"))
+    c.setLineWidth(0.5)
+    c.line(line_x, y + 6, line_x, y - 104)
+    for period, org, title in entries:
+        c.setFillColor(WHITE)
+        c.circle(line_x, y + 2, 3.4, stroke=1, fill=1)
+        c.setStrokeColor(INK)
+        c.circle(line_x, y + 2, 3.4, stroke=1, fill=0)
+        text(c, period, RIGHT_X + 18, y, 8.2, colors.HexColor("#626b78"), "Helvetica-Bold")
+        text(c, org, RIGHT_X + 18, y - 11, 7.8, colors.HexColor("#626b78"), "Helvetica")
+        wrapped(c, title, RIGHT_X + 30, y - 22, RIGHT_W - 42, 8.5, 9.2, MUTED, "Helvetica-Bold")
+        y -= 39
+    return y - 5
 
 
-def draw_sidebar(c: canvas.Canvas):
-    x = 392
-    y = H - 284
-    section_title(c, x, y, "Lingue", color=AI)
-    y -= 32
-    for lang, level in [("Italiano", "Madrelingua"), ("Inglese", "Avanzato"), ("Spagnolo", "Base")]:
-        card(c, x, y, 168, 39, fill=colors.white, stroke=PAPER_2, radius=8)
-        c.setFillColor(INK)
-        c.setFont("Helvetica-Bold", 10)
-        c.drawString(x + 12, y - 17, lang)
-        c.setFillColor(AI)
-        c.setFont("Helvetica-Bold", 7)
-        c.drawString(x + 12, y - 29, level.upper())
-        y -= 47
-
-    section_title(c, x, y - 2, "Focus", color=CLOUD)
-    y -= 36
-    focus = ["Cloud defense", "Zero Trust", "SIEM / Detection", "LLM & RAG", "n8n automation", "Self-hosted infra"]
-    for f in focus:
-        used = pill(c, x, y, f, colors.white, stroke=PAPER_2, text_color=INK, size=8)
-        y -= 22
-
-
-def draw_skills(c: canvas.Canvas):
-    section_title(c, M, 174, "Competenze principali", color=TOOL)
-    groups = [
-        ("Security", SECURITY, ["Cybersecurity", "Cloud Security", "Zero Trust", "IAM", "CSPM / CNAPP", "Incident Response"]),
-        ("Cloud", CLOUD, ["Google Cloud", "AWS", "Azure", "OCI", "Cloud Architecture", "Object Storage"]),
-        ("Automation / AI", AI, ["n8n", "Make.com", "OpenAI API", "RAG", "Ollama", "AI Red Teaming"]),
-        ("Platform", TOOL, ["Docker", "Linux", "Proxmox", "GitHub Actions", "Monitoring", "WordPress"]),
-    ]
-    y = 142
-    col_w = 258
-    for idx, (name, color, skills) in enumerate(groups):
-        x = M + (idx % 2) * (col_w + 12)
-        if idx == 2:
-            y = 84
-        card(c, x, y, col_w, 45, fill=colors.white, stroke=PAPER_2, radius=8)
-        c.setFillColor(color)
-        c.setFont("Helvetica-Bold", 8)
-        c.drawString(x + 10, y - 15, name.upper())
-        tx = x + 10
-        ty = y - 29
-        for skill in skills:
-            w = pill(c, tx, ty, skill, colors.HexColor("#eef3ff"), text_color=INK, size=6.5, pad_x=5, pad_y=3)
-            tx += w + 4
-            if tx > x + col_w - 55:
-                tx = x + 10
-                ty -= 16
-
-
-def draw_certifications(c: canvas.Canvas):
-    section_title(c, M, H - 58, "Certificazioni", color=ACCENT)
+def draw_certifications(c: canvas.Canvas, y: float) -> float:
+    y = section(c, "Certificati", RIGHT_X, y, RIGHT_W)
     certs = [
-        ("CompTIA", "Security+ ce certificate"),
-        ("CompTIA", "AI Essentials"),
-        ("Google Cloud", "Associate Cloud Engineer"),
-        ("Google Cloud", "Digital Leader"),
-        ("Google Cloud", "Generative AI Leader"),
-        ("Google", "Cybersecurity Professional Certificate"),
-        ("Google", "IT Support - Technical Support Fundamentals"),
-        ("AWS", "Knowledge: Cloud Essentials"),
-        ("Splunk", "Core Certified User"),
-        ("Cisco", "Introduction to CyberSecurity"),
-        ("Cisco", "Get Connected"),
-        ("Cisco", "NDG Linux Unhatched"),
-        ("IBM", "Introduction to Hardware and Operating Systems"),
-        ("Intel", "Network Academy - Network Transformation 101"),
-        ("EC-Council", "Ethical Hacking Essentials"),
-        ("Google", "Fondamenti di Marketing Digitale"),
-        ("Unioncamere + Google", "Corso Crescere in digitale"),
+        ("CompTIA", "Security+", "1 CompTIA Security+ ce certificate.pdf"),
+        ("CompTIA", "AI Essentials", "1a CompTIA-AI-Essentials.pdf"),
+        ("EC-Council", "Ethical Hacking Essentials (EHE)", "2 EcCouncil Ethical Hacking Essentials - EHE.pdf"),
+        ("Google Cloud", "Generative AI Leader", "GenerativeAILeader20251024-30-a9cl88.pdf"),
+        ("Google Cloud", "Digital Leader", "CloudDigitalLeader20260427-32-hy8vki.pdf"),
+        ("Google Cloud", "Associate Cloud Engineer", "AssociateCloudEngineer20260708-7-owa87.pdf"),
+        ("Splunk", "Core Certified User", "10 SplunkCoreCertifiedUser.pdf"),
+        ("Cisco", "NetAcad - Get Connected 2022", "3 Cisco NetCAD - Get Connected 2022.pdf"),
+        ("Cisco", "NetAcad - Introduction to CyberSecurity", "4 Cisco NetCAD - Introduction to CyberSecurity 2022.pdf"),
+        ("Cisco", "NetAcad - NDG Linux Unhatched", "5 Cisco NetCAD - NDG Linux Unchained.pdf"),
+        ("Google", "Cybersecurity Professional Certificate", "10 Coursea - Google Cyber Security Professional Certificate.pdf"),
+        ("Intel", "Network Academy - Network Transformation 101", "9 Coursea - Intel® Network Academy - Network Transformation 101.pdf"),
+        ("Google", "IT Support - Technical Support Fundamentals", "7 Coursea - Google IT Support - Technical Support Fundamentals.pdf"),
+        ("IBM", "Introduction to Hardware and Operating Systems", "8 Coursea - IBM - Introduction to Hardware and Operating Systems.pdf"),
+        ("Google", "Fondamenti di Marketing Digitale", "6 Google Fondamenti di Marketing Digitale.pdf"),
+        ("AWS", "Knowledge: Cloud Essentials", "15 AWS CAWS Knowledge Cloud Essentials.pdf"),
+        ("Unioncamere + Google", "Corso Crescere in Digitale", "16 - certificato Corso Crescere in digitale.pdf"),
     ]
-    colors_by_provider = {
-        "CompTIA": SECURITY,
-        "Google Cloud": CLOUD,
-        "Google": ACCENT,
-        "AWS": AUTO,
-        "Splunk": AI,
-        "Cisco": CLOUD,
-        "IBM": ACCENT,
-        "Intel": ACCENT,
-        "EC-Council": AUTO,
-        "Unioncamere + Google": TOOL,
-    }
-    col_w = (W - M * 2 - 12) / 2
-    x1 = M
-    y = H - 92
-    for i, (provider, name) in enumerate(certs):
-        x = x1 + (i % 2) * (col_w + 12)
-        if i and i % 2 == 0:
-            y -= 45
-        card(c, x, y, col_w, 38, fill=colors.white, stroke=PAPER_2, radius=8)
-        accent = colors_by_provider.get(provider, ACCENT)
-        c.setFillColor(accent)
-        c.roundRect(x + 10, y - 15, 20, 4, 2, stroke=0, fill=1)
-        c.setFillColor(INK)
-        c.setFont("Helvetica-Bold", 8)
-        c.drawString(x + 38, y - 14, provider)
-        c.setFillColor(MUTED)
-        c.setFont("Helvetica", 7.3)
-        draw_wrapped(c, name, x + 38, y - 25, col_w - 48, "Helvetica", 7.3, 8.5, MUTED, max_lines=2)
+    row_h = 13.3
+    for provider, title, file_name in certs:
+        row_top = y + 2
+        row_bottom = y - row_h + 2
+        draw_logo(c, provider, RIGHT_X, y + 1, max_w=32, max_h=10)
+        text(c, title, RIGHT_X + 42, y - 1, 7.25, colors.HexColor("#6a717c"), "Helvetica")
+        c.linkURL(cert_pdf_url(file_name), (RIGHT_X, row_bottom, RIGHT_X + RIGHT_W, row_top), relative=0, thickness=0)
+        y -= row_h
+    return y - 6
 
 
-def draw_education(c: canvas.Canvas):
-    section_title(c, M, 245, "Formazione", color=AI)
-    items = [
-        ("Corso", "CyberSecurity", "Istituto Volta - Milano"),
-        ("Laurea triennale", "Scienze della Comunicazione, Digital Entertainment and Marketing", "Universita eCampus - Novedrate (CO)"),
-        ("Diploma", "Amministrazione, Finanza e Marketing", "IIS Gobetti Marchesini Casale Arduino - Torino"),
+def draw_skills(c: canvas.Canvas, y: float) -> None:
+    y = section(c, "Aree di competenza", RIGHT_X, y, RIGHT_W)
+    c.linkURL(f"{SITE}/skills/", (RIGHT_X + RIGHT_W - 74, y + 14, RIGHT_X + RIGHT_W, y + 27), relative=0, thickness=0)
+    text(c, "paoloronco.it/skills", RIGHT_X + RIGHT_W - 72, y + 17, 6.2, colors.HexColor("#003963"), "Helvetica")
+    skills = [
+        "Cybersecurity: CSPM, SIEM, SOAR, EDR/XDR, GRC",
+        "Cloud Platforms: GCP, AWS, Azure, OCI",
+        "Networking: Firewall, Zero Trust, CDN, API Gateway",
+        "DevOps / Automation: Docker, Git, CI/CD, n8n, Make",
+        "AI Operations: OpenAI API, RAG, Ollama, AI Red Teaming",
     ]
-    y = 215
-    for kind, title, org in items:
-        card(c, M, y, W - M * 2, 34, fill=colors.white, stroke=PAPER_2, radius=8)
-        c.setFillColor(AI)
-        c.setFont("Helvetica-Bold", 7)
-        c.drawString(M + 12, y - 13, kind.upper())
-        c.setFillColor(INK)
-        c.setFont("Helvetica-Bold", 8.5)
-        c.drawString(M + 92, y - 13, title[:82])
-        c.setFillColor(MUTED)
-        c.setFont("Helvetica", 7.5)
-        c.drawString(M + 92, y - 25, org)
-        y -= 40
+    for item in skills:
+        text(c, "•", RIGHT_X + 2, y, 8.2, MUTED, "Helvetica")
+        wrapped(c, item, RIGHT_X + 14, y, RIGHT_W - 18, 8.3, 10.0, MUTED, "Helvetica")
+        y -= 12.8
 
 
-def generate():
+def generate() -> None:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     photo = make_photo()
     c = canvas.Canvas(str(OUT), pagesize=A4)
     c.setTitle("Paolo Ronco - CV")
     c.setAuthor("Paolo Ronco")
 
-    c.setFillColor(PAPER)
+    c.setFillColor(WHITE)
     c.rect(0, 0, W, H, stroke=0, fill=1)
-    draw_hero(c, photo)
-    draw_experience(c)
-    draw_sidebar(c)
-    draw_skills(c)
-    small_footer(c, 1)
-
-    c.showPage()
-    c.setFillColor(PAPER)
-    c.rect(0, 0, W, H, stroke=0, fill=1)
-    draw_certifications(c)
-    draw_education(c)
-    small_footer(c, 2)
+    draw_sidebar(c, photo)
+    y = draw_header(c)
+    y = draw_education(c, y)
+    y = draw_certifications(c, y)
+    draw_skills(c, y)
     c.save()
 
 
