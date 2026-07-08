@@ -81,7 +81,7 @@ const issuerFilters = [...new Set(entries.map((entry) => entry.cert.issuer).filt
   a.localeCompare(b)
 );
 const typeFilters = [...new Set(entries.flatMap((entry) => entry.assetTypes))].sort();
-const assetCount = entries.reduce((count, entry) => count + entry.assets.length + (entry.credlyUrl ? 1 : 0), 0);
+const assetCount = entries.reduce((count, entry) => count + entry.assets.length, 0);
 ---
 
 <Base title={pageTitle} description={subtitle} path={pagePath}>

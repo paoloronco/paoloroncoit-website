@@ -22,10 +22,7 @@ export const certificateEntries: CertificateEntry[] = [
   },
   {
     title: 'CompTIA AI Essentials',
-    assets: [
-      { label: 'PDF', type: 'pdf', file: '1a CompTIA-AI-Essentials.pdf' },
-      { label: 'Preview', type: 'image', file: 'CompTIA AI Essentials.webp' },
-    ],
+    assets: [{ label: 'PDF', type: 'pdf', file: '1a CompTIA-AI-Essentials.pdf' }],
   },
   {
     title: 'Splunk Core Certified User',
