@@ -40,10 +40,10 @@ const languages = [
 ];
 
 const certificatesPath = en ? '/en/certifications' : '/certificati';
-const issuerBadgeStyle = (color: string) =>
-  `border-color:color-mix(in oklab, ${color} 38%, var(--color-ink-600));background:color-mix(in oklab, ${color} 12%, transparent);color:color-mix(in oklab, ${color} 78%, var(--color-text));`;
-const logoFrameStyle = (color: string) =>
-  `box-shadow:0 0 0 1px color-mix(in oklab, ${color} 28%, transparent), 0 18px 34px -24px ${color};`;
+const issuerBadgeStyle = (_color: string) =>
+  'border-color:color-mix(in oklab, var(--color-ink-500) 68%, transparent);background:color-mix(in oklab, var(--color-ink-700) 58%, transparent);color:var(--color-text-dim);';
+const logoFrameStyle = (_color: string) =>
+  'box-shadow:0 0 0 1px color-mix(in oklab, var(--color-ink-500) 58%, transparent);';
 ---
 <Base title="CV" description={t('cv.skillsCardDesc')} path="/cv">
   <section class="mx-auto max-w-3xl px-5 pt-16 pb-16">
@@ -113,29 +113,29 @@ const logoFrameStyle = (color: string) =>
         <div
           data-reveal
           style={`--c:${c.color};--i:${Math.min(i, 6)}`}
-          class="group flex items-center gap-4 rounded-xl border border-ink-600 bg-ink-800/65 p-4 shadow-lg shadow-black/10 transition-all hover:-translate-y-0.5 hover:border-[var(--c)] hover:bg-ink-800 hover:shadow-2xl hover:shadow-black/20"
+          class="group flex items-start justify-between gap-3 rounded-xl border border-ink-600 bg-ink-800/65 p-4 shadow-lg shadow-black/10 transition-all hover:-translate-y-0.5 hover:border-[var(--c)] hover:bg-ink-800 hover:shadow-2xl hover:shadow-black/20"
         >
+          <div class="min-w-0">
+            <p class="inline-flex max-w-full rounded-md border px-2 py-1 font-mono text-[11px] font-semibold uppercase tracking-wide" style={issuerBadgeStyle(c.color)}>{c.issuer}</p>
+            <p class="mt-2 font-display text-lg font-semibold leading-snug text-text">{c.name}</p>
+          </div>
           {c.logo ? (
-            <span class="flex h-16 w-32 shrink-0 items-center justify-center rounded-xl bg-paper px-1.5 py-2 ring-1 ring-black/5" style={logoFrameStyle(c.color)}>
+            <span class="flex h-12 w-20 shrink-0 items-center justify-center rounded-lg bg-paper/90 px-1.5 py-2 opacity-60 ring-1 ring-black/5 transition-opacity group-hover:opacity-75" style={logoFrameStyle(c.color)}>
               <img
                 src={c.logo}
                 alt={c.issuer}
-                width="128"
-                height="56"
+                width="96"
+                height="48"
                 loading="lazy"
                 class:list={[
-                  'max-h-14 max-w-full object-contain',
-                  c.issuer === 'CompTIA' && 'scale-110',
+                  'max-h-9 max-w-full object-contain',
+                  c.issuer === 'CompTIA' && 'scale-105',
                 ]}
               />
             </span>
           ) : (
-            <span class="flex h-16 w-24 shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold" style={`color:${c.color};${logoFrameStyle(c.color)}`}>{c.initials}</span>
+            <span class="flex h-12 w-16 shrink-0 items-center justify-center rounded-lg bg-paper/90 text-sm font-bold opacity-60 transition-opacity group-hover:opacity-75" style={`color:${c.color};${logoFrameStyle(c.color)}`}>{c.initials}</span>
           )}
-          <div class="min-w-0">
-            <p class="font-display text-lg font-semibold leading-snug text-text">{c.name}</p>
-            <p class="mt-2 inline-flex max-w-full rounded-md border px-2 py-1 font-mono text-[11px] font-semibold uppercase tracking-wide" style={issuerBadgeStyle(c.color)}>{c.issuer}</p>
-          </div>
         </div>
       ))}
     </div>
