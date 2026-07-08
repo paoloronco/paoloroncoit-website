@@ -40,7 +40,7 @@ const languages = [
 ];
 
 const certificatesPath = en ? '/en/certifications' : '/certificati';
-const cvPdfPath = en ? '/en/cv-print?mode=print' : '/cv-print?mode=print';
+const cvPdfPath = en ? '/cv-en.pdf' : '/cv-it.pdf';
 const issuerBadgeStyle = (_color: string) =>
   'border-color:color-mix(in oklab, var(--color-ink-500) 68%, transparent);background:color-mix(in oklab, var(--color-ink-700) 58%, transparent);color:var(--color-text-dim);';
 const logoFrameStyle = (_color: string) =>
@@ -53,8 +53,8 @@ const logoFrameStyle = (_color: string) =>
         <CmdPath cmd="cat" arg="resume.md" />
         <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text" style="animation-delay:.12s">CV</h1>
       </div>
-      <a href={cvPdfPath} target="_blank" rel="noreferrer" class="rounded-md border border-ink-500 px-3 py-2 text-sm text-text-dim hover:border-accent hover:text-text">
-        {en ? 'Open HTML CV' : 'Apri CV HTML'}
+      <a href={cvPdfPath} download class="rounded-md border border-ink-500 px-3 py-2 text-sm text-text-dim hover:border-accent hover:text-text">
+        {t('cv.downloadPdf')}
       </a>
     </div>
 
