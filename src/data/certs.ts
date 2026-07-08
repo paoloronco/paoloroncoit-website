@@ -2,7 +2,7 @@
 // Scrivi solo la stringa della cert: ente, logo, nome e colore vengono dedotti.
 // Nessun fetch dal web, nessun logo scaricato a runtime.
 //
-// • Se l'ente ha un logo locale in /public/logos/<logo>.svg → usa quello.
+// • Se l'ente ha un logo locale in /public/logos/<logo>.png → usa quello.
 // • Altrimenti → monogramma generato (iniziali), 100% originale, zero copyright.
 //
 // Metti a `false` per usare SEMPRE i monogrammi (massima sicurezza copyright):
@@ -13,7 +13,7 @@ interface Issuer {
   name: string;
   keywords: string[]; // alias normalizzati per il matching
   color: string;
-  logo?: string; // file in /public/logos/<logo>.svg (se presente)
+  logo?: string; // file in /public/logos/<logo>.png (se presente)
   mark?: string; // testo del monogramma quando non c'è logo (es. "AWS")
 }
 
@@ -110,7 +110,7 @@ export function resolveCert(raw: string, issuerOverride?: string): ResolvedCert 
     name: stripIssuer(raw, issuer),
     issuer: issuer.name,
     color: issuer.color,
-    logo: hasLogo ? `/logos/${issuer.logo}.svg` : null,
+    logo: hasLogo ? `/logos/${issuer.logo}.png` : null,
     initials: issuer.mark ?? initialsOf(issuer.name),
   };
 }

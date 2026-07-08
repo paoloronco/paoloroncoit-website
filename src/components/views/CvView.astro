@@ -103,8 +103,18 @@ const certificatesPath = en ? '/en/certifications' : '/certificati';
           class="group flex items-center gap-4 rounded-xl border border-ink-600 bg-ink-800/40 p-4 transition-all hover:-translate-y-0.5 hover:border-[var(--c)] hover:bg-ink-800"
         >
           {c.logo ? (
-            <span class="flex h-16 w-24 shrink-0 items-center justify-center rounded-xl bg-paper px-2 py-2.5 shadow-md shadow-black/30 ring-1 ring-black/5">
-              <img src={c.logo} alt={c.issuer} width="88" height="48" loading="lazy" class="max-h-12 max-w-full object-contain" />
+            <span class="flex h-16 w-32 shrink-0 items-center justify-center rounded-xl bg-paper px-1.5 py-2 shadow-md shadow-black/30 ring-1 ring-black/5">
+              <img
+                src={c.logo}
+                alt={c.issuer}
+                width="128"
+                height="56"
+                loading="lazy"
+                class:list={[
+                  'max-h-14 max-w-full object-contain',
+                  c.issuer === 'CompTIA' && 'scale-110',
+                ]}
+              />
             </span>
           ) : (
             <span class="flex h-16 w-24 shrink-0 items-center justify-center rounded-xl bg-paper text-lg font-bold shadow-md shadow-black/30" style={`color:${c.color}`}>{c.initials}</span>
