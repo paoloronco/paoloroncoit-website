@@ -64,6 +64,12 @@ def right_text(c: canvas.Canvas, value: str, x: float, y: float, size: float, co
     c.drawRightString(x, y, value)
 
 
+def center_text(c: canvas.Canvas, value: str, x: float, y: float, size: float, color=TEXT, font="Helvetica") -> None:
+    c.setFillColor(color)
+    c.setFont(font, size)
+    c.drawCentredString(x, y, value)
+
+
 def wrapped(c: canvas.Canvas, value: str, x: float, y: float, width: float, size: float, leading: float, color=TEXT, font="Helvetica") -> float:
     chars = max(18, int(width / (size * 0.43)))
     c.setFillColor(color)
@@ -408,9 +414,9 @@ def draw_languages(c: canvas.Canvas, lang: str, x: float, y: float) -> float:
     chip_w = (COL_W - 34) / 3
     for i, (name, level) in enumerate(langs):
         cx = x + 12 + i * (chip_w + 5)
-        rounded_card(c, cx, cy - 1, chip_w, 24, fill=colors.HexColor("#ffffff"))
-        text(c, name, cx + 6, cy - 11, 7.6, TEXT, "Helvetica-Bold")
-        text(c, level, cx + 6, cy - 22, 6.4, MUTED, "Helvetica-Bold")
+        rounded_card(c, cx, cy + 2, chip_w, 28, fill=colors.HexColor("#ffffff"))
+        center_text(c, name, cx + chip_w / 2, cy - 10.2, 7.6, TEXT, "Helvetica-Bold")
+        center_text(c, level, cx + chip_w / 2, cy - 20.7, 6.4, MUTED, "Helvetica-Bold")
     return y - panel_h - 10
 
 
