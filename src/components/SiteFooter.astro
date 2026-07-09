@@ -34,9 +34,10 @@ const networkLinks = [
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
+              title={link.detail}
+              aria-label={`${link.label}: ${link.detail}`}
             >
               <span class="footer-network__name">{link.label}</span>
-              <span class="footer-network__detail">{link.detail}</span>
             </a>
           ))
         }
@@ -97,62 +98,58 @@ const networkLinks = [
 
 <style>
   .footer-network {
-    display: grid;
+    display: flex;
     width: 100%;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.45rem;
+    max-width: 100%;
+    align-items: center;
+    gap: clamp(0.35rem, 1.4vw, 1.05rem);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.1rem 0 0.2rem;
+    scrollbar-width: none;
+  }
+
+  .footer-network::-webkit-scrollbar {
+    display: none;
   }
 
   .footer-network__link {
     --network-color: var(--color-accent);
     position: relative;
-    min-width: 0;
-    border: 1px solid color-mix(in oklab, var(--network-color) 24%, var(--color-ink-600));
-    border-radius: 6px;
-    background:
-      linear-gradient(135deg, color-mix(in oklab, var(--network-color) 9%, transparent), transparent 58%),
-      color-mix(in oklab, var(--color-ink-800) 72%, transparent);
-    padding: 0.5rem 0.6rem;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.1rem 0;
     color: var(--color-text-dim);
+    white-space: nowrap;
     transition:
-      border-color 0.2s var(--ease-out-quart),
-      background 0.2s var(--ease-out-quart),
       color 0.2s var(--ease-out-quart),
       transform 0.2s var(--ease-out-quart);
   }
 
-  .footer-network__link:hover {
-    border-color: color-mix(in oklab, var(--network-color) 58%, var(--color-ink-600));
-    background:
-      linear-gradient(135deg, color-mix(in oklab, var(--network-color) 16%, transparent), transparent 62%),
-      color-mix(in oklab, var(--color-ink-700) 74%, transparent);
-    color: var(--color-text);
-    transform: translateY(-1px);
+  .footer-network__link::before {
+    content: '';
+    width: 0.28rem;
+    height: 0.28rem;
+    flex: 0 0 auto;
+    border-radius: 9999px;
+    background: var(--network-color);
+    opacity: 0.72;
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--network-color) 14%, transparent);
   }
 
-  .footer-network__name,
-  .footer-network__detail {
-    display: block;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .footer-network__link:hover {
+    color: var(--network-color);
+    transform: translateY(-1px);
   }
 
   .footer-network__name {
     font-family: var(--font-display);
-    font-size: 0.78rem;
+    font-size: clamp(0.67rem, 2.35vw, 0.82rem);
     font-weight: 650;
-    line-height: 1.05;
+    line-height: 1;
     letter-spacing: 0;
-  }
-
-  .footer-network__detail {
-    margin-top: 0.18rem;
-    color: var(--color-muted);
-    font-family: var(--font-mono);
-    font-size: 0.64rem;
-    line-height: 1.2;
   }
 
   .footer-network__link--lynx {
@@ -173,27 +170,25 @@ const networkLinks = [
 
   .footer-network__link--extension {
     --network-color: var(--color-cat-cloud);
-    grid-column: 1 / -1;
   }
 
   @media (min-width: 640px) {
     .footer-network {
-      display: flex;
-      max-width: 38rem;
-      flex-wrap: wrap;
+      width: auto;
+      max-width: none;
+      flex-wrap: nowrap;
       justify-content: flex-end;
-      gap: 0.4rem;
+      overflow: visible;
+      gap: 1.05rem;
     }
 
     .footer-network__link {
-      flex: 0 1 auto;
-      width: auto;
-      max-width: 11.5rem;
-      padding: 0.45rem 0.6rem;
+      gap: 0.38rem;
     }
 
-    .footer-network__link--extension {
-      max-width: 12.75rem;
+    .footer-network__link::before {
+      width: 0.34rem;
+      height: 0.34rem;
     }
   }
 </style>
