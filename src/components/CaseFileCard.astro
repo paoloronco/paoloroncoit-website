@@ -58,24 +58,24 @@ const num = index != null ? String(index).padStart(2, '0') : null;
 </a>
 
 <style>
-  :global(html:not([data-readable-mode='true']) .casefile-card-hybrid) {
+  .casefile-card-hybrid {
     padding: 1.45rem;
     min-height: 255px;
     background: color-mix(in oklab, var(--color-ink-800) 85%, transparent);
     box-shadow: 0 18px 40px -34px color-mix(in oklab, var(--color-ink-900) 70%, black);
   }
 
-  :global(html:not([data-readable-mode='true']) .casefile-card-hybrid:hover) {
+  .casefile-card-hybrid:hover {
     background: color-mix(in oklab, var(--color-ink-800) 92%, transparent);
   }
 
-  :global(html:not([data-readable-mode='true']) .casefile-card-hybrid .readable-title) {
+  .casefile-card-hybrid .readable-title {
     font-size: 1.12rem;
     line-height: 1.38;
     margin-top: 0.9rem;
   }
 
-  :global(html:not([data-readable-mode='true']) .casefile-card-hybrid .readable-summary) {
+  .casefile-card-hybrid .readable-summary {
     font-size: 0.94rem;
     line-height: 1.72;
     display: -webkit-box;
@@ -85,7 +85,7 @@ const num = index != null ? String(index).padStart(2, '0') : null;
     min-height: 6.6rem;
   }
 
-  :global(html:not([data-readable-mode='true']) .casefile-card-hybrid .casefile-meta) {
+  .casefile-card-hybrid .casefile-meta {
     margin-top: auto;
   }
 </style>
