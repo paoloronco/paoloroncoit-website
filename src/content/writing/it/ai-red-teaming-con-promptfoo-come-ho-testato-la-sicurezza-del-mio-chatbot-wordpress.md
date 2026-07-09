@@ -5,9 +5,9 @@ pubDate: 2026-03-14
 tags: []
 draft: false
 ---
-Ho un [chatbot AI integrato nel mio sito](https://paoloronco.it/ai-chatbot/) accessibile da chiunque visiti paoloronco.it. Non si tratta di un semplice widget di Q&A: dietro le quinte gira un sistema RAG (Retrieval-Augmented Generation) orchestrato tramite n8n, con OpenAI come motore linguistico, Qdrant Cloud come vector store, Cohere come reranker, e un webhook autenticato via Bearer Token come punto di ingresso.
+Ho un [chatbot AI integrato nel mio sito](https://paoloronco.it/ask/) accessibile da chiunque visiti paoloronco.it. Non si tratta di un semplice widget di Q&A: dietro le quinte gira un sistema RAG (Retrieval-Augmented Generation) orchestrato tramite n8n, con OpenAI come motore linguistico, Qdrant Cloud come vector store, Cohere come reranker, e un webhook autenticato via Bearer Token come punto di ingresso.
 
-L'articolo che descrive l'intera architettura è disponibile qui: [WordPress AI Chatbot – Trasformare contenuti in un sistema interrogabile con n8n, Qdrant, MongoDB Vector Store](https://paoloronco.it/wordpress-ai-chatbot-trasformare-contenuti-in-un-sistema-interrogabile-n8n-qdrant-mongodb-vector-store/).
+L'articolo che descrive l'intera architettura è disponibile qui: [WordPress AI Chatbot – Trasformare contenuti in un sistema interrogabile con n8n, Qdrant, MongoDB Vector Store](https://paoloronco.it/writing/wordpress-ai-chatbot-trasformare-contenuti-in-un-sistema-interrogabile-n8n-qdrant-mongodb-vector-store/).
 
 Un sistema del genere, esposto a visitatori anonimi, è un bersaglio interessante. Chiunque può inviargli un messaggio. E quando si parla di LLM, i vettori di attacco non sono quelli classici del web (SQLi, XSS, SSRF) ma qualcosa di più insidioso: **il linguaggio naturale stesso diventa l'arma**.
 
@@ -215,4 +215,4 @@ La sicurezza AI non è un checkbox. È un processo iterativo: costruisci, testa,
 
 * * *
 
-_Vuoi approfondire l'architettura del chatbot? Leggi l'articolo tecnico: [WordPress AI Chatbot con n8n, Qdrant e MongoDB Vector Store](https://paoloronco.it/wordpress-ai-chatbot-trasformare-contenuti-in-un-sistema-interrogabile-n8n-qdrant-mongodb-vector-store/). Il chatbot è visibile su [paoloronco.it/ai-chatbot/](https://paoloronco.it/ai-chatbot/)._
+_Vuoi approfondire l'architettura del chatbot? Leggi l'articolo tecnico: [WordPress AI Chatbot con n8n, Qdrant e MongoDB Vector Store](https://paoloronco.it/writing/wordpress-ai-chatbot-trasformare-contenuti-in-un-sistema-interrogabile-n8n-qdrant-mongodb-vector-store/). Il chatbot è visibile su [paoloronco.it/ask/](https://paoloronco.it/ask/)._

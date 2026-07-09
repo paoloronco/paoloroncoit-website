@@ -1,8 +1,21 @@
 ---
 import { getLangFromUrl, localizePath, stripLangPrefix } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
-const base = stripLangPrefix(Astro.url.pathname);
-const hrefs = { it: localizePath(base, 'it'), en: localizePath(base, 'en') };
+const normalizePath = (path: string) => {
+  const clean = stripLangPrefix(path);
+  return clean !== '/' ? clean.replace(/\/$/, '') : clean;
+};
+const base = normalizePath(Astro.url.pathname);
+const alternatePaths: Record<string, { it: string; en: string }> = {
+  '/404': { it: '/404', en: '/404' },
+  '/certificati': { it: '/certificati', en: '/certifications' },
+  '/certifications': { it: '/certificati', en: '/certifications' },
+};
+const mapped = alternatePaths[base] ?? { it: base, en: base };
+const hrefs =
+  base === '/404'
+    ? { it: '/404', en: '/404' }
+    : { it: localizePath(mapped.it, 'it'), en: localizePath(mapped.en, 'en') };
 const opts = [
   { code: 'it', label: 'IT' },
   { code: 'en', label: 'EN' },

@@ -5,7 +5,7 @@ pubDate: 2026-03-14
 tags: []
 draft: false
 ---
-I have an [AI chatbot built into my site](https://paoloronco.it/en/ai-chatbot/) reachable by anyone visiting paoloronco.it. It isn't a simple Q&A widget: behind the scenes runs a RAG (Retrieval-Augmented Generation) system orchestrated through n8n, with OpenAI as the language engine, Qdrant Cloud as the vector store, Cohere as the reranker, and a webhook authenticated via Bearer Token as the entry point.
+I have an [AI chatbot built into my site](https://paoloronco.it/en/ask/) reachable by anyone visiting paoloronco.it. It isn't a simple Q&A widget: behind the scenes runs a RAG (Retrieval-Augmented Generation) system orchestrated through n8n, with OpenAI as the language engine, Qdrant Cloud as the vector store, Cohere as the reranker, and a webhook authenticated via Bearer Token as the entry point.
 
 The article describing the whole architecture is available here: [WordPress AI Chatbot – Turning content into a queryable system with n8n, Qdrant, MongoDB Vector Store](https://paoloronco.it/en/writing/wordpress-ai-chatbot-trasformare-contenuti-in-un-sistema-interrogabile-n8n-qdrant-mongodb-vector-store/).
 
@@ -215,4 +215,4 @@ AI security isn't a checkbox. It's an iterative process: build, test, measure, i
 
 * * *
 
-_Want to dig into the chatbot's architecture? Read the technical article: [WordPress AI Chatbot with n8n, Qdrant and MongoDB Vector Store](https://paoloronco.it/en/writing/wordpress-ai-chatbot-trasformare-contenuti-in-un-sistema-interrogabile-n8n-qdrant-mongodb-vector-store/). The chatbot is live at [paoloronco.it/ai-chatbot/](https://paoloronco.it/ai-chatbot/)._
+_Want to dig into the chatbot's architecture? Read the technical article: [WordPress AI Chatbot with n8n, Qdrant and MongoDB Vector Store](https://paoloronco.it/en/writing/wordpress-ai-chatbot-trasformare-contenuti-in-un-sistema-interrogabile-n8n-qdrant-mongodb-vector-store/). The chatbot is live at [paoloronco.it/en/ask/](https://paoloronco.it/en/ask/)._

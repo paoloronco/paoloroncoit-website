@@ -27,7 +27,14 @@ const ld = {
 };
 ---
 
-<Base title={d.title} description={d.description} path={`/writing/${entrySlug(post.id)}`}>
+<Base
+  title={d.title}
+  description={d.description}
+  path={`/writing/${entrySlug(post.id)}`}
+  ogType="article"
+  publishedTime={d.pubDate}
+  modifiedTime={d.updatedDate ?? d.pubDate}
+>
   <div class="fixed left-0 top-0 z-40 h-0.5 w-0 bg-accent" data-progress></div>
 
   <div class="mx-auto grid max-w-5xl grid-cols-1 gap-10 px-5 pt-14 pb-10 lg:grid-cols-[1fr_220px]">
@@ -62,7 +69,7 @@ const ld = {
     )}
   </div>
 
-  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />
   <script is:inline data-astro-rerun>
     (() => {
       const bar = document.querySelector('[data-progress]');

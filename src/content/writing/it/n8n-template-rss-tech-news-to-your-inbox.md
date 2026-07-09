@@ -19,7 +19,7 @@ Youtube Video: [https://youtu.be/Gck8nmvx1UA](https://youtu.be/Gck8nmvx1UA)
 
 * * *
 
-# **1\. Scheduled Automation – Automatic Daily Execution**
+## **1\. Scheduled Automation – Automatic Daily Execution**
 
 The workflow begins with a **Schedule Trigger** that runs at a predefined interval (usually daily at a fixed hour).  
 This ensures that the newsletter is always generated automatically without human intervention.
@@ -34,7 +34,7 @@ Once configured, this trigger becomes the starting point for the entire pipeline
 
 * * *
 
-# **2\. Multi-Source RSS Ingestion (25+ feeds)**
+## **2\. Multi-Source RSS Ingestion (25+ feeds)**
 
 The workflow pulls content from more than two dozen industry-leading sources. Each feed is handled by an individual **RSS Feed Read** node to ensure stability and easy troubleshooting.
 
@@ -68,7 +68,7 @@ This modular structure allows you to **add, remove, or update feeds without chan
 
 * * *
 
-# **3\. Merging Streams by Topic**
+## **3\. Merging Streams by Topic**
 
 Because each feed is separate, the workflow uses several **Merge** nodes to combine them into logical categories:
 
@@ -84,7 +84,7 @@ You can adjust the number of inputs depending on how many feeds you want to aggr
 
 * * *
 
-# **4\. Freshness Filter – Only News from the Last 24 Hours**
+## **4\. Freshness Filter – Only News from the Last 24 Hours**
 
 To avoid RSS clutter and redundancy, the **Filter** node applies a strict condition:
 
@@ -106,7 +106,7 @@ You can change the time window (e.g., 48h, 72h) if you want longer retention.
 
 * * *
 
-# **5\. Automatic Sorting by Publication Date**
+## **5\. Automatic Sorting by Publication Date**
 
 The **Sort – Articles by Date** node arranges items in descending chronological order.  
 This guarantees that the most recent and time-sensitive events are prioritized.
@@ -118,7 +118,7 @@ This guarantees that the most recent and time-sensitive events are prioritized.
 
 * * *
 
-# **6\. Normalization of All Articles (JavaScript Code Node)**
+## **6\. Normalization of All Articles (JavaScript Code Node)**
 
 At this stage, dozens of RSS entries from different sources are unified into a single structured object.  
 The Code node creates one item with an `articles` array containing:
@@ -139,7 +139,7 @@ You can modify the code to:
 
 * * *
 
-# **7\. AI Editorial Engine – Powered by Google Gemini**
+## **7\. AI Editorial Engine – Powered by Google Gemini**
 
 This is the heart of the workflow.
 
@@ -179,7 +179,7 @@ If the project is used in production, set usage quotas and billing controls.
 
 * * *
 
-# **8\. HTML Assembly – Final Newsletter Builder**
+## **8\. HTML Assembly – Final Newsletter Builder**
 
 The **Build Final Newsletter HTML** node parses, validates and transforms the LLM output into a professional, responsive email template.
 
@@ -205,7 +205,7 @@ The template is clean, responsive, and mobile-friendly.
 
 * * *
 
-# **9\. Email Delivery – Gmail Node**
+## **9\. Email Delivery – Gmail Node**
 
 The final step sends the curated newsletter to your inbox using the **Gmail node**.
 
@@ -233,7 +233,7 @@ Once set up, the node can send emails automatically every day.
 
 * * *
 
-# **Personalization & Scalability**
+## **Personalization & Scalability**
 
 This workflow is fully customizable:
 
@@ -264,7 +264,7 @@ RSS modules and Merge nodes can be expanded without breaking the pipeline.
 
 * * *
 
-# **Conclusion**
+## **Conclusion**
 
 The **Tech & AI Daily Briefing Workflow** is a complete end-to-end automation system that delivers a highly curated, editorial-quality newsletter powered by AI.
 

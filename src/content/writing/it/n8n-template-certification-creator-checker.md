@@ -9,7 +9,7 @@ This Guide contains a complete **end-to-end certification management system buil
 
 ![](/posts/n8n-template-certification-creator-checker/Workflow-image.png)
 
-[Example-Certificate](https://paoloronco.it/wp-content/uploads/2025/11/Example-Certificate.pdf)
+[Example-Certificate](https://raw.githubusercontent.com/paoloronco/n8n-templates/main/free-templates/3-Certification-Creation%26Validation/Assets/Example-Certificate.pdf)
 
 See all my workflows on Github [paoloronco/n8n-templates](https://github.com/paoloronco/n8n-templates)  
 Video: YouTube - [Certificate Creator & Validator](https://youtu.be/A7aKK0Z9n9A)

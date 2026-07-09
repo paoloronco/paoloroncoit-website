@@ -30,7 +30,7 @@ Io volevo invece costruire qualcosa di molto più verticale:
 
 * * *
 
-# The Problem
+## The Problem
 
 Quando gestisci sistemi Linux reali, spesso perdi tempo in task ripetitivi:
 
@@ -59,7 +59,7 @@ Infra Agent nasce proprio per risolvere questo problema:
 
 * * *
 
-# A Specialized Infrastructure Agent
+## A Specialized Infrastructure Agent
 
 Infra Agent non è un “computer-use agent”.
 
@@ -89,7 +89,7 @@ L’agente lavora tramite:
 
 * * *
 
-# Safety First
+## Safety First
 
 La parte più importante del progetto è stata la sicurezza.
 
@@ -128,7 +128,7 @@ mantenendo però:
 
 * * *
 
-# Homelab & Real Infrastructure
+## Homelab & Real Infrastructure
 
 Il progetto è sviluppato e testato principalmente nel mio homelab personale.
 
@@ -147,7 +147,7 @@ anziché costruire un semplice proof-of-concept teorico.
 
 * * *
 
-# Technologies
+## Technologies
 
 ## Backend
 
@@ -173,7 +173,7 @@ anziché costruire un semplice proof-of-concept teorico.
 
 * * *
 
-# What I Learned
+## What I Learned
 
 Questo progetto mi ha permesso di approfondire:
 
@@ -189,7 +189,7 @@ Questo progetto mi ha permesso di approfondire:
 
 * * *
 
-# Current Status
+## Current Status
 
 Infra Agent è ancora in sviluppo attivo e continuo a lavorare su:
 

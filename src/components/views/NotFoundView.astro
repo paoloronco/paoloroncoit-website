@@ -18,6 +18,8 @@ const links = [
   title="404"
   description={lang === 'en' ? 'Page not found.' : 'Pagina non trovata.'}
   path="/404"
+  robots="noindex, nofollow"
+  includeAlternates={false}
 >
   <section class="mx-auto max-w-5xl px-5 pt-16 pb-32">
     <CmdPath cmd="cd" arg="~" note={lang === 'en' ? 'path not found' : 'percorso non trovato'} />

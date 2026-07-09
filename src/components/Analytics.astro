@@ -12,8 +12,16 @@ const analyticsEnabled = googleAnalyticsEnabled || microsoftClarityEnabled;
 <!-- End cookieyes banner -->
 
 {analyticsEnabled && (
-  <script is:inline define:vars={{ googleAnalyticsId, microsoftClarityId }}>
+  <script
+    is:inline
+    data-google-analytics-id={googleAnalyticsId}
+    data-microsoft-clarity-id={microsoftClarityId}
+  >
     (function () {
+      var currentScript = document.currentScript;
+      var googleAnalyticsId = currentScript ? currentScript.getAttribute('data-google-analytics-id') : '';
+      var microsoftClarityId = currentScript ? currentScript.getAttribute('data-microsoft-clarity-id') : '';
+
       function hasAnalyticsConsent(detail) {
         if (!detail) return false;
         if (detail.categories && detail.categories.analytics) return true;

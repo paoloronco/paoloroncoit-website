@@ -16,19 +16,56 @@ interface Props {
   description?: string;
   /** Path canonico IT, es. "/writing" (senza prefisso lingua). */
   path?: string;
+  alternatePathIt?: string;
+  alternatePathEn?: string;
+  includeAlternates?: boolean;
+  image?: string;
+  imageAlt?: string;
+  ogType?: 'website' | 'article' | 'profile';
+  robots?: string;
+  publishedTime?: Date | string;
+  modifiedTime?: Date | string;
 }
 
-const { title, description = site.description, path = '' } = Astro.props;
+const {
+  title,
+  description = site.description,
+  path = '',
+  alternatePathIt,
+  alternatePathEn,
+  includeAlternates: includeAlternatesProp,
+  image = '/paolo.png',
+  imageAlt = `${site.name}, ${site.role}`,
+  ogType = 'website',
+  robots = 'index, follow',
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const base = stripLangPrefix(path || Astro.url.pathname);
+const alternateBaseIt = stripLangPrefix(alternatePathIt ?? base);
+const alternateBaseEn = stripLangPrefix(alternatePathEn ?? base);
+const includeAlternates = includeAlternatesProp ?? !robots.toLowerCase().includes('noindex');
+
+const cleanText = (value: string, maxLength?: number) => {
+  const normalized = value.replace(/\s+/g, ' ').trim();
+  if (!maxLength || normalized.length <= maxLength) return normalized;
+  const truncated = normalized.slice(0, maxLength - 1);
+  const boundary = truncated.lastIndexOf(' ');
+  return `${truncated.slice(0, boundary > 90 ? boundary : truncated.length).trim()}…`;
+};
 
 const fullTitle = title ? `${title} — ${site.name}` : `${site.name} · ${site.role}`;
+const metaDescription = cleanText(description, 160);
 const origin = Astro.site ?? new URL(site.url);
 const canonical = new URL(localizePath(base, lang), origin).toString();
-const altIt = new URL(localizePath(base, 'it'), origin).toString();
-const altEn = new URL(localizePath(base, 'en'), origin).toString();
+const altIt = new URL(localizePath(alternateBaseIt, 'it'), origin).toString();
+const altEn = new URL(localizePath(alternateBaseEn, 'en'), origin).toString();
+const socialImage = new URL(image, origin).toString();
+const normalizedPublishedTime = publishedTime ? new Date(publishedTime).toISOString() : undefined;
+const normalizedModifiedTime = modifiedTime ? new Date(modifiedTime).toISOString() : undefined;
 
 const personLd = {
   '@context': 'https://schema.org',
@@ -55,28 +92,41 @@ const personLd = {
       } catch (e) {}
     </script>
     <title>{fullTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
+    <meta name="author" content={site.name} />
+    <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="it" href={altIt} />
-    <link rel="alternate" hreflang="en" href={altEn} />
-    <link rel="alternate" hreflang="x-default" href={altEn} />
+    {includeAlternates && <link rel="alternate" hreflang="it" href={altIt} />}
+    {includeAlternates && <link rel="alternate" hreflang="en" href={altEn} />}
+    {includeAlternates && <link rel="alternate" hreflang="x-default" href={altIt} />}
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <ClientRouter />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'it_IT'} />
+    {includeAlternates && <meta property="og:locale:alternate" content={lang === 'en' ? 'it_IT' : 'en_US'} />}
     <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={imageAlt} />
+    {normalizedPublishedTime && <meta property="article:published_time" content={normalizedPublishedTime} />}
+    {normalizedModifiedTime && <meta property="article:modified_time" content={normalizedModifiedTime} />}
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+    <meta name="twitter:creator" content="@paoloronco" />
 
     <link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#0a0c12" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
 
     <!-- Auto-rilevamento lingua: scelta manuale > browser/dispositivo. IT resta su "/", tutto il resto va su "/en/". -->
     <script is:inline>
@@ -89,6 +139,9 @@ const personLd = {
             var clean = path;
             if (path === '/en' || path === '/en/') clean = '/';
             else if (path.indexOf('/en/') === 0) clean = path.slice(3);
+            if (clean === '/certificati' || clean === '/certificati/') clean = lang === 'en' ? '/certifications' : '/certificati';
+            if (clean === '/certifications' || clean === '/certifications/') clean = lang === 'it' ? '/certificati' : '/certifications';
+            if (clean === '/404' || clean === '/404/') return '/404';
             if (lang === 'it') return clean;
             return clean === '/' ? '/en/' : '/en' + clean;
           }

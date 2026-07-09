@@ -16,8 +16,8 @@ export interface SkillCategory {
 }
 
 export const skillsTagline: LS = {
-  it: '',
-  en: '',
+  it: 'Competenze operative in cyber security, cloud, automazione, AI e infrastrutture, con focus su progetti hands-on e strumenti reali.',
+  en: 'Hands-on skills across cyber security, cloud, automation, AI and infrastructure, focused on real projects and operational tools.',
 };
 
 const d = (it: string, en: string): LS => ({ it, en });

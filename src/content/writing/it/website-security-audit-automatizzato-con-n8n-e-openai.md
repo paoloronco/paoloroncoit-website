@@ -78,7 +78,7 @@ Per me è diventato un piccolo strumento di routine, utile per garantire che i m
 
 ## Security Report di esempio:
 
-# Website Security Audit Report
+## Website Security Audit Report
 
 ## Security Report Summary
 
@@ -101,16 +101,7 @@ See the Configuration Issues section below for more info.
 | report-to | present | {"group":"cf-nel",  
 "max\_age":604800,  
 "endpoints":\[{"url":"[https://a.nel.cloudflare.com/report/v4?s=1yQ1J5ssSLv1SkmE6Ryid4wgzrlR3AtZbA7JA8sOJg9lH6eilgyRhGgg7o%2FbvORNExuw8i3pZ%2BdOGjAgsb3cT5WNvNn0DM9sHhwJ%2BGo%3D"}\]}](https://a.nel.cloudflare.com/report/v4?s=1yQ1J5ssSLv1SkmE6Ryid4wgzrlR3AtZbA7JA8sOJg9lH6eilgyRhGgg7o%2FbvORNExuw8i3pZ%2BdOGjAgsb3cT5WNvNn0DM9sHhwJ%2BGo%3D) |
-| link | present | <[https://paoloronco.it/wp-json/>;  
-](https://paoloronco.it/wp-json/%3E;%3Cbr%3E)rel="[" style="color: #3498DB;  
-text-decoration: none;  
-" target="\_blank">https://api.w.org/",  
-](https://api.w.org/)<[https://paoloronco.it/wp-json/wp/v2/pages/1251>;  
-](https://paoloronco.it/wp-json/wp/v2/pages/1251%3E;%3Cbr%3E)rel="alternate";  
-title="JSON";  
-type="application/json",  
-<[https://paoloronco.it/>;  
-](https://paoloronco.it/%3E;%3Cbr%3E)rel=shortlink |
+| link | present | `https://paoloronco.it/wp-json/`; rel=`https://api.w.org/`; alternate JSON endpoint `https://paoloronco.it/wp-json/wp/v2/pages/1251`; shortlink `https://paoloronco.it/` |
 | server | present | cloudflare |
 | vary | present | Accept-Encoding |
 | x-powered-by | present | PHP/8.2.28 |

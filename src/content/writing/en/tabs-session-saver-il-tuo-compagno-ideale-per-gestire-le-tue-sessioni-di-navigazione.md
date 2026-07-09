@@ -11,7 +11,7 @@ If you end the day with a sea of open tabs in your browser, but need to shut dow
 
 With a simple click, Tabs Session Saver saves all open tabs in your browser. This means you can shut down your PC without worries, knowing that upon return, you'll find all your tabs ready to be reopened in an instant.
 
-![](/posts/tabs-session-saver-your-ideal-companion-for-managing-your-browser-sessions/image-1-1024x640.png)
+![](/posts/tabs-session-saver-il-tuo-compagno-ideale-per-gestire-le-tue-sessioni-di-navigazione/image-1-1024x640.png)
 
 #### Intuitive Interface and Advanced Features
 
@@ -31,4 +31,3 @@ This extension is perfect for students, professionals, and anyone who needs to m
 Stop wasting time recreating your browsing sessions every time you shut down your PC. With Tabs Session Saver, your browsing experience becomes more efficient, convenient, and secure. Download the extension now from the Chrome Web Store and see how it can improve your web navigation.
 
 **Download Tabs Session Saver [here](https://chromewebstore.google.com/detail/tabs-session-saver)** and make your browser more powerful than ever.
-

@@ -26,11 +26,11 @@ It is an **MVP**, but already **fully functional, tested, and production-ready**
 
 ![](/posts/n8n-template-certification-creator-checker-with-pdfgenerationapi-templates/Workflow-image-1024x394.png)
 
-[Example-certificate](Assets/Example-Certificate.pdf)
+[Example-certificate](https://raw.githubusercontent.com/paoloronco/n8n-templates/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates/Assets/Example-Certificate.pdf)
 
 Visit my Github n8n templates: [https://github.com/paoloronco/n8n-templates](https://github.com/paoloronco/n8n-templates)
 
-See the workflow on n8n Creators hub: [coming soon](coming%20soon)
+See the workflow on n8n Creators hub: coming soon
 
 * * *
 
@@ -318,6 +318,6 @@ can produce **real-world, production-grade solutions**, not just demos.
 
 -   \[n8n workflow on Creators Hub\](coming soon)
 -   [YouTube Video](https://youtu.be/eqSWoPndVUg)
--   [Project article and documentation](https://paoloronco.it/n8n-template-certification-creator-checker/)
+-   [Project article and documentation](https://paoloronco.it/writing/n8n-template-certification-creator-checker/)
 -   [PDF Generator API](https://pdfgeneratorapi.com/)
 -   [Template AI Gem](https://github.com/paoloronco/n8n-templates/blob/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates)

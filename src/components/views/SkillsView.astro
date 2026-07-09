@@ -1,7 +1,6 @@
 ---
 import Base from '@/layouts/Base.astro';
 import CmdPath from '@/components/CmdPath.astro';
-import { site } from '@/data/site';
 import { skillCategories, skillsTagline } from '@/data/skills';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
@@ -16,7 +15,7 @@ const dots = (lvl: number) => Math.max(1, Math.min(5, Math.round(lvl / 20)));
 const tip = (s: { desc?: Record<string, string>; tools?: string[] }) =>
   [s.desc?.[lang], s.tools?.length ? s.tools.join(' · ') : null].filter(Boolean).join('  —  ');
 ---
-<Base title="Skills" description={site.description} path="/skills">
+<Base title="Skills" description={skillsTagline[lang]} path="/skills">
   <div class="skills-backdrop relative overflow-hidden">
     <div class="skills-backdrop__blur" aria-hidden="true"></div>
 

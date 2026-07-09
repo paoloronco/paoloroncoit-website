@@ -52,7 +52,7 @@ The objectives were not "to do cool things", but to be **operationally at ease**
 - be able to prove what happened later (audit)
 - zero reverse dependencies: control should never touch the server
 
-![](/posts/over-engineering-an-homelab-logging-backup-and-business-continuity-with-ubuntu-server/image-1024x597.png)
+![](/posts/over-engineering-un-homelab-logging-backup-e-business-continuity-con-ubuntu-server/image-1024x597.png)
 
 * * *
 
@@ -261,4 +261,3 @@ And when data matters, **logging is part of the backup**, not a detail.
 
 Over-engineering? Maybe.  
 But it's an over-engineering that sleeps soundly.
-

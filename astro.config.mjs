@@ -10,6 +10,73 @@ import tailwindcss from '@tailwindcss/vite';
 // Cambia con il dominio definitivo prima del deploy.
 const SITE = 'https://paoloronco.it';
 const CERTIFICATE_ASSET_EXTENSIONS = new Set(['.pdf', '.png', '.webp']);
+const CONTENT_ENTRY_EXTENSIONS = new Set(['.md', '.mdx']);
+const RESERVED_ROOT_PATHS = new Set([
+  '404',
+  'about',
+  'api',
+  'ask',
+  'certificati',
+  'contact',
+  'cookie',
+  'cv',
+  'docs',
+  'en',
+  'privacy',
+  'projects',
+  'rss.xml',
+  'sitemap.xml',
+  'skills',
+  'terms',
+  'work',
+  'writing',
+]);
+
+/**
+ * @param {'it' | 'en'} lang
+ */
+function getWritingSlugs(lang) {
+  try {
+    return readdirSync(new URL(`./src/content/writing/${lang}/`, import.meta.url), { withFileTypes: true })
+      .filter((entry) => entry.isFile() && CONTENT_ENTRY_EXTENSIONS.has(extname(entry.name).toLowerCase()))
+      .map((entry) => entry.name.replace(/\.(md|mdx)$/i, ''))
+      .filter((slug) => slug && !RESERVED_ROOT_PATHS.has(slug));
+  } catch {
+    return [];
+  }
+}
+
+function getLegacyRedirects() {
+  /** @type {Record<string, string>} */
+  const redirects = {
+    '/portfolio': '/projects',
+    '/projects-websites': '/projects',
+    '/my-skills': '/skills',
+    '/all-my-websites': '/projects',
+    '/ai-chatbot': '/ask',
+    '/en/ai-chatbot': '/en/ask',
+    '/en/projects-websites': '/en/projects',
+  };
+
+  /**
+   * @param {string} from
+   * @param {string} to
+   */
+  const add = (from, to) => {
+    redirects[from] = to;
+  };
+
+  for (const slug of getWritingSlugs('it')) {
+    add(`/${slug}`, `/writing/${slug}`);
+    add(`/it/${slug}`, `/writing/${slug}`);
+  }
+
+  for (const slug of getWritingSlugs('en')) {
+    add(`/en/${slug}`, `/en/writing/${slug}`);
+  }
+
+  return redirects;
+}
 
 function getCertificateAssetPages() {
   try {
@@ -41,6 +108,7 @@ function isCanonicalSitemapPage(page) {
 export default defineConfig({
   site: SITE,
   redirects: {
+    ...getLegacyRedirects(),
     '/work': '/projects',
     '/work/[...slug]': '/projects/[...slug]',
     '/en/work': '/en/projects',

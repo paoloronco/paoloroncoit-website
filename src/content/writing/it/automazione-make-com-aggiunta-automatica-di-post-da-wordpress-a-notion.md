@@ -5,7 +5,7 @@ pubDate: 2025-02-22
 tags: []
 draft: false
 ---
-# Introduzione
+## Introduzione
 
 Questa automazione utilizza **Make.com** per raccogliere automaticamente i post pubblicati su un sito **WordPress** e archiviarli in un **database Notion**. Questo processo consente una gestione centralizzata dei contenuti, facilitando l’organizzazione e l’analisi dei post in un unico spazio.
 

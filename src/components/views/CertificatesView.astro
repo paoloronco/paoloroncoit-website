@@ -86,7 +86,7 @@ const logoFrameStyle = (_color: string) =>
   'box-shadow:0 0 0 1px color-mix(in oklab, var(--color-ink-500) 58%, transparent);';
 ---
 
-<Base title={pageTitle} description={subtitle} path={pagePath}>
+<Base title={pageTitle} description={subtitle} path={pagePath} alternatePathIt="/certificati" alternatePathEn="/certifications">
   <section class="mx-auto max-w-6xl px-5 py-16">
     <div class="max-w-3xl">
       <CmdPath cmd="find" arg={en ? '~/certifications -type f' : '~/certificati -type f'} />
