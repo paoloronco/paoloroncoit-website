@@ -13,7 +13,6 @@ const posts = (await getCollection('writing', (e) => !e.data.draft && entryLang(
 const fmt = (d: Date) =>
   d.toLocaleDateString(lang === 'en' ? 'en-GB' : 'it-IT', { day: '2-digit', month: 'short', year: 'numeric' });
 const readMin = (body?: string) => Math.max(1, Math.round((body?.trim().split(/\s+/).length ?? 0) / 200));
-const en = lang === 'en';
 
 // tag più frequenti (per il filtro), ordinati per frequenza
 const tagCount = new Map<string, number>();
@@ -22,21 +21,13 @@ const allTags = [...tagCount.entries()].sort((a, b) => b[1] - a[1]).map(([tag]) 
 ---
 
 <Base title="Writing" description={t('writing.subtitle')} path="/writing">
-  <section class="lab-page-shell readable-shell mx-auto max-w-6xl px-5 pt-16 pb-8">
-    <div class="lab-page-hero">
-      <div>
-        <CmdPath cmd="ls" arg="~/writing" note={`${posts.length}`} />
-        <h1 class="anim-rise mt-4 text-5xl font-semibold leading-tight text-text sm:text-6xl" style="animation-delay:.12s">Writing</h1>
-        <p class="anim-rise mt-4 max-w-2xl text-base leading-relaxed text-text-dim" style="animation-delay:.2s">{t('writing.subtitle')}</p>
-      </div>
-      <div class="lab-page-stat" aria-label={en ? 'Published articles' : 'Articoli pubblicati'}>
-        <span>{String(posts.length).padStart(2, '0')}</span>
-        <strong>{t('writing.count')}</strong>
-      </div>
-    </div>
+  <section class="readable-shell mx-auto max-w-3xl px-5 pt-16 pb-8">
+    <CmdPath cmd="ls" arg="~/writing" note={`${posts.length}`} />
+    <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text sm:text-5xl" style="animation-delay:.12s">Writing</h1>
+    <p class="anim-rise mt-3 text-text-dim" style="animation-delay:.2s">{t('writing.subtitle')}</p>
 
     <!-- Ricerca -->
-    <div class="lab-search-panel anim-rise mt-8" style="animation-delay:.26s">
+    <div class="anim-rise mt-8" style="animation-delay:.26s">
       <div class="relative">
         <svg class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path>
@@ -51,7 +42,7 @@ const allTags = [...tagCount.entries()].sort((a, b) => b[1] - a[1]).map(([tag]) 
       </div>
 
       <!-- Filtro tag -->
-      <div class="lab-filterbar readable-filters mt-4 flex flex-wrap gap-2" data-tag-bar>
+      <div class="readable-filters mt-3 flex flex-wrap gap-2" data-tag-bar>
         <button data-tag="__all__" class="readable-chip rounded-full border border-accent bg-ink-900/45 px-3 py-1 font-mono text-xs text-accent backdrop-blur-sm transition-colors">{t('writing.allTags')}</button>
         {allTags.map((tag) => (
           <button data-tag={tag} class="readable-chip rounded-full border border-ink-600 bg-ink-900/45 px-3 py-1 font-mono text-xs text-muted backdrop-blur-sm transition-colors hover:text-text">#{tag}</button>
@@ -60,17 +51,17 @@ const allTags = [...tagCount.entries()].sort((a, b) => b[1] - a[1]).map(([tag]) 
     </div>
   </section>
 
-  <section class="lab-page-shell readable-shell mx-auto max-w-6xl px-5 pb-20">
+  <section class="readable-shell mx-auto max-w-3xl px-5 pb-20">
     {posts.length === 0 && (
       <p class="rounded-card border border-dashed border-ink-600 p-8 text-center text-muted">{t('writing.empty')}</p>
     )}
 
-    <ul data-post-list class="writing-grid readable-panel grid gap-4">
+    <ul data-post-list class="readable-panel overflow-hidden rounded-card border border-ink-600/80 bg-ink-900/45 shadow-2xl shadow-ink-900/30 backdrop-blur-md">
       {posts.map((p, i) => {
         const tags = p.data.tags ?? [];
         const hay = `${p.data.title} ${p.data.description} ${tags.join(' ')}`.toLowerCase();
         return (
-        <li data-post data-search={hay} data-tags={tags.join(' ')} data-reveal style={`--i:${Math.min(i, 8)}`} class="article-row">
+        <li data-post data-search={hay} data-tags={tags.join(' ')} data-reveal style={`--i:${Math.min(i, 8)}`} class="article-row border-b border-ink-600/70 last:border-b-0">
             <a href={localizePath(`/writing/${entrySlug(p.id)}`, lang)} class="article-card readable-card group block px-4 py-5 transition-colors hover:bg-ink-800/45 sm:px-5">
               <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <time class="readable-meta font-mono text-xs text-muted">{fmt(p.data.pubDate)}</time>
@@ -93,26 +84,10 @@ const allTags = [...tagCount.entries()].sort((a, b) => b[1] - a[1]).map(([tag]) 
 </Base>
 
 <style>
-  .writing-grid {
-    grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 900px) {
-    .writing-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-items: stretch;
-    }
-
-    .article-row,
-    .article-card {
-      height: 100%;
-    }
-  }
-
   .article-card {
     background: color-mix(in oklab, var(--color-ink-800) 80%, transparent);
     border: 1px solid color-mix(in oklab, var(--color-ink-600) 80%, transparent);
-    border-radius: 8px;
+    border-radius: 1rem;
     padding: 1.15rem 1.3rem;
   }
 
@@ -120,8 +95,12 @@ const allTags = [...tagCount.entries()].sort((a, b) => b[1] - a[1]).map(([tag]) 
     background: color-mix(in oklab, var(--color-ink-800) 92%, transparent);
   }
 
+  .article-row:last-child {
+    border-bottom: 1px solid color-mix(in oklab, var(--color-ink-600) 90%, transparent);
+  }
+
   .article-row {
-    min-width: 0;
+    padding-bottom: 0.4rem;
   }
 
   .article-card .readable-title {

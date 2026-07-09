@@ -6,20 +6,11 @@ import Terminal from '@/components/Terminal.astro';
 import SectionHead from '@/components/SectionHead.astro';
 import SocialLinks from '@/components/SocialLinks.astro';
 import StackGraph from '@/components/StackGraph.astro';
-import { site, categoryColors } from '@/data/site';
-import cvContent from '@/data/cv-content.json';
+import { site } from '@/data/site';
 import { getLangFromUrl, useTranslations, localizePath, entryLang, entrySlug } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const en = lang === 'en';
-
-type Localized = string | { it?: string; en?: string };
-const pick = (value: Localized | undefined) => {
-  if (!value) return '';
-  if (typeof value === 'string') return value;
-  return value[lang] ?? value.it ?? value.en ?? '';
-};
 
 const areas = [
   { key: 'security', color: 'var(--color-cat-security)' },
@@ -41,95 +32,35 @@ const stack = ['Proxmox', 'Docker', 'Kali Linux', 'Wazuh', 'Splunk', 'n8n', 'Clo
 
 const projects = (await getCollection('work', (e) => !e.data.draft && entryLang(e.id) === lang))
   .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 6);
+  .slice(0, 3);
 
 const posts = (await getCollection('writing', (e) => !e.data.draft && entryLang(e.id) === lang))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 6);
-
-const experience = cvContent.experience.slice(0, 5).map((item) => {
-  const period = pick(item.period);
-  return {
-    period,
-    year: period.match(/\d{4}/)?.[0] ?? period,
-    role: pick(item.role),
-    sub: pick(item.sub),
-    org: pick(item.org),
-    description: pick(item.description),
-  };
-});
-
-const languages = cvContent.languages.map((item) => ({
-  name: pick(item.name),
-  level: pick(item.level),
-}));
-
-const copy = {
-  profile: en ? 'Short profile' : 'Profilo breve',
-  proof: en ? 'Proof system' : 'Sistema di prove',
-  proofText: en
-    ? 'Open projects, lab notes, CV and certifications as one connected body of evidence.'
-    : 'Progetti aperti, note di laboratorio, CV e certificazioni come prove collegate.',
-  languages: en ? 'Languages' : 'Lingue',
-  publicWork: en ? 'Public work' : 'Lavori pubblici',
-  publicWorkText: en
-    ? 'Projects and articles stay close together: each experiment has context, stack and outcome.'
-    : 'Progetti e articoli restano collegati: ogni esperimento ha contesto, stack e risultato.',
-  projectsLabel: en ? 'Projects' : 'Progetti',
-  articlesLabel: en ? 'Articles' : 'Articoli',
-  credentials: en ? 'Credentials' : 'Credenziali',
-  credentialsText: en
-    ? 'CV, certifications and hands-on notes support the same professional narrative.'
-    : 'CV, certificazioni e note pratiche sostengono la stessa traiettoria professionale.',
-  signal: en ? 'Live signal' : 'Segnale live',
-  signalSub: en
-    ? 'Projects and writings move like a working desk: security cases, AI experiments, automations and infrastructure notes.'
-    : 'Progetti e articoli si muovono come una scrivania viva: case security, esperimenti AI, automazioni e note infrastrutturali.',
-  journey: en ? 'My journey' : 'Il mio percorso',
-  journeySub: en
-    ? 'A descending timeline, from the current cloud and AI security work back to the first IT roles.'
-    : 'Una timeline decrescente, dal lavoro attuale su cloud e AI security fino ai primi ruoli IT.',
-  terminal: en ? 'Interactive shell' : 'Shell interattiva',
-  available: en ? 'Cloud, AI and security' : 'Cloud, AI e security',
-  contact: en ? 'Start a conversation' : 'Apri una conversazione',
-  allProjects: en ? 'Explore all projects' : 'Esplora tutti i progetti',
-  allWriting: en ? 'Read all articles' : 'Leggi tutti gli articoli',
-};
+  .slice(0, 4);
 
 const fmt = (d: Date) =>
   d.toLocaleDateString(lang === 'en' ? 'en-GB' : 'it-IT', { day: '2-digit', month: 'short', year: 'numeric' });
-
-const duplicatedProjects = [...projects, ...projects];
-const duplicatedPosts = [...posts, ...posts];
 ---
 
 <Base path="/">
   <!-- ============ HERO ============ -->
-  <section class="lab-hero relative overflow-hidden border-b border-ink-600/60">
-    <div class="lab-hero__waves" aria-hidden="true"></div>
-    <div class="lab-hero__grain" aria-hidden="true"></div>
-    <div class="relative z-10 mx-auto max-w-6xl px-5 pt-7 sm:pt-20">
-      <div class="grid min-h-[calc(100svh-5rem)] grid-cols-1 items-center gap-10 pb-12 lg:grid-cols-[1.02fr_0.98fr] lg:pb-16">
-        <div class="relative z-20">
-          <div class="anim-rise inline-flex items-center gap-2 rounded-full border border-accent/35 bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent" style="animation-delay:.08s">
-            <span class="status-dot" aria-hidden="true"></span>
-            {copy.available}
-          </div>
-          <p class="kicker anim-rise mt-7 text-accent" style="animation-delay:.14s">{site.role}</p>
-          <h1 class="mt-3 max-w-4xl text-5xl font-semibold leading-[0.95] text-text sm:text-7xl lg:text-8xl">
+  <section class="relative overflow-hidden border-b border-ink-600/60">
+    <div class="hero-fx" aria-hidden="true"></div>
+    <div class="home-hero-shell relative z-10 mx-auto max-w-5xl px-5 pt-8 sm:pt-24">
+      <div class="home-hero-grid grid grid-cols-1 items-center gap-0 sm:grid-cols-[1fr_0.9fr] sm:gap-6">
+        <div class="home-hero-copy relative z-20 -mt-12 pb-2 sm:mt-0">
+          <p class="kicker anim-rise text-accent" style="animation-delay:.1s">{site.role}</p>
+          <h1 class="mt-3 text-5xl font-semibold leading-[1.02] tracking-tight text-text sm:text-7xl">
             <span class="reveal-mask"><span style="animation-delay:.18s">Paolo</span></span><br />
-            <span class="reveal-mask"><span class="liquid-title" style="animation-delay:.28s">Ronco</span></span>
+            <span class="reveal-mask"><span class="text-accent" style="animation-delay:.28s">Ronco</span></span>
           </h1>
-          <p class="anim-rise mt-6 max-w-xl text-lg leading-relaxed text-text-dim" style="animation-delay:.42s">{t('home.intro')}</p>
-          <div class="anim-rise mt-8 flex flex-wrap items-center gap-3" style="animation-delay:.54s">
-            <a href={localizePath('/projects', lang)} class="btn-shine rounded-md bg-accent px-4 py-2.5 text-sm font-semibold text-ink-900 shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:shadow-accent/40">
+          <p class="anim-rise mt-6 max-w-md text-base leading-relaxed text-text-dim" style="animation-delay:.42s">{t('home.intro')}</p>
+          <div class="anim-rise mt-7 flex flex-wrap items-center gap-3" style="animation-delay:.54s">
+            <a href={localizePath('/projects', lang)} class="btn-shine rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-ink-900 shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:shadow-accent/40">
               {t('home.ctaWork')}
             </a>
             <a href={localizePath('/writing', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
               {t('home.ctaWriting')}
-            </a>
-            <a href={localizePath('/contact', lang)} class="rounded-md border border-emerald-400/30 bg-emerald-400/10 px-4 py-2.5 text-sm font-medium text-emerald-200 transition-all hover:-translate-y-0.5 hover:border-emerald-300 hover:text-text">
-              {copy.contact}
             </a>
             <div class="ml-1 flex items-center gap-1.5">
               <SocialLinks />
@@ -137,14 +68,21 @@ const duplicatedPosts = [...posts, ...posts];
           </div>
         </div>
 
-        <div class="lab-orbit anim-rise order-first lg:order-none" style="animation-delay:.32s">
-          <div class="lab-orbit__portrait">
-            <img src="/paolo.png" alt={`${site.name}, ${site.role}`} width="549" height="552" fetchpriority="high" />
+        <div class="hero-portrait home-hero-portrait anim-rise order-first -mx-5 flex h-[17.5rem] items-end justify-end overflow-hidden sm:order-none sm:mx-0 sm:h-auto sm:overflow-visible sm:justify-end" style="animation-delay:.34s">
+          <div class="photo-frame">
+            <img src="/paolo.png" alt={`${site.name}, ${site.role}`} width="549" height="552" fetchpriority="high"
+              class="relative z-10 w-[20.5rem] max-w-full translate-x-7 object-contain object-bottom drop-shadow-2xl sm:w-[24rem] sm:translate-x-0 lg:w-[27rem]" />
           </div>
         </div>
       </div>
+
+      <!-- TERMINALE -->
+      <div class="home-hero-terminal anim-rise mt-10 pb-16 sm:mt-14 sm:pb-20" style="animation-delay:.64s">
+        <Terminal />
+      </div>
     </div>
 
+    <!-- marquee competenze -->
     <div class="marquee relative z-10 border-t border-ink-600/60 py-3">
       <div class="marquee__track">
         {[...marquee, ...marquee].map((m) => (
@@ -156,87 +94,43 @@ const duplicatedPosts = [...posts, ...posts];
     </div>
   </section>
 
-  <!-- ============ PROFILO / CARDS ============ -->
-  <section class="mx-auto max-w-6xl px-5 py-20 sm:py-24">
-    <div class="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
-      <div data-reveal>
-        <p class="eyebrow"><span class="slashes">//</span>{copy.profile}</p>
-        <h2 class="mt-3 max-w-xl text-3xl font-semibold leading-tight text-text sm:text-5xl">
-          {en ? 'A portfolio built like a working lab.' : 'Un portfolio costruito come un laboratorio vivo.'}
-        </h2>
-        <p class="mt-5 max-w-lg text-base leading-relaxed text-muted">{copy.proofText}</p>
-        <div class="mt-7 flex flex-wrap gap-3">
-          <a href={localizePath('/cv', lang)} class="rounded-md border border-accent/40 bg-accent/10 px-3 py-2 font-mono text-xs font-semibold text-accent transition-colors hover:border-accent hover:text-text">CV</a>
-          <a href={localizePath('/projects', lang)} class="rounded-md border border-ink-500 px-3 py-2 font-mono text-xs font-semibold text-text-dim transition-colors hover:border-accent/70 hover:text-text">{t('nav.projects')}</a>
-          <a href={localizePath('/writing', lang)} class="rounded-md border border-ink-500 px-3 py-2 font-mono text-xs font-semibold text-text-dim transition-colors hover:border-accent/70 hover:text-text">{t('nav.writing')}</a>
-        </div>
-      </div>
-
-      <div class="profile-mosaic">
-        <article data-reveal style="--i:0" class="liquid-card">
-          <span class="liquid-card__label">{copy.proof}</span>
-          <h3>{copy.credentials}</h3>
-          <p>{copy.credentialsText}</p>
-        </article>
-
-        <article data-reveal style="--i:1" class="liquid-card liquid-card--accent">
-          <span class="liquid-card__label">{copy.languages}</span>
-          <div class="language-stack">
-            {languages.map((l) => (
-              <span><strong>{l.name}</strong><em>{l.level}</em></span>
-            ))}
-          </div>
-        </article>
-
-        <article data-reveal style="--i:2" class="liquid-card liquid-card--wide">
-          <span class="liquid-card__label">{copy.publicWork}</span>
-          <h3>{projects.length} {copy.projectsLabel} · {posts.length} {copy.articlesLabel}</h3>
-          <p>{copy.publicWorkText}</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ AREE ============ -->
-  <section class="section-glow border-y border-ink-600/60 py-20 sm:py-24">
-    <div class="mx-auto max-w-6xl px-5">
-      <SectionHead eyebrow={t('home.whatIDo')} title={t('home.areasTitle')} accent={t('home.areasAccent')} sub={t('home.areasSub')} />
-      <nav class="mt-8 flex flex-wrap justify-center gap-3" aria-label={t('home.areasAccent')}>
-        <a href={localizePath('/skills', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
-          {t('nav.skills')}
-        </a>
-        <a href={localizePath('/projects', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
-          {t('nav.projects')}
-        </a>
-        <a href={localizePath('/writing', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
-          {t('nav.writing')}
-        </a>
-      </nav>
-      <div class="mt-12 grid gap-4 md:grid-cols-4">
-        {areas.map((a, i) => (
-          <article
-            data-reveal
-            style={`--c:${a.color};--i:${i}`}
-            class="liquid-focus group"
-          >
-            <span class="liquid-focus__shine" aria-hidden="true"></span>
-            <div class="flex items-start justify-between gap-3">
-              <span class="glow-card__icon" set:html={icons[a.key]} />
-              <span class="font-display text-2xl font-semibold tabular-nums text-ink-500 transition-colors group-hover:text-[var(--c)]">0{i + 1}</span>
-            </div>
-            <h3 class="mt-5 text-xl font-semibold text-text transition-colors group-hover:text-[var(--c)]">
-              {t(`area.${a.key}.t` as any)}
-            </h3>
-            <p class="mt-2 text-sm leading-relaxed text-muted">{t(`area.${a.key}.d` as any)}</p>
-          </article>
-        ))}
-      </div>
+  <section class="mx-auto max-w-5xl px-5 py-24">
+    <SectionHead eyebrow={t('home.whatIDo')} title={t('home.areasTitle')} accent={t('home.areasAccent')} sub={t('home.areasSub')} />
+    <nav class="mt-8 flex flex-wrap justify-center gap-3" aria-label={t('home.areasAccent')}>
+      <a href={localizePath('/skills', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
+        {t('nav.skills')}
+      </a>
+      <a href={localizePath('/projects', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
+        {t('nav.projects')}
+      </a>
+      <a href={localizePath('/writing', lang)} class="rounded-md border border-ink-500 px-4 py-2.5 text-sm font-medium text-text-dim transition-all hover:-translate-y-0.5 hover:border-accent hover:text-text">
+        {t('nav.writing')}
+      </a>
+    </nav>
+    <div class="mt-12 grid gap-4 sm:grid-cols-2">
+      {areas.map((a, i) => (
+        <article
+          data-reveal
+          style={`--c:${a.color};--i:${i}`}
+          class="glow-card group overflow-hidden rounded-2xl border border-ink-600 p-6 sm:p-7"
+        >
+          <div class="flex items-start justify-between">
+            <span class="glow-card__icon" set:html={icons[a.key]} />
+            <span class="font-display text-2xl font-semibold tabular-nums text-ink-500 transition-colors group-hover:text-[var(--c)]">0{i + 1}</span>
+          </div>
+          <h3 class="mt-5 text-xl font-semibold tracking-tight text-text transition-colors group-hover:text-[var(--c)]">
+            {t(`area.${a.key}.t` as any)}
+          </h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{t(`area.${a.key}.d` as any)}</p>
+        </article>
+      ))}
     </div>
   </section>
 
   <!-- ============ STACK ============ -->
-  <section class="py-20 sm:py-24">
-    <div class="mx-auto max-w-6xl px-5">
+  <section class="section-glow border-y border-ink-600/60 py-24">
+    <div class="mx-auto max-w-5xl px-5">
       <SectionHead eyebrow={t('home.stackEyebrow')} title={t('home.stackTitle')} accent={t('home.stackAccent')} sub={t('home.stackSub')} />
       <!-- desktop: costellazione animata · mobile: chip leggibili -->
       <div class="mt-10 hidden md:block" data-reveal>
@@ -250,107 +144,43 @@ const duplicatedPosts = [...posts, ...posts];
     </div>
   </section>
 
-  <!-- ============ SEGNALE / COLONNE ============ -->
-  {(projects.length > 0 || posts.length > 0) && (
-    <section class="signal-section overflow-hidden border-y border-ink-600/60 py-20 sm:py-24">
-      <div class="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
-        <div data-reveal>
-          <p class="eyebrow"><span class="slashes">//</span>{copy.signal}</p>
-          <h2 class="mt-3 text-3xl font-semibold leading-tight text-text sm:text-5xl">
-            {t('home.featured')} <span class="text-accent">{t('home.featuredAccent')}</span>
-          </h2>
-          <p class="mt-4 max-w-md text-base leading-relaxed text-muted">{copy.signalSub}</p>
-          <div class="mt-7 flex flex-wrap gap-3">
-            <a href={localizePath('/projects', lang)} class="rounded-md border border-accent/40 bg-accent/10 px-3 py-2 font-mono text-xs font-semibold text-accent transition-colors hover:border-accent hover:text-text">
-              {copy.allProjects}
-            </a>
-            <a href={localizePath('/writing', lang)} class="rounded-md border border-ink-500 px-3 py-2 font-mono text-xs font-semibold text-text-dim transition-colors hover:border-accent/70 hover:text-text">
-              {copy.allWriting}
-            </a>
-          </div>
-        </div>
-
-        <div class="signal-columns" data-reveal="right">
-          {projects.length > 0 && (
-            <div class="signal-column signal-column--up">
-              <div class="signal-track">
-                {duplicatedProjects.map((p, i) => {
-                  const color = categoryColors[p.data.category] ?? 'var(--color-accent)';
-                  return (
-                    <a href={localizePath(`/projects/${entrySlug(p.id)}`, lang)} class="signal-card signal-card--project" style={`--cat:${color}`}>
-                      <span class="signal-card__meta">{p.data.category} · {String((i % projects.length) + 1).padStart(2, '0')}</span>
-                      <strong>{p.data.title}</strong>
-                      <p>{p.data.summary}</p>
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {posts.length > 0 && (
-            <div class="signal-column signal-column--down">
-              <div class="signal-track">
-                {duplicatedPosts.map((p) => (
-                  <a href={localizePath(`/writing/${entrySlug(p.id)}`, lang)} class="signal-card signal-card--post">
-                    <span class="signal-card__meta">{fmt(p.data.pubDate)}</span>
-                    <strong>{p.data.title}</strong>
-                    <p>{p.data.description}</p>
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </section>
-  )}
-
   <!-- ============ PROGETTI ============ -->
   {projects.length > 0 && (
-    <section class="mx-auto max-w-6xl px-5 py-20 sm:py-24">
+    <section class="mx-auto max-w-5xl px-5 py-24">
       <SectionHead eyebrow={t('home.featuredEyebrow')} title={t('home.featured')} accent={t('home.featuredAccent')} sub={t('home.featuredSub')} />
       <div class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
-        {projects.slice(0, 3).map((p, i) => (
+        {projects.map((p, i) => (
           <div data-reveal style={`--i:${i + 1}`}>
-            <CaseFileCard href={localizePath(`/projects/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} index={i + 1} variant="hybrid" />
+            <CaseFileCard href={localizePath(`/projects/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} index={i + 1} />
           </div>
         ))}
+      </div>
+      <div class="mt-8 text-center" data-reveal>
+        <a href={localizePath('/projects', lang)} class="link-underline text-sm text-muted hover:text-accent">{t('common.all')}</a>
       </div>
     </section>
   )}
 
-  <!-- ============ JOURNEY ============ -->
-  <section class="journey-section border-y border-ink-600/60 py-20 sm:py-24">
-    <div class="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-[0.55fr_1fr]">
-      <div data-reveal>
-        <p class="eyebrow"><span class="slashes">//</span>{copy.journey}</p>
-        <h2 class="mt-3 text-3xl font-semibold leading-tight text-text sm:text-5xl">{copy.journey}</h2>
-        <p class="mt-4 max-w-md text-base leading-relaxed text-muted">{copy.journeySub}</p>
-      </div>
-      <ol class="journey-list">
-        {experience.map((item, i) => (
-          <li data-reveal style={`--i:${i}`}>
-            <span class="journey-year">{item.year}</span>
-            <article class="journey-card">
-              <span class="kicker text-accent">{item.period}</span>
-              <h3>{item.role}</h3>
-              {(item.sub || item.org) && <p class="journey-card__org">{[item.sub, item.org].filter(Boolean).join(' · ')}</p>}
-              {item.description && <p class="journey-card__desc">{item.description}</p>}
-            </article>
+  <!-- ============ ARTICOLI ============ -->
+  {posts.length > 0 && (
+    <section class="mx-auto max-w-5xl px-5 py-24">
+      <SectionHead eyebrow={t('home.recentEyebrow')} title={t('home.recent')} accent={t('home.recentAccent')} sub={t('home.recentSub')} />
+      <ul class="mx-auto mt-12 max-w-3xl divide-y divide-ink-600/70 border-y border-ink-600/70">
+        {posts.map((p, i) => (
+          <li data-reveal style={`--i:${i + 1}`}>
+            <a href={localizePath(`/writing/${entrySlug(p.id)}`, lang)} class="group flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:gap-5">
+              <time class="font-mono text-xs text-muted sm:w-24 sm:shrink-0">{fmt(p.data.pubDate)}</time>
+              <div>
+                <span class="font-medium text-text-dim transition-colors group-hover:text-accent">{p.data.title}</span>
+                <p class="mt-0.5 text-sm text-muted">{p.data.description}</p>
+              </div>
+            </a>
           </li>
         ))}
-      </ol>
-    </div>
-  </section>
-
-  <!-- ============ TERMINALE ============ -->
-  <section class="mx-auto max-w-5xl px-5 py-20 sm:py-24">
-    <div data-reveal class="mb-8">
-      <p class="eyebrow"><span class="slashes">//</span>{copy.terminal}</p>
-    </div>
-    <div data-reveal="scale">
-      <Terminal />
-    </div>
-  </section>
+      </ul>
+      <div class="mt-8 text-center" data-reveal>
+        <a href={localizePath('/writing', lang)} class="link-underline text-sm text-muted hover:text-accent">{t('common.all')}</a>
+      </div>
+    </section>
+  )}
 </Base>
