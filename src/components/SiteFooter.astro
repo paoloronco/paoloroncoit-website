@@ -4,16 +4,43 @@ import { getLangFromUrl, useTranslations, localizePath } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
+const networkLinks = [
+  { label: 'Lynx', detail: 'lynx.paoloronco.it', href: 'https://lynx.paoloronco.it/', tone: 'lynx' },
+  { label: 'DarkWeb', detail: 'darkweb.paoloronco.it', href: 'https://darkweb.paoloronco.it/', tone: 'darkweb' },
+  { label: 'Shop', detail: 'shop.paoloronco.it', href: 'https://shop.paoloronco.it/', tone: 'shop' },
+  { label: 'Academy', detail: 'nextprep.academy', href: 'https://www.nextprep.academy/', tone: 'academy' },
+  {
+    label: 'TabSessionSaver',
+    detail: 'Chrome extension',
+    href: 'https://tabsessionsaver.paoloronco.it/',
+    tone: 'extension',
+  },
+] as const;
 ---
 
-<footer class="mt-24 border-t border-ink-600/70">
+<footer id="site-footer" class="mt-24 border-t border-ink-600/70">
   <div class="mx-auto flex max-w-5xl flex-col gap-4 px-5 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
     <div>
       <p class="font-mono text-text">{site.name}</p>
       <p class="mt-1">{site.role}</p>
       <p class="mt-1">{site.domains.join(' · ')}</p>
     </div>
-    <div class="flex w-full flex-col items-start gap-2 overflow-x-auto whitespace-nowrap text-[13px] sm:w-auto sm:items-end sm:text-sm">
+    <div class="flex w-full flex-col items-start gap-3 text-[13px] sm:w-auto sm:items-end sm:text-sm">
+      <nav class="footer-network" aria-label="Paolo Ronco network">
+        {
+          networkLinks.map((link) => (
+            <a
+              class={`footer-network__link footer-network__link--${link.tone}`}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="footer-network__name">{link.label}</span>
+              <span class="footer-network__detail">{link.detail}</span>
+            </a>
+          ))
+        }
+      </nav>
       <nav class="flex w-full flex-nowrap items-center justify-between gap-3 sm:w-auto sm:justify-start sm:gap-x-5" aria-label="Social links">
         <a class="hover:text-accent" href={site.socials.github}>GitHub</a>
         <a class="hover:text-accent" href={site.socials.huggingface} aria-label="Hugging Face">
@@ -67,3 +94,106 @@ const year = new Date().getFullYear();
     </nav>
   </div>
 </footer>
+
+<style>
+  .footer-network {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .footer-network__link {
+    --network-color: var(--color-accent);
+    position: relative;
+    min-width: 0;
+    border: 1px solid color-mix(in oklab, var(--network-color) 24%, var(--color-ink-600));
+    border-radius: 6px;
+    background:
+      linear-gradient(135deg, color-mix(in oklab, var(--network-color) 9%, transparent), transparent 58%),
+      color-mix(in oklab, var(--color-ink-800) 72%, transparent);
+    padding: 0.5rem 0.6rem;
+    color: var(--color-text-dim);
+    transition:
+      border-color 0.2s var(--ease-out-quart),
+      background 0.2s var(--ease-out-quart),
+      color 0.2s var(--ease-out-quart),
+      transform 0.2s var(--ease-out-quart);
+  }
+
+  .footer-network__link:hover {
+    border-color: color-mix(in oklab, var(--network-color) 58%, var(--color-ink-600));
+    background:
+      linear-gradient(135deg, color-mix(in oklab, var(--network-color) 16%, transparent), transparent 62%),
+      color-mix(in oklab, var(--color-ink-700) 74%, transparent);
+    color: var(--color-text);
+    transform: translateY(-1px);
+  }
+
+  .footer-network__name,
+  .footer-network__detail {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .footer-network__name {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 650;
+    line-height: 1.05;
+    letter-spacing: 0;
+  }
+
+  .footer-network__detail {
+    margin-top: 0.18rem;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    line-height: 1.2;
+  }
+
+  .footer-network__link--lynx {
+    --network-color: var(--color-cat-tool);
+  }
+
+  .footer-network__link--darkweb {
+    --network-color: var(--color-cat-security);
+  }
+
+  .footer-network__link--shop {
+    --network-color: var(--color-cat-automation);
+  }
+
+  .footer-network__link--academy {
+    --network-color: var(--color-cat-ai);
+  }
+
+  .footer-network__link--extension {
+    --network-color: var(--color-cat-cloud);
+    grid-column: 1 / -1;
+  }
+
+  @media (min-width: 640px) {
+    .footer-network {
+      display: flex;
+      max-width: 38rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.4rem;
+    }
+
+    .footer-network__link {
+      flex: 0 1 auto;
+      width: auto;
+      max-width: 11.5rem;
+      padding: 0.45rem 0.6rem;
+    }
+
+    .footer-network__link--extension {
+      max-width: 12.75rem;
+    }
+  }
+</style>
