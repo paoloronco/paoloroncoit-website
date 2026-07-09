@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import CaseFileCard from '@/components/CaseFileCard.astro';
 import CmdPath from '@/components/CmdPath.astro';
-import ReadableModeToggle from '@/components/ReadableModeToggle.astro';
 import { getLangFromUrl, useTranslations, localizePath, entryLang, entrySlug } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -14,18 +13,25 @@ const projects = (await getCollection('work', (e) => !e.data.draft && entryLang(
 );
 const allLabel = t('work.all');
 const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
+const en = lang === 'en';
 ---
 
 <Base title="Projects" description={t('work.subtitle')} path="/projects">
-  <div class="readable-scope">
-  <section class="readable-shell mx-auto max-w-5xl px-5 pt-16 pb-10">
-    <CmdPath cmd="cd" arg="~/projects" />
-    <h1 class="anim-rise mt-3 text-4xl font-semibold tracking-tight text-text" style="animation-delay:.12s">Projects</h1>
-    <p class="anim-rise mt-3 max-w-2xl text-text-dim" style="animation-delay:.2s">{t('work.subtitle')}</p>
-    <ReadableModeToggle lang={lang} />
+  <section class="lab-page-shell readable-shell mx-auto max-w-6xl px-5 pt-16 pb-10">
+    <div class="lab-page-hero">
+      <div>
+        <CmdPath cmd="cd" arg="~/projects" />
+        <h1 class="anim-rise mt-4 text-5xl font-semibold leading-tight text-text sm:text-6xl" style="animation-delay:.12s">Projects</h1>
+        <p class="anim-rise mt-4 max-w-2xl text-base leading-relaxed text-text-dim" style="animation-delay:.2s">{t('work.subtitle')}</p>
+      </div>
+      <div class="lab-page-stat" aria-label={en ? 'Published projects' : 'Progetti pubblicati'}>
+        <span>{String(projects.length).padStart(2, '0')}</span>
+        <strong>{en ? 'case files' : 'case file'}</strong>
+      </div>
+    </div>
 
     {projects.length > 0 && (
-    <div class="readable-filters mt-8 flex flex-wrap gap-2" data-filter-bar data-all={allLabel}>
+    <div class="lab-filterbar readable-filters mt-8 flex flex-wrap gap-2" data-filter-bar data-all={allLabel}>
       {categories.map((c, i) => (
         <button
           data-filter={i === 0 ? '__all__' : c}
@@ -39,11 +45,11 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
     )}
   </section>
 
-  <section class="readable-shell mx-auto max-w-5xl px-5 pb-16">
+  <section class="lab-page-shell readable-shell mx-auto max-w-6xl px-5 pb-20">
     {projects.length === 0 ? (
       <p class="rounded-card border border-dashed border-ink-600 p-8 text-center text-muted">{t('work.empty')}</p>
     ) : (
-      <div class="readable-grid grid grid-cols-1 gap-4 md:grid-cols-2" data-grid>
+      <div class="readable-grid grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3" data-grid>
         {projects.map((p, i) => (
           <div class="project-card" data-category={p.data.category} data-reveal style={`--i:${i + 1}`}>
             <CaseFileCard
@@ -60,7 +66,6 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
       </div>
     )}
   </section>
-  </div>
 </Base>
 
 <style>
@@ -71,18 +76,15 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
 
   .project-card {
     display: flex;
-  }
-
-  :global(html:not([data-readable-mode='true']) .project-card) {
     min-height: 255px;
   }
 
-  :global(html:not([data-readable-mode='true']) .project-card > a) {
+  .project-card > a {
     width: 100%;
   }
 
   @media (max-width: 767px) {
-    :global(html:not([data-readable-mode='true']) .project-card) {
+    .project-card {
       min-height: 235px;
     }
   }

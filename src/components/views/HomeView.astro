@@ -59,7 +59,6 @@ const experience = cvContent.experience.slice(0, 5).map((item) => {
   };
 });
 
-const skillPanels = cvContent.skills.slice(0, 4);
 const languages = cvContent.languages.map((item) => ({
   name: pick(item.name),
   level: pick(item.level),
@@ -71,8 +70,17 @@ const copy = {
   proofText: en
     ? 'Open projects, lab notes, CV and certifications as one connected body of evidence.'
     : 'Progetti aperti, note di laboratorio, CV e certificazioni come prove collegate.',
-  lab: en ? 'Lab stack' : 'Stack di laboratorio',
   languages: en ? 'Languages' : 'Lingue',
+  publicWork: en ? 'Public work' : 'Lavori pubblici',
+  publicWorkText: en
+    ? 'Projects and articles stay close together: each experiment has context, stack and outcome.'
+    : 'Progetti e articoli restano collegati: ogni esperimento ha contesto, stack e risultato.',
+  projectsLabel: en ? 'Projects' : 'Progetti',
+  articlesLabel: en ? 'Articles' : 'Articoli',
+  credentials: en ? 'Credentials' : 'Credenziali',
+  credentialsText: en
+    ? 'CV, certifications and hands-on notes support the same professional narrative.'
+    : 'CV, certificazioni e note pratiche sostengono la stessa traiettoria professionale.',
   signal: en ? 'Live signal' : 'Segnale live',
   signalSub: en
     ? 'Projects and writings move like a working desk: security cases, AI experiments, automations and infrastructure notes.'
@@ -130,21 +138,8 @@ const duplicatedPosts = [...posts, ...posts];
         </div>
 
         <div class="lab-orbit anim-rise order-first lg:order-none" style="animation-delay:.32s">
-          <div class="lab-orbit__ring" aria-hidden="true"></div>
           <div class="lab-orbit__portrait">
             <img src="/paolo.png" alt={`${site.name}, ${site.role}`} width="549" height="552" fetchpriority="high" />
-          </div>
-          <div class="orbit-badge orbit-badge--one">
-            <span>Zero Trust</span>
-            <strong>IAM</strong>
-          </div>
-          <div class="orbit-badge orbit-badge--two">
-            <span>AI Ops</span>
-            <strong>RAG</strong>
-          </div>
-          <div class="orbit-badge orbit-badge--three">
-            <span>Homelab</span>
-            <strong>Proxmox</strong>
           </div>
         </div>
       </div>
@@ -163,20 +158,25 @@ const duplicatedPosts = [...posts, ...posts];
 
   <!-- ============ PROFILO / CARDS ============ -->
   <section class="mx-auto max-w-6xl px-5 py-20 sm:py-24">
-    <div class="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+    <div class="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
       <div data-reveal>
         <p class="eyebrow"><span class="slashes">//</span>{copy.profile}</p>
         <h2 class="mt-3 max-w-xl text-3xl font-semibold leading-tight text-text sm:text-5xl">
           {en ? 'A portfolio built like a working lab.' : 'Un portfolio costruito come un laboratorio vivo.'}
         </h2>
         <p class="mt-5 max-w-lg text-base leading-relaxed text-muted">{copy.proofText}</p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href={localizePath('/cv', lang)} class="rounded-md border border-accent/40 bg-accent/10 px-3 py-2 font-mono text-xs font-semibold text-accent transition-colors hover:border-accent hover:text-text">CV</a>
+          <a href={localizePath('/projects', lang)} class="rounded-md border border-ink-500 px-3 py-2 font-mono text-xs font-semibold text-text-dim transition-colors hover:border-accent/70 hover:text-text">{t('nav.projects')}</a>
+          <a href={localizePath('/writing', lang)} class="rounded-md border border-ink-500 px-3 py-2 font-mono text-xs font-semibold text-text-dim transition-colors hover:border-accent/70 hover:text-text">{t('nav.writing')}</a>
+        </div>
       </div>
 
       <div class="profile-mosaic">
-        <article data-reveal style="--i:0" class="liquid-card liquid-card--wide">
+        <article data-reveal style="--i:0" class="liquid-card">
           <span class="liquid-card__label">{copy.proof}</span>
-          <h3>{site.domains.join(' / ')}</h3>
-          <p>{t('home.areasSub')}</p>
+          <h3>{copy.credentials}</h3>
+          <p>{copy.credentialsText}</p>
         </article>
 
         <article data-reveal style="--i:1" class="liquid-card liquid-card--accent">
@@ -188,16 +188,10 @@ const duplicatedPosts = [...posts, ...posts];
           </div>
         </article>
 
-        <article data-reveal style="--i:2" class="liquid-card liquid-card--dark">
-          <span class="liquid-card__label">{copy.lab}</span>
-          <div class="skill-river" aria-label={copy.lab}>
-            {[...skillPanels, ...skillPanels].map((panel) => (
-              <div class="skill-river__item">
-                <strong>{panel.name}</strong>
-                <span>{panel.rows.flat().slice(0, 4).join(' · ')}</span>
-              </div>
-            ))}
-          </div>
+        <article data-reveal style="--i:2" class="liquid-card liquid-card--wide">
+          <span class="liquid-card__label">{copy.publicWork}</span>
+          <h3>{projects.length} {copy.projectsLabel} · {posts.length} {copy.articlesLabel}</h3>
+          <p>{copy.publicWorkText}</p>
         </article>
       </div>
     </div>
