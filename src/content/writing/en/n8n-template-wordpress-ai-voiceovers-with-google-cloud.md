@@ -31,9 +31,9 @@ The workflow is publicly available for purchase here:
 
 [](https://github.com/paoloronco/n8n-templates/tree/main/paid-templates/1%20-%20WordPress%20AI%20VoiceOvers%20with%20Google%20Cloud#example-voiceover-n8n-template---fetch-amazonluna-games)Your browser does not support the audio element.
 
-### Example voiceover: Github paoloronco/lynx
+### Example voiceover: Github paoloronco/orbitpage
 
-[](https://github.com/paoloronco/n8n-templates/tree/main/paid-templates/1%20-%20WordPress%20AI%20VoiceOvers%20with%20Google%20Cloud#example-voiceover-github-paoloroncolynx)Your browser does not support the audio element.
+[](https://github.com/paoloronco/n8n-templates/tree/main/paid-templates/1%20-%20WordPress%20AI%20VoiceOvers%20with%20Google%20Cloud#example-voiceover-github-paoloroncoorbitpage)Your browser does not support the audio element.
 
 * * *
 
@@ -110,4 +110,3 @@ If you publish content on WordPress, this automation instantly transforms your a
 ## ⭐ Want a Feature Demo or Custom Workflow?[](https://github.com/paoloronco/n8n-templates/tree/main/paid-templates/1%20-%20WordPress%20AI%20VoiceOvers%20with%20Google%20Cloud#-want-a-feature-demo-or-custom-workflow)
 
 Feel free to open an issue or contact me directly. Custom integrations, multilingual setups, and enterprise deployments are available on request.
-
