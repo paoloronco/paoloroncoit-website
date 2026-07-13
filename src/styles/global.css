@@ -353,6 +353,7 @@ h1, h2, h3, .font-display {
 .chat-panel {
   bottom: calc(6rem + env(safe-area-inset-bottom) + var(--chat-cookie-offset, 0px));
   right: calc(1.25rem + env(safe-area-inset-right));
+  max-height: min(70vh, 560px);
   transform-origin: bottom right;
   opacity: 0;
   transform: translateY(16px) scale(0.96);
@@ -365,6 +366,10 @@ h1, h2, h3, .font-display {
   opacity: 1;
   transform: none;
   pointer-events: auto;
+}
+.chat-panel.is-keyboard-open {
+  bottom: calc(0.75rem + env(safe-area-inset-bottom) + var(--chat-visual-keyboard-offset, 0px));
+  max-height: min(calc(var(--chat-visual-viewport-height, 100vh) - 1.5rem - env(safe-area-inset-top)), 560px);
 }
 @media (max-width: 640px) {
   .chat-panel {

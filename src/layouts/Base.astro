@@ -83,7 +83,7 @@ const personLd = {
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content" />
     <Analytics />
     <script is:inline>document.documentElement.classList.add('motion');</script>
     <title>{fullTitle}</title>
@@ -175,13 +175,39 @@ const personLd = {
           );
         }
 
+        function isTextEntry(el) {
+          return !!(
+            el &&
+            el.matches &&
+            el.matches('[data-term-input], [data-chatw-input], [data-ask-input], input[type="text"], textarea')
+          );
+        }
+
         function blurMobileTextInput() {
           if (!hasTouchInput()) return;
           var el = document.activeElement;
-          if (!el || !el.matches) return;
-          if (el.matches('[data-term-input], [data-chatw-input], [data-ask-input], input[type="text"], textarea')) {
+          if (isTextEntry(el)) {
             try { el.blur(); } catch (e) {}
           }
+        }
+
+        function ensureMobileInputVisible(el) {
+          if (!hasTouchInput() || !isTextEntry(el) || document.activeElement !== el) return;
+          if (el.closest && el.closest('[data-chat-panel]')) return;
+          var vv = window.visualViewport;
+          var visibleHeight = vv ? vv.height : window.innerHeight;
+          var rect = el.getBoundingClientRect();
+          var margin = 24;
+          if (rect.bottom > visibleHeight - margin || rect.top < margin) {
+            try { el.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' }); } catch (e) {}
+          }
+        }
+
+        function scheduleEnsureVisible(el) {
+          ensureMobileInputVisible(el);
+          setTimeout(function () { ensureMobileInputVisible(el); }, 120);
+          setTimeout(function () { ensureMobileInputVisible(el); }, 320);
+          setTimeout(function () { ensureMobileInputVisible(el); }, 520);
         }
 
         function scheduleBlur() {
@@ -192,6 +218,17 @@ const personLd = {
 
         document.addEventListener('DOMContentLoaded', scheduleBlur);
         document.addEventListener('astro:page-load', scheduleBlur);
+        document.addEventListener('focusin', function (event) {
+          scheduleEnsureVisible(event.target);
+        });
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener('resize', function () {
+            scheduleEnsureVisible(document.activeElement);
+          });
+          window.visualViewport.addEventListener('scroll', function () {
+            scheduleEnsureVisible(document.activeElement);
+          });
+        }
         window.addEventListener('pageshow', scheduleBlur);
       })();
     </script>

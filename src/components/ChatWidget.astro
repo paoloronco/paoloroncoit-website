@@ -31,7 +31,6 @@ const i18n = {
   role="dialog"
   aria-label={t('ask.title')}
   class="chat-panel fixed bottom-24 right-5 z-40 flex w-[min(92vw,380px)] flex-col overflow-hidden rounded-2xl border border-ink-500 bg-ink-800/95 shadow-2xl backdrop-blur-md"
-  style="max-height:min(70vh,560px)"
 >
   <header class="flex items-center gap-3 border-b border-ink-600 px-4 py-3">
     <span class="chat-fab flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-ink-900">
@@ -143,6 +142,39 @@ const i18n = {
     setTimeout(setCookieOffset, 500);
     setTimeout(setCookieOffset, 1500);
 
+    const syncMobileViewport = () => {
+      const vv = window.visualViewport;
+      const visibleHeight = vv ? vv.height : window.innerHeight;
+      const offsetTop = vv ? vv.offsetTop : 0;
+      const keyboardOffset = vv ? Math.max(0, window.innerHeight - visibleHeight - offsetTop) : 0;
+      const keyboardOpen =
+        hasTouchInput() &&
+        panel.classList.contains('is-open') &&
+        document.activeElement === input &&
+        keyboardOffset > 80;
+
+      panel.style.setProperty('--chat-visual-viewport-height', `${Math.round(visibleHeight)}px`);
+      panel.style.setProperty('--chat-visual-keyboard-offset', `${Math.round(keyboardOpen ? keyboardOffset : 0)}px`);
+      panel.classList.toggle('is-keyboard-open', keyboardOpen);
+      if (keyboardOpen) scroll();
+    };
+
+    const scheduleMobileViewportSync = () => {
+      syncMobileViewport();
+      requestAnimationFrame(syncMobileViewport);
+      setTimeout(syncMobileViewport, 120);
+      setTimeout(syncMobileViewport, 320);
+    };
+
+    window.addEventListener('resize', scheduleMobileViewportSync, { signal: lifecycle.signal });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', scheduleMobileViewportSync, { signal: lifecycle.signal });
+      window.visualViewport.addEventListener('scroll', scheduleMobileViewportSync, { signal: lifecycle.signal });
+    }
+    input.addEventListener('focus', scheduleMobileViewportSync, { signal: lifecycle.signal });
+    input.addEventListener('blur', scheduleMobileViewportSync, { signal: lifecycle.signal });
+    scheduleMobileViewportSync();
+
     // sessionId persistente per la sessione del browser (continuità conversazione)
     let sid;
     try {
@@ -155,6 +187,7 @@ const i18n = {
       fab.setAttribute('aria-expanded', v ? 'true' : 'false');
       iOpen && iOpen.classList.toggle('hidden', v);
       iClose && iClose.classList.toggle('hidden', !v);
+      scheduleMobileViewportSync();
       if (v) requestAnimationFrame(focusInput);
       else blurInput();
     };
