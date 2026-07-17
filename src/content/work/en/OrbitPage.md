@@ -1,16 +1,16 @@
 ---
 title: "OrbitPage"
-summary: "A highly customizable Linktree alternative, available both as an MIT-licensed open-source project and a managed SaaS."
+summary: "A platform for creating and publishing a personal or professional page, customizable in every detail and ready to share through a link or QR code."
 category: "tool"
 stack: ["TypeScript", "Next.js", "Firebase", "Cloudflare", "Docker"]
-problem: "Commercial link-in-bio tools did not provide the level of customization, control, and portability I was looking for."
-solution: "I built an open-source, self-hosted page builder and later turned it into a SaaS with accounts, isolated workspaces, hosting, publishing, and custom domains."
-outcome: "An OSS + SaaS product that lets creators, professionals, businesses, and venues publish a rich, distinctive page without managing a full CMS."
+problem: "Presenting links, content, contact details, and services online often requires several separate tools or a complete website, even when one well-built page would be enough."
+solution: "OrbitPage brings profiles, content, media, and calls to action into a visual block editor with ready-made themes and advanced customization controls."
+outcome: "A product that can be used immediately as a SaaS or independently deployed through its open-source core, built for individuals, businesses, and venues."
 featured: true
 order: 3
 draft: false
 links:
-  - label: "Website and SaaS"
+  - label: "Open OrbitPage"
     href: "https://orbitpage.com/"
   - label: "Dashboard"
     href: "https://orbitpage.com/dashboard"
@@ -18,55 +18,60 @@ links:
     href: "https://github.com/paoloronco/OrbitPage"
 ---
 
-## From a personal need to a SaaS product
+## One page, everything you need
 
-OrbitPage began because existing commercial tools did not let me truly customize a link-in-bio page. It grew from an open-source, self-hosted alternative into a product with two complementary paths: the MIT-licensed core can be inspected, modified, and hosted independently, while the managed service adds all the infrastructure needed to get started immediately.
+OrbitPage lets people build a complete public page without creating and maintaining a traditional website. It brings identity, work, links, content, contact details, events, and media into one place, with a result designed for both desktop and mobile.
 
-It is more than a collection of buttons. OrbitPage treats the public profile as a small one-page website that combines identity, content, contact details, media, and calls to action in a responsive, highly customizable layout.
+It can serve as the main destination for a creator or professional, a focused page for a product or business, or the digital home of a restaurant, bar, or venue. Every page can be shared through its URL or a generated QR code.
 
-## The service's three domains
-
-- **[orbitpage.com](https://orbitpage.com/)** is the marketing and commercial website, with product information, plan comparison, signup, login, and free access.
-- **[orbitpage.com/dashboard](https://orbitpage.com/dashboard)** is the management area where each user edits and publishes their page.
-- **orbitpage.net/slug_url** hosts public user profiles. Eligible plans can also connect a custom domain.
-
-In the SaaS, authentication and user workspaces are managed in isolation. Published pages become static HTML and assets delivered through Cloudflare, separating the editor's dynamic workload from fast visitor delivery.
-
-## Main features
+## From setup to publishing
 
 ### Profile
 
-Users can set a personal, company, or venue name, add a description, and connect channels including LinkedIn, Instagram, GitHub, email, and WhatsApp. OrbitPage generates a QR code for the page and provides detailed profile-card controls for the image, colors, theme, borders, shape, and visual hierarchy.
+Personal, company, or venue name, description, image, and social links including LinkedIn, Instagram, GitHub, email, and WhatsApp. The profile card can be tailored through its colors, borders, image shape, and visual hierarchy.
 
-### Content blocks
+### Content
 
-Pages can combine and reorder **link, CTA, heading, separator, maps, contact, social row, callout, list, event, embed, text, image, and video** blocks. Content can be hidden or scheduled to appear and disappear on specific dates when the selected plan supports it.
+The editor uses reorderable **link, CTA, heading, separator, maps, contact, social row, callout, list, event, embed, text, image, and video** blocks. Content can be hidden or scheduled to appear only during a selected period.
 
-### Themes and customization
+### Appearance
 
-Ready-made themes and card styles provide a quick starting point. Fine tuning covers page colors, profile, cards, and backgrounds — including gradients, images, GIFs, and video — while preserving a consistent result across desktop preview, mobile preview, and the published page.
+Ready-made themes and card styles provide an immediate starting point. For a more specific identity, users can fine-tune colors, cards, and backgrounds, including gradients, images, GIFs, and video. The preview matches the published result on both desktop and mobile.
 
-### Data, analytics, and publishing
+### Management and visibility
 
-- Configuration backup and restore.
-- Built-in click analytics, with advanced reporting and Google Analytics 4 integration on compatible plans.
-- Legal-policy management, including privacy and cookie policies.
-- Editing of crawler-facing files such as `robots.txt` and `llms.txt`.
-- Sitemap generation and SEO controls for titles, descriptions, and indexing.
+OrbitPage includes click analytics and, on compatible plans, advanced reporting and Google Analytics 4. The dashboard also manages backup and restore, privacy and cookie policies, sitemaps, SEO settings, and files such as `robots.txt` and `llms.txt`.
 
-## Managed-service plans
+## SaaS or self-hosted
 
-The open-source core remains free to self-host. The plans below cover the SaaS accounts, storage, publishing, delivery, and platform features.
+OrbitPage supports two ways of using the same underlying product:
 
-| Plan | Price | URL and capacity | Main features |
-| --- | --- | --- | --- |
-| **Free** | €0 | `orbitpage.net/name`, 8 blocks, 10 MB storage, files up to 2 MB | Essential themes, basic clicks, OrbitPage badge included; no video upload, SEO, or scheduling |
-| **Starter** | €4.50/month | `orbitpage.net/name`, 40 blocks, 50 MB storage, files up to 2 MB | Premium themes, standard analytics, basic SEO, badge removed; no video upload or scheduling |
-| **Pro** | €7.50/month | Custom domain, 150 blocks, 250 MB storage, files up to 4 MB | Advanced themes and SEO, advanced analytics + GA4, scheduling, video up to 50 MB, badge removed, 5 collaborators |
-| **Agencies** | Coming soon | Custom domain, blocks, storage, and limits | Advanced themes, SEO, analytics + GA4, scheduling, and a custom collaborator allowance |
+- **Managed SaaS:** accounts, hosting, storage, publishing, and delivery are included. Users can sign up and start building immediately.
+- **Open source:** the core is available under the MIT license and can be installed, modified, and hosted on private infrastructure.
 
-## Plan for restaurants, bars, and venues
+People looking for simplicity can choose the managed service, while those who need control over the code and deployment can use the self-hosted edition.
 
-A dedicated venue offer includes **unlimited blocks, generous storage, video uploads, hosting, and optimized SEO**, plus direct assistance from our team to customize and improve the page. It keeps the OrbitPage URL and product badge: a custom domain and branding removal are not included, so the public page also helps people discover the service.
+## SaaS plans
 
-This option brings menus, maps, contact details, events, social profiles, images, video, and calls to action into a single QR-code-ready destination.
+| Plan | Price | What it includes |
+| --- | --- | --- |
+| **Free** | €0 | An `orbitpage.net` URL, 8 blocks, 10 MB storage, essential themes, and click analytics. OrbitPage badge included. |
+| **Starter** | €4.50/month | 40 blocks, 50 MB storage, premium themes, standard analytics, basic SEO, and badge removal. |
+| **Pro** | €7.50/month | Custom domain, 150 blocks, 250 MB storage, video uploads, advanced themes and SEO, scheduling, GA4, and 5 collaborators. |
+| **Agencies** | Coming soon | Limits, storage, domain, and collaborators configured around each agency's needs. |
+
+## For restaurants, bars, and venues
+
+The dedicated venue offer includes **unlimited blocks, generous storage, video uploads, hosting, and optimized SEO**, together with direct support to set up, customize, and improve the page.
+
+It brings menus, maps, contact details, events, social profiles, images, video, and calls to action into one QR-code-ready destination. The plan keeps the OrbitPage URL and badge; a custom domain and branding removal are not included.
+
+## Under the hood
+
+The service separates each part of the product across dedicated domains:
+
+- **[orbitpage.com](https://orbitpage.com/)** presents the product and handles signup and login.
+- **[orbitpage.com/dashboard](https://orbitpage.com/dashboard)** hosts the editor and page management.
+- **orbitpage.net/slug_url** delivers public profiles; Pro can connect a custom domain.
+
+In the SaaS, authentication and workspaces are isolated for each account. Published pages become static HTML and assets delivered through Cloudflare, keeping the dynamic editor separate from visitor traffic. The project combines TypeScript, Next.js, Firebase, and Cloudflare; the open-source edition can also be deployed with Docker.
