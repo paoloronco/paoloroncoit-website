@@ -14,7 +14,7 @@ Personal portfolio and technical blog of Paolo Ronco — Cyber Security Analyst 
 | Styling | [Tailwind CSS v4](https://tailwindcss.com) — design tokens in `src/styles/global.css` |
 | Content | Astro Content Collections (Markdown/MDX) — articles and projects in Git |
 | Deployment | [Vercel](https://vercel.com) — edge-deployed, static output with on-demand API routes |
-| i18n | Built-in Astro i18n — Italian (default) + English, auto-detected from device language |
+| i18n | Built-in Astro i18n — Italian (default) + English, explicit language selector + hreflang |
 | Analytics | CookieYes + Google Analytics + Microsoft Clarity (all consent-gated) |
 
 ---
@@ -31,7 +31,7 @@ src/
 │   ├── writing/          # 130+ articles (it/ and en/)
 │   └── work/             # project case files (it/ and en/)
 ├── layouts/
-│   └── Base.astro        # base layout — SEO, JSON-LD, hreflang, lang auto-redirect
+│   └── Base.astro        # base layout — SEO, JSON-LD and hreflang
 ├── components/
 │   ├── views/            # one view component per page
 │   └── ...               # SiteHeader, SiteFooter, CommandPalette, Terminal, ChatWidget

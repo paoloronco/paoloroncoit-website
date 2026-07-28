@@ -9,7 +9,6 @@ import tailwindcss from '@tailwindcss/vite';
 
 // Cambia con il dominio definitivo prima del deploy.
 const SITE = 'https://paoloronco.it';
-const CERTIFICATE_ASSET_EXTENSIONS = new Set(['.pdf', '.png', '.webp']);
 const CONTENT_ENTRY_EXTENSIONS = new Set(['.md', '.mdx']);
 const RESERVED_ROOT_PATHS = new Set([
   '404',
@@ -48,44 +47,53 @@ function getWritingSlugs(lang) {
 
 function getLegacyRedirects() {
   /** @type {Record<string, string>} */
-  const redirects = {
-    '/portfolio': '/projects',
-    '/projects-websites': '/projects',
-    '/my-skills': '/skills',
-    '/all-my-websites': '/projects',
-    '/ai-chatbot': '/ask',
-    '/en/ai-chatbot': '/en/ask',
-    '/en/projects-websites': '/en/projects',
-  };
+  const redirects = {};
 
   /**
    * @param {string} from
    * @param {string} to
    */
   const add = (from, to) => {
-    redirects[from] = to;
+    const source = from === '/' ? '/' : from.replace(/\/+$/, '');
+    const destination = to === '/' ? '/' : to.replace(/\/+$/, '');
+
+    redirects[source] = destination;
   };
+
+  add('/portfolio', '/projects');
+  add('/projects-websites', '/projects');
+  add('/my-skills', '/skills');
+  add('/all-my-websites', '/projects');
+  add('/ai-chatbot', '/ask');
+  add('/cookie-policy', '/cookie');
+  add('/links', '/projects/orbitpage');
+  add('/lynx-un-link-manager-open-source-e-self-hosted', '/writing/orbitpage-un-link-manager-open-source-e-self-hosted');
+  add('/n8n-voiceovers', '/writing/n8n-template-wordpress-ai-voiceovers-with-google-cloud');
+  add('/en/ai-chatbot', '/en/ask');
+  add('/en/cookie-policy', '/en/cookie');
+  add('/en/links', '/en/projects/orbitpage');
+  add('/en/lynx-un-link-manager-open-source-e-self-hosted', '/en/writing/orbitpage-un-link-manager-open-source-e-self-hosted');
+  add('/en/portfolio', '/en/projects');
+  add('/en/projects-websites', '/en/projects');
+  add('/en/projects-websites-2', '/en/projects');
+  add('/en/voiceovers', '/en/writing/n8n-template-wordpress-ai-voiceovers-with-google-cloud');
+  add('/writing/it/lynx-un-link-manager-open-source-e-self-hosted', '/writing/orbitpage-un-link-manager-open-source-e-self-hosted');
+  add('/writing/en/lynx-un-link-manager-open-source-e-self-hosted', '/en/writing/orbitpage-un-link-manager-open-source-e-self-hosted');
 
   for (const slug of getWritingSlugs('it')) {
     add(`/${slug}`, `/writing/${slug}`);
     add(`/it/${slug}`, `/writing/${slug}`);
+    add(`/writing/it/${slug}`, `/writing/${slug}`);
+    add(`/${slug}/feed`, `/writing/${slug}`);
   }
 
   for (const slug of getWritingSlugs('en')) {
     add(`/en/${slug}`, `/en/writing/${slug}`);
+    add(`/writing/en/${slug}`, `/en/writing/${slug}`);
+    add(`/en/${slug}/feed`, `/en/writing/${slug}`);
   }
 
   return redirects;
-}
-
-function getCertificateAssetPages() {
-  try {
-    return readdirSync(new URL('./public/certificati/', import.meta.url), { withFileTypes: true })
-      .filter((entry) => entry.isFile() && CERTIFICATE_ASSET_EXTENSIONS.has(extname(entry.name).toLowerCase()))
-      .map((entry) => new URL(`/certificati/${encodeURIComponent(entry.name)}`, SITE).toString());
-  } catch {
-    return [];
-  }
 }
 
 /**
@@ -93,20 +101,26 @@ function getCertificateAssetPages() {
  */
 function isCanonicalSitemapPage(page) {
   const { pathname } = new URL(page);
+  const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
+
   return !(
-    pathname.startsWith('/api/') ||
-    pathname === '/docs/' ||
-    pathname === '/en/docs/' ||
-    pathname === '/sitemap.xml/' ||
-    pathname === '/work/' ||
-    pathname.startsWith('/work/') ||
-    pathname === '/en/work/' ||
-    pathname.startsWith('/en/work/')
+    normalizedPath === '/api' ||
+    normalizedPath.startsWith('/api/') ||
+    normalizedPath === '/docs' ||
+    normalizedPath === '/en/docs' ||
+    normalizedPath === '/sitemap.xml' ||
+    normalizedPath === '/work' ||
+    normalizedPath.startsWith('/work/') ||
+    normalizedPath === '/en/work' ||
+    normalizedPath.startsWith('/en/work/')
   );
 }
 
 export default defineConfig({
   site: SITE,
+  // Mantiene sitemap, canonical, hreflang e link interni sulla stessa variante.
+  // Vercel applica il relativo redirect permanente tramite vercel.json.
+  trailingSlash: 'never',
   redirects: {
     ...getLegacyRedirects(),
     '/work': '/projects',
@@ -124,13 +138,12 @@ export default defineConfig({
     locales: ['it', 'en'],
     defaultLocale: 'it',
     routing: {
-      prefixDefaultLocale: false, // IT su "/", EN su "/en/"
+      prefixDefaultLocale: false, // IT su "/", EN su "/en"
     },
   },
   integrations: [
     mdx(),
     sitemap({
-      customPages: getCertificateAssetPages(),
       filter: isCanonicalSitemapPage,
       i18n: {
         defaultLocale: 'it',

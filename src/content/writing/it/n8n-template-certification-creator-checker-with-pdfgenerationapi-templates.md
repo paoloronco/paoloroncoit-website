@@ -1,146 +1,146 @@
 ---
-title: "[n8n-template] Certification Creator &amp; Checker with PDFgenerationAPI Templates"
-description: "From a simple MVP to a reusable, production-ready workflow It was a real pleasure to connect with Michal Liska , Chief Operating Officer at PDF Generator API…"
+title: "[template n8n] Creazione e verifica di certificati con i template di PDF Generator API"
+description: "Da un semplice MVP a un workflow riutilizzabile e pronto per la produzione. È stato un vero piacere entrare in contatto con Michal Liska, direttore operativo di PDF Generator API…"
 pubDate: 2025-12-17
 tags: ["n8n"]
 draft: false
 ---
-## From a simple MVP to a reusable, production-ready workflow
+## Da un semplice MVP a un workflow riutilizzabile e pronto per la produzione
 
-It was a real pleasure to connect with **Michal Liska**, Chief Operating Officer at **PDF Generator API by Actual Reports**, and to see this project featured as a real-world example inside the n8n ecosystem.
+È stato un vero piacere entrare in contatto con **Michal Liska**, direttore operativo di **PDF Generator API by Actual Reports**, e vedere questo progetto presentato come esempio concreto all'interno dell'ecosistema n8n.
 
-What started as a simple MVP to automate certificate generation evolved into a reusable, template-based workflow that is now shared with the community. This article documents that evolution, explains how the system works, and shows how you can reuse it in your own environment.
+Quello che era nato come un semplice MVP per automatizzare la generazione dei certificati si è evoluto in un workflow riutilizzabile, basato su template e ora condiviso con la community. Questo articolo ne racconta l'evoluzione, spiega come funziona il sistema e mostra come riutilizzarlo nel proprio ambiente.
 
-👉 The full story from the PDF Generator API team is available here:  
+👉 La storia completa raccontata dal team di PDF Generator API è disponibile qui:\
 [https://pdfgeneratorapi.com/blog/how-the-n8n-community-sparked-our-new-partnership-program](https://pdfgeneratorapi.com/blog/how-the-n8n-community-sparked-our-new-partnership-program)
 
 * * *
 
-## PDF Template–based Workflow
+## Workflow basato sui template PDF
 
-This template provides a **complete and reusable solution to automatically create, distribute, and verify digital certificates using n8n**, with **PDF Generator API templates** for PDF generation.
+Questo template offre una **soluzione completa e riutilizzabile per creare, distribuire e verificare automaticamente certificati digitali con n8n**, utilizzando i **template di PDF Generator API** per generare i PDF.
 
-The workflow is designed to cover the **entire lifecycle of a certificate**, from the initial request to public verification, in a clean and maintainable way.
+Il workflow è progettato per coprire **l'intero ciclo di vita di un certificato**, dalla richiesta iniziale alla verifica pubblica, in modo ordinato e facile da mantenere.
 
-It is an **MVP**, but already **fully functional, tested, and production-ready**, and can be reused with minimal configuration in different environments.
+È un **MVP**, ma è già **pienamente funzionante, testato e pronto per la produzione** e può essere riutilizzato in ambienti diversi con una configurazione minima.
 
 ![](/posts/n8n-template-certification-creator-checker-with-pdfgenerationapi-templates/Workflow-image-1024x394.png)
 
-[Example-certificate](https://raw.githubusercontent.com/paoloronco/n8n-templates/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates/Assets/Example-Certificate.pdf)
+[Certificato di esempio](https://raw.githubusercontent.com/paoloronco/n8n-templates/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates/Assets/Example-Certificate.pdf)
 
-Visit my Github n8n templates: [https://github.com/paoloronco/n8n-templates](https://github.com/paoloronco/n8n-templates)
+Visita i miei template n8n su GitHub: [https://github.com/paoloronco/n8n-templates](https://github.com/paoloronco/n8n-templates)
 
-See the workflow on n8n Creators hub: coming soon
-
-* * *
-
-## What problem this template solves
-
-In many real-world scenarios, certificates are still:
-
--   generated manually
--   created with fragile scripts
--   hard to verify
--   visually inconsistent
--   difficult to maintain over time
-
-This template solves those problems by providing:
-
--   automated certificate creation
--   a unique and verifiable Certification ID
--   consistent PDF output using templates
--   a public verification endpoint
--   a clear separation between automation logic and visual design
+Guarda il workflow sull'hub n8n Creators: prossimamente
 
 * * *
 
-## 🚀 What makes this version different
+## Quale problema risolve questo template
 
-**YouTube** Video: [https://youtu.be/eqSWoPndVUg](https://youtu.be/eqSWoPndVUg)[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-what-makes-this-version-different)
+In molti contesti reali, i certificati vengono ancora:
 
-This workflow is the **evolution of the original HTML-based version**.
+-   generati manualmente
+-   creati con script fragili
+-   verificati con difficoltà
+-   prodotti con un aspetto visivo incoerente
+-   gestiti con difficoltà nel tempo
 
-### Why templates instead of HTML?[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#why-templates-instead-of-html)
+Questo template risolve tali problemi offrendo:
 
--   No HTML inside the workflow
--   Clean separation between logic and layout
--   Visual template editor
--   Easier maintenance and customization
--   Better collaboration between developers and designers
+-   la creazione automatizzata dei certificati
+-   un ID di certificazione univoco e verificabile
+-   PDF dall'aspetto uniforme grazie all'uso dei template
+-   un endpoint pubblico per la verifica
+-   una netta separazione tra logica di automazione e progettazione grafica
 
-The PDF layout is managed **entirely through PDF Generator API templates**.
+* * *
+
+## 🚀 Cosa rende diversa questa versione
+
+Video su **YouTube**: [https://youtu.be/eqSWoPndVUg](https://youtu.be/eqSWoPndVUg)[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-what-makes-this-version-different)
+
+Questo workflow è **l'evoluzione della versione originale basata su HTML**.
+
+### Perché usare i template anziché l'HTML?[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#why-templates-instead-of-html)
+
+-   Nessun codice HTML all'interno del workflow
+-   Netta separazione tra logica e layout
+-   Editor visuale dei template
+-   Manutenzione e personalizzazione più semplici
+-   Migliore collaborazione tra sviluppatori e designer
+
+Il layout del PDF viene gestito **interamente tramite i template di PDF Generator API**.
 
 ![](/posts/n8n-template-certification-creator-checker-with-pdfgenerationapi-templates/image-1024x526.png)
 
-## 🔍 High-level overview[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-high-level-overview)
+## 🔍 Panoramica generale[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-high-level-overview)
 
-The system exposes **two main endpoints**:
+Il sistema espone **due endpoint principali**:
 
-### 1️⃣ Certificate creation[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#1%EF%B8%8F%E2%83%A3-certificate-creation)
+### 1️⃣ Creazione del certificato[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#1%EF%B8%8F%E2%83%A3-certificate-creation)
 
 ```
 POST /certifications2
 ```
 
-Handles:
+Gestisce:
 
--   candidate input
--   unique ID generation
--   data persistence
--   PDF generation (template-based)
--   email delivery
+-   l'inserimento dei dati del candidato
+-   la generazione di un ID univoco
+-   la persistenza dei dati
+-   la generazione del PDF basata su template
+-   l'invio tramite email
 
 * * *
 
-### 2️⃣ Certificate verification[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#2%EF%B8%8F%E2%83%A3-certificate-verification)
+### 2️⃣ Verifica del certificato[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#2%EF%B8%8F%E2%83%A3-certificate-verification)
 
 ```
 GET /certificationscheck
 ```
 
-Allows anyone to verify:
+Consente a chiunque di verificare:
 
--   if a certificate exists
--   who it belongs to
+-   se un certificato esiste
+-   a chi appartiene
 
 * * *
 
-## 🔥 What this workflow does[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-what-this-workflow-does)
+## 🔥 Cosa fa questo workflow[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-what-this-workflow-does)
 
-### 🎓 1. Certificate creation[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-1-certificate-creation)
+### 🎓 1. Creazione del certificato[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-1-certificate-creation)
 
--   Triggered via **POST webhook** (`/certifications2`)
--   Accepts candidate data:
-    -   name
-    -   surname
-    -   course
+-   Viene attivato tramite un **webhook POST** (`/certifications2`)
+-   Accetta i dati del candidato:
+    -   nome
+    -   cognome
+    -   corso
     -   email
--   Generates a **unique Certification ID**
--   Prevents collisions via ID existence checks
+-   Genera un **ID di certificazione univoco**
+-   Evita le collisioni verificando che l'ID non esista già
 
 * * *
 
-### 🗂 2. Data storage[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-2-data-storage)
+### 🗂 2. Archiviazione dei dati[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-2-data-storage)
 
-Each certificate is stored in an **n8n Data Table**, creating a persistent registry.
+Ogni certificato viene archiviato in una **Data Table di n8n**, creando così un registro persistente.
 
-Stored fields:
+Campi archiviati:
 
 -   Name
 -   Surname
 -   CertificationID
 
-This registry is used both for validation and auditing.
+Questo registro viene utilizzato sia per la convalida sia per le attività di audit.
 
 * * *
 
-### 🧾 3. PDF generation (Template-based)[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-3-pdf-generation-template-based)
+### 🧾 3. Generazione del PDF (basata su template)[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-3-pdf-generation-template-based)
 
-The workflow uses **PDF Generator API – Generate a PDF document** node.
+Il workflow utilizza il nodo **PDF Generator API – Generate a PDF document**.
 
-Instead of HTML, it sends a **JSON payload** that maps directly to template placeholders.
+Al posto dell'HTML, invia un **payload JSON** che viene associato direttamente ai segnaposto del template.
 
-Example:
+Esempio:
 
 ```
 {
@@ -151,29 +151,29 @@ Example:
 }
 ```
 
-⚠️ The JSON must be valid and keys must match the template placeholders exactly.
+⚠️ Il JSON deve essere valido e le chiavi devono corrispondere esattamente ai segnaposto del template.
 
 * * *
 
-### ✉️ 4. Email delivery
+### ✉️ 4. Invio tramite email
 
 [](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#%EF%B8%8F-4-email-delivery)
 
--   Uses **Gmail OAuth2**
--   Sends the generated PDF as attachment
--   Fully customizable subject and body
+-   Utilizza **Gmail OAuth2**
+-   Invia il PDF generato come allegato
+-   Oggetto e corpo del messaggio sono completamente personalizzabili
 
 * * *
 
-### 🔍 5. Certificate verification[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-5-certificate-verification)
+### 🔍 5. Verifica del certificato[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-5-certificate-verification)
 
-The verification endpoint:
+L'endpoint di verifica:
 
 ```
 GET /certificationscheck?id=CERTIFICATION-ID
 ```
 
-Returns:
+Restituisce:
 
 ```
 If valid:
@@ -190,82 +190,82 @@ If not valid
 }
 ```
 
-This makes certificates **publicly verifiable and tamper-resistant**.
+In questo modo, i certificati sono **verificabili pubblicamente e resistenti alle manomissioni**.
 
 * * *
 
-## 🧠 PDF Generator API Template[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-pdf-generator-api-template)
+## 🧠 Template di PDF Generator API[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-pdf-generator-api-template)
 
-### What is included[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#what-is-included)
+### Cosa è incluso[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#what-is-included)
 
-The repository includes:
+Il repository include:
 
--   a ready-to-use **PDF Generator API template**
--   placeholders such as:
+-   un **template di PDF Generator API** pronto all'uso
+-   segnaposto come:
     -   `{Candidate}`
     -   `{CourseName}`
     -   `{DueDate}`
     -   `{ID}`
 
-You can freely customize:
+È possibile personalizzare liberamente:
 
 -   layout
--   fonts
--   colors
--   logos
--   signatures
--   date formatting
--   QR codes
+-   font
+-   colori
+-   loghi
+-   firme
+-   formato delle date
+-   codici QR
 
-No workflow changes are required when updating the template.
-
-* * *
-
-## 🤖 AI-powered template editing (Gemini)[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-ai-powered-template-editing-gemini)
-
-PDF Generator API provides an **AI Gem powered by Gemini** to help users create and refine templates.
-
-👉 AI Gem link: [https://gemini.google.com/gem/1RrpDHQocP7E7C7Bpsc7yhDT-AkuKNuT\_?usp=sharing](https://gemini.google.com/gem/1RrpDHQocP7E7C7Bpsc7yhDT-AkuKNuT_?usp=sharing)
-
-You can:
-
--   describe the layout in natural language
--   generate or modify templates
--   iterate faster without manual positioning
+L'aggiornamento del template non richiede alcuna modifica al workflow.
 
 * * *
 
-## 🛠 Requirements[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-requirements)
+## 🤖 Modifica dei template con l'AI (Gemini)[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-ai-powered-template-editing-gemini)
 
-Before importing the workflow, you need:
+PDF Generator API mette a disposizione una **AI Gem basata su Gemini** per aiutare gli utenti a creare e perfezionare i template.
 
-1.  **n8n instance** (Cloud or self-hosted)
-2.  **n8n Data Table** with fields:
+👉 Link alla AI Gem: [https://gemini.google.com/gem/1RrpDHQocP7E7C7Bpsc7yhDT-AkuKNuT\_?usp=sharing](https://gemini.google.com/gem/1RrpDHQocP7E7C7Bpsc7yhDT-AkuKNuT_?usp=sharing)
+
+È possibile:
+
+-   descrivere il layout in linguaggio naturale
+-   generare o modificare i template
+-   procedere più velocemente senza posizionare manualmente gli elementi
+
+* * *
+
+## 🛠 Requisiti[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-requirements)
+
+Prima di importare il workflow, sono necessari:
+
+1.  un'**istanza n8n** (Cloud o con hosting autonomo)
+2.  una **Data Table di n8n** con i campi:
     -   `Name` (string)
     -   `Surname` (string)
     -   `CertificationID` (string)
-3.  **PDF Generator API account**
-4.  **Gmail OAuth2 credentials**
-5.  Ability to call HTTP webhooks
+3.  un **account PDF Generator API**
+4.  le **credenziali Gmail OAuth2**
+5.  la possibilità di chiamare webhook HTTP
 
 * * *
 
 * * *
 
-## 🚀 Installation[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-installation)
+## 🚀 Installazione[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-installation)
 
-### 1\. Import the workflow[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#1-import-the-workflow)
+### 1\. Importare il workflow[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#1-import-the-workflow)
 
--   Go to **n8n → Workflows → Import**
--   Paste `workflow.json`
+-   Accedere a **n8n → Workflows → Import**
+-   Incollare `workflow.json`
 
 * * *
 
-### 2\. Configure Data Table
+### 2\. Configurare la Data Table
 
 [](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#2-configure-data-table)
 
-Update these nodes:
+Aggiornare questi nodi:
 
 -   `Insert_Certification`
 -   `Find_Certification_By_ID`
@@ -273,51 +273,51 @@ Update these nodes:
 
 * * *
 
-### 3\. Configure credentials[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#3-configure-credentials)
+### 3\. Configurare le credenziali[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#3-configure-credentials)
 
--   PDF Generator API node → set credentials
--   Gmail node → set OAuth2 credentials
-
-* * *
-
-### 4\. Activate the workflow[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#4-activate-the-workflow)
-
-Click **Activate** and you’re ready to go.
+-   Nodo PDF Generator API → impostare le credenziali
+-   Nodo Gmail → impostare le credenziali OAuth2
 
 * * *
 
-* * *
+### 4\. Attivare il workflow[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#4-activate-the-workflow)
 
-## 🧪 Status: MVP (but production-ready)[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-status-mvp-but-production-ready)
-
-This project started as an MVP, but it is:
-
--   fully functional
--   tested
--   modular
--   easy to extend
-
-You can use it **for free**, adapt it to your needs, and deploy it in production with minimal changes.
+Fare clic su **Activate**: il workflow è pronto all'uso.
 
 * * *
 
-## 🌍 Why this matters[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-why-this-matters)
+* * *
 
-This repository demonstrates how:
+## 🧪 Stato: MVP (ma pronto per la produzione)[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-status-mvp-but-production-ready)
 
--   low-code automation
--   clean API design
--   reusable templates
--   community-driven sharing
+Questo progetto è nato come MVP, ma è:
 
-can produce **real-world, production-grade solutions**, not just demos.
+-   pienamente funzionante
+-   testato
+-   modulare
+-   facile da estendere
+
+È possibile utilizzarlo **gratuitamente**, adattarlo alle proprie esigenze e distribuirlo in produzione con modifiche minime.
 
 * * *
 
-## 📎 Links[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-links)
+## 🌍 Perché è importante[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-why-this-matters)
 
--   \[n8n workflow on Creators Hub\](coming soon)
--   [YouTube Video](https://youtu.be/eqSWoPndVUg)
--   [Project article and documentation](https://paoloronco.it/writing/n8n-template-certification-creator-checker/)
+Questo repository dimostra come:
+
+-   l'automazione low-code
+-   una progettazione chiara delle API
+-   i template riutilizzabili
+-   la condivisione promossa dalla community
+
+possano dare vita a **soluzioni concrete e pronte per la produzione**, non soltanto a demo.
+
+* * *
+
+## 📎 Link[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates#-links)
+
+-   \[Workflow n8n su Creators Hub\](prossimamente)
+-   [Video su YouTube](https://youtu.be/eqSWoPndVUg)
+-   [Articolo e documentazione del progetto](https://paoloronco.it/writing/n8n-template-certification-creator-checker/)
 -   [PDF Generator API](https://pdfgeneratorapi.com/)
--   [Template AI Gem](https://github.com/paoloronco/n8n-templates/blob/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates)
+-   [Template per AI Gem](https://github.com/paoloronco/n8n-templates/blob/main/free-templates/3a-Certification-Creation%26Validation%20With%20PDF%20Templates)

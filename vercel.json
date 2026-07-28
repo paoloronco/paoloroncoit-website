@@ -1,0 +1,61 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/category/:path*",
+      "destination": "/writing",
+      "permanent": true
+    },
+    {
+      "source": "/en/category/:path*",
+      "destination": "/en/writing",
+      "permanent": true
+    },
+    {
+      "source": "/tag/:path*",
+      "destination": "/writing",
+      "permanent": true
+    },
+    {
+      "source": "/en/tag/:path*",
+      "destination": "/en/writing",
+      "permanent": true
+    },
+    {
+      "source": "/author/:path*",
+      "destination": "/writing",
+      "permanent": true
+    },
+    {
+      "source": "/en/author/:path*",
+      "destination": "/en/writing",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/:path*",
+      "destination": "/projects",
+      "permanent": true
+    },
+    {
+      "source": "/en/portfolio/:path*",
+      "destination": "/en/projects",
+      "permanent": true
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "/certificati/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs",
+      "destination": "/en/certifications",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/:path*",
+      "destination": "/certificati/:path*",
+      "permanent": true
+    }
+  ]
+}

@@ -29,7 +29,7 @@ export function stripLangPrefix(pathname: string): string {
 export function localizePath(path: string, lang: Lang): string {
   const clean = stripLangPrefix(path);
   if (lang === defaultLang) return clean;
-  if (clean === '/') return '/en/';
+  if (clean === '/') return '/en';
   return '/en' + clean;
 }
 

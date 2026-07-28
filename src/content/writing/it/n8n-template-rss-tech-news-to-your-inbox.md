@@ -1,100 +1,100 @@
 ---
-title: "[n8n-template] RSS Tech News to your inbox"
-description: "The Tech & AI Daily Briefing Workflow is a fully automated content–aggregation and AI–driven editorial system designed to collect, enrich, and deliver the most…"
+title: "[n8n-template] Notizie tech via RSS nella tua casella di posta"
+description: "Il workflow Tech & AI Daily Briefing è un sistema editoriale completamente automatizzato, basato sull’aggregazione di contenuti e sull’IA, progettato per raccogliere, arricchire e distribuire le notizie più…"
 pubDate: 2025-12-03
 tags: ["n8n"]
 draft: false
 ---
-The **Tech & AI Daily Briefing Workflow** is a fully automated content–aggregation and AI–driven editorial system designed to collect, enrich, and deliver the most important daily news across technology, artificial intelligence, cybersecurity, and the digital industry.
+Il **workflow Tech & AI Daily Briefing** è un sistema editoriale completamente automatizzato, basato sull’aggregazione di contenuti e sull’IA, progettato per raccogliere, arricchire e distribuire ogni giorno le notizie più importanti su tecnologia, intelligenza artificiale, cybersicurezza e industria digitale.
 
-Built using **n8n**, it transforms dozens of heterogeneous RSS feeds into a clean, curated newsletter — drafted intelligently by an LLM and delivered via email with zero manual intervention.
+Realizzato con **n8n**, trasforma decine di feed RSS eterogenei in una newsletter chiara e curata, redatta in modo intelligente da un LLM e inviata via email senza alcun intervento manuale.
 
-Below is a full overview of how the system works, including detailed module setup, credentials configuration, and customization options.
+Di seguito trovi una panoramica completa del funzionamento del sistema, con istruzioni dettagliate per configurare i moduli e le credenziali e con le opzioni di personalizzazione.
 
 GitHub: [https://github.com/paoloronco/n8n-templates/tree/main/free-templates/4-RSS\_News\_Tech](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/4-RSS_News_Tech)
 
-Youtube Video: [https://youtu.be/Gck8nmvx1UA](https://youtu.be/Gck8nmvx1UA)
+Video YouTube: [https://youtu.be/Gck8nmvx1UA](https://youtu.be/Gck8nmvx1UA)
 
 ![](/posts/n8n-template-rss-tech-news-to-your-inbox/workflow-1024x515.png)
 
 * * *
 
-## **1\. Scheduled Automation – Automatic Daily Execution**
+## **1\. Automazione programmata – Esecuzione quotidiana automatica**
 
-The workflow begins with a **Schedule Trigger** that runs at a predefined interval (usually daily at a fixed hour).  
-This ensures that the newsletter is always generated automatically without human intervention.
+Il workflow inizia con un nodo **Schedule Trigger**, che viene eseguito a un intervallo prestabilito (in genere ogni giorno a un’ora fissa).  
+In questo modo, la newsletter viene sempre generata automaticamente senza intervento umano.
 
-### 🔧 Setup
+### 🔧 Configurazione
 
--   In n8n, choose the **Schedule Trigger** node
--   Select “Every day” or set a cron-like execution
--   Optionally define different timezones for global use
+-   In n8n, scegli il nodo **Schedule Trigger**
+-   Seleziona “Every day” oppure imposta un’esecuzione simile a cron
+-   Se necessario, definisci fusi orari diversi per un utilizzo globale
 
-Once configured, this trigger becomes the starting point for the entire pipeline.
-
-* * *
-
-## **2\. Multi-Source RSS Ingestion (25+ feeds)**
-
-The workflow pulls content from more than two dozen industry-leading sources. Each feed is handled by an individual **RSS Feed Read** node to ensure stability and easy troubleshooting.
-
-The feeds are grouped into categories:
-
-### 🔐 _Cybersecurity_
-
-Sources include:  
-The Hacker News, KrebsOnSecurity, DarkReading, SANS, CVE feeds, Google Cloud Threat Intelligence, Cisco Talos, ESET, and more.
-
-### 🤖 _Artificial Intelligence_
-
-Google Research, MIT AI news, OpenAI News, Artificial Intelligence News.
-
-### 💻 _Tech Industry & Digital Business_
-
-Il Sole 24 Ore (Tech & Cybersecurity sections), Cybersecurity360.
-
-### ⚙️ _Nvidia Ecosystem_
-
-Nvidia Newsroom, Nvidia Developer Blog, Nvidia Blog.
-
-### 🔧 Setup
-
-Each RSS node has exactly one configurable field:
-
--   **Feed URL** → Paste any RSS link
--   Additional options (e.g., limit, filter by date) can be set inside the “Options” panel.
-
-This modular structure allows you to **add, remove, or update feeds without changing the logic of the workflow**.
+Una volta configurato, questo trigger diventa il punto di partenza dell’intera pipeline.
 
 * * *
 
-## **3\. Merging Streams by Topic**
+## **2\. Acquisizione RSS da più fonti (oltre 25 feed)**
 
-Because each feed is separate, the workflow uses several **Merge** nodes to combine them into logical categories:
+Il workflow acquisisce contenuti da oltre due dozzine di fonti autorevoli del settore. Ogni feed viene gestito da un singolo nodo **RSS Feed Read**, per garantire stabilità e facilitare la risoluzione dei problemi.
 
--   Merge\_Cyber1 / Cyber2 / Cyber3 → all cybersecurity sources
--   Merge\_AI → AI & research feeds
--   Merge\_Nvidia → news from Nvidia channels
--   Merge\_All → every category merged into one global stream
+I feed sono suddivisi per categoria:
 
-### 🔧 Setup
+### 🔐 _Cybersicurezza_
 
-Each Merge node is configured in “Append” mode, ensuring all items are passed through sequentially.  
-You can adjust the number of inputs depending on how many feeds you want to aggregate.
+Tra le fonti figurano:  
+The Hacker News, KrebsOnSecurity, DarkReading, SANS, feed CVE, Google Cloud Threat Intelligence, Cisco Talos, ESET e altre ancora.
+
+### 🤖 _Intelligenza artificiale_
+
+Google Research, MIT AI news, OpenAI News e Artificial Intelligence News.
+
+### 💻 _Industria tecnologica e business digitale_
+
+Il Sole 24 Ore (sezioni Tech e Cybersecurity), Cybersecurity360.
+
+### ⚙️ _Ecosistema Nvidia_
+
+Nvidia Newsroom, Nvidia Developer Blog e Nvidia Blog.
+
+### 🔧 Configurazione
+
+Ogni nodo RSS ha un solo campo da configurare:
+
+-   **Feed URL** → Incolla un qualsiasi link RSS
+-   Le opzioni aggiuntive (ad esempio limite o filtro per data) possono essere impostate nel pannello “Options”.
+
+Questa struttura modulare consente di **aggiungere, rimuovere o aggiornare i feed senza modificare la logica del workflow**.
 
 * * *
 
-## **4\. Freshness Filter – Only News from the Last 24 Hours**
+## **3\. Unione dei flussi per argomento**
 
-To avoid RSS clutter and redundancy, the **Filter** node applies a strict condition:
+Poiché ogni feed è separato, il workflow utilizza diversi nodi **Merge** per riunirli in categorie logiche:
 
-> _Include only articles whose `isoDate` is later than “now minus 24 hours”_
+-   Merge\_Cyber1 / Cyber2 / Cyber3 → tutte le fonti di cybersicurezza
+-   Merge\_AI → feed su IA e ricerca
+-   Merge\_Nvidia → notizie dai canali Nvidia
+-   Merge\_All → tutte le categorie riunite in un unico flusso globale
 
-This ensures the briefing remains a **true daily digest**, not a catch-all archive.
+### 🔧 Configurazione
 
-### 🔧 Setup
+Ogni nodo Merge è configurato in modalità “Append”, affinché tutti gli elementi vengano trasmessi in sequenza.  
+Puoi regolare il numero di ingressi in base alla quantità di feed che vuoi aggregare.
 
-The Filter node uses a DateTime condition:
+* * *
+
+## **4\. Filtro di attualità – Solo le notizie delle ultime 24 ore**
+
+Per evitare ridondanze e un eccesso di contenuti RSS, il nodo **Filter** applica una condizione rigorosa:
+
+> _Includi solo gli articoli il cui valore `isoDate` è successivo a “ora meno 24 ore”_
+
+In questo modo il briefing rimane un **autentico riepilogo quotidiano**, anziché diventare un archivio indiscriminato.
+
+### 🔧 Configurazione
+
+Il nodo Filter utilizza una condizione DateTime:
 
 ```
 leftValue: {{$json.isoDate}}
@@ -102,62 +102,62 @@ operator: after
 rightValue: {{ DateTime.now().minus({ hours: 24 }).toISO() }}
 ```
 
-You can change the time window (e.g., 48h, 72h) if you want longer retention.
+Puoi modificare l’intervallo temporale (ad esempio 48 o 72 ore) se desideri conservare le notizie più a lungo.
 
 * * *
 
-## **5\. Automatic Sorting by Publication Date**
+## **5\. Ordinamento automatico per data di pubblicazione**
 
-The **Sort – Articles by Date** node arranges items in descending chronological order.  
-This guarantees that the most recent and time-sensitive events are prioritized.
+Il nodo **Sort – Articles by Date** dispone gli elementi in ordine cronologico decrescente.  
+In questo modo, gli eventi più recenti e urgenti hanno la precedenza.
 
-### 🔧 Setup
+### 🔧 Configurazione
 
--   Sort field: `isoDate`
--   Order: descending
+-   Campo di ordinamento: `isoDate`
+-   Ordine: decrescente
 
 * * *
 
-## **6\. Normalization of All Articles (JavaScript Code Node)**
+## **6\. Normalizzazione di tutti gli articoli (nodo Code JavaScript)**
 
-At this stage, dozens of RSS entries from different sources are unified into a single structured object.  
-The Code node creates one item with an `articles` array containing:
+In questa fase, decine di elementi RSS provenienti da fonti diverse vengono riuniti in un unico oggetto strutturato.  
+Il nodo Code crea un elemento con un array `articles` contenente:
 
 -   `title`
--   `content` or `contentSnippet`
+-   `content` o `contentSnippet`
 -   `link`
 -   `isoDate`
 
-### 🔧 Customization Options
+### 🔧 Opzioni di personalizzazione
 
-You can modify the code to:
+Puoi modificare il codice per:
 
--   include authors
--   include images from RSS feeds
--   perform keyword filtering
--   extract tags or categories
+-   includere gli autori
+-   includere le immagini dei feed RSS
+-   filtrare per parole chiave
+-   estrarre tag o categorie
 
 * * *
 
-## **7\. AI Editorial Engine – Powered by Google Gemini**
+## **7\. Motore editoriale IA – Basato su Google Gemini**
 
-This is the heart of the workflow.
+Questo è il cuore del workflow.
 
-The **Gemini node** receives the entire `articles` array and applies a long, high-precision editorial prompt.  
-The model acts like the editor-in-chief of a major tech newspaper.
+Il **nodo Gemini** riceve l’intero array `articles` e applica un prompt editoriale lungo e molto preciso.  
+Il modello opera come il direttore di una grande testata tecnologica.
 
-### It performs:
+### Operazioni eseguite:
 
-✔ Relevance filtering (max 8–10 key stories)  
-✔ Topic categorization  
-✔ Deduplication across sources  
-✔ Journalistic summarization  
-✔ HTML formatting following strict rules  
-✔ Automatic subject line creation
+✔ Filtro per rilevanza (massimo 8–10 notizie principali)  
+✔ Classificazione per argomento  
+✔ Eliminazione dei duplicati tra le fonti  
+✔ Sintesi giornalistica  
+✔ Formattazione HTML secondo regole rigorose  
+✔ Creazione automatica dell’oggetto dell’email
 
-### Output
+### Risultato
 
-Gemini returns a **strict JSON object**:
+Gemini restituisce un **oggetto JSON rigorosamente strutturato**:
 
 ```
 {
@@ -166,115 +166,115 @@ Gemini returns a **strict JSON object**:
 }
 ```
 
-### 🔧 Setup
+### 🔧 Configurazione
 
-To use Gemini:
+Per utilizzare Gemini:
 
-1.  Create a **Google Cloud Project**
-2.  Enable the _Gemini API_
-3.  Generate an API key or OAuth credential
-4.  Insert credentials into n8n under **Google PaLM / Gemini**
+1.  Crea un **progetto Google Cloud**
+2.  Abilita la _Gemini API_
+3.  Genera una chiave API o una credenziale OAuth
+4.  Inserisci le credenziali in n8n alla voce **Google PaLM / Gemini**
 
-If the project is used in production, set usage quotas and billing controls.
-
-* * *
-
-## **8\. HTML Assembly – Final Newsletter Builder**
-
-The **Build Final Newsletter HTML** node parses, validates and transforms the LLM output into a professional, responsive email template.
-
-It handles:
-
--   removal of ` ```json ` wrappers
--   strict JSON parsing
--   validation of required fields
--   dynamic insertion of the AI-generated content
--   generation of a timestamp footer
-
-### 🔧 Customization Options
-
-You can edit the HTML template to change:
-
--   branding / logo
--   fonts
--   color palette
--   layout structure
--   footer information
-
-The template is clean, responsive, and mobile-friendly.
+Se il progetto viene utilizzato in produzione, imposta le quote di utilizzo e i controlli di fatturazione.
 
 * * *
 
-## **9\. Email Delivery – Gmail Node**
+## **8\. Composizione HTML – Generazione della newsletter finale**
 
-The final step sends the curated newsletter to your inbox using the **Gmail node**.
+Il nodo **Build Final Newsletter HTML** analizza, convalida e trasforma l’output dell’LLM in un modello di email professionale e responsive.
 
-### 🔧 Gmail Credentials Setup (via Google Cloud Platform)
+Gestisce:
 
-To use Gmail in n8n:
+-   la rimozione degli involucri ` ```json `
+-   l’analisi rigorosa del JSON
+-   la convalida dei campi obbligatori
+-   l’inserimento dinamico dei contenuti generati dall’IA
+-   la generazione di un piè di pagina con data e ora
 
-1.  Create a **Google Cloud Project**
-2.  Enable the **Gmail API**
-3.  Go to _APIs & Services → OAuth Consent Screen_
-4.  Configure OAuth for "External" users or internal domain
-5.  Create **OAuth 2.0 Client Credentials**
-6.  Upload credentials to n8n under:  
+### 🔧 Opzioni di personalizzazione
+
+Puoi modificare il modello HTML per cambiare:
+
+-   identità visiva / logo
+-   caratteri tipografici
+-   palette di colori
+-   struttura del layout
+-   informazioni nel piè di pagina
+
+Il modello è pulito, responsive e ottimizzato per i dispositivi mobili.
+
+* * *
+
+## **9\. Invio dell’email – Nodo Gmail**
+
+L’ultimo passaggio invia la newsletter curata alla tua casella di posta tramite il **nodo Gmail**.
+
+### 🔧 Configurazione delle credenziali Gmail (tramite Google Cloud Platform)
+
+Per utilizzare Gmail in n8n:
+
+1.  Crea un **progetto Google Cloud**
+2.  Abilita la **Gmail API**
+3.  Vai su _APIs & Services → OAuth Consent Screen_
+4.  Configura OAuth per gli utenti "External" o per il dominio interno
+5.  Crea le **credenziali client OAuth 2.0**
+6.  Carica le credenziali in n8n alla voce:  
     → _Credentials → Gmail OAuth2_
-7.  Grant access and authorize your Google account
+7.  Concedi l’accesso e autorizza il tuo account Google
 
-Once set up, the node can send emails automatically every day.
+Una volta configurato, il nodo può inviare automaticamente le email ogni giorno.
 
-### Customizable Fields
+### Campi personalizzabili
 
--   Sender name (e.g., "Tech Briefing" or your brand)
--   Recipient email (single or multiple)
--   HTML body (from the previous node)
--   Dynamic subject line generated by Gemini
+-   Nome del mittente (ad esempio "Tech Briefing" o il tuo marchio)
+-   Email del destinatario (una o più)
+-   Corpo HTML (proveniente dal nodo precedente)
+-   Oggetto dinamico generato da Gemini
 
 * * *
 
-## **Personalization & Scalability**
+## **Personalizzazione e scalabilità**
 
-This workflow is fully customizable:
+Questo workflow è completamente personalizzabile:
 
-### 🔧 Add/remove RSS feeds
+### 🔧 Aggiungere o rimuovere feed RSS
 
-Just duplicate an existing RSS node and update the feed URL.
+È sufficiente duplicare un nodo RSS esistente e aggiornare l’URL del feed.
 
-### 🔧 Replace Gmail with:
+### 🔧 Sostituire Gmail con:
 
 -   SMTP
 -   Notion
 -   Slack
 -   Telegram
 -   Webhooks
--   Internal dashboards
+-   Dashboard interne
 
-### 🔧 Change the editorial tone
+### 🔧 Cambiare il tono editoriale
 
-Modify the prompt in the Gemini node to alter writing style, number of items, categories, or depth.
+Modifica il prompt nel nodo Gemini per cambiare lo stile di scrittura, il numero di elementi, le categorie o il livello di approfondimento.
 
-### 🔧 Multi-language output
+### 🔧 Risultato multilingue
 
-The AI can generate the briefing in English, Italian, Spanish, or automatically detect the reader’s language.
+L’IA può generare il briefing in inglese, italiano o spagnolo, oppure rilevare automaticamente la lingua del lettore.
 
-### 🔧 Unlimited horizontal scaling
+### 🔧 Scalabilità orizzontale senza limiti
 
-RSS modules and Merge nodes can be expanded without breaking the pipeline.
+I moduli RSS e i nodi Merge possono essere ampliati senza compromettere la pipeline.
 
 * * *
 
-## **Conclusion**
+## **Conclusione**
 
-The **Tech & AI Daily Briefing Workflow** is a complete end-to-end automation system that delivers a highly curated, editorial-quality newsletter powered by AI.
+Il **workflow Tech & AI Daily Briefing** è un sistema completo di automazione, dall’inizio alla fine, che distribuisce una newsletter accuratamente curata, di qualità editoriale e basata sull’IA.
 
-It consolidates huge amounts of data into a **clean, professional, and timely daily briefing**, saving hours of manual research and offering a powerful, scalable solution for:
+Riunisce enormi quantità di dati in un **briefing quotidiano chiaro, professionale e puntuale**, facendo risparmiare ore di ricerca manuale e offrendo una soluzione potente e scalabile per:
 
--   industry monitoring
--   corporate intelligence
--   automated newsletters
--   analyst teams
--   content creators
--   newsroom augmentation
+-   monitoraggio del settore
+-   intelligence aziendale
+-   newsletter automatizzate
+-   team di analisti
+-   creatori di contenuti
+-   potenziamento delle redazioni
 
-Everything — from feed ingestion to AI synthesis to email delivery — happens automatically, making this one of the most advanced and efficient tech-news workflows built on n8n.
+Ogni fase, dall’acquisizione dei feed alla sintesi tramite IA fino all’invio via email, avviene automaticamente: questo è uno dei workflow di notizie tecnologiche più avanzati ed efficienti realizzati con n8n.

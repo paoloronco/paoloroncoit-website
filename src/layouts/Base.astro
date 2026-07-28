@@ -123,47 +123,6 @@ const personLd = {
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
 
-    <!-- Auto-rilevamento lingua: scelta manuale > browser/dispositivo. IT resta su "/", tutto il resto va su "/en/". -->
-    <script is:inline>
-      (function () {
-        try {
-          var p = location.pathname;
-          var current = p === '/en' || p === '/en/' || p.indexOf('/en/') === 0 ? 'en' : 'it';
-
-          function alt(path, lang) {
-            var clean = path;
-            if (path === '/en' || path === '/en/') clean = '/';
-            else if (path.indexOf('/en/') === 0) clean = path.slice(3);
-            if (clean === '/certificati' || clean === '/certificati/') clean = lang === 'en' ? '/certifications' : '/certificati';
-            if (clean === '/certifications' || clean === '/certifications/') clean = lang === 'it' ? '/certificati' : '/certifications';
-            if (clean === '/404' || clean === '/404/') return '/404';
-            if (lang === 'it') return clean;
-            return clean === '/' ? '/en/' : '/en' + clean;
-          }
-
-          function cookieLang() {
-            var match = document.cookie.match(/(?:^|;\s*)lang=(it|en)(?:;|$)/);
-            return match ? match[1] : null;
-          }
-
-          function browserLang() {
-            var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
-            for (var i = 0; i < langs.length; i++) {
-              if ((langs[i] || '').toLowerCase().split('-')[0] === 'it') return 'it';
-            }
-            return 'en';
-          }
-
-          var stored = localStorage.getItem('lang');
-          var target = stored === 'it' || stored === 'en' ? stored : cookieLang() || browserLang();
-
-          if (target && target !== current) {
-            location.replace(alt(p, target) + location.search + location.hash);
-          }
-        } catch (e) {}
-      })();
-    </script>
-
     <!-- Evita che mobile apra la tastiera per focus ripristinati o auto-focus involontari al caricamento. -->
     <script is:inline>
       (function () {

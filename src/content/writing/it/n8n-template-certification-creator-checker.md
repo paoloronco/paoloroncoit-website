@@ -1,158 +1,158 @@
 ---
-title: "[n8n-template] Certification Creator &amp; Checker"
-description: "This Guide contains a complete end-to-end certification management system built with n8n .It automates the entire lifecycle of a digital certificate — from…"
+title: "[n8n-template] Generatore e verificatore di certificati"
+description: "Questa guida presenta un sistema completo per la gestione delle certificazioni, realizzato con n8n. Automatizza l'intero ciclo di vita di un certificato digitale: dalla…"
 pubDate: 2025-11-25
 tags: ["n8n"]
 draft: false
 ---
-This Guide contains a complete **end-to-end certification management system built with n8n**.It automates the entire lifecycle of a digital certificate — from creation, to PDF generation, to verification via API or a user-friendly HTML page.
+Questa guida presenta un **sistema completo per la gestione delle certificazioni, realizzato con n8n**. Automatizza l'intero ciclo di vita di un certificato digitale: dalla creazione alla generazione del PDF, fino alla verifica tramite API o una pagina HTML intuitiva.
 
 ![](/posts/n8n-template-certification-creator-checker/Workflow-image.png)
 
-[Example-Certificate](https://raw.githubusercontent.com/paoloronco/n8n-templates/main/free-templates/3-Certification-Creation%26Validation/Assets/Example-Certificate.pdf)
+[Esempio di certificato](https://raw.githubusercontent.com/paoloronco/n8n-templates/main/free-templates/3-Certification-Creation%26Validation/Assets/Example-Certificate.pdf)
 
-See all my workflows on Github [paoloronco/n8n-templates](https://github.com/paoloronco/n8n-templates)  
-Video: YouTube - [Certificate Creator & Validator](https://youtu.be/A7aKK0Z9n9A)
+Scopri tutti i miei workflow su GitHub: [paoloronco/n8n-templates](https://github.com/paoloronco/n8n-templates)  
+Video: YouTube - [Generatore e validatore di certificati](https://youtu.be/A7aKK0Z9n9A)
 
-See the workflow on n8n Creators hub: \[coming soon\]
-
-* * *
-
-## 🔥 What This Workflow Does
-
-### 🎓 1. Certificate Creation
-
-Automatically generates a fully personalized certificate when a new request is received:
-
--   Accepts candidate data via a **POST webhook** (`/certifications`)
--   Reads: **name**, **surname**, **course**, **email**
--   Produces a **unique Certification ID** using a custom generation algorithm
-
-### 🗂 2. Data Storage
-
-Stores each issued certificate in an **n8n Data Table**, including:
-
--   Candidate First Name
--   Candidate Last Name
--   Certification ID
-
-This creates a persistent, searchable certification registry.
-
-### 🧾 3. PDF Certificate Generation
-
-Builds a professional certificate PDF using **PDF Generator API**:
-
--   Fully customizable HTML template
--   Inserts candidate data, course name, certification ID, and date
--   Outputs the final document as `document.pdf`
-
-### ✉️ 4. Email Delivery
-
-Automatically sends the generated certificate to the candidate:
-
--   Uses **Gmail OAuth2**
--   Includes the PDF as an attachment
--   Sends a clean, customizable confirmation message
-
-### 🔍 5. Certificate Verification
-
-Provides a secure verification system through:
-
--   A **public API endpoint** (`/certificationscheck`)
--   Response includes:
--   Validation status
--   Candidate name + surname (if valid)
-
-### 🌐 6. Verification Mini-Website
-
-Includes a ready-to-use HTML page for certificate lookup:
-
--   User enters Certification ID
--   Page queries your `certificationscheck` endpoint
--   Displays whether the certificate is valid
--   Shows the candidate’s name if found
--   Fully customizable (branding, style, messages)
-
-File included in the repo:**`Cerification_Check.html`**
+Consulta il workflow sull'hub n8n Creators: \[prossimamente\]
 
 * * *
 
-In short, this workflow automates:✔ Certificate generation✔ Certificate storage✔ Certificate validation✔ PDF production✔ Email distribution✔ Public verification interface
+## 🔥 Cosa fa questo workflow
 
-Together, these features form a complete, production-ready certificate management platform powered by n8n.
+### 🎓 1. Creazione del certificato
+
+Genera automaticamente un certificato completamente personalizzato quando riceve una nuova richiesta:
+
+-   Accetta i dati del candidato tramite un **webhook POST** (`/certifications`)
+-   Legge i campi: **name**, **surname**, **course**, **email**
+-   Produce un **ID di certificazione univoco** mediante un algoritmo di generazione personalizzato
+
+### 🗂 2. Archiviazione dei dati
+
+Archivia ogni certificato emesso in una **Data Table di n8n**, includendo:
+
+-   Nome del candidato
+-   Cognome del candidato
+-   ID di certificazione
+
+In questo modo viene creato un registro delle certificazioni persistente e consultabile.
+
+### 🧾 3. Generazione del certificato PDF
+
+Crea un certificato PDF professionale utilizzando **PDF Generator API**:
+
+-   Modello HTML completamente personalizzabile
+-   Inserimento dei dati del candidato, del nome del corso, dell'ID di certificazione e della data
+-   Produzione del documento finale come `document.pdf`
+
+### ✉️ 4. Invio tramite email
+
+Invia automaticamente al candidato il certificato generato:
+
+-   Utilizza **Gmail OAuth2**
+-   Include il PDF come allegato
+-   Invia un messaggio di conferma chiaro e personalizzabile
+
+### 🔍 5. Verifica del certificato
+
+Offre un sistema di verifica sicuro tramite:
+
+-   Un **endpoint API pubblico** (`/certificationscheck`)
+-   La risposta include:
+-   Stato della validazione
+-   Nome e cognome del candidato (se il certificato è valido)
+
+### 🌐 6. Mini-sito di verifica
+
+Include una pagina HTML pronta all'uso per cercare i certificati:
+
+-   L'utente inserisce l'ID di certificazione
+-   La pagina interroga l'endpoint `certificationscheck`
+-   Indica se il certificato è valido
+-   Mostra il nome del candidato, se presente
+-   È completamente personalizzabile (identità visiva, stile e messaggi)
+
+File incluso nel repository: **`Cerification_Check.html`**
 
 * * *
 
-🛠 Requirements
+In sintesi, questo workflow automatizza: ✔ generazione dei certificati ✔ archiviazione dei certificati ✔ validazione dei certificati ✔ produzione dei PDF ✔ invio tramite email ✔ interfaccia pubblica di verifica
 
-Before using this workflow, you must have:
+Nel loro insieme, queste funzionalità costituiscono una piattaforma completa per la gestione dei certificati, basata su n8n e pronta per l'uso in produzione.
 
-1.  **n8n instance**(Cloud or self-hosted)
-2.  **n8n Data Table** with ID fields:
+* * *
+
+🛠 Requisiti
+
+Prima di utilizzare questo workflow, sono necessari:
+
+1.  Un'**istanza n8n** (cloud o ospitata su un proprio server)
+2.  Una **Data Table di n8n** con i seguenti campi:
 
 -   `Name` (string)
 -   `Surname` (string)
 -   `CertificationID` (string)
 
-1.  **PDF Generator API account**Credentials set in n8n as `pdfGeneratorApi`.
-2.  **Gmail OAuth2 credentials**Configured in n8n as `gmailOAuth2`.
-3.  Ability to call **HTTP POST endpoints** from your website, backend, forms, etc.
+1.  Un **account PDF Generator API** con le credenziali configurate in n8n come `pdfGeneratorApi`.
+2.  **Credenziali Gmail OAuth2** configurate in n8n come `gmailOAuth2`.
+3.  La possibilità di chiamare **endpoint HTTP POST** dal proprio sito web, backend, modulo o altro sistema.
 
 * * *
 
-🚀 Installation
+🚀 Installazione
 
-### **1\. Import workflow**
+### **1\. Importa il workflow**
 
 In n8n:
 
--   Go to **Workflows → Import**
--   Paste the JSON provided in this repository
+-   Vai su **Workflows → Import**
+-   Incolla il JSON fornito in questo repository
 
-### **2\. Configure Data Table**
+### **2\. Configura la Data Table**
 
-Update the following nodes to point to your Data Table:
+Aggiorna i seguenti nodi in modo che facciano riferimento alla tua Data Table:
 
 -   `Insert_Certificaton`
 -   `Find_Certification_By_ID`
 -   `Find_Certification_By_ID1`
 
-Make sure the Data Table has the fields:
+Assicurati che la Data Table contenga i seguenti campi:
 
-| Field | Type |
+| Campo | Tipo |
 | --- | --- |
 | Name | string |
 | Surname | string |
 | CertificationID | string |
 
-### **3\. Configure Credentials**
+### **3\. Configura le credenziali**
 
-In the workflow:
+Nel workflow:
 
--   Node **Generate\_PDF** → set PDF Generator API credentials
--   Node **Email\_Certification** → set Gmail OAuth2 credentials
+-   Nodo **Generate\_PDF** → imposta le credenziali di PDF Generator API
+-   Nodo **Email\_Certification** → imposta le credenziali Gmail OAuth2
 
-### **4\. Activate Workflow**
+### **4\. Attiva il workflow**
 
-Click **Activate** in n8n.
+Fai clic su **Activate** in n8n.
 
 * * *
 
-🔧 How the Workflow Works
+🔧 Come funziona il workflow
 
-### 🔹 1. Webhook: Certificate Creation (`/certifications`)
+### 🔹 1. Webhook: creazione del certificato (`/certifications`)
 
-The workflow starts with:
+Il workflow inizia con:
 
 `POST https://YOUR-N8N-DOMAIN.com/webhook/certification Headers: name: John surname: Doe course: Advanced n8n email: john.doe@example.com`
 
-The webhook passes these headers to the next nodes.
+Il webhook passa queste intestazioni ai nodi successivi.
 
 * * *
 
-### 🔹 2. Generate\_Certification\_ID (Code Node)
+### 🔹 2. Generate\_Certification\_ID (nodo Code)
 
-JavaScript used:
+JavaScript utilizzato:
 
 ```
 const uniqueId =
@@ -162,126 +162,126 @@ const uniqueId =
 return [{ id: uniqueId }];
 ```
 
-Produces something like:`LQ4Z5H8R2A1F`
+Produce un valore simile a: `LQ4Z5H8R2A1F`
 
 * * *
 
-### 🔹 3. Check if ID already exists
+### 🔹 3. Verifica se l'ID esiste già
 
-The workflow uses:
+Il workflow utilizza:
 
 -   `Find_Certification_By_ID`
 -   `Certification_ID_Exists`
 
-If the ID **already exists**, it loops back and generates a new one.
+Se l'ID **esiste già**, il flusso torna indietro e ne genera uno nuovo.
 
-If the ID is **unique**, the workflow continues.
-
-* * *
-
-### 🔹 4. Insert certification in Data Table
-
-Saves:
-
--   Name
--   Surname
--   Unique ID
+Se l'ID è **univoco**, il workflow prosegue.
 
 * * *
 
-### 🔹 5. Generate PDF Certificate
+### 🔹 4. Inserimento della certificazione nella Data Table
 
-Using the PDF Generator API, the workflow builds a certificate from an **HTML template**.
+Salva:
 
-The **default HTML provided in the workflow is just an example** and can be fully customized.You can freely change:
-
--   Layout and structure (containers, sections, alignment)
--   Colors, fonts, borders, and background
--   Logos, images, and branding elements
--   Text content (titles, subtitles, messages)
--   Additional placeholders/fields
-
-By default, the example template includes:
-
--   Candidate name
--   Course title
--   Unique Certification ID
--   Current date
-
-After the HTML is rendered, this node generates a PDF file and outputs it as `binary.document.pdf`, which is then attached to the email in the next step.
+-   Nome
+-   Cognome
+-   ID univoco
 
 * * *
 
-### 🔹 6. Send Certificate via Gmail
+### 🔹 5. Generazione del certificato PDF
 
-The workflow sends an email with:
+Utilizzando PDF Generator API, il workflow crea un certificato a partire da un **modello HTML**.
 
-**Subject:** `Your certification is ready!`**Attachment:** the generated `document.pdf`
+Il **codice HTML predefinito fornito nel workflow è solo un esempio** e può essere completamente personalizzato. Puoi modificare liberamente:
 
-The recipient is the email provided to the webhook.
+-   Impaginazione e struttura (contenitori, sezioni e allineamento)
+-   Colori, font, bordi e sfondo
+-   Loghi, immagini ed elementi del brand
+-   Contenuti testuali (titoli, sottotitoli e messaggi)
+-   Segnaposto e campi aggiuntivi
+
+Per impostazione predefinita, il modello di esempio include:
+
+-   Nome del candidato
+-   Titolo del corso
+-   ID di certificazione univoco
+-   Data corrente
+
+Dopo il rendering dell'HTML, questo nodo genera un file PDF e lo restituisce come `binary.document.pdf`, che viene poi allegato all'email nel passaggio successivo.
 
 * * *
 
-🔍 Certificate Verification (`/certificationscheck`)
+### 🔹 6. Invio del certificato tramite Gmail
 
-The workflow provides two different ways to verify the authenticity of a certificate:
+Il workflow invia un'email con:
 
-### ✅ 1. Manual API Request
+**Oggetto:** `Your certification is ready!` **Allegato:** il file `document.pdf` generato
 
-You can verify a certificate by sending a manual HTTP request:    
+Il destinatario è l'indirizzo email fornito al webhook.
+
+* * *
+
+🔍 Verifica del certificato (`/certificationscheck`)
+
+Il workflow offre due modalità diverse per verificare l'autenticità di un certificato:
+
+### ✅ 1. Richiesta API manuale
+
+Puoi verificare un certificato inviando manualmente una richiesta HTTP:
 
 `POST /certificationscheck Headers: id: CERTIFICATION-ID-HERE`
 
-#### API Logic:
+#### Logica dell'API:
 
-1.  `Find_Certification_By_ID1` searches the Data Table for the ID
-2.  `Certification_Exists` checks if a match exists
-3.  Returns JSON:
+1.  `Find_Certification_By_ID1` cerca l'ID nella Data Table
+2.  `Certification_Exists` verifica se esiste una corrispondenza
+3.  Restituisce il seguente JSON:
 
-#### If found:
+#### Se viene trovato:
 
 `{ "ok": "true", "name": "John", "surname": "Doe" }`
 
-#### If NOT found:
+#### Se NON viene trovato:
 
 `{ "ok": "false" }`
 
 * * *
 
-🌐 Using This on Your Website
+🌐 Utilizzo sul tuo sito web
 
-The repository also includes a **ready-to-use verification webpage**:`Cerification_Check.html`
+Il repository include anche una **pagina web di verifica pronta all'uso**: `Cerification_Check.html`
 
-#### Use the correct endpoint URL
+#### Utilizza l'URL corretto dell'endpoint
 
-Inside the HTML page, the verification request uses:
+All'interno della pagina HTML, la richiesta di verifica utilizza:
 
 `fetch("https://YOUR-N8N-DOMAIN.com/webhook/certificationscheck",`
 
-Replace **YOUR-N8N-DOMAIN.com** with the actual domain where your n8n instance is hosted.
+Sostituisci **YOUR-N8N-DOMAIN.com** con il dominio effettivo sul quale è ospitata la tua istanza n8n.
 
-This mini site allows users to:
+Questo mini-sito consente agli utenti di:
 
--   Enter a Certification ID into a text field
--   Trigger a verification request with a single click
--   See the result immediately on-screen
--   View the certificate holder’s name and surname if the ID is valid
+-   Inserire un ID di certificazione in un campo di testo
+-   Avviare una richiesta di verifica con un solo clic
+-   Visualizzare immediatamente il risultato sullo schermo
+-   Vedere nome e cognome del titolare del certificato, se l'ID è valido
 
-The page communicates with your `/certificationscheck` endpoint using JavaScript `fetch()` and behaves exactly like the manual API request — but in a clean, simple interface.
+La pagina comunica con l'endpoint `/certificationscheck` tramite la funzione JavaScript `fetch()` e si comporta esattamente come la richiesta API manuale, ma attraverso un'interfaccia semplice e ordinata.
 
-#### What you can customize
+#### Elementi personalizzabili
 
--   Logo and header text
--   Colors, fonts, and CSS
--   Button styles and layout
--   Messages for valid/invalid IDs
--   Language and UI text
--   The endpoint URL (if your n8n instance changes)
+-   Logo e testo dell'intestazione
+-   Colori, font e CSS
+-   Stile e disposizione dei pulsanti
+-   Messaggi per ID validi e non validi
+-   Lingua e testi dell'interfaccia
+-   URL dell'endpoint (se cambia l'istanza n8n)
 
-This makes it easy to embed certificate verification directly into your website, LMS, or customer portal.
+In questo modo è facile integrare la verifica dei certificati direttamente nel proprio sito web, LMS o portale clienti.
 
-## HTML Templates:
+## Modelli HTML:
 
--   **[HTML Certificate Template](https://github.com/paoloronco/n8n-templates/blob/main/free-templates/3-Certification-Creation%26Validation/HTML-Files/Certificate.html)**
+-   **[Modello HTML del certificato](https://github.com/paoloronco/n8n-templates/blob/main/free-templates/3-Certification-Creation%26Validation/HTML-Files/Certificate.html)**
 
--   [**HTML Certificate Validator**](https://github.com/paoloronco/n8n-templates/blob/main/free-templates/3-Certification-Creation%26Validation/HTML-Files/Cerification_Check.html)
+-   [**Validatore HTML del certificato**](https://github.com/paoloronco/n8n-templates/blob/main/free-templates/3-Certification-Creation%26Validation/HTML-Files/Cerification_Check.html)

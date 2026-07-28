@@ -1,145 +1,145 @@
 ---
-title: "[n8n-template] Fetch Amazon Luna Games and send Discord notifications"
-description: "Auto-Sync “Included with Prime” Games → Google Sheets with Discord Notifications Automatically fetch, organize, and maintain an updated catalog of Amazon Luna…"
+title: "[template n8n] Recupera i giochi Amazon Luna e invia notifiche Discord"
+description: "Sincronizza automaticamente i giochi “Inclusi con Prime” in Google Sheets e ricevi notifiche Discord. Recupera, organizza e mantieni aggiornato il catalogo Amazon Luna…"
 pubDate: 2025-11-25
 tags: ["n8n"]
 draft: false
 ---
-## Auto-Sync “Included with Prime” Games → Google Sheets with Discord Notifications
+## Sincronizza i giochi “Inclusi con Prime” in Google Sheets con notifiche Discord
 
-[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/1-amazonluna-fetch#auto-sync-included-with-prime-games--google-sheets-with-discord-notifications)Automatically fetch, organize, and maintain an updated catalog of **Amazon Luna – Included with Prime** games. This workflow regularly queries Amazon’s official Luna endpoint, extracts complete metadata, and syncs everything into Google Sheets without duplicates.
+[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/1-amazonluna-fetch#auto-sync-included-with-prime-games--google-sheets-with-discord-notifications)Recupera, organizza e mantieni aggiornato automaticamente il catalogo dei giochi **Amazon Luna – Inclusi con Prime**. Questo workflow interroga regolarmente l'endpoint ufficiale di Amazon Luna, estrae tutti i metadati e sincronizza ogni elemento in Google Sheets senza duplicati.
 
-Ideal for:
+Ideale per:
 
--   tracking monthly **Prime Luna rotations**
--   keeping a personal archive of games
--   monitoring **new games appearing on Amazon Games / Prime Gaming**, so you can instantly play titles you’re interested in
--   building dashboards or gaming databases
--   powering notification systems (Discord, Telegram, email, etc.)[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/1-amazonluna-fetch#auto-sync-included-with-prime-games--google-sheets-with-discord-notifications)
+-   seguire le **rotazioni mensili di Prime Luna**
+-   conservare un archivio personale dei giochi
+-   monitorare i **nuovi giochi pubblicati su Amazon Games / Prime Gaming**, così da poter provare subito i titoli che ti interessano
+-   creare dashboard o database dedicati ai videogiochi
+-   alimentare sistemi di notifica (Discord, Telegram, email, ecc.)[](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/1-amazonluna-fetch#auto-sync-included-with-prime-games--google-sheets-with-discord-notifications)
 
 ![](/posts/amazon-luna-fetch-included-with-prime-games/amazonluna-fetch-asset1-1024x337.png)
 
 👨🏻‍💻GitHub: [paoloronco/n8n-templates](https://github.com/paoloronco/n8n-templates/)
 
-📽️Video: [Amazon Luna – Fetch “Included with Prime” Games - YouTube](https://youtu.be/PS6qdCbc5fU)
+📽️Video: [Amazon Luna – Recuperare i giochi “Inclusi con Prime” - YouTube](https://youtu.be/PS6qdCbc5fU)
 
-📽️Video: [Amazon Luna – Fetch “Included with Prime” Games \[AI Video\] - YouTube](https://www.youtube.com/watch?v=rgee4kPZO7c)
+📽️Video: [Amazon Luna – Recuperare i giochi “Inclusi con Prime” \[video AI\] - YouTube](https://www.youtube.com/watch?v=rgee4kPZO7c)
 
-👥 n8n Community Template: [Sync Amazon Luna Prime Games to Google Sheets with Automatic Updates | n8n workflow template](https://n8n.io/workflows/10733-sync-amazon-luna-prime-games-to-google-sheets-with-automatic-updates/)
-
-* * *
-
-### **Overview**
-
-Amazon Luna’s “Included with Prime” lineup changes frequently, with new games added and old ones removed.Instead of checking manually, this n8n template fully automates the process:
-
--   Fetches the latest list from Amazon’s backend
--   Extracts detailed metadata from the response
--   Syncs the data into Google Sheets
--   Avoids duplicates by updating existing rows
--   Supports all major Amazon regions
-
-Once configured, it runs automatically—keeping your game catalog correct, clean, and always up to date.
+👥 Template della community n8n: [Sincronizza i giochi Amazon Luna Prime in Google Sheets con aggiornamenti automatici | template workflow n8n](https://n8n.io/workflows/10733-sync-amazon-luna-prime-games-to-google-sheets-with-automatic-updates/)
 
 * * *
 
-How it works
+### **Panoramica**
 
-1.  **Scheduled Trigger** – starts the workflow every 5 days at 3:00 PM (you can change the frequency and time).
-2.  **HTTP Request** – queries Amazon Luna’s official endpoint to retrieve the list of “Included with Prime” games.
-3.  **Code Node (JavaScript)** – processes the JSON response and extracts the title, release year, genres, ASIN, and images.
-4.  **Google Sheets** – automatically saves or updates the data in a Google Sheet, avoiding duplicates.
+Il catalogo “Inclusi con Prime” di Amazon Luna cambia spesso: vengono aggiunti nuovi giochi e rimossi quelli precedenti. Invece di controllarlo manualmente, questo template n8n automatizza l'intero processo:
 
-* * *
+-   recupera l'elenco più recente dal backend di Amazon
+-   estrae dalla risposta metadati dettagliati
+-   sincronizza i dati in Google Sheets
+-   evita i duplicati aggiornando le righe esistenti
+-   supporta tutte le principali aree geografiche di Amazon
 
-## ⭐ Features
-
--   Automatically fetch the complete “Included with Prime” catalog
--   Extract full metadata: title, genres, release year, ASIN, images
--   Auto-sync to Google Sheets (append or update)
--   Prevent duplicates using a unique key
--   Detect NEW games and send notifications (Discord, Telegram, etc.)
--   Supports multiple countries (IT, US, DE, FR, ES, JP…)
--   Clean, modular, fully customizable workflow
+Una volta configurato, viene eseguito automaticamente e mantiene il catalogo dei giochi corretto, ordinato e sempre aggiornato.
 
 * * *
 
-## 🧩 Workflow Overview
+Come funziona
 
-1.  **Schedule Trigger**  
-    Starts the workflow on a set schedule (default: every 5 days at 3:00 PM).You can change both frequency and time freely.
-2.  **HTTP Request → Amazon Luna**  
-    Calls Amazon Luna’s regional endpoint and retrieves the full **“Included with Prime”** catalog.
-3.  **JavaScript Code Node – Data Extraction**\* Parses the JSON response and extracts structured fields:
-    -   Title
-    -   Genres
-    -   Release Year
+1.  **Trigger pianificato** – avvia il workflow ogni 5 giorni alle 15:00 (puoi modificare frequenza e orario).
+2.  **Richiesta HTTP** – interroga l'endpoint ufficiale di Amazon Luna per recuperare l'elenco dei giochi “Inclusi con Prime”.
+3.  **Nodo Code (JavaScript)** – elabora la risposta JSON ed estrae titolo, anno di pubblicazione, generi, ASIN e immagini.
+4.  **Google Sheets** – salva o aggiorna automaticamente i dati in un foglio Google, evitando i duplicati.
+
+* * *
+
+## ⭐ Funzionalità
+
+-   Recupera automaticamente l'intero catalogo “Inclusi con Prime”
+-   Estrae tutti i metadati: titolo, generi, anno di pubblicazione, ASIN e immagini
+-   Sincronizza automaticamente i dati in Google Sheets (aggiunta o aggiornamento)
+-   Impedisce i duplicati tramite una chiave univoca
+-   Rileva i NUOVI giochi e invia notifiche (Discord, Telegram, ecc.)
+-   Supporta più Paesi (IT, US, DE, FR, ES, JP…)
+-   Offre un workflow ordinato, modulare e completamente personalizzabile
+
+* * *
+
+## 🧩 Panoramica del workflow
+
+1.  **Trigger pianificato**  
+    Avvia il workflow secondo una pianificazione prestabilita (impostazione predefinita: ogni 5 giorni alle 15:00). Puoi modificare liberamente sia la frequenza sia l'orario.
+2.  **Richiesta HTTP → Amazon Luna**  
+    Chiama l'endpoint regionale di Amazon Luna e recupera l'intero catalogo **“Inclusi con Prime”**.
+3.  **Nodo Code JavaScript – Estrazione dei dati**\* Analizza la risposta JSON ed estrae campi strutturati:
+    -   Titolo
+    -   Generi
+    -   Anno di pubblicazione
     -   ASIN
-    -   Image URLs
-    -   Additional metadataThe result is a clean, ready-to-use dataset.
-4.  **Google Sheets Sync**  
-    Each game is written into the selected Google Sheet:
+    -   URL delle immagini
+    -   Metadati aggiuntivi. Il risultato è un insieme di dati ordinato e pronto all'uso.
+4.  **Sincronizzazione con Google Sheets**  
+    Ogni gioco viene inserito nel foglio Google selezionato:
     
-    -   Existing games get updated
-    -   New games are appended
+    -   i giochi esistenti vengono aggiornati
+    -   i nuovi giochi vengono aggiunti
     
-    The **Title** acts as the unique identifier to prevent duplicates.
-5.  **Optional: Notifications**  
-    When new games appear, the workflow fires a message (Discord, Telegram, Email…).
+    Il **Titolo** viene utilizzato come identificatore univoco per impedire i duplicati.
+5.  **Facoltativo: notifiche**  
+    Quando compaiono nuovi giochi, il workflow invia un messaggio (Discord, Telegram, email…).
 
 * * *
 
-## ⚙️ Configuration Parameters
+## ⚙️ Parametri di configurazione
 
-#### Parameters to configure
+#### Parametri da configurare
 
-| Parameter | Description | Recommended options |
+| Parametro | Descrizione | Opzioni consigliate |
 | --- | --- | --- |
-| **x-amz-locale** | Language and region of the request | `it_IT` 🇮🇹 (Italy) · `en_US` 🇺🇸 (USA) · `de_DE` 🇩🇪 (Germany) · `fr_FR` 🇫🇷 (France) · `es_ES` 🇪🇸 (Spain) · `en_GB` 🇬🇧 (United Kingdom) · `ja_JP` 🇯🇵 (Japan) · `en_CA` 🇨🇦 (Canada) |
-| **x-amz-marketplace-id** | Amazon marketplace identifier | `APJ6JRA9NG5V4` 🇮🇹 (Italy) · `ATVPDKIKX0DER` 🇺🇸 (USA) · `A1PA6795UKMFR9` 🇩🇪 (Germany) · `A13V1IB3VIYZZH` 🇫🇷 (France) · `A1RKKUPIHCS9HS` 🇪🇸 (Spain) · `A1F83G8C2ARO7P` 🇬🇧 (UK) · `A1VC38T7YXB528` 🇯🇵 (Japan) · `A2EUQ1WTGCTBG2` 🇨🇦 (Canada) |
-| **Accept-Language** | Preferred response language | `it-IT,it;q=0.9,en;q=0.8` (or equivalent for your region) |
-| **User-Agent** | Simulated browser agent | Keep the default value or replace with an updated one |
-| **Trigger interval** | Automatic refresh frequency | Every 5 days at 3:00 PM (modifiable) |
-| **Google Sheet** | Data destination | Select your document and worksheet |
+| **x-amz-locale** | Lingua e area geografica della richiesta | `it_IT` 🇮🇹 (Italia) · `en_US` 🇺🇸 (Stati Uniti) · `de_DE` 🇩🇪 (Germania) · `fr_FR` 🇫🇷 (Francia) · `es_ES` 🇪🇸 (Spagna) · `en_GB` 🇬🇧 (Regno Unito) · `ja_JP` 🇯🇵 (Giappone) · `en_CA` 🇨🇦 (Canada) |
+| **x-amz-marketplace-id** | Identificatore del marketplace Amazon | `APJ6JRA9NG5V4` 🇮🇹 (Italia) · `ATVPDKIKX0DER` 🇺🇸 (Stati Uniti) · `A1PA6795UKMFR9` 🇩🇪 (Germania) · `A13V1IB3VIYZZH` 🇫🇷 (Francia) · `A1RKKUPIHCS9HS` 🇪🇸 (Spagna) · `A1F83G8C2ARO7P` 🇬🇧 (Regno Unito) · `A1VC38T7YXB528` 🇯🇵 (Giappone) · `A2EUQ1WTGCTBG2` 🇨🇦 (Canada) |
+| **Accept-Language** | Lingua preferita per la risposta | `it-IT,it;q=0.9,en;q=0.8` (o equivalente per la tua area geografica) |
+| **User-Agent** | Identificativo del browser simulato | Mantieni il valore predefinito o sostituiscilo con uno aggiornato |
+| **Intervallo del trigger** | Frequenza di aggiornamento automatico | Ogni 5 giorni alle 15:00 (modificabile) |
+| **Foglio Google** | Destinazione dei dati | Seleziona il documento e il foglio di lavoro |
 
 * * *
 
-## 🔔 Notifications (Optional)
+## 🔔 Notifiche (facoltative)
 
-This workflow can automatically send alerts for new games.
+Questo workflow può inviare automaticamente avvisi relativi ai nuovi giochi.
 
-Supported outputs:
+Canali supportati:
 
--   Discord (official bot or webhook)
+-   Discord (bot ufficiale o webhook)
 -   Telegram Bot API
 -   Email (SMTP)
 -   Slack / Microsoft Teams / Matrix / Bark
--   Any Webhook
+-   Qualsiasi webhook
 
-For a complete guide, see **notes-notify.md** in this folder.
-
-* * *
-
-## 📁 Files Included
-
--   `workflow.json` → the complete n8n workflow
--   `README.md` → this file
--   `notes-fetch.md` → fetch logic, headers, parsing
--   `notes-notify.md` → notifications logic & setup
--   `assets/overview.png` → optional preview image
+Per una guida completa, consulta **notes-notify.md** in questa cartella.
 
 * * *
 
-## 🗎 Extra Docs
+## 📁 File inclusi
 
--   [Fetch Notes](https://github.com/paoloronco/n8n-templates/blob/main/free-templates/1-amazonluna-fetch/docs/NOTES-Fetch.md)
--   [Notify Notes](https://github.com/paoloronco/n8n-templates/blob/main/free-templates/1-amazonluna-fetch/docs/NOTES-Notify.md)
+-   `workflow.json` → il workflow n8n completo
+-   `README.md` → questo file
+-   `notes-fetch.md` → logica di recupero, intestazioni e analisi dei dati
+-   `notes-notify.md` → logica e configurazione delle notifiche
+-   `assets/overview.png` → immagine di anteprima facoltativa
 
 * * *
 
-## 🔒 Important Notes
+## 🗎 Documentazione aggiuntiva
 
--   All data belongs to Amazon.
--   This workflow is for **personal / testing / educational** use only.
--   Do **not** republish or redistribute the full game list.
--   Amazon may change internal APIs anytime, so re-check headers/body when needed.
+-   [Note sul recupero dei dati](https://github.com/paoloronco/n8n-templates/blob/main/free-templates/1-amazonluna-fetch/docs/NOTES-Fetch.md)
+-   [Note sulle notifiche](https://github.com/paoloronco/n8n-templates/blob/main/free-templates/1-amazonluna-fetch/docs/NOTES-Notify.md)
+
+* * *
+
+## 🔒 Note importanti
+
+-   Tutti i dati appartengono ad Amazon.
+-   Questo workflow è destinato esclusivamente a un uso **personale, di test o didattico**.
+-   **Non** ripubblicare o ridistribuire l'elenco completo dei giochi.
+-   Amazon può modificare le API interne in qualsiasi momento: se necessario, ricontrolla intestazioni e corpo della richiesta.

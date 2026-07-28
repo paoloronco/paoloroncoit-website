@@ -60,6 +60,13 @@ if (!existsSync(root)) {
 
 const htmlFiles = walk(root, (file) => file.endsWith('.html'));
 const canonicalOwners = new Map();
+const sitemap = readFileSync(path.join(root, 'sitemap-0.xml'), 'utf8');
+const sitemapUrls = all(sitemap, /<loc>(.*?)<\/loc>/g);
+const comparisonKey = (value) => {
+  const parsed = new URL(value);
+  return parsed.pathname === '/' && !parsed.search && !parsed.hash ? `${parsed.origin}/` : parsed.toString();
+};
+const sitemapUrlSet = new Set(sitemapUrls.map(comparisonKey));
 
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
@@ -80,6 +87,13 @@ for (const file of htmlFiles) {
   if (!canonical) addIssue('failure', url, 'missing canonical');
   if (canonical) {
     if (!canonical.startsWith(site)) addIssue('failure', url, `canonical outside site: ${canonical}`);
+    if (!noindex && !sitemapUrlSet.has(comparisonKey(canonical))) {
+      addIssue('failure', url, `indexable canonical is missing from sitemap: ${canonical}`);
+    }
+    const canonicalPath = new URL(canonical).pathname;
+    if (canonicalPath !== '/' && canonicalPath.endsWith('/')) {
+      addIssue('failure', url, `canonical must not end with a slash: ${canonical}`);
+    }
     canonicalOwners.set(canonical, [...(canonicalOwners.get(canonical) ?? []), url]);
   }
   if (!noindex) {
@@ -92,6 +106,9 @@ for (const file of htmlFiles) {
   if (!/<meta name="twitter:title" content="/i.test(html)) addIssue('failure', url, 'missing twitter:title');
   if (!/<script is:inline type="application\/ld\+json"|<script type="application\/ld\+json"/i.test(html)) {
     addIssue('failure', url, 'missing JSON-LD');
+  }
+  if (/navigator\.languages[\s\S]{0,3000}location\.replace/i.test(html)) {
+    addIssue('failure', url, 'automatic client-side language redirect is present');
   }
   if (title.length > 90) addIssue('warning', url, `long title (${title.length})`);
   if (description.length > 170) addIssue('warning', url, `long description (${description.length})`);
@@ -125,10 +142,60 @@ for (const [canonical, owners] of canonicalOwners.entries()) {
   if (owners.length > 1) addIssue('failure', canonical, `duplicate canonical owners: ${owners.join(', ')}`);
 }
 
-const sitemap = readFileSync(path.join(root, 'sitemap-0.xml'), 'utf8');
-const sitemapUrls = all(sitemap, /<loc>(.*?)<\/loc>/g);
+for (const sitemapUrl of sitemapUrls) {
+  const pathname = new URL(sitemapUrl).pathname;
+  if (pathname !== '/' && pathname.endsWith('/')) {
+    addIssue('failure', sitemapUrl, 'non-root sitemap URL must not end with a slash');
+  }
+  if (/\.[a-z0-9]+$/i.test(pathname)) {
+    addIssue('failure', sitemapUrl, 'file asset must not appear in the page sitemap');
+  }
+  if (!canonicalOwners.has(comparisonKey(sitemapUrl))) {
+    addIssue('failure', sitemapUrl, 'sitemap URL has no exact matching canonical owner');
+  }
+}
+
 for (const badUrl of sitemapUrls.filter((url) => /\/work\/|\/docs\/|\/sitemap\.xml\/|\/writing\/(it|en)\//.test(url))) {
   addIssue('failure', badUrl, 'legacy or malformed URL appears in sitemap');
+}
+
+const vercelOutputConfig = path.resolve('.vercel', 'output', 'config.json');
+if (existsSync(vercelOutputConfig)) {
+  const output = JSON.parse(readFileSync(vercelOutputConfig, 'utf8'));
+  const redirectMap = new Map(
+    (output.routes ?? [])
+      .filter((route) => route.status === 301 && route.src && route.headers?.Location)
+      .map((route) => [route.src, route.headers.Location])
+  );
+  const expectRedirect = (source, destination) => {
+    const pattern = `^${source}$`;
+    if (redirectMap.get(pattern) !== destination) {
+      addIssue('failure', source, `missing 301 migration redirect to ${destination}`);
+    }
+  };
+
+  for (const sitemapUrl of sitemapUrls) {
+    const pathname = new URL(sitemapUrl).pathname;
+    let match = pathname.match(/^\/writing\/([^/]+)$/);
+    if (match) {
+      const slug = match[1];
+      const destination = `/writing/${slug}`;
+      expectRedirect(`/${slug}`, destination);
+      expectRedirect(`/it/${slug}`, destination);
+      expectRedirect(`/writing/it/${slug}`, destination);
+      expectRedirect(`/${slug}/feed`, destination);
+      continue;
+    }
+
+    match = pathname.match(/^\/en\/writing\/([^/]+)$/);
+    if (match) {
+      const slug = match[1];
+      const destination = `/en/writing/${slug}`;
+      expectRedirect(`/en/${slug}`, destination);
+      expectRedirect(`/writing/en/${slug}`, destination);
+      expectRedirect(`/en/${slug}/feed`, destination);
+    }
+  }
 }
 
 const rss = readFileSync(path.join(root, 'rss.xml'), 'utf8');
