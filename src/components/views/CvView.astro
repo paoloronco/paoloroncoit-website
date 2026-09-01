@@ -41,8 +41,8 @@ const languages = cvContent.languages.map((item) => ({
 
 const certificatesPath = en ? '/en/certifications' : '/certificati';
 const cvPdfPath = en ? '/cv-en.pdf' : '/cv-it.pdf';
-const issuerBadgeStyle = (_color: string) =>
-  'border-color:color-mix(in oklab, var(--color-ink-500) 68%, transparent);background:color-mix(in oklab, var(--color-ink-700) 58%, transparent);color:var(--color-text-dim);';
+const issuerBadgeStyle = (color: string) =>
+  `border-color:color-mix(in oklab, ${color} 58%, var(--color-ink-600));background:color-mix(in oklab, ${color} 18%, var(--color-ink-800));color:var(--color-text);`;
 const logoFrameStyle = (_color: string) =>
   'box-shadow:0 0 0 1px color-mix(in oklab, var(--color-ink-500) 58%, transparent);';
 ---
