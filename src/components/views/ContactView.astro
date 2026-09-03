@@ -5,6 +5,9 @@ import { site } from '@/data/site';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const metaDescription = lang === 'en'
+  ? `Contact Paolo Ronco at ${site.email} for collaborations, consulting, or technical discussions.`
+  : `Contatta Paolo Ronco all'indirizzo ${site.email} per collaborazioni, consulenze o confronti tecnici.`;
 
 const profiles = [
   {
@@ -37,7 +40,7 @@ const profiles = [
   },
 ];
 ---
-<Base title={t('contact.title')} description={t('contact.subtitle')} path="/contact">
+<Base title={t('contact.title')} description={metaDescription} path="/contact">
   <section class="mx-auto max-w-4xl px-5 pt-16 pb-24">
     <CmdPath cmd="cat" arg="contact.md" />
 

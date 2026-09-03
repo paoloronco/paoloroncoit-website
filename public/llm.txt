@@ -8,6 +8,7 @@
 - [CV](https://paoloronco.it/en/cv): experience, certifications, education
 - [Skills](https://paoloronco.it/en/skills): full technical skill set with levels and tools
 - [About](https://paoloronco.it/en/about): who I am and how my infrastructure is built
+- [Contact](https://paoloronco.it/en/contact): the only public contact email is info@paoloronco.it
 
 ## Topics
 Cyber Security, applied AI/LLM, automation (n8n), cloud, DevSecOps, open source, self-hosting.
