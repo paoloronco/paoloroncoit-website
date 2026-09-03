@@ -111,6 +111,7 @@ export const ui = {
     'contact.githubNote': 'Codice, progetti e repository pubblici.',
     'contact.linkedinNote': 'Percorso professionale e contatti di lavoro.',
     'contact.hfNote': 'Modelli, dataset e sperimentazioni AI.',
+    'contact.readyTensorNote': 'Pubblicazioni e progetti di AI e machine learning.',
 
     // ask
     'ask.kicker': 'AI Assistant · self-hosted',
@@ -266,6 +267,7 @@ export const ui = {
     'contact.githubNote': 'Code, projects and public repositories.',
     'contact.linkedinNote': 'Professional background and work contacts.',
     'contact.hfNote': 'Models, datasets and AI experiments.',
+    'contact.readyTensorNote': 'AI and machine learning publications and projects.',
 
     'ask.kicker': 'AI Assistant · self-hosted',
     'ask.title': 'Ask away',

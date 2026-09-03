@@ -38,6 +38,16 @@ const profiles = [
     logoClass: 'contact-profile__logo--wordmark contact-profile__logo--hf',
     accent: '#ffd21e',
   },
+  {
+    label: 'Ready Tensor',
+    handle: '@paolo.ronco2000',
+    note: t('contact.readyTensorNote'),
+    href: site.socials.readytensor,
+    logo: '/logos/social/readytensor.svg',
+    logoWrapClass: 'contact-profile__logo-wrap--mark',
+    logoClass: 'contact-profile__logo--readytensor',
+    accent: '#1db1c1',
+  },
 ];
 ---
 <Base title={t('contact.title')} description={metaDescription} path="/contact">
@@ -65,7 +75,7 @@ const profiles = [
 
     <div class="mt-14 border-t border-ink-600/70 pt-8">
       <p class="kicker text-accent">{t('contact.socialTitle')}</p>
-      <div class="mt-5 grid gap-3 sm:grid-cols-3">
+      <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {profiles.map((profile, i) => (
           <a
             href={profile.href}
@@ -242,6 +252,11 @@ const profiles = [
   .contact-profile__logo-wrap .contact-profile__logo--hf {
     max-height: 2.45rem;
     max-width: 11.25rem;
+  }
+
+  .contact-profile__logo-wrap .contact-profile__logo--readytensor {
+    max-height: 2.85rem;
+    max-width: 2.85rem;
   }
 
   .contact-profile__handle {

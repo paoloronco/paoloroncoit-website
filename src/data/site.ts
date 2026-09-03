@@ -16,6 +16,7 @@ Lavoro tra sicurezza cloud, AI e automazione. Nel mio homelab costruisco, testo 
     github: 'https://github.com/paoloronco',
     huggingface: 'https://huggingface.co/paoloronco',
     linkedin: 'http://linkedin.com/in/paolo-ronco',
+    readytensor: 'https://app.readytensor.ai/users/paolo.ronco2000',
     n8n: 'https://n8n.io/creators/paoloronco/',
     repo: 'https://github.com/paoloronco/paoloroncoit-website',
   },
