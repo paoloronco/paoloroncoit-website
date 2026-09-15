@@ -1,11 +1,11 @@
 ---
 title: "OrbitPage"
-summary: "Page builder visuale per creare, personalizzare e pubblicare pagine professionali, siti one-page, menu, portfolio ed esperienze collegate a QR code. Disponibile come SaaS gestito e open source self-hosted."
+summary: "OrbitPage è un page builder visuale per creare e pubblicare pagine personali, portfolio, siti per attività, menu, Shop e pagine collegate a QR code. È disponibile come servizio SaaS e come progetto open source self-hosted."
 category: "tool"
-stack: ["TypeScript", "React", "Next.js", "Firebase", "Cloudflare", "Docker"]
-problem: "I link-in-bio sono troppo limitati, mentre un sito tradizionale richiede tempo, competenze e manutenzione sproporzionati per molte esigenze reali."
-solution: "Un editor visuale a blocchi che unisce contenuti, design, pagine, menu, pubblicazione, analytics, SEO e automazioni in un solo prodotto."
-outcome: "Un prodotto attivamente mantenuto in due edizioni: SaaS pronto all'uso e core open source MIT per chi vuole installarlo sulla propria infrastruttura."
+stack: ["SaaS", "Open Source", "Cloud", "Docker", "REST API"]
+problem: "Per pubblicare una presenza online curata, spesso bisogna scegliere tra strumenti troppo limitati e un sito tradizionale più impegnativo da realizzare e gestire."
+solution: "Una dashboard visuale per costruire la pagina, organizzarne i contenuti, personalizzarne il design e gestire pubblicazione, pubblico e collaboratori."
+outcome: "Un prodotto che sviluppo e mantengo in due edizioni: il servizio gestito OrbitPage e la versione open source installabile sulla propria infrastruttura."
 featured: true
 order: 3
 draft: false
@@ -18,65 +18,86 @@ links:
     href: "https://github.com/paoloronco/OrbitPage"
 ---
 
-## Un page builder, non una lista di link
+## Creare e gestire una OrbitPage
 
-Ho creato **OrbitPage** per coprire lo spazio tra un link-in-bio e un sito tradizionale: abbastanza semplice da pubblicare in pochi minuti, abbastanza completo da diventare la presenza online di un professionista, un'attività o un locale.
+OrbitPage è il page builder visuale che sviluppo e mantengo per creare una presenza online completa da una sola dashboard. Può essere usato per una pagina personale, un portfolio, il sito essenziale di un'attività, il menu di un locale, una pagina evento oppure uno Shop per prodotti digitali e servizi.
 
-Il link-in-bio è solo il caso d'uso più immediato. Con OrbitPage si possono costruire **portfolio, digital business card, pagine prodotto, micrositi aziendali, menu per locali, pagine evento e landing page**, mantenendo lo stesso sistema visuale e la stessa qualità su smartphone e desktop.
+L'editor mostra subito la pagina mentre viene costruita. Si può partire da un tema, definire il profilo, aggiungere i contenuti necessari e adattare ogni sezione alla propria identità. La stessa dashboard raccoglie anche gli strumenti che servono dopo la creazione: pubblicazione, domini, SEO, analytics, privacy, newsletter, collaboratori e fatturazione.
 
-Non si parte dal codice e non si rimane chiusi in un template. Si compone la pagina, si vede subito il risultato reale e si pubblica.
+OrbitPage è pensato per chi vuole occuparsi dei contenuti e del risultato, senza dover sviluppare un sito da zero ogni volta.
 
-## Cosa si può costruire
+## La dashboard
 
-### Contenuti che vanno oltre i pulsanti
+Ho organizzato la dashboard in aree di lavoro separate, in modo che ogni attività abbia il proprio spazio e rimanga semplice da ritrovare anche quando la pagina cresce.
 
-L'editor offre blocchi per link e call to action, ma anche testo, heading, immagini, video nativi, social, contatti, mappe, eventi, callout, separatori ed embed con consenso. Ogni blocco può essere riordinato, nascosto, programmato, personalizzato e collegato a icone o media di copertina.
+### Profilo, contenuti e design
 
-La home può affiancare **pagine dedicate con slug, titolo, descrizione e contenuti indipendenti**. Per ristoranti, bar e attività hospitality c'è un vero editor di menu: sezioni, sottosezioni, prodotti, varianti, immagini, prezzi e disponibilità. Non serve adattare una lista di link a qualcosa per cui non è stata progettata.
+Il profilo può rappresentare una persona, un'azienda o uno studio. Comprende nome, descrizione, immagine o logo, ruolo, contatti, social, favicon e informazioni mostrate dal browser e dai motori di ricerca.
 
-### Design con controllo reale
+I contenuti vengono aggiunti tramite blocchi visuali. Sono disponibili link, pulsanti, testo, titoli, immagini, video, social, contatti, mappe, eventi, callout, separatori, embed, moduli, prenotazioni e collegamenti interni. Ogni blocco può essere riordinato, configurato, nascosto o programmato; può avere un'icona, un'immagine di copertina, una call to action e impostazioni di layout proprie.
 
-I temi pronti consentono di partire rapidamente; l'editor permette poi di intervenire su colori, tipografia, spaziature, superfici, bordi, raggi, ombre, blur, sfondi e singole card. Immagini, gradienti, GIF e video possono diventare parte dell'identità visiva della pagina.
+La personalizzazione parte da temi pronti, ma non si ferma al cambio di colore. Si possono regolare tipografia, spaziature, sfondo, card, bordi, angoli, ombre, trasparenze e molti altri dettagli. L'anteprima responsive usa lo stesso aspetto della pagina pubblicata e permette di controllare il risultato su smartphone, laptop e desktop.
 
-L'anteprima usa lo stesso renderer della pagina pubblica: quello che si modifica è ciò che vedrà il visitatore, nelle viste mobile, laptop e desktop.
+L'interfaccia della dashboard è disponibile in 14 lingue e include anche il supporto RTL per l'arabo.
 
-### Pubblicazione, SEO e QR sono parte del prodotto
+### Pagine e navigazione
 
-OrbitPage genera metadati canonici, Open Graph e Twitter Card, dati Schema.org, sitemap e direttive di indicizzazione. Dalla dashboard si gestiscono anche `robots.txt`, `llms.txt`, `humans.txt`, `ai.txt`, `security.txt` ed endpoint testuali personalizzati.
+Una OrbitPage può avere una home e più pagine dedicate. Ogni pagina secondaria dispone di un proprio indirizzo, titolo, descrizione e insieme di blocchi; i collegamenti interni permettono di costruire una navigazione coerente senza uscire dal progetto.
 
-I QR code sono esportabili in PNG e SVG, con preset per schermo e stampa. I **QR smart** mantengono lo stesso codice ma possono cambiare destinazione in base all'ora locale: per esempio, un ristorante può aprire automaticamente il menu pranzo o cena.
+Questa struttura rende possibile separare, per esempio, portfolio, servizi, contatti ed eventi, oppure creare pagine specifiche per una campagna mantenendo lo stesso design della pagina principale.
 
-Analytics integrati, contatori di click e CTA, Google Analytics 4, consent mode e CMP esterne completano il percorso dalla pubblicazione alla misurazione.
+### Menu e Shop
 
-### AI e automazioni, con controllo esplicito
+Il menu per ristoranti, bar e locali è gestito come contenuto strutturato. Si possono creare sezioni e sottosezioni, aggiungere prodotti con descrizioni, immagini, prezzi e varianti, indicarne la disponibilità e pubblicare un indirizzo dedicato al menu.
 
-OrbitPage AI può preparare modifiche a profilo, contenuti e tema partendo dalla pagina aperta. Non scrive direttamente: produce un piano preciso, lo mostra nell'editor e applica solo le operazioni confermate dall'utente, dopo aver ricontrollato permessi e versione della pagina.
+Con OrbitPage Shop si possono vendere file digitali e servizi prenotabili direttamente dalla pagina. Il venditore collega il proprio account Stripe, prepara il catalogo e definisce cosa riceverà il cliente; OrbitPage segue checkout, ordine e consegna protetta del contenuto acquistato. Lo Shop rimane integrato con il profilo e con gli altri contenuti, invece di richiedere un sito separato.
 
-Nel servizio gestito ho aggiunto anche un'**API di automazione**, token con permessi granulari, integrazione MCP tramite OAuth e un nodo community per n8n. Contenuti, media, pubblicazione, analytics, domini, backup e altre operazioni possono così entrare in workflow reali senza rinunciare ai controlli di sicurezza.
+### Pubblicazione, domini e SEO
 
-## SaaS gestito e open source self-hosted
+La pagina può essere pubblicata su un indirizzo OrbitPage oppure, nei piani compatibili, su un dominio personale. L'area Publish riunisce lo stato della pubblicazione, i QR code, la sitemap e i file dedicati alla visibilità online.
 
-OrbitPage è un unico prodotto distribuito in due modi, pensati per esigenze diverse.
+Per la SEO sono disponibili URL canonico, titolo e descrizione, anteprime Open Graph e Twitter Card, dati Schema.org e controllo dell'indicizzazione. OrbitPage genera `sitemap.xml` e permette di gestire `robots.txt`, `llms.txt`, `humans.txt`, `ai.txt`, `security.txt` e altri endpoint testuali.
 
-| | **OrbitPage SaaS** | **OrbitPage Open Source** |
-| --- | --- | --- |
-| Ideale per | Chi vuole creare e pubblicare subito | Chi vuole pieno controllo su codice e dati |
-| Infrastruttura | Account, hosting, storage, aggiornamenti e distribuzione gestiti | Un container con applicazione, SQLite e storage locale |
-| Pubblicazione | URL OrbitPage, CDN e dominio personale nei piani compatibili | Dominio e reverse proxy gestiti sulla propria infrastruttura |
-| Operatività | Piani Free, Starter e Pro, team, API e funzioni hosted | Licenza MIT, Docker, Compose, installer Linux e Proxmox |
+I QR code possono essere scaricati in PNG o SVG, sia per lo schermo sia per la stampa. I QR smart mantengono lo stesso codice e cambiano destinazione in base all'orario impostato: un locale, per esempio, può mostrare automaticamente il menu del pranzo o quello della cena.
 
-La versione open source non è un export dimostrativo del SaaS: è un'edizione utilizzabile e documentata, con editor React e TypeScript, backend Express, database SQLite, upload locali, migrazioni e backup portabili. Si installa sul proprio server o homelab senza dipendere da un database esterno.
+### Analytics, privacy e newsletter
 
-Il SaaS aggiunge ciò che richiede un servizio cloud: registrazione e billing, isolamento dei workspace, storage gestito, quote, domini personalizzati, automazioni e operazioni multi-tenant. Le pagine pubblicate vengono distribuite come HTML e asset statici tramite Cloudflare, separando il traffico dei visitatori dal control plane dinamico.
+Gli analytics mostrano visite, visitatori, click, CTR, sorgenti di traffico, dispositivi, paesi e campagne. È possibile affiancare Google Analytics 4 quando serve un'analisi esterna più ampia.
 
-I backup con media possono passare tra OSS e SaaS: la libertà di self-hosting non è soltanto dichiarata, è prevista nel formato dei dati.
+La gestione della privacy comprende policy, preferenze di consenso, Google Consent Mode e integrazione con CMP esterne. Gli embed che richiedono consenso rispettano le scelte del visitatore prima di caricare contenuti di terze parti.
 
-## Un prodotto che continuo a sviluppare
+La sezione Newsletter gestisce iscritti, consenso, campagne, programmazione e report di consegna usando il servizio email scelto dal proprietario del workspace. In questo modo la raccolta dei contatti e l'invio degli aggiornamenti rimangono collegati alla stessa pagina.
 
-OrbitPage non è un'app generata con l'AI e lasciata su GitHub. È un prodotto che **progetto, sviluppo, distribuisco e mantengo attivamente**, sia nella versione pubblica sia nel servizio commerciale.
+### Assistente AI, OpenAI MCP e API
 
-Il repository open source riceve release versionate, correzioni e patch di sicurezza. La pipeline verifica lint, build, test unitari ed end-to-end con Playwright; le immagini Docker multi-arch per AMD64 e ARM64 vengono pubblicate su Docker Hub e GitHub Container Registry. Documentazione operativa, health check, backup e ripristino, aggiornamenti e rollback fanno parte del progetto quanto l'interfaccia.
+L'assistente AI interno lavora sul profilo, sui contenuti e sul tema della pagina aperta. L'utente descrive il risultato che vuole ottenere; OrbitPage prepara le modifiche e le mostra in anteprima. Solo dopo la conferma vengono applicate alla pagina. La modifica manuale rimane sempre disponibile.
 
-Sul fronte applicativo ho integrato utenti multipli con permessi limitati, autenticazione a due fattori TOTP, gestione del consenso, validazione degli upload, cifratura dei segreti e migrazioni additive. Sono scelte nate dall'esperienza in **cloud, security, DevSecOps e automazione** e dal lavoro necessario per tenere online un servizio usato da persone reali.
+La stessa logica può essere usata da un client OpenAI compatibile attraverso l'integrazione MCP con OAuth. Il collegamento è associato a uno specifico workspace e alle sole autorizzazioni concesse; da lì si possono consultare i dati, preparare modifiche e, quando permesso, applicare, pubblicare o ripristinare una versione.
 
-OrbitPage è la sintesi di queste competenze: non una demo tecnica presentata come prodotto, ma un prodotto completo che ha anche scelto di avere un'edizione open source.
+Per automazioni più ampie, il SaaS espone una REST API versionata con token personali e permessi granulari. Può essere collegata a script, backend, CI o n8n per lavorare su pagine, media, pubblicazione, domini, analytics, AI, Shop, newsletter e billing senza condividere una sessione della dashboard.
+
+### Team, piani e fatturazione
+
+Un workspace può essere gestito da più persone. Il proprietario invita i collaboratori, assegna ruoli e permessi e decide chi può modificare, pubblicare o amministrare le diverse aree. Chi collabora a più progetti può passare da un workspace all'altro con il proprio account, senza condividere credenziali.
+
+OrbitPage SaaS offre i piani Free, Starter e Pro, con limiti e funzioni adatti a utilizzi diversi. Dall'account si gestiscono piano, rinnovo, fatture e stato dell'abbonamento; la [pagina prezzi](https://orbitpage.com/it-IT/pricing) mostra le differenze per blocchi, storage, domini, AI, Shop e collaborazione.
+
+La dashboard include inoltre backup completi o selettivi, cronologia delle versioni pubblicate, ripristino e strumenti per individuare i media non più utilizzati.
+
+## SaaS e open source
+
+Ho sviluppato OrbitPage in due edizioni.
+
+**OrbitPage SaaS** è il servizio pronto all'uso. Comprende registrazione, workspace, hosting, storage, aggiornamenti, pubblicazione, domini personali, piani e billing. È la scelta per chi vuole creare la pagina e occuparsi del progetto, lasciando a OrbitPage la gestione del servizio.
+
+**OrbitPage Open Source** è l'edizione self-hosted con licenza MIT. Può essere installata con Docker su un server, una VM o un homelab e consente di mantenere sotto il proprio controllo applicazione e dati. Il repository pubblico contiene il prodotto utilizzabile, la documentazione di installazione e le procedure per aggiornamento, backup e ripristino.
+
+Le due edizioni condividono l'esperienza principale di creazione e gestione della pagina; il SaaS aggiunge account, fatturazione, infrastruttura gestita e le funzioni pensate per il servizio hosted. I backup portabili permettono inoltre di trasferire contenuti e media tra installazioni compatibili.
+
+## Sviluppo e manutenzione
+
+OrbitPage è un prodotto in sviluppo continuo. Ne seguo la progettazione, l'interfaccia, la sicurezza, la documentazione, le release e l'operatività del servizio SaaS. La versione open source viene aggiornata attraverso release pubbliche, mentre la piattaforma gestita evolve insieme alle funzioni riservate agli account hosted.
+
+La manutenzione comprende test, aggiornamenti di sicurezza, controllo degli accessi, autenticazione a due fattori, backup, ripristino e gestione degli errori. Il lavoro sul prodotto continua anche dopo la pubblicazione di una funzione: documentazione, compatibilità e affidabilità fanno parte della stessa attività.
+
+OrbitPage raccoglie in un progetto reale le mie competenze di sviluppo, cloud, sicurezza, automazione e gestione di un servizio SaaS in produzione.
