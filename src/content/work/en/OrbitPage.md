@@ -1,77 +1,82 @@
 ---
 title: "OrbitPage"
-summary: "A platform for creating and publishing a personal or professional page, customizable in every detail and ready to share through a link or QR code."
+summary: "A visual page builder for creating, customizing, and publishing professional pages, one-page sites, menus, portfolios, and QR-connected experiences. Available as managed SaaS and self-hosted open source."
 category: "tool"
-stack: ["TypeScript", "Next.js", "Firebase", "Cloudflare", "Docker"]
-problem: "Presenting links, content, contact details, and services online often requires several separate tools or a complete website, even when one well-built page would be enough."
-solution: "OrbitPage brings profiles, content, media, and calls to action into a visual block editor with ready-made themes and advanced customization controls."
-outcome: "A product that can be used immediately as a SaaS or independently deployed through its open-source core, built for individuals, businesses, and venues."
+stack: ["TypeScript", "React", "Next.js", "Firebase", "Cloudflare", "Docker"]
+problem: "Link-in-bio tools are too limited, while a traditional website demands more time, skills, and maintenance than many real-world projects need."
+solution: "A visual block editor that brings content, design, pages, menus, publishing, analytics, SEO, and automation into one product."
+outcome: "An actively maintained product with two editions: a ready-to-use SaaS and an MIT-licensed open-source core for private infrastructure."
 featured: true
 order: 3
 draft: false
 links:
-  - label: "Open OrbitPage"
-    href: "https://orbitpage.com/"
-  - label: "Dashboard"
-    href: "https://orbitpage.com/dashboard"
+  - label: "Explore OrbitPage"
+    href: "https://orbitpage.com/en-US/product"
+  - label: "View live demos"
+    href: "https://orbitpage.com/en-US/demos"
   - label: "Open-source code"
     href: "https://github.com/paoloronco/OrbitPage"
 ---
 
-## One page, everything you need
+## A page builder, not a list of links
 
-OrbitPage lets people build a complete public page without creating and maintaining a traditional website. It brings identity, work, links, content, contact details, events, and media into one place, with a result designed for both desktop and mobile.
+I created **OrbitPage** to cover the space between a link-in-bio and a traditional website: simple enough to publish in minutes, yet complete enough to become the online presence of a professional, business, or venue.
 
-It can serve as the main destination for a creator or professional, a focused page for a product or business, or the digital home of a restaurant, bar, or venue. Every page can be shared through its URL or a generated QR code.
+A link-in-bio is only the most immediate use case. OrbitPage can build **portfolios, digital business cards, product pages, company microsites, venue menus, event pages, and landing pages**, all through the same visual system and with the same quality across mobile and desktop.
 
-## From setup to publishing
+There is no need to start from code or remain trapped in a rigid template. Build the page, see the real result immediately, and publish it.
 
-### Profile
+## What you can build
 
-Personal, company, or venue name, description, image, and social links including LinkedIn, Instagram, GitHub, email, and WhatsApp. The profile card can be tailored through its colors, borders, image shape, and visual hierarchy.
+### Content beyond buttons
 
-### Content
+The editor includes blocks for links and calls to action as well as text, headings, images, native video, social profiles, contact details, maps, events, callouts, separators, and consent-aware embeds. Every block can be reordered, hidden, scheduled, customized, and paired with icons or cover media.
 
-The editor uses reorderable **link, CTA, heading, separator, maps, contact, social row, callout, list, event, embed, text, image, and video** blocks. Content can be hidden or scheduled to appear only during a selected period.
+The homepage can sit alongside **dedicated pages with their own slug, title, description, and content**. Restaurants, bars, and hospitality businesses get a proper menu editor with sections, subsections, products, variants, images, prices, and availability. There is no need to force a list of links into a job it was never designed to do.
 
-### Appearance
+### Real design control
 
-Ready-made themes and card styles provide an immediate starting point. For a more specific identity, users can fine-tune colors, cards, and backgrounds, including gradients, images, GIFs, and video. The preview matches the published result on both desktop and mobile.
+Ready-made themes provide a quick starting point, while the editor exposes colors, typography, spacing, surfaces, borders, radii, shadows, blur, backgrounds, and per-card overrides. Images, gradients, GIFs, and video can all become part of the page's visual identity.
 
-### Management and visibility
+The preview uses the same renderer as the public page. What you edit is what visitors see, across mobile, laptop, and desktop views.
 
-OrbitPage includes click analytics and, on compatible plans, advanced reporting and Google Analytics 4. The dashboard also manages backup and restore, privacy and cookie policies, sitemaps, SEO settings, and files such as `robots.txt` and `llms.txt`.
+### Publishing, SEO, and QR are part of the product
 
-## SaaS or self-hosted
+OrbitPage generates canonical metadata, Open Graph and Twitter Cards, Schema.org data, sitemaps, and indexing controls. The dashboard also manages `robots.txt`, `llms.txt`, `humans.txt`, `ai.txt`, `security.txt`, and safe custom text endpoints.
 
-OrbitPage supports two ways of using the same underlying product:
+QR codes can be exported as PNG or SVG with screen and print presets. **Smart QR codes** keep the same physical code while changing their destination based on local time—for example, a restaurant can automatically open its lunch or dinner menu.
 
-- **Managed SaaS:** accounts, hosting, storage, publishing, and delivery are included. Users can sign up and start building immediately.
-- **Open source:** the core is available under the MIT license and can be installed, modified, and hosted on private infrastructure.
+Built-in analytics, click and CTA counters, Google Analytics 4, Consent Mode, and external CMP support complete the path from publishing to measurement.
 
-People looking for simplicity can choose the managed service, while those who need control over the code and deployment can use the self-hosted edition.
+### AI and automation, with explicit control
 
-## SaaS plans
+OrbitPage AI can prepare changes to a profile, content, and theme using the currently open page as context. It does not write directly: it produces an exact plan, displays it in the editor, and applies only the operations the user confirms after permissions and page revision have been checked again.
 
-| Plan | Price | What it includes |
+For the managed service, I also built an **Automation API**, granular access tokens, an OAuth-based MCP integration, and an n8n community node. Content, media, publishing, analytics, domains, backups, and other operations can become part of real workflows without giving up security controls.
+
+## Managed SaaS and self-hosted open source
+
+OrbitPage is one product delivered in two ways for different needs.
+
+| | **OrbitPage SaaS** | **OrbitPage Open Source** |
 | --- | --- | --- |
-| **Free** | €0 | An `orbitpage.net` URL, 8 blocks, 10 MB storage, essential themes, and click analytics. OrbitPage badge included. |
-| **Starter** | €4.50/month | 40 blocks, 50 MB storage, premium themes, standard analytics, basic SEO, and badge removal. |
-| **Pro** | €7.50/month | Custom domain, 150 blocks, 250 MB storage, video uploads, advanced themes and SEO, scheduling, GA4, and 5 collaborators. |
-| **Agencies** | Coming soon | Limits, storage, domain, and collaborators configured around each agency's needs. |
+| Best for | People who want to build and publish immediately | People who want full control over code and data |
+| Infrastructure | Managed accounts, hosting, storage, updates, and delivery | One container with the application, SQLite, and local storage |
+| Publishing | OrbitPage URL, CDN, and custom domains on compatible plans | Domain and reverse proxy managed on private infrastructure |
+| Operations | Free, Starter, and Pro plans, teams, API, and hosted features | MIT license, Docker, Compose, Linux, and Proxmox installers |
 
-## For restaurants, bars, and venues
+The open-source edition is not a demo export of the SaaS. It is a usable, documented application with a React and TypeScript editor, Express backend, SQLite database, local uploads, migrations, and portable backups. It runs on a private server or homelab without requiring an external database.
 
-The dedicated venue offer includes **unlimited blocks, generous storage, video uploads, hosting, and optimized SEO**, together with direct support to set up, customize, and improve the page.
+The SaaS adds what a cloud service needs: signup and billing, workspace isolation, managed storage, quotas, custom domains, automation, and multi-tenant operations. Published pages are delivered as static HTML and assets through Cloudflare, keeping visitor traffic separate from the dynamic control plane.
 
-It brings menus, maps, contact details, events, social profiles, images, video, and calls to action into one QR-code-ready destination. The plan keeps the OrbitPage URL and badge; a custom domain and branding removal are not included.
+Media backups can move between OSS and SaaS. The freedom to self-host is not just a claim; it is built into the data format.
 
-## Under the hood
+## A product I continue to build
 
-The service separates each part of the product across dedicated domains:
+OrbitPage is not an AI-generated app left on GitHub. It is a product I **design, develop, operate, and actively maintain**, both as a public codebase and as a commercial service.
 
-- **[orbitpage.com](https://orbitpage.com/)** presents the product and handles signup and login.
-- **[orbitpage.com/dashboard](https://orbitpage.com/dashboard)** hosts the editor and page management.
-- **orbitpage.net/slug_url** delivers public profiles; Pro can connect a custom domain.
+The open-source repository receives versioned releases, fixes, and security patches. Its pipeline checks lint, builds, unit tests, and Playwright end-to-end tests; multi-architecture Docker images for AMD64 and ARM64 are published to Docker Hub and GitHub Container Registry. Operational documentation, health checks, backup and restore, updates, and rollback are as much a part of the project as the interface.
 
-In the SaaS, authentication and workspaces are isolated for each account. Published pages become static HTML and assets delivered through Cloudflare, keeping the dynamic editor separate from visitor traffic. The project combines TypeScript, Next.js, Firebase, and Cloudflare; the open-source edition can also be deployed with Docker.
+On the application side, I implemented multiple users with scoped permissions, TOTP two-factor authentication, consent management, upload validation, secret encryption, and additive migrations. These decisions come from hands-on work across **cloud, security, DevSecOps, and automation**, and from operating a service used by real people.
+
+OrbitPage brings those skills together: not a technical demo presented as a product, but a complete product that also chose to have an open-source edition.
