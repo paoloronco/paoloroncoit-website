@@ -42,10 +42,6 @@ URL: Onion Link (Tor Browser)
 **Technology:** Self-hosting on Proxmox  
 **Description:** A dark web site acting as my CV, protected by Cloudflare Zero Trust.
 
-URL: [http://darkweb.paoloronco.it/](http://darkweb.paoloronco.it/)  
-**Technology:** Self-hosting on Proxmox, Cloudflare Zero Trust  
-**Description:** A version of the dark web site available on the surface web, simple and dedicated to my professional presentation.
-
 #### Software
 
 URL: [http://software.paoloronco.it/](http://software.paoloronco.it/)  
@@ -77,4 +73,3 @@ URL: (Not provided)
 * * *
 
 These websites represent my ongoing commitment to managing and developing web projects, showcasing my skills in various aspects of computing. For a quick and organized access to all my sites, you can visit [Link’s](https://links.paoloronco.it/).
-
