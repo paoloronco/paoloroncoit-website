@@ -6,6 +6,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
+import agentContent from './scripts/agent-content.mjs';
 
 // Cambia con il dominio definitivo prima del deploy.
 const SITE = 'https://paoloronco.it';
@@ -143,6 +144,7 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
+    agentContent(),
     sitemap({
       filter: isCanonicalSitemapPage,
       i18n: {

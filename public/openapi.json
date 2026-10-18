@@ -1,0 +1,54 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Paolo Ronco public articles API",
+    "version": "1.0.0",
+    "description": "Read published technical articles in Italian or English. No authentication or write operations. Content usage: search=yes, ai-input=yes, ai-train=no."
+  },
+  "servers": [{ "url": "https://paoloronco.it" }],
+  "security": [],
+  "paths": {
+    "/api/terminal/writings.json": {
+      "get": {
+        "operationId": "listPublishedArticles",
+        "summary": "Read published articles as Markdown",
+        "description": "Returns all published articles in the requested language, newest first. Prefer the per-page Markdown alternate for a single article. Missing or unrecognized lang values fall back to Italian. Responses may be cached for 300 seconds.",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "Article language; defaults to Italian.",
+            "schema": { "type": "string", "enum": ["it", "en"], "default": "it" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Published articles, including their canonical page paths and Markdown content.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["files"],
+                  "properties": {
+                    "files": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": ["filename", "markdown", "href"],
+                        "properties": {
+                          "filename": { "type": "string", "description": "Suggested .md filename." },
+                          "markdown": { "type": "string", "description": "Article title, metadata and body in Markdown." },
+                          "href": { "type": "string", "format": "uri-reference", "description": "Root-relative canonical page path in the requested language." }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

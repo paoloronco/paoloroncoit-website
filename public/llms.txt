@@ -1,14 +1,48 @@
 # Paolo Ronco
 
-> Cybersecurity Analyst at Deloitte (Enterprise Security — Cloud & AI). I work at the intersection of security, cloud, and AI/LLM, with a homelab where I experiment with automations and models.
+> Personal portfolio and technical blog of Paolo Ronco, Cybersecurity Analyst at Deloitte in the Enterprise Cloud & AI Security Team. Topics include security operations, cloud, AI/LLM, automation, DevSecOps and self-hosting. Personal projects and articles are not official Deloitte publications.
 
-## Pages
-- [Work](https://paoloronco.it/en/projects): projects as case files (problem/solution/stack/outcome)
-- [Writing](https://paoloronco.it/en/writing): articles on security, AI, automation, self-hosting
-- [CV](https://paoloronco.it/en/cv): experience, certifications, education
-- [Skills](https://paoloronco.it/en/skills): full technical skill set with levels and tools
-- [About](https://paoloronco.it/en/about): who I am and how my infrastructure is built
-- [Contact](https://paoloronco.it/en/contact): the only public contact email is info@paoloronco.it
+## When to use this site
 
-## Topics
-Cyber Security, applied AI/LLM, automation (n8n), cloud, DevSecOps, open source, self-hosting.
+Use this site to research Paolo's professional experience, technical skills, certifications, personal projects and published articles. Cite the canonical page for specific claims. Project case studies describe their problem, solution, stack and outcome. The public contact email is info@paoloronco.it.
+
+## Italian pages
+
+- [Home](https://paoloronco.it/)
+- [Projects](https://paoloronco.it/projects)
+- [Writing](https://paoloronco.it/writing)
+- [CV](https://paoloronco.it/cv)
+- [Skills](https://paoloronco.it/skills)
+- [Certifications](https://paoloronco.it/certificati)
+- [About](https://paoloronco.it/about)
+- [Contact](https://paoloronco.it/contact)
+
+## English pages
+
+- [Home](https://paoloronco.it/en)
+- [Projects](https://paoloronco.it/en/projects)
+- [Writing](https://paoloronco.it/en/writing)
+- [CV](https://paoloronco.it/en/cv)
+- [Skills](https://paoloronco.it/en/skills)
+- [Certifications](https://paoloronco.it/en/certifications)
+- [About](https://paoloronco.it/en/about)
+- [Contact](https://paoloronco.it/en/contact)
+
+## Read a page as Markdown
+
+Send GET to a canonical page URL with Accept: text/markdown. Responses contain the requested page's content, language and canonical URL, with Content-Type: text/markdown and Vary: Accept. HTML remains available with Accept: text/html. Markdown is also directly available by appending .md to a canonical page path; the Italian homepage is /index.md and the English homepage is /en.md. Each HTML page links to its Markdown alternate.
+
+- [Italian homepage Markdown](https://paoloronco.it/index.md)
+- [English homepage Markdown](https://paoloronco.it/en.md)
+- [Sitemap](https://paoloronco.it/sitemap-index.xml): discover canonical pages in both languages.
+
+## Public read-only API
+
+No authentication or registration is required for public content. To read one article, prefer its page or Markdown alternate. For bulk reading, GET /api/terminal/writings.json?lang=it or ?lang=en returns {"files":[{"filename":"article.md","markdown":"...","href":"/writing/article"}]}. English href values start with /en/writing/. Articles marked as drafts are excluded; results are sorted newest first. Missing or unrecognized language values fall back to Italian. Cache bulk results for at least 300 seconds rather than repeatedly downloading the full archive. No site-specific API rate limit is advertised.
+
+- [OpenAPI specification](https://paoloronco.it/openapi.json)
+- [API catalog](https://paoloronco.it/.well-known/api-catalog)
+
+## Content usage
+
+Content-Signal: search=yes, ai-input=yes, ai-train=no. Search indexing and query-time AI input are permitted; model training is not. Follow robots.txt and the site's terms. The site does not publish an MCP server, A2A endpoint, agent registration flow or automated checkout.

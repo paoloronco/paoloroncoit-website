@@ -58,6 +58,8 @@ npm run dev       # dev server → http://localhost:4321
 npm run build     # static build → dist/
 npm run preview   # preview the build locally
 npm run check     # Astro type-check
+npm run test:agents # Markdown conversion and negotiation regression tests
+npm run agents:audit # verify generated Markdown, discovery and API language isolation
 ```
 
 ---
@@ -117,6 +119,16 @@ Open Graph and Twitter metadata select the correct localized project cover autom
 Run `npm run test:social` to check rendering and cache fingerprints. After deployment, use [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) for any article or project URL that LinkedIn has already cached; IT and EN URLs are inspected separately. Existing LinkedIn entries may need the link removed and added again after refreshing its preview.
 
 Both collection schemas are defined in `src/content.config.ts`.
+
+### AI agent access
+
+Every build generates Markdown from each rendered page's main content, including Italian and English pages, tables and code blocks. The existing Turndown dependencies run at build time only. Pages stay static; Vercel routes requests with an acceptable `Accept: text/markdown` to the corresponding `.md` file. `q=0` opts out. HTML and Markdown declare `Vary: Accept`; direct Markdown files use `text/markdown`. Unknown Markdown page requests retain HTTP 404.
+
+`public/llms.txt` documents both languages and usage guidance. `robots.txt` and response headers declare `search=yes, ai-input=yes, ai-train=no`. Discovery headers advertise the sitemap, llms.txt, RFC 9727 API catalog and OpenAPI specification. The catalog describes only the read-only published-articles API.
+
+`/api/terminal/writings.json?lang=it|en` runs on demand so the language query is evaluated per request. Its existing response shape, Italian fallback, draft filtering and five-minute public cache remain intact. The chat proxy is not part of the public API catalog.
+
+After deployment, run `npm run agents:audit -- https://paoloronco.it` to also verify HTTP negotiation, cache order, discovery content types and API responses on the live site.
 
 ---
 

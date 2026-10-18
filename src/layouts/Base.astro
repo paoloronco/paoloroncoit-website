@@ -129,6 +129,9 @@ const personLd = {
 
     <link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {!robots.toLowerCase().includes('noindex') && (
+      <link rel="alternate" type="text/markdown" href={new URL(canonical).pathname === '/' ? '/index.md' : `${new URL(canonical).pathname}.md`} />
+    )}
     <meta name="theme-color" content="#0a0c12" />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />

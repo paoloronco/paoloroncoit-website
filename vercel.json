@@ -1,6 +1,43 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/:path*",
+      "headers": [
+        {
+          "key": "Content-Signal",
+          "value": "search=yes, ai-input=yes, ai-train=no"
+        },
+        {
+          "key": "Link",
+          "value": "<https://paoloronco.it/sitemap-index.xml>; rel=\"sitemap\", <https://paoloronco.it/llms.txt>; rel=\"describedby\"; type=\"text/plain\", <https://paoloronco.it/.well-known/api-catalog>; rel=\"api-catalog\", <https://paoloronco.it/openapi.json>; rel=\"service-desc\"; type=\"application/vnd.oai.openapi+json\""
+        },
+        {
+          "key": "Vary",
+          "value": "Accept"
+        }
+      ]
+    },
+    {
+      "source": "/.well-known/api-catalog",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/linkset+json; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/openapi.json",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/vnd.oai.openapi+json; charset=utf-8"
+        }
+      ]
+    }
+  ],
   "redirects": [
     {
       "source": "/category/:path*",

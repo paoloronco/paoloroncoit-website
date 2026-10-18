@@ -2,6 +2,8 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { entryLang, entrySlug, localizePath, type Lang } from '@/i18n/utils';
 
+export const prerender = false;
+
 const safeFilename = (slug: string) => `${slug.replace(/\/index$/, '').replace(/[^a-zA-Z0-9._-]+/g, '-')}.md`;
 
 export const GET: APIRoute = async ({ url }) => {

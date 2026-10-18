@@ -1,0 +1,21 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://paoloronco.it/api/terminal/writings.json",
+      "service-desc": [
+        {
+          "href": "https://paoloronco.it/openapi.json",
+          "type": "application/vnd.oai.openapi+json",
+          "title": "Paolo Ronco public articles API"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://paoloronco.it/llms.txt",
+          "type": "text/plain",
+          "title": "Site and API usage guidance"
+        }
+      ]
+    }
+  ]
+}
