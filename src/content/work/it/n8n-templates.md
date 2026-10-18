@@ -1,6 +1,7 @@
 ---
 title: "n8n Templates"
 summary: "Una raccolta di workflow n8n pronti da importare per automazioni, notifiche, gestione documentale e integrazioni tra servizi."
+socialImage: "/og/projects/n8n-templates.png"
 category: "automation"
 stack: ["n8n", "JSON", "JavaScript", "HTML"]
 problem: "Costruire ogni automazione da zero rallenta la sperimentazione e rende più difficile riutilizzare configurazioni già collaudate."

@@ -1,6 +1,7 @@
 ---
 title: "Google Cloud Inventory Automation"
 summary: "Pipeline GitHub Actions che genera e versiona automaticamente un inventario Google Cloud usando accesso read-only e autenticazione OIDC senza chiavi statiche."
+socialImage: "/og/projects/googlecloud-inventory-automation.png"
 category: "cloud"
 stack: ["Python", "Google Cloud", "GitHub Actions", "OIDC"]
 problem: "Un inventario cloud mantenuto a mano diventa presto obsoleto, mentre le chiavi di service account a lunga durata aumentano il rischio operativo."

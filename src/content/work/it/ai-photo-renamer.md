@@ -1,6 +1,7 @@
 ---
 title: "AI Photo Renamer"
 summary: "Utility locale che analizza immagini con un modello vision tramite Ollama e assegna nomi descrittivi, raggruppando automaticamente quelli simili."
+socialImage: "/og/projects/ai-photo-renamer.png"
 category: "ai"
 stack: ["Python", "Ollama", "LLaVA", "Gradio"]
 problem: "Cartelle fotografiche con nomi generici o numerici sono difficili da esplorare e organizzare senza rinominare ogni file a mano."

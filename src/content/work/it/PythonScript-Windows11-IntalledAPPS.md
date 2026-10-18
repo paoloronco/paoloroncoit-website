@@ -1,6 +1,7 @@
 ---
 title: "Windows 11 Installed Apps Exporter"
 summary: "Script Python che raccoglie le applicazioni installate in Windows 11 e genera automaticamente un elenco testuale sul desktop."
+socialImage: "/og/projects/pythonscript-windows11-intalledapps.png"
 category: "tool"
 stack: ["Python", "Windows 11", "WMIC"]
 problem: "Creare un inventario leggibile dei programmi installati può richiedere di consultare manualmente più schermate e origini di sistema."

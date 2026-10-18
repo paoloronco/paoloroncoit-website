@@ -1,6 +1,7 @@
 ---
 title: "OrbitPage"
 summary: "SaaS e piattaforma open source per creare, pubblicare e gestire una presenza digitale completa da un unico workspace, ora integrata anche con ChatGPT."
+socialImage: "/og/projects/orbitpage.png"
 category: "tool"
 stack: ["TypeScript", "React", "Next.js", "Node.js", "Docker", "REST API", "OAuth", "MCP", "OpenAI", "ChatGPT", "Stripe", "GitHub Actions", "Cloud & Edge Services"]
 problem: "Per presentare online identità, link, contenuti, contatti e servizi si finisce spesso per utilizzare diversi strumenti oppure costruire e mantenere un intero sito web."

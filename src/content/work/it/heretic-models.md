@@ -1,6 +1,7 @@
 ---
 title: "Heretic Models"
 summary: "Raccolta di modelli linguistici modificati con la tecnica di abliteration, accompagnati da configurazioni, notebook e pesi pubblicati su Hugging Face."
+socialImage: "/og/projects/heretic-models.png"
 category: "ai"
 stack: ["Python", "Heretic", "Hugging Face", "Jupyter"]
 problem: "Studiare come cambiano i comportamenti di rifiuto di un LLM richiede esperimenti riproducibili e un confronto con il modello originale."

@@ -1,6 +1,7 @@
 ---
 title: "Infra Agent"
 summary: "Agente AI per diagnosi, monitoraggio e operazioni controllate via SSH su homelab, server Linux e ambienti Proxmox."
+socialImage: "/og/projects/infra-agent.png"
 category: "ai"
 stack: ["Python", "SSH", "Docker", "Proxmox"]
 problem: "Analizzare host differenti richiede passaggi ripetitivi tra shell, log e strumenti, mentre i comandi rischiosi non dovrebbero essere eseguiti senza controllo umano."

@@ -1,6 +1,7 @@
 ---
 title: "AI Photo Renamer"
 summary: "A local utility that analyzes images with a vision model through Ollama and assigns descriptive names while grouping similar results."
+socialImage: "/og/projects/ai-photo-renamer.png"
 category: "ai"
 stack: ["Python", "Ollama", "LLaVA", "Gradio"]
 problem: "Photo folders filled with generic or numeric filenames are difficult to browse and organize without renaming every file by hand."

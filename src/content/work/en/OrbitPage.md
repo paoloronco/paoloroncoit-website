@@ -1,6 +1,7 @@
 ---
 title: "OrbitPage"
 summary: "A SaaS and open-source platform for creating, publishing, and managing a complete digital presence from a single workspace."
+socialImage: "/og/projects/orbitpage.png"
 category: "tool"
 stack: ["TypeScript", "React", "Next.js", "Node.js", "Docker", "REST API", "OAuth", "MCP", "OpenAI", "Stripe", "GitHub Actions", "Cloud & Edge Services"]
 problem: "Presenting an identity, links, content, contact details, and services online often means using several different tools or building and maintaining an entire website."

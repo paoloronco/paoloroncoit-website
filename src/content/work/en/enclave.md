@@ -1,6 +1,7 @@
 ---
 title: "Enclave"
 summary: "An offline Android password manager with AES-256-GCM encryption, biometric unlock, and protected backups, with no cloud or telemetry."
+socialImage: "/og/projects/enclave.png"
 category: "security"
 stack: ["Kotlin", "Jetpack Compose", "Room", "Android Keystore"]
 problem: "Personal credentials need encryption at rest and convenient access without entrusting the vault to a remote service."

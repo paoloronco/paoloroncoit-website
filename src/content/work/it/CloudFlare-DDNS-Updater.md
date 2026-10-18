@@ -1,6 +1,7 @@
 ---
 title: "Cloudflare DDNS Updater"
 summary: "Script shell che rileva l'indirizzo IPv4 pubblico e aggiorna automaticamente un record DNS Cloudflare negli ambienti con IP dinamico."
+socialImage: "/og/projects/cloudflare-ddns-updater.png"
 category: "cloud"
 stack: ["Shell", "Cloudflare API", "Linux", "Cron"]
 problem: "Quando il provider cambia l'IP pubblico, i nomi DNS usati per raggiungere server domestici o risorse remote smettono di puntare all'indirizzo corretto."
