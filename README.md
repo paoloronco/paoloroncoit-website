@@ -15,7 +15,7 @@ Personal portfolio and technical blog of Paolo Ronco — Cybersecurity Analyst a
 | Content | Astro Content Collections (Markdown/MDX) — articles and projects in Git |
 | Deployment | [Vercel](https://vercel.com) — edge-deployed, static output with on-demand API routes |
 | i18n | Built-in Astro i18n — Italian (default) + English, explicit language selector + hreflang |
-| Analytics | CookieYes + Google Analytics + Microsoft Clarity (all consent-gated) |
+| Analytics | Google Analytics + Microsoft Clarity (optional, loaded after analytics consent via CookieYes) |
 
 ---
 
@@ -67,14 +67,15 @@ npm run check     # Astro type-check
 Set these in Vercel under **Project Settings → Environment Variables** (or in a local `.env`):
 
 ```bash
-# Analytics (all optional — if missing, that provider is simply excluded from the build)
-PUBLIC_COOKIEYES_ID=your-cookieyes-client-id
+# Analytics (optional — loaded after analytics consent when configured)
 PUBLIC_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
 PUBLIC_MICROSOFT_CLARITY_ID=your-clarity-project-id
 
 # AI assistant proxy — /api/ask forwards to an n8n self-hosted webhook
 N8N_WEBHOOK_URL=https://your-n8n-instance/webhook/ask
 ```
+
+CookieYes loads directly from `src/components/Analytics.astro` to manage consent.
 
 ---
 

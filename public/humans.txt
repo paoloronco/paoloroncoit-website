@@ -6,4 +6,5 @@
 /* SITE */
   Standards: HTML5, CSS, JS
   Stack: Astro, Tailwind, static, edge-deployed
-  Tracker: nessuno
+  Analytics: Google Analytics e Microsoft Clarity, se configurati e previo consenso
+  Gestione consenso: CookieYes
