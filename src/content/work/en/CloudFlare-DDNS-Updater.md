@@ -7,7 +7,7 @@ problem: "When an ISP changes the public IP, DNS names used to reach home server
 solution: "The script compares the current IPv4 address with the Cloudflare record and uses the API to update it; cron can run the check periodically without manual intervention."
 outcome: "A simple self-hosted DDNS updater that keeps a Cloudflare-managed domain reachable without a static public address."
 featured: false
-order: 14
+order: 11
 draft: false
 links:
   - label: "GitHub repository"

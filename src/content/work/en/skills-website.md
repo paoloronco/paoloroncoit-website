@@ -7,7 +7,7 @@ problem: "A static list of technologies says little about the breadth of a skill
 solution: "The app organizes skills into categories, indexes localized names and descriptions, and combines search, responsive navigation, and proficiency indicators."
 outcome: "A technical showcase that is quick to explore in English or Italian, optimized for desktop and mobile and deployable as a static site."
 featured: false
-order: 12
+order: 10
 draft: false
 links:
   - label: "GitHub repository"

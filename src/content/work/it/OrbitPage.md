@@ -7,7 +7,7 @@ problem: "Per presentare online identità, link, contenuti, contatti e servizi s
 solution: "OrbitPage concentra queste esigenze in un unico prodotto e permette di gestirle dalla dashboard, via API o attraverso interfacce AI conversazionali."
 outcome: "Il prodotto è disponibile sia come servizio SaaS gestito, pronto all'uso, sia attraverso un core open source self-hosted."
 featured: true
-order: 3
+order: 2
 draft: false
 links:
   - label: "Prova OrbitPage"

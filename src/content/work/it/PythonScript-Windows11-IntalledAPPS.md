@@ -7,7 +7,7 @@ problem: "Creare un inventario leggibile dei programmi installati può richieder
 solution: "Lo script interroga tramite WMIC l'elenco dei prodotti installati, normalizza i nomi delle applicazioni e scrive il risultato in un file `installed_apps.txt`."
 outcome: "Un inventario locale e facilmente condivisibile delle applicazioni presenti sul PC, prodotto con una singola esecuzione."
 featured: false
-order: 15
+order: 14
 draft: false
 links:
   - label: "Repository GitHub"

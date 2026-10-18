@@ -7,7 +7,7 @@ problem: "Creating a readable inventory of installed software can require manual
 solution: "The script queries installed products through WMIC, normalizes application names, and writes the result to `installed_apps.txt`."
 outcome: "A local, shareable inventory of applications present on the PC, produced in a single run."
 featured: false
-order: 15
+order: 14
 draft: false
 links:
   - label: "GitHub repository"

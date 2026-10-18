@@ -7,7 +7,7 @@ problem: "I wanted to learn AWS through a use case close to my work: adding cont
 solution: "I connected n8n to an IAM-authenticated API Gateway route; Lambda normalizes the alert, calls Nova 2 Lite on Bedrock and validates the JSON response."
 outcome: "V1 verified from n8n through AWS and back with a sample SSH alert; connecting the live Splunk webhook is the next step."
 featured: false
-order: 12.5
+order: 5
 draft: false
 links:
   - label: "GitHub repository"

@@ -7,7 +7,7 @@ problem: "Investigating different hosts requires repetitive movement between she
 solution: "The app centralizes hosts and conversations, gathers read-only diagnostics, and submits risky SSH actions to an explicit propose, approve, or deny workflow."
 outcome: "A persistent operations interface for investigating services, resources, disks, processes, and networks while keeping the user in the decision loop."
 featured: false
-order: 5
+order: 15
 draft: false
 links:
   - label: "GitHub repository"

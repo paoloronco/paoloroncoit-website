@@ -7,7 +7,7 @@ problem: "Le credenziali personali richiedono protezione a riposo e un accesso p
 solution: "Enclave cifra i campi sensibili con chiavi nell'Android Keystore, protegge l'accesso con passcode o biometria e salva i dati localmente tramite Room."
 outcome: "Un vault mobile multilingue con generatore di password, ricerca, blocco automatico, clipboard temporanea e backup cifrati importabili."
 featured: false
-order: 9
+order: 16
 draft: false
 links:
   - label: "Repository GitHub"

@@ -106,6 +106,8 @@ LLM_API_KEY=sk-... LLM_MODEL=gpt-4o-mini node scripts/translate-articles.mjs
 
 **New project:** copy `src/content/work/_template.md.txt`, place it in `work/it/<slug>.md` and `work/en/<slug>.md`.
 
+Set `featured: true` for a main project: it appears in the first Projects section and on the homepage. Other projects appear in the second section. Set `order` in both languages to control the order within each section; category filters apply to both groups and hide empty sections.
+
 Every build generates a white 1200×630 PNG cover for each project's Italian and English page, using its title, summary, category and first four technologies. Covers use the site's Space Grotesk font and are rendered locally with Sharp, without AI or external services. Their URLs include a content fingerprint, so content changes produce a new image URL. Existing unversioned cover URLs remain available with the English cover.
 
 Writing articles use the same automatic covers, with their localized title, description and first four tags. No image or additional frontmatter is needed. Open Graph, Twitter and Article structured data select the article's cover automatically; drafts do not generate covers.

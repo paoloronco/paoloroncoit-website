@@ -6,8 +6,8 @@ stack: ["JavaScript", "Chrome Extension", "HTML", "CSS"]
 problem: "Closing the browser or shutting down a computer can interrupt work spread across many tabs and windows."
 solution: "The extension captures open tabs, stores named sessions in browser storage, and provides search, preview, and controlled restoration."
 outcome: "A lightweight workflow for archiving browsing sessions without losing context and reopening them later in a few steps."
-featured: false
-order: 4
+featured: true
+order: 3
 draft: false
 links:
   - label: "GitHub repository"

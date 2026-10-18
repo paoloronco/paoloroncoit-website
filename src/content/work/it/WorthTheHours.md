@@ -7,7 +7,7 @@ problem: "Un importo monetario da solo non comunica sempre chiaramente quanto te
 solution: "L'app calcola il valore orario dai dati salariali, salva gli articoli da valutare e traduce automaticamente ogni prezzo in ore e minuti di lavoro."
 outcome: "Uno strumento locale e privato per confrontare acquisti in termini di tempo, con interfaccia Material 3 e dati persistenti sul dispositivo."
 featured: false
-order: 10
+order: 17
 draft: false
 links:
   - label: "Repository GitHub"

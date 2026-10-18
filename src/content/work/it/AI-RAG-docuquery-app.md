@@ -6,8 +6,8 @@ stack: ["Python", "PyQt6", "FAISS", "Sentence Transformers"]
 problem: "Ritrovare informazioni in raccolte eterogenee di documenti locali richiede ricerche manuali lente e frammentate."
 solution: "L'app estrae e indicizza i contenuti con embedding E5 o MiniLM e FAISS, quindi recupera i passaggi pertinenti da una GUI PyQt6 e può inviarli a diversi backend LLM."
 outcome: "Un assistente documentale locale che mostra passaggi, file e pagine di origine e può funzionare anche in modalità di sole citazioni, senza LLM."
-featured: true
-order: 2
+featured: false
+order: 7
 draft: false
 links:
   - label: "Repository GitHub"

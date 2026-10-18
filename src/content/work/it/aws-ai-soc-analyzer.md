@@ -7,7 +7,7 @@ problem: "Volevo imparare AWS con un caso d'uso vicino al mio lavoro: aggiungere
 solution: "Ho collegato n8n a un'API Gateway autenticata con IAM; Lambda normalizza l'alert, interroga Nova 2 Lite su Bedrock e valida la risposta JSON."
 outcome: "V1 verificata da n8n ad AWS e ritorno con un alert SSH di esempio; l'integrazione del webhook Splunk reale resta il passo successivo."
 featured: false
-order: 12.5
+order: 5
 draft: false
 links:
   - label: "Repository GitHub"

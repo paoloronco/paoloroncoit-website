@@ -7,7 +7,7 @@ problem: "Switching music services means manually rebuilding playlists and favor
 solution: "The CLI reads public or private playlists and saved tracks from Spotify, searches for matches on YouTube Music, and manages playlist creation, updates, and removal."
 outcome: "A repeatable process for migrating one playlist, every public playlist, or a library of liked songs between the two platforms."
 featured: false
-order: 7
+order: 12
 draft: false
 links:
   - label: "GitHub repository"

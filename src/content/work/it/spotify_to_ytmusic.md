@@ -7,7 +7,7 @@ problem: "Cambiare servizio musicale comporta ricreare manualmente playlist e pr
 solution: "La CLI legge playlist pubbliche o private e brani salvati tramite Spotify, cerca le corrispondenze su YouTube Music e gestisce creazione, aggiornamento e rimozione delle playlist."
 outcome: "Un processo ripetibile per migrare singole playlist, tutte le playlist pubbliche o la libreria dei preferiti tra le due piattaforme."
 featured: false
-order: 7
+order: 12
 draft: false
 links:
   - label: "Repository GitHub"

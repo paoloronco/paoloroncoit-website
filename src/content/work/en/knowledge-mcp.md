@@ -6,8 +6,8 @@ stack: ["Python", "MCP", "Qdrant", "Docker", "Sentence Transformers", "CUDA"]
 problem: "Connecting an AI assistant to personal documents requires an index that can stay current and results that can be traced back to their source files."
 solution: "The project indexes selected folders, combines semantic and lexical search, and exposes relevant passages with source references through MCP."
 outcome: "A document knowledge base available to MCP-compatible clients, with web management, incremental updates, and index backups."
-featured: false
-order: 16
+featured: true
+order: 4
 draft: false
 links:
   - label: "GitHub repository"

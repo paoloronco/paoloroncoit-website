@@ -13,6 +13,10 @@ const projects = (await getCollection('work', (e) => !e.data.draft && entryLang(
 );
 const allLabel = t('work.all');
 const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
+const groups = [
+  { key: 'main', title: t('work.main'), projects: projects.filter((p) => p.data.featured) },
+  { key: 'other', title: t('work.other'), projects: projects.filter((p) => !p.data.featured) },
+].filter((group) => group.projects.length > 0);
 ---
 
 <Base title="Projects" description={t('work.subtitle')} path="/projects">
@@ -26,6 +30,7 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
       {categories.map((c, i) => (
         <button
           data-filter={i === 0 ? '__all__' : c}
+          aria-pressed={i === 0}
           class:list={[
             'readable-chip rounded-full border bg-ink-900/45 px-3 py-1 font-mono text-xs backdrop-blur-sm transition-colors',
             i === 0 ? 'border-accent text-accent' : 'border-ink-600 text-muted hover:text-text',
@@ -36,27 +41,32 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
     )}
   </section>
 
-  <section class="readable-shell mx-auto max-w-5xl px-5 pb-16">
+  <div class="readable-shell mx-auto max-w-5xl px-5 pb-16">
     {projects.length === 0 ? (
       <p class="rounded-card border border-dashed border-ink-600 p-8 text-center text-muted">{t('work.empty')}</p>
     ) : (
-      <div class="readable-grid grid grid-cols-1 gap-4 md:grid-cols-2" data-grid>
-        {projects.map((p, i) => (
-          <div class="project-card" data-category={p.data.category} data-reveal style={`--i:${i + 1}`}>
-            <CaseFileCard
-              href={localizePath(`/projects/${entrySlug(p.id)}`, lang)}
-              title={p.data.title}
-              summary={p.data.summary}
-              category={p.data.category}
-              stack={p.data.stack}
-              index={i + 1}
-              variant="hybrid"
-            />
+      groups.map((group) => (
+        <section class="mb-12 last:mb-0" data-project-group aria-labelledby={`projects-${group.key}`}>
+          <h2 id={`projects-${group.key}`} class="mb-5 text-2xl font-semibold tracking-tight text-text">{group.title}</h2>
+          <div class="readable-grid grid grid-cols-1 gap-4 md:grid-cols-2" data-grid>
+            {group.projects.map((p) => (
+              <div class="project-card" data-category={p.data.category} data-reveal style={`--i:${projects.indexOf(p) + 1}`}>
+                <CaseFileCard
+                  href={localizePath(`/projects/${entrySlug(p.id)}`, lang)}
+                  title={p.data.title}
+                  summary={p.data.summary}
+                  category={p.data.category}
+                  stack={p.data.stack}
+                  index={projects.indexOf(p) + 1}
+                  variant="hybrid"
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </section>
+      ))
     )}
-  </section>
+  </div>
 </Base>
 
 <style>
@@ -92,6 +102,7 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
       const f = btn.dataset.filter;
       bar.querySelectorAll('[data-filter]').forEach((b) => {
         const on = b === btn;
+        b.setAttribute('aria-pressed', String(on));
         b.classList.toggle('border-accent', on);
         b.classList.toggle('text-accent', on);
         b.classList.toggle('border-ink-600', !on);
@@ -99,6 +110,9 @@ const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
       });
       cards.forEach((c) => {
         c.style.display = f === '__all__' || c.dataset.category === f ? '' : 'none';
+      });
+      document.querySelectorAll('[data-project-group]').forEach((group) => {
+        group.hidden = !Array.from(group.querySelectorAll('.project-card')).some((card) => card.style.display !== 'none');
       });
     });
   })();

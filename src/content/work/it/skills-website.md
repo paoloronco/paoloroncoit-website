@@ -7,7 +7,7 @@ problem: "Un elenco statico di tecnologie comunica poco la varietà delle compet
 solution: "L'app organizza le skill in categorie, indicizza nomi e descrizioni localizzate e combina ricerca, navigazione responsive e indicatori di competenza."
 outcome: "Una vetrina tecnica rapida da esplorare in italiano o inglese, ottimizzata per desktop e mobile e distribuibile come sito statico."
 featured: false
-order: 12
+order: 10
 draft: false
 links:
   - label: "Repository GitHub"

@@ -7,7 +7,7 @@ problem: "Personal credentials need encryption at rest and convenient access wit
 solution: "Enclave encrypts sensitive fields with keys held by Android Keystore, protects access with a passcode or biometrics, and stores data locally through Room."
 outcome: "A multilingual mobile vault with a password generator, search, automatic locking, temporary clipboard, and importable encrypted backups."
 featured: false
-order: 9
+order: 16
 draft: false
 links:
   - label: "GitHub repository"

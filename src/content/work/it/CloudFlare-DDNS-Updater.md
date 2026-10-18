@@ -7,7 +7,7 @@ problem: "Quando il provider cambia l'IP pubblico, i nomi DNS usati per raggiung
 solution: "Lo script confronta l'IPv4 corrente con il record Cloudflare e usa l'API per aggiornarlo; cron può eseguirlo periodicamente senza intervento manuale."
 outcome: "Un semplice aggiornamento DDNS self-hosted che mantiene raggiungibile un dominio Cloudflare anche senza un indirizzo pubblico statico."
 featured: false
-order: 14
+order: 11
 draft: false
 links:
   - label: "Repository GitHub"

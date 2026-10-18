@@ -7,7 +7,7 @@ problem: "Un inventario cloud mantenuto a mano diventa presto obsoleto, mentre l
 solution: "Il workflow usa Workload Identity Federation per impersonare un service account read-only, interroga Cloud Asset Inventory e Service Usage API e committa gli output solo quando cambiano."
 outcome: "Un inventario trasparente e versionato nel repository, aggiornabile senza servizi GCP a pagamento né credenziali JSON persistenti."
 featured: false
-order: 11
+order: 9
 draft: false
 links:
   - label: "Repository GitHub"

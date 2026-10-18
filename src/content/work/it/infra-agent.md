@@ -7,7 +7,7 @@ problem: "Analizzare host differenti richiede passaggi ripetitivi tra shell, log
 solution: "L'app centralizza host e conversazioni, raccoglie diagnostica in sola lettura e sottopone le azioni SSH rischiose a un flusso esplicito di proposta, approvazione o rifiuto."
 outcome: "Un'interfaccia operativa persistente per indagare servizi, risorse, dischi, processi e rete mantenendo l'utente nel ciclo decisionale."
 featured: false
-order: 5
+order: 15
 draft: false
 links:
   - label: "Repository GitHub"

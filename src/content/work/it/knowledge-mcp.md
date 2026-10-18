@@ -6,8 +6,8 @@ stack: ["Python", "MCP", "Qdrant", "Docker", "Sentence Transformers", "CUDA"]
 problem: "Collegare un assistente AI ai propri documenti richiede un indice aggiornabile e risultati che permettano di risalire ai file di origine."
 solution: "Il progetto indicizza le cartelle selezionate, combina ricerca semantica e lessicale ed espone tramite MCP i passaggi pertinenti con i riferimenti alle fonti."
 outcome: "Una base documentale consultabile da client compatibili con MCP, con gestione web, aggiornamenti incrementali e backup degli indici."
-featured: false
-order: 16
+featured: true
+order: 4
 draft: false
 links:
   - label: "Repository GitHub"

@@ -7,7 +7,7 @@ problem: "A manually maintained cloud inventory quickly becomes stale, while lon
 solution: "The workflow uses Workload Identity Federation to impersonate a read-only service account, queries Cloud Asset Inventory and Service Usage API, and commits outputs only when they change."
 outcome: "A transparent, versioned inventory stored in the repository and updated without paid GCP services or persistent JSON credentials."
 featured: false
-order: 11
+order: 9
 draft: false
 links:
   - label: "GitHub repository"

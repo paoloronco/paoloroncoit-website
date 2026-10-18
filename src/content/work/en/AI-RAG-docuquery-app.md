@@ -6,8 +6,8 @@ stack: ["Python", "PyQt6", "FAISS", "Sentence Transformers"]
 problem: "Finding information across mixed collections of local documents often requires slow, fragmented manual searches."
 solution: "The app extracts and indexes content with E5 or MiniLM embeddings and FAISS, retrieves relevant passages from a PyQt6 interface, and can send them to several LLM backends."
 outcome: "A local document assistant that exposes passages, files, and source pages and can also work in a citations-only mode without an LLM."
-featured: true
-order: 2
+featured: false
+order: 7
 draft: false
 links:
   - label: "GitHub repository"

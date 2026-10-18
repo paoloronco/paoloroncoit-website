@@ -7,7 +7,7 @@ problem: "Presenting an identity, links, content, contact details, and services 
 solution: "OrbitPage brings these needs together in a single product."
 outcome: "The product is available both as a ready-to-use managed SaaS and as a self-hosted open-source core."
 featured: true
-order: 3
+order: 2
 draft: false
 links:
   - label: "Try OrbitPage"

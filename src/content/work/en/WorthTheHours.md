@@ -7,7 +7,7 @@ problem: "A monetary amount alone does not always communicate how much working t
 solution: "The app calculates an hourly value from salary details, stores items for evaluation, and automatically translates every price into hours and minutes of work."
 outcome: "A local, private tool for comparing purchases in terms of time, with a Material 3 interface and on-device persistence."
 featured: false
-order: 10
+order: 17
 draft: false
 links:
   - label: "GitHub repository"

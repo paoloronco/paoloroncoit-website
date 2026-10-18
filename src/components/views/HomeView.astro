@@ -30,9 +30,8 @@ const icons: Record<string, string> = {
 const marquee = ['Proxmox', 'Docker', 'Kali Linux', 'Wazuh', 'Splunk', 'n8n', 'Cloudflare', 'Google Cloud', 'AWS', 'Azure', 'Oracle Cloud (OCI)', 'Linux', 'Bash', 'Ollama', 'vLLM', 'OpenAI', 'GitHub', 'Vercel', 'Wiz', 'RAG', 'Zero Trust', 'MCP'];
 const stack = ['Proxmox', 'Docker', 'Kali Linux', 'Wazuh', 'Splunk', 'n8n', 'Cloudflare', 'Google Cloud', 'Linux', 'Bash', 'Ollama', 'OpenAI', 'GitHub'];
 
-const projects = (await getCollection('work', (e) => !e.data.draft && entryLang(e.id) === lang))
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 3);
+const projects = (await getCollection('work', (e) => !e.data.draft && e.data.featured && entryLang(e.id) === lang))
+  .sort((a, b) => a.data.order - b.data.order);
 
 const posts = (await getCollection('writing', (e) => !e.data.draft && entryLang(e.id) === lang))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -150,7 +149,7 @@ const fmt = (d: Date) =>
   {projects.length > 0 && (
     <section class="mx-auto max-w-5xl px-5 py-24">
       <SectionHead eyebrow={t('home.featuredEyebrow')} title={t('home.featured')} accent={t('home.featuredAccent')} sub={t('home.featuredSub')} />
-      <div class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
         {projects.map((p, i) => (
           <div data-reveal style={`--i:${i + 1}`}>
             <CaseFileCard href={localizePath(`/projects/${entrySlug(p.id)}`, lang)} title={p.data.title} summary={p.data.summary} category={p.data.category} stack={p.data.stack} index={i + 1} />
