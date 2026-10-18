@@ -59,6 +59,7 @@ npm run build     # static build → dist/
 npm run preview   # preview the build locally
 npm run check     # Astro type-check
 npm run test:agents # Markdown conversion and negotiation regression tests
+npm run test:seo   # verification-file validation and broken language-link regression tests
 npm run agents:audit # verify generated Markdown, discovery and API language isolation
 ```
 
@@ -129,6 +130,8 @@ Every build generates Markdown from each rendered page's main content, including
 `/api/terminal/writings.json?lang=it|en` runs on demand so the language query is evaluated per request. Its existing response shape, Italian fallback, draft filtering and five-minute public cache remain intact. The chat proxy is not part of the public API catalog.
 
 After deployment, run `npm run agents:audit -- https://paoloronco.it` to also verify HTTP negotiation, cache order, discovery content types and API responses on the live site.
+
+`npm run seo:audit` checks the built pages, sitemap, language alternates, internal references and migration redirects. Google HTML ownership-verification files are validated against their expected token separately from editorial pages; their original contents must remain intact. Published writing articles need matching Italian and English entries so both the language selector and hreflang links resolve.
 
 ---
 

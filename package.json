@@ -12,6 +12,7 @@
     "check": "astro check",
     "test:social": "node --experimental-strip-types --test scripts/social-image.test.ts",
     "test:agents": "node --test scripts/agent-content.test.mjs",
+    "test:seo": "node --test scripts/seo-audit.test.mjs",
     "agents:audit": "node scripts/agent-audit.mjs",
     "seo:audit": "node scripts/seo-audit.mjs"
   },

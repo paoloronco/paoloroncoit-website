@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 
 const root = path.resolve('dist/client');
@@ -45,7 +45,7 @@ function hasLocalTarget(url) {
   const fileTarget = path.join(root, normalized);
   const htmlTarget = path.join(root, `${pathname.replace(/\/$/, '')}.html`);
   const indexTarget = path.join(root, pathname, 'index.html');
-  return existsSync(fileTarget) || existsSync(htmlTarget) || existsSync(indexTarget);
+  return [fileTarget, htmlTarget, indexTarget].some((file) => existsSync(file) && statSync(file).isFile());
 }
 
 function addIssue(kind, url, message) {
@@ -59,6 +59,7 @@ if (!existsSync(root)) {
 }
 
 const htmlFiles = walk(root, (file) => file.endsWith('.html'));
+const verificationFiles = htmlFiles.filter((file) => /^google[a-f\d]+\.html$/.test(path.relative(root, file)));
 const canonicalOwners = new Map();
 const sitemap = readFileSync(path.join(root, 'sitemap-0.xml'), 'utf8');
 const sitemapUrls = all(sitemap, /<loc>(.*?)<\/loc>/g);
@@ -68,7 +69,14 @@ const comparisonKey = (value) => {
 };
 const sitemapUrlSet = new Set(sitemapUrls.map(comparisonKey));
 
-for (const file of htmlFiles) {
+for (const file of verificationFiles) {
+  const expected = `google-site-verification: ${path.basename(file)}`;
+  if (readFileSync(file, 'utf8').trim() !== expected) {
+    addIssue('failure', relUrl(file), 'invalid Google site verification token');
+  }
+}
+
+for (const file of htmlFiles.filter((file) => !verificationFiles.includes(file))) {
   const html = readFileSync(file, 'utf8');
   const url = relUrl(file);
   const title = first(html, /<title>([\s\S]*?)<\/title>/i);
@@ -203,7 +211,7 @@ for (const badUrl of all(rss, /<link>(.*?)<\/link>/g).filter((url) => /\/writing
   addIssue('failure', badUrl, 'malformed localized RSS link');
 }
 
-console.log(`SEO audit scanned ${htmlFiles.length} HTML files and ${sitemapUrls.length} sitemap URLs.`);
+console.log(`SEO audit scanned ${htmlFiles.length - verificationFiles.length} HTML pages, ${verificationFiles.length} verification files and ${sitemapUrls.length} sitemap URLs.`);
 
 if (warnings.length) {
   console.warn(`\nWarnings (${warnings.length}):`);
