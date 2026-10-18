@@ -26,7 +26,11 @@ export const ui = {
 
     // home
     'home.intro':
-      `Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab progetto, sperimento e documento soluzioni di automazione, LLM e infrastrutture self-hosted.`,
+      `Sono un Cybersecurity Analyst presso Deloitte, dove lavoro su progetti di cybersecurity in contesti enterprise, dalle Security Operations e dalle piattaforme SIEM fino agli assessment e alla valutazione dei controlli di sicurezza.
+
+Parallelamente all'attività professionale sviluppo e gestisco progetti personali in ambito cloud computing, Linux, networking, virtualizzazione, sviluppo software e automazione. Queste attività mi permettono di sperimentare tecnologie differenti, approfondirne il funzionamento e applicarle a problemi concreti.
+
+Seguo con particolare interesse l'evoluzione della cybersecurity, le metodologie DevSecOps e l'intelligenza artificiale, soprattutto nelle loro applicazioni pratiche e nell'integrazione con sistemi e servizi esistenti.`,
     'home.ctaWork': 'Esplora i progetti →',
     'home.ctaWriting': 'Leggi gli articoli',
     'home.status': 'Disponibile per collaborazioni',
@@ -186,7 +190,11 @@ export const ui = {
     'lang.switch': 'Language',
 
     'home.intro':
-      `Cyber Security Analyst at Deloitte, in the ${enterpriseSecurityArea}. I work on cloud security, infrastructure and AI applied to defense. In my homelab I design, experiment with and document automation, LLM and self-hosted infrastructure solutions.`,
+      `I'm a Cybersecurity Analyst at Deloitte, working on enterprise cybersecurity projects spanning Security Operations, SIEM platforms, security assessments, and security control evaluations.
+
+Alongside my professional role, I develop and maintain independent projects involving cloud computing, Linux, networking, virtualization, software development, and automation. These projects allow me to experiment with different technologies, understand how they work, and apply them to practical challenges.
+
+I'm particularly interested in the evolution of cybersecurity, DevSecOps practices, and artificial intelligence, especially their practical applications and integration with existing systems and services.`,
     'home.ctaWork': 'Explore the projects →',
     'home.ctaWriting': 'Read the articles',
     'home.status': 'Available for collaborations',

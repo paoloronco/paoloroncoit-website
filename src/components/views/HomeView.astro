@@ -54,7 +54,9 @@ const fmt = (d: Date) =>
             <span class="reveal-mask"><span style="animation-delay:.18s">Paolo</span></span><br />
             <span class="reveal-mask"><span class="text-accent" style="animation-delay:.28s">Ronco</span></span>
           </h1>
-          <p class="anim-rise mt-6 max-w-md text-base leading-relaxed text-text-dim" style="animation-delay:.42s">{t('home.intro')}</p>
+          <div class="anim-rise mt-6 max-w-md space-y-4 text-base leading-relaxed text-text-dim" style="animation-delay:.42s">
+            {t('home.intro').split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
+          </div>
           <div class="anim-rise mt-7 flex flex-wrap items-center gap-3" style="animation-delay:.54s">
             <a href={localizePath('/projects', lang)} class="btn-shine rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-ink-900 shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:shadow-accent/40">
               {t('home.ctaWork')}
