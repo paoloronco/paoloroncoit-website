@@ -1,6 +1,20 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
+import { getTransformedRoutes } from '@vercel/routing-utils';
 import { markdownAccept, pageMarkdown } from './agent-content.mjs';
+
+test('Discovery and cache headers match the homepage as well as nested paths', () => {
+  const project = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
+  const { routes, error } = getTransformedRoutes({ headers: project.headers });
+  assert.equal(error, null);
+  for (const pathname of ['/', '/en', '/en/cv', '/writing/article', '/llms.txt']) {
+    const headers = Object.assign({}, ...routes.filter((route) => new RegExp(route.src).test(pathname)).map((route) => route.headers));
+    assert.equal(headers.Vary, 'Accept', pathname);
+    assert.match(headers.Link ?? '', /rel="api-catalog"/, pathname);
+    assert.match(headers['Content-Signal'] ?? '', /ai-input=yes/, pathname);
+  }
+});
 
 test('Markdown negotiation requires an explicit acceptable media type', () => {
   const accepts = new RegExp(`^${markdownAccept}$`);
