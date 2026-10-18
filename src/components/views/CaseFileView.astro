@@ -37,11 +37,6 @@ const ld = {
   <article class="mx-auto max-w-3xl px-5 pt-14 pb-10">
     <a href={localizePath('/projects', lang)} class="font-mono text-xs text-muted hover:text-accent">{t('work.back')}</a>
 
-    <div class="mt-5 flex flex-wrap items-center gap-2">
-      <span class="kicker text-muted">{d.category}</span>
-      <span class="font-mono text-xs text-muted">{d.stack.join('  ·  ')}</span>
-    </div>
-
     <h1 class="mt-4 text-3xl font-semibold tracking-tight text-text sm:text-4xl">{d.title}</h1>
     <p class="mt-3 text-lg text-text-dim">{d.summary}</p>
 
@@ -56,12 +51,6 @@ const ld = {
           <dd class="text-text-dim">{v}</dd>
         </div>
       ))}
-      <div class="grid grid-cols-1 gap-1 p-4 sm:grid-cols-[120px_1fr] sm:gap-4">
-        <dt class="kicker pt-0.5">{t('work.stack')}</dt>
-        <dd class="flex flex-wrap gap-1.5">
-          {d.stack.map((s) => <span class="rounded border border-ink-600 px-2 py-0.5 font-mono text-xs text-text-dim">{s}</span>)}
-        </dd>
-      </div>
     </dl>
 
     {d.links.length > 0 && (

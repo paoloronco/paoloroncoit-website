@@ -3,11 +3,9 @@ interface Props {
   href: string;
   title: string;
   summary: string;
-  category: string;
-  stack: string[];
   variant?: 'default' | 'hybrid';
 }
-const { href, title, summary, category, stack, variant = 'default' } = Astro.props;
+const { href, title, summary, variant = 'default' } = Astro.props;
 ---
 <a
   href={href}
@@ -33,17 +31,10 @@ const { href, title, summary, category, stack, variant = 'default' } = Astro.pro
     variant === 'hybrid' ? 'casefile-card-hybrid' : '',
   ]}
 >
-  <span class="kicker self-start text-muted">{category}</span>
-
-  <h3 class="readable-title mt-3 text-lg font-semibold text-text">{title}</h3>
+  <h3 class="readable-title text-lg font-semibold text-text">{title}</h3>
   <p class="readable-summary mt-2 flex-1 text-sm leading-relaxed text-text-dim">{summary}</p>
 
-  <div class="casefile-meta mt-4 flex flex-wrap items-center gap-1.5">
-    {stack.map((s) => (
-      <span class="rounded border border-ink-600 px-1.5 py-0.5 font-mono text-[10px] text-muted transition-colors group-hover:text-text-dim">{s}</span>
-    ))}
-    <span class="case-arrow ml-auto font-mono text-sm text-muted" aria-hidden="true">↗</span>
-  </div>
+  <span class="case-arrow mt-4 self-end font-mono text-sm text-muted" aria-hidden="true">↗</span>
 </a>
 
 <style>
@@ -61,7 +52,6 @@ const { href, title, summary, category, stack, variant = 'default' } = Astro.pro
   .casefile-card-hybrid .readable-title {
     font-size: 1.12rem;
     line-height: 1.38;
-    margin-top: 0.9rem;
   }
 
   .casefile-card-hybrid .readable-summary {
@@ -72,9 +62,5 @@ const { href, title, summary, category, stack, variant = 'default' } = Astro.pro
     -webkit-box-orient: vertical;
     overflow: hidden;
     min-height: 6.6rem;
-  }
-
-  .casefile-card-hybrid .casefile-meta {
-    margin-top: auto;
   }
 </style>
