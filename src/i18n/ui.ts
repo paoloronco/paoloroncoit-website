@@ -125,18 +125,18 @@ Seguo con particolare interesse l'evoluzione della cybersecurity, le pratiche De
     'contact.readyTensorNote': 'Pubblicazioni e progetti di AI e machine learning.',
 
     // ask
-    'ask.kicker': 'AI Assistant · self-hosted',
+    'ask.kicker': 'AI Assistant · contenuti del sito',
     'ask.title': 'Chiedi pure',
     'ask.subtitle':
-      'Un assistente addestrato sui miei articoli e progetti. Gira su infrastruttura mia (n8n), raggiunto dal sito solo tramite un proxy. Nessun dato passa da SaaS di terzi.',
+      'Un assistente che consulta i miei contenuti: articoli, progetti e competenze.',
     'ask.placeholder': 'Es. che esperienza hai con il cloud?',
     'ask.send': 'Invia',
     'ask.note':
-      'ⓘ L\'assistente cerca tra i miei contenuti (competenze, progetti, articoli) tramite un workflow n8n self-hosted, raggiunto da un proxy del sito. Nessun dato passa da SaaS di terzi.',
+      'ⓘ Le richieste passano dal proxy del sito a un workflow n8n self-hosted. I messaggi possono essere elaborati da fornitori esterni, in base ai modelli, alle API e ai servizi utilizzati dal workflow.',
     'ask.fallback':
       "Ops, qualcosa è andato storto. Riprova tra poco.",
     'chat.open': "Apri l'assistente AI",
-    'chat.tagline': 'Assistente AI · self-hosted',
+    'chat.tagline': 'Assistente AI · contenuti del sito',
     'chat.greeting': 'Ciao 👋 Sono l\'assistente AI di Paolo. Chiedimi dei suoi progetti, articoli o competenze.',
     'chat.searching': 'Sto cercando…',
     'chat.found': 'Ecco cosa ho trovato:',
@@ -291,18 +291,18 @@ I'm particularly interested in the evolution of cybersecurity, DevSecOps practic
     'contact.hfNote': 'Models, datasets and AI experiments.',
     'contact.readyTensorNote': 'AI and machine learning publications and projects.',
 
-    'ask.kicker': 'AI Assistant · self-hosted',
+    'ask.kicker': 'AI Assistant · site content',
     'ask.title': 'Ask away',
     'ask.subtitle':
-      'An assistant trained on my articles and projects. It runs on my own infrastructure (n8n), reached by the site only through a proxy. No data goes through third-party SaaS.',
+      'An assistant that consults my content: articles, projects, and skills.',
     'ask.placeholder': 'E.g. what is your experience with cloud?',
     'ask.send': 'Send',
     'ask.note':
-      'ⓘ The assistant searches my content (skills, projects, articles) via a self-hosted n8n workflow, reached through a site proxy. No data goes through third-party SaaS.',
+      'ⓘ Requests pass through the site\'s proxy to a self-hosted n8n workflow. Messages may be processed by external providers, depending on the models, APIs, and services used by the workflow.',
     'ask.fallback':
       'Oops, something went wrong. Please try again shortly.',
     'chat.open': 'Open the AI assistant',
-    'chat.tagline': 'AI Assistant · self-hosted',
+    'chat.tagline': 'AI Assistant · site content',
     'chat.greeting': "Hi 👋 I'm Paolo's AI assistant. Ask me about his projects, articles or skills.",
     'chat.searching': 'Searching…',
     'chat.found': "Here's what I found:",
