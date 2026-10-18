@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import sharp from 'sharp';
-import { projectSocialImage, renderProjectSocialImage } from '../src/lib/project-social-image.ts';
+import { projectSocialImage, writingSocialImage, renderSocialImage } from '../src/lib/social-image.ts';
 
 const project = {
   id: 'en/homelab-backup',
@@ -27,7 +27,7 @@ test('cover URLs are stable, localized and change with the displayed content', (
 });
 
 test('renders deterministic, opaque white PNGs at LinkedIn dimensions', async () => {
-  const png = await renderProjectSocialImage(project);
+  const png = await renderSocialImage(project);
   const metadata = await sharp(png).metadata();
   assert.equal(metadata.format, 'png');
   assert.equal(metadata.width, 1200);
@@ -36,11 +36,11 @@ test('renders deterministic, opaque white PNGs at LinkedIn dimensions', async ()
   const corner = await sharp(png).removeAlpha().extract({ left: 0, top: 0, width: 1, height: 1 }).raw().toBuffer();
   assert.deepEqual([...corner], [255, 255, 255]);
   assert.ok((await sharp(png).stats()).isOpaque);
-  assert.deepEqual(await renderProjectSocialImage(project), png);
+  assert.deepEqual(await renderSocialImage(project), png);
 });
 
 test('wraps long titles and safely renders markup, accents and an empty stack', async () => {
-  const png = await renderProjectSocialImage({
+  const png = await renderSocialImage({
     ...project,
     id: 'it/test',
     data: {
@@ -51,4 +51,46 @@ test('wraps long titles and safely renders markup, accents and an empty stack', 
     },
   });
   assert.equal((await sharp(png).metadata()).width, 1200);
+});
+
+const article = {
+  id: 'en/homelab-backup',
+  data: {
+    title: 'Backups in a self-hosted homelab',
+    description: 'A practical guide to keeping services and data recoverable.',
+    tags: ['Linux', 'backup', 'Proxmox'],
+    pubDate: new Date('2026-10-18'),
+    draft: false,
+  },
+};
+
+test('writing covers have their own localized URLs and content fingerprints', () => {
+  const url = writingSocialImage(article);
+  assert.match(url, /^\/og\/writing\/en\/homelab-backup-[a-f0-9]{12}\.png$/);
+  assert.equal(writingSocialImage(structuredClone(article)), url);
+  assert.notEqual(writingSocialImage({ ...article, id: 'it/homelab-backup' }), url);
+  for (const change of [
+    { title: 'New article title' }, { description: 'Updated description' }, { tags: ['Linux'] },
+  ]) assert.notEqual(writingSocialImage({ ...article, data: { ...article.data, ...change } }), url);
+});
+
+test('renders article covers with tags and fits long editorial text without tags', async () => {
+  const png = await renderSocialImage(article);
+  const metadata = await sharp(png).metadata();
+  assert.equal(metadata.format, 'png');
+  assert.equal(metadata.width, 1200);
+  assert.equal(metadata.height, 630);
+  assert.ok((await sharp(png).stats()).isOpaque);
+  assert.deepEqual(await renderSocialImage(article), png);
+  const long = await renderSocialImage({
+    ...article,
+    id: 'it/long-article',
+    data: {
+      ...article.data,
+      title: 'IT Support Simulator: my practical project to recreate real IT ticket management dynamics in a simulated enterprise helpdesk context',
+      description: 'Una guida pratica: sicurezza, qualità e automazione. <b>Testo letterale</b> & "virgolette". '.repeat(5),
+      tags: [],
+    },
+  });
+  assert.equal((await sharp(long).metadata()).width, 1200);
 });

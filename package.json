@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test:social": "node --experimental-strip-types --test scripts/project-social-image.test.ts",
+    "test:social": "node --experimental-strip-types --test scripts/social-image.test.ts",
     "seo:audit": "node scripts/seo-audit.mjs"
   },
   "dependencies": {

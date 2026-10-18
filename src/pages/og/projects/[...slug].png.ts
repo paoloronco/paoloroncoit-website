@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { entryLang, entrySlug } from '@/i18n/utils';
-import { projectSocialImage, renderProjectSocialImage } from '@/lib/project-social-image';
+import { projectSocialImage, renderSocialImage } from '@/lib/social-image';
 
 export const prerender = true;
 
@@ -22,6 +22,6 @@ export async function getStaticPaths() {
 }
 
 export const GET: APIRoute = async ({ props }) => {
-  const png = await renderProjectSocialImage(props.project);
+  const png = await renderSocialImage(props.project);
   return new Response(new Uint8Array(png), { headers: { 'Content-Type': 'image/png' } });
 };

@@ -108,9 +108,11 @@ LLM_API_KEY=sk-... LLM_MODEL=gpt-4o-mini node scripts/translate-articles.mjs
 
 Every build generates a white 1200×630 PNG cover for each project's Italian and English page, using its title, summary, category and first four technologies. Covers use the site's Space Grotesk font and are rendered locally with Sharp, without AI or external services. Their URLs include a content fingerprint, so content changes produce a new image URL. Existing unversioned cover URLs remain available with the English cover.
 
-Open Graph and Twitter metadata select the correct localized cover automatically. For a custom override, set `socialImage: "/og/custom/homelab-backup.png"` and add that file under `public/og/custom/`.
+Writing articles use the same automatic covers, with their localized title, description and first four tags. No image or additional frontmatter is needed. Open Graph, Twitter and Article structured data select the article's cover automatically; drafts do not generate covers.
 
-Run `npm run test:social` to check rendering and cache fingerprints. After deployment, use [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) for any project URL that LinkedIn has already cached; IT and EN URLs are inspected separately. Existing LinkedIn entries may need the link removed and added again after refreshing its preview.
+Open Graph and Twitter metadata select the correct localized project cover automatically. For a custom project override, set `socialImage: "/og/custom/homelab-backup.png"` and add that file under `public/og/custom/`.
+
+Run `npm run test:social` to check rendering and cache fingerprints. After deployment, use [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) for any article or project URL that LinkedIn has already cached; IT and EN URLs are inspected separately. Existing LinkedIn entries may need the link removed and added again after refreshing its preview.
 
 Both collection schemas are defined in `src/content.config.ts`.
 

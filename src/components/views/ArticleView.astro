@@ -1,6 +1,8 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
 import Base from '@/layouts/Base.astro';
+import { site } from '@/data/site';
+import { writingSocialImage } from '@/lib/social-image';
 import { getLangFromUrl, useTranslations, localizePath, entrySlug } from '@/i18n/utils';
 
 interface Props { post: CollectionEntry<'writing'> }
@@ -10,6 +12,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const { Content, headings } = await render(post);
 const d = post.data;
+const cover = writingSocialImage(post);
 const fmt = (date: Date) =>
   date.toLocaleDateString(lang === 'en' ? 'en-GB' : 'it-IT', { day: '2-digit', month: 'long', year: 'numeric' });
 const toc = headings.filter((h) => h.depth === 2);
@@ -20,6 +23,7 @@ const ld = {
   '@type': 'Article',
   headline: d.title,
   description: d.description,
+  image: new URL(cover, site.url).toString(),
   datePublished: d.pubDate.toISOString(),
   dateModified: (d.updatedDate ?? d.pubDate).toISOString(),
   author: { '@type': 'Person', name: 'Paolo Ronco' },
@@ -31,6 +35,11 @@ const ld = {
   title={d.title}
   description={d.description}
   path={`/writing/${entrySlug(post.id)}`}
+  image={cover}
+  imageAlt={d.title}
+  imageWidth={1200}
+  imageHeight={630}
+  imageType="image/png"
   ogType="article"
   publishedTime={d.pubDate}
   modifiedTime={d.updatedDate ?? d.pubDate}

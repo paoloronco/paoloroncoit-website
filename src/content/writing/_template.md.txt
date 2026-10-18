@@ -3,6 +3,7 @@
 title: "Titolo dell'articolo"
 description: "Una frase che riassume il pezzo (usata in lista, SEO e anteprime social)."
 pubDate: 2026-06-09          # data di pubblicazione (YYYY-MM-DD)
+# Copertina social generata automaticamente da titolo, descrizione e tag durante la build.
 # ── Campi opzionali ────────────────────────────────
 tags: ["security", "ai"]    # parole chiave (compaiono come #tag)
 # updatedDate: 2026-06-20    # se lo aggiorni in futuro

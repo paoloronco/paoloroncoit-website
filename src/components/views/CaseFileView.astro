@@ -2,7 +2,7 @@
 import { render, type CollectionEntry } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import { categoryColors } from '@/data/site';
-import { projectSocialImage } from '@/lib/project-social-image';
+import { projectSocialImage } from '@/lib/social-image';
 import { getLangFromUrl, useTranslations, localizePath, entrySlug } from '@/i18n/utils';
 
 interface Props { project: CollectionEntry<'work'> }
