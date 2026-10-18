@@ -35,11 +35,13 @@ const { href, title, summary, category, variant = 'default' } = Astro.props;
     variant === 'hybrid' ? 'casefile-card-hybrid' : '',
   ]}
 >
-  <ProjectCategoryBadge category={category} />
-  <h3 class="readable-title mt-3 text-lg font-semibold text-text">{title}</h3>
+  <h3 class="readable-title text-lg font-semibold text-accent">{title}</h3>
   <p class="readable-summary mt-2 flex-1 text-sm leading-relaxed text-text-dim">{summary}</p>
 
-  <span class="case-arrow mt-4 self-end font-mono text-sm text-muted" aria-hidden="true">↗</span>
+  <div class="mt-5 flex items-center justify-between gap-4">
+    <ProjectCategoryBadge category={category} />
+    <span class="case-arrow font-mono text-sm text-muted" aria-hidden="true">↗</span>
+  </div>
 </a>
 
 <style>
