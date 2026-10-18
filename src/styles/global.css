@@ -334,7 +334,8 @@ h1, h2, h3, .font-display {
   box-shadow: 0 10px 30px -8px color-mix(in oklab, var(--color-accent) 55%, transparent);
 }
 .chat-fab[data-chat-toggle] {
-  bottom: calc(1.25rem + env(safe-area-inset-bottom) + var(--chat-cookie-offset, 0px));
+  bottom: calc(1.25rem + env(safe-area-inset-bottom));
+  translate: 0 calc(0px - var(--chat-cookie-offset, 0px));
   right: calc(1.25rem + env(safe-area-inset-right));
 }
 .chat-fab[data-chat-toggle]::before {
