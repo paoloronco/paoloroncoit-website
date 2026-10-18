@@ -1,6 +1,6 @@
 ---
 title: "AWS AI SOC Analyzer"
-summary: "Laboratorio di triage SOC assistito da AI: n8n invia un alert a un'API AWS protetta e riceve un'analisi strutturata da Bedrock."
+summary: "Progetto sperimentale di triage SOC assistito da AI, che integra n8n, AWS API Gateway, Lambda e Bedrock per analizzare alert di sicurezza e restituire risultati strutturati."
 category: "security"
 stack: ["Splunk", "n8n", "AWS Lambda", "API Gateway", "Bedrock", "IAM"]
 problem: "Volevo imparare AWS con un caso d'uso vicino al mio lavoro: aggiungere contesto agli alert SOC senza affidare a un LLM le decisioni di sicurezza."

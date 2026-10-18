@@ -1,6 +1,6 @@
 ---
 title: "n8n Templates"
-summary: "Una raccolta di workflow n8n pronti da importare per automazioni, notifiche, gestione documentale e integrazioni tra servizi."
+summary: "Raccolta di workflow n8n gratuiti e commerciali per automazione, integrazioni API, AI, gestione documentale, notifiche e operazioni cloud, con template importabili e documentazione dedicata."
 category: "automation"
 stack: ["n8n", "JSON", "JavaScript", "HTML"]
 problem: "Costruire ogni automazione da zero rallenta la sperimentazione e rende più difficile riutilizzare configurazioni già collaudate."

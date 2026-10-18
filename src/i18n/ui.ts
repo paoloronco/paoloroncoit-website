@@ -67,11 +67,11 @@ Seguo con particolare interesse l'evoluzione della cybersecurity, le metodologie
     'cv.downloadPdf': '⬇ Scarica PDF',
     'cv.profile': 'Profilo professionale',
     'cv.intro':
-      `Sono un Cybersecurity Analyst presso Deloitte, dove lavoro su progetti di cybersecurity in contesti enterprise, dalle Security Operations e dalle piattaforme SIEM agli assessment e alla valutazione dei controlli di sicurezza. Il mio percorso comprende anche esperienze nell'amministrazione di sistemi e nei servizi IT.
+      `Cybersecurity Analyst presso Deloitte, con esperienza in contesti enterprise nell'ambito delle Security Operations, delle tecnologie SIEM e dei security assessment, inclusa la valutazione dei controlli e della maturità di sicurezza.
 
-Accanto all'attività professionale sviluppo e gestisco progetti personali in ambito cloud computing, Linux, networking, virtualizzazione, sviluppo software e automazione. Questi progetti mi permettono di sperimentare tecnologie differenti, approfondirne il funzionamento e applicarle a problemi concreti.
+Affianco all'esperienza professionale un approccio tecnico e multidisciplinare, che coltivo attraverso lo sviluppo e la gestione di progetti personali in ambito cloud computing, Linux, networking, virtualizzazione, sviluppo software e automazione. Queste attività mi permettono di sperimentare tecnologie differenti e consolidare competenze attraverso la loro applicazione pratica.
 
-Seguo con particolare interesse l'evoluzione della cybersecurity, le pratiche DevSecOps e l'intelligenza artificiale, con attenzione alle applicazioni pratiche e all'integrazione con sistemi e servizi esistenti.`,
+Dedico particolare attenzione all'evoluzione della cybersecurity, alle metodologie DevSecOps e alle opportunità offerte dall'intelligenza artificiale, approfondendone le applicazioni e l'integrazione con sistemi e servizi esistenti.`,
     'cv.experience': 'Esperienza',
     'cv.skills': 'Competenze',
     'cv.skillsCardDesc': 'Security · Cloud · Networking · DevOps · Automazione · AI — con livelli e strumenti.',
@@ -91,11 +91,13 @@ Seguo con particolare interesse l'evoluzione della cybersecurity, le pratiche De
     // about
     'about.kicker': 'Chi sono',
     'about.p1':
-      `Sono un Cybersecurity Analyst in Deloitte, nell'${enterpriseSecurityArea}. Prima ho lavorato come System Administrator e in diversi ruoli legati ai servizi IT, partendo da Torino.`,
+      `Sono un Cybersecurity Analyst presso Deloitte, dove lavoro su progetti di cybersecurity in contesti enterprise, dalle Security Operations e dalle tecnologie SIEM fino agli assessment e alla valutazione dei controlli di sicurezza.`,
     'about.p2':
-      '«Ogni esperienza che ho vissuto ha contribuito a formare la persona e il professionista che sono oggi.» Il mio campo è la sicurezza del cloud e delle architetture, con un interesse crescente per l\'AI applicata alla difesa e per l\'automazione di processi e analisi.',
+      `Il mio interesse per la tecnologia si estende oltre l'attività professionale. Attraverso progetti personali sviluppo e sperimento soluzioni in ambito cloud computing, Linux, networking, virtualizzazione, automazione e intelligenza artificiale. Gestisco inoltre un'infrastruttura homelab che utilizzo per configurare servizi, testare nuove tecnologie e approfondire aspetti legati alla sicurezza, al monitoraggio e alla continuità operativa.`,
     'about.p3':
-      'Credo nelle prove più che nelle dichiarazioni: gran parte di ciò che faccio è verificabile — codice aperto, certificazioni e progetti documentati.',
+      `Dedico particolare attenzione all'evoluzione della cybersecurity, alle metodologie DevSecOps e alle applicazioni pratiche dell'AI, soprattutto nell'automazione, nello sviluppo software e nell'integrazione tra sistemi differenti.`,
+    'about.p4':
+      `Su questo sito raccolgo i progetti che realizzo, le competenze sviluppate e gli articoli in cui documento esperimenti, implementazioni e soluzioni tecniche.`,
     'about.infra': 'La mia infrastruttura',
     'about.infraText':
       'Eseguo diversi servizi in autonomia — è una scelta di controllo e di minimizzazione del rischio, non un vezzo.',
@@ -175,7 +177,7 @@ Seguo con particolare interesse l'evoluzione della cybersecurity, le pratiche De
 
     // writing
     'writing.kicker': 'Articoli',
-    'writing.subtitle': 'Articoli, guide e approfondimenti tecnici su cybersecurity, cloud, AI, automazione e infrastrutture.',
+    'writing.subtitle': 'Articoli, guide tecniche ed esperienze pratiche su cybersecurity, cloud computing, Linux, automazione e intelligenza artificiale. Condivido progetti, configurazioni, sperimentazioni e approfondimenti sulle tecnologie che utilizzo e studio.',
     'writing.toc': 'In questa pagina',
     'writing.back': '← writing',
     'writing.minRead': 'min di lettura',
@@ -244,11 +246,11 @@ I'm particularly interested in the evolution of cybersecurity, DevSecOps practic
     'cv.downloadPdf': '⬇ Download PDF',
     'cv.profile': 'Professional profile',
     'cv.intro':
-      `I'm a Cybersecurity Analyst at Deloitte, working on enterprise cybersecurity projects spanning Security Operations, SIEM platforms, security assessments, and security control evaluations. My background also includes experience in system administration and IT services.
+      `Cybersecurity Analyst at Deloitte, with experience in enterprise environments spanning Security Operations, SIEM technologies, and security assessments, including the evaluation of security controls and organizational security maturity.
 
-Alongside my professional role, I develop and maintain independent projects involving cloud computing, Linux, networking, virtualization, software development, and automation. These projects allow me to experiment with different technologies, understand how they work, and apply them to practical challenges.
+Alongside my professional experience, I pursue a technical and multidisciplinary approach through independent projects involving cloud computing, Linux, networking, virtualization, software development, and automation. These projects allow me to experiment with different technologies and develop practical skills through hands-on implementation.
 
-I'm particularly interested in the evolution of cybersecurity, DevSecOps practices, and artificial intelligence, with a focus on practical applications and integration with existing systems and services.`,
+I'm particularly interested in the evolution of cybersecurity, DevSecOps practices, and artificial intelligence, focusing on their practical applications and integration with existing systems and services.`,
     'cv.experience': 'Experience',
     'cv.skills': 'Skills',
     'cv.skillsCardDesc': 'Security · Cloud · Networking · DevOps · Automation · AI — with levels and tools.',
@@ -267,11 +269,13 @@ I'm particularly interested in the evolution of cybersecurity, DevSecOps practic
 
     'about.kicker': 'About me',
     'about.p1':
-      `I am a Cybersecurity Analyst at Deloitte, in the ${enterpriseSecurityArea}. Previously I worked as a System Administrator and in several IT-services roles, starting out in Turin.`,
+      `I'm a Cybersecurity Analyst at Deloitte, working on enterprise cybersecurity projects involving Security Operations, SIEM technologies, security assessments, and the evaluation of security controls.`,
     'about.p2':
-      '“Every experience I have lived has helped shape the person and professional I am today.” My field is cloud and architecture security, with a growing interest in AI applied to defense and in automating processes and analysis.',
+      `My technical interests extend beyond my professional role. Through independent projects, I develop and experiment with cloud computing, Linux, networking, virtualization, automation, and artificial intelligence. I also maintain a personal homelab where I configure services, test technologies, and explore security, monitoring, and business continuity solutions.`,
     'about.p3':
-      'I believe in evidence over claims: most of what I do is verifiable — open code, certifications and documented projects.',
+      `I'm particularly interested in the evolution of cybersecurity, DevSecOps practices, and practical AI applications, especially in automation, software development, and system integration.`,
+    'about.p4':
+      `This website brings together my projects, technical skills, and articles documenting experiments, implementations, and solutions I've worked on.`,
     'about.infra': 'My infrastructure',
     'about.infraText':
       'I run several services on my own — a choice of control and risk minimization, not a gimmick.',
@@ -346,7 +350,7 @@ I'm particularly interested in the evolution of cybersecurity, DevSecOps practic
     'writing.empty': 'Articles coming soon in this language.',
 
     'writing.kicker': 'Articles',
-    'writing.subtitle': 'Articles, guides, and technical notes on cybersecurity, cloud, AI, automation, and infrastructure.',
+    'writing.subtitle': 'Technical articles, guides, and hands-on experiences covering cybersecurity, cloud computing, Linux, automation, and artificial intelligence. I share projects, configurations, experiments, and insights into the technologies I work with and explore.',
     'writing.toc': 'On this page',
     'writing.back': '← writing',
     'writing.minRead': 'min read',

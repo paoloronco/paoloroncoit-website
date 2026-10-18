@@ -1,6 +1,6 @@
 ---
 title: "AI RAG DocuQuery"
-summary: "Applicazione desktop per indicizzare documenti locali e interrogarli in linguaggio naturale con ricerca vettoriale e risposte corredate da fonti."
+summary: "Applicazione desktop per consultare documenti locali tramite RAG, ricerca ibrida e modelli AI cloud o locali, con risposte supportate da citazioni delle fonti."
 category: "ai"
 stack: ["Python", "PyQt6", "FAISS", "Sentence Transformers"]
 problem: "Ritrovare informazioni in raccolte eterogenee di documenti locali richiede ricerche manuali lente e frammentate."

@@ -1,6 +1,6 @@
 ---
 title: "AI RAG DocuQuery"
-summary: "A desktop app for indexing local documents and querying them in natural language through vector search and source-backed answers."
+summary: "Desktop application for querying local documents using RAG, hybrid search, and cloud or local AI models, with source-grounded answers and citations."
 category: "ai"
 stack: ["Python", "PyQt6", "FAISS", "Sentence Transformers"]
 problem: "Finding information across mixed collections of local documents often requires slow, fragmented manual searches."

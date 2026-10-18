@@ -1,6 +1,6 @@
 ---
 title: "Tabs Session Saver"
-summary: "A Chrome extension for saving groups of tabs, searching stored sessions, and restoring work into a new window when needed."
+summary: "Chrome extension for saving, organizing, and restoring browsing sessions, with search, tab groups, automatic saving, backups, and optional cloud synchronization."
 category: "tool"
 stack: ["JavaScript", "Chrome Extension", "HTML", "CSS"]
 problem: "Closing the browser or shutting down a computer can interrupt work spread across many tabs and windows."

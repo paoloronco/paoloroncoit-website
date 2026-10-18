@@ -1,6 +1,6 @@
 ---
 title: "Infra Agent"
-summary: "An AI agent for SSH-based diagnostics, monitoring, and controlled operations across homelabs, Linux servers, and Proxmox environments."
+summary: "AI agent for Linux server diagnostics and management over SSH, with log and service analysis, support for multiple AI providers, and explicit approval for sensitive operations."
 category: "ai"
 stack: ["Python", "SSH", "Docker", "Proxmox"]
 problem: "Investigating different hosts requires repetitive movement between shells, logs, and tools, while risky commands should not run without human control."

@@ -1,6 +1,6 @@
 ---
 title: "Knowledge MCP"
-summary: "Self-hosted document search over MCP, with local embeddings, Qdrant, incremental indexing, and a web dashboard packaged with Docker."
+summary: "Self-hosted system for indexing and searching local documents through MCP, combining local embeddings, hybrid search, Qdrant, and a web dashboard for managing document sources."
 category: "ai"
 stack: ["Python", "MCP", "Qdrant", "Docker", "Sentence Transformers", "CUDA"]
 problem: "Connecting an AI assistant to personal documents requires an index that can stay current and results that can be traced back to their source files."
