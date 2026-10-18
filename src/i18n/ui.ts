@@ -107,7 +107,7 @@ Seguo con particolare interesse l'evoluzione della cybersecurity, le metodologie
     // contact
     'contact.kicker': 'Contatti',
     'contact.title': 'Scrivimi',
-    'contact.subtitle': 'Per collaborazioni, consulenze o due chiacchiere tecniche.',
+    'contact.subtitle': 'Per collaborazioni, progetti o confronti su cybersecurity, AI e tecnologie.',
     'contact.email': 'Email',
     'contact.emailNote': '',
     'contact.socialTitle': 'Profili',
@@ -148,7 +148,7 @@ Seguo con particolare interesse l'evoluzione della cybersecurity, le metodologie
 
     // work
     'work.kicker': 'Projects',
-    'work.subtitle': 'Non un elenco: ogni progetto è un case file — problema, soluzione, stack, risultato.',
+    'work.subtitle': 'Progetti personali di sviluppo software, cybersecurity, AI, cloud e automazione, con dettagli su funzionalità, tecnologie e implementazione.',
     'work.all': 'tutti',
     'work.problem': 'Problema',
     'work.solution': 'Soluzione',
@@ -160,7 +160,7 @@ Seguo con particolare interesse l'evoluzione della cybersecurity, le metodologie
 
     // writing
     'writing.kicker': 'Articoli',
-    'writing.subtitle': 'Security in pratica · AI/LLM applicata · automazione & DevSecOps.',
+    'writing.subtitle': 'Articoli, guide e approfondimenti tecnici su cybersecurity, cloud, AI, automazione e infrastrutture.',
     'writing.toc': 'In questa pagina',
     'writing.back': '← writing',
     'writing.minRead': 'min di lettura',
@@ -267,7 +267,7 @@ I'm particularly interested in the evolution of cybersecurity, DevSecOps practic
 
     'contact.kicker': 'Contact',
     'contact.title': 'Get in touch',
-    'contact.subtitle': 'For collaborations, consulting or a technical chat.',
+    'contact.subtitle': 'For collaborations, projects, or discussions about cybersecurity, AI, and technology.',
     'contact.email': 'Email',
     'contact.emailNote': '',
     'contact.socialTitle': 'Profiles',
@@ -305,7 +305,7 @@ I'm particularly interested in the evolution of cybersecurity, DevSecOps practic
     'skills.modePct': 'Percent',
 
     'work.kicker': 'Projects',
-    'work.subtitle': 'Not a list: every project is a case file — problem, solution, stack, outcome.',
+    'work.subtitle': 'Independent projects across software development, cybersecurity, AI, cloud, and automation, with details on features, technologies, and implementation.',
     'work.all': 'all',
     'work.problem': 'Problem',
     'work.solution': 'Solution',
@@ -316,7 +316,7 @@ I'm particularly interested in the evolution of cybersecurity, DevSecOps practic
     'writing.empty': 'Articles coming soon in this language.',
 
     'writing.kicker': 'Articles',
-    'writing.subtitle': 'Practical security · applied AI/LLM · automation & DevSecOps.',
+    'writing.subtitle': 'Articles, guides, and technical notes on cybersecurity, cloud, AI, automation, and infrastructure.',
     'writing.toc': 'On this page',
     'writing.back': '← writing',
     'writing.minRead': 'min read',
