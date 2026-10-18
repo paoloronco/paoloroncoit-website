@@ -1,5 +1,7 @@
 ---
 import '@/styles/global.css';
+import bodyFont from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url';
+import displayFont from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url';
 import { ClientRouter } from 'astro:transitions';
 import SiteHeader from '@/components/SiteHeader.astro';
 import SiteFooter from '@/components/SiteFooter.astro';
@@ -102,6 +104,8 @@ const personLd = {
     {includeAlternates && <link rel="alternate" hreflang="x-default" href={altIt} />}
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
     <ClientRouter />
 
     <!-- Open Graph -->

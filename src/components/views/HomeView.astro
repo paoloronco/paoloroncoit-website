@@ -1,5 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import portrait from '../../../public/paolo.png';
 import Base from '@/layouts/Base.astro';
 import CaseFileCard from '@/components/CaseFileCard.astro';
 import Terminal from '@/components/Terminal.astro';
@@ -71,7 +73,8 @@ const fmt = (d: Date) =>
 
         <div class="hero-portrait home-hero-portrait anim-rise order-first -mx-5 flex h-[17.5rem] items-end justify-end overflow-hidden sm:order-none sm:mx-0 sm:h-auto sm:overflow-visible sm:justify-end" style="animation-delay:.34s">
           <div class="photo-frame">
-            <img src="/paolo.png" alt={`${site.name}, ${site.role}`} width="549" height="552" fetchpriority="high"
+            <Image src={portrait} alt={`${site.name}, ${site.role}`} widths={[328, 432, 549]}
+              sizes="(min-width: 1024px) 432px, (min-width: 640px) 384px, 328px" quality={85} loading="eager" fetchpriority="high"
               class="relative z-10 w-[20.5rem] max-w-full translate-x-7 object-contain object-bottom drop-shadow-2xl sm:w-[24rem] sm:translate-x-0 lg:w-[27rem]" />
           </div>
         </div>

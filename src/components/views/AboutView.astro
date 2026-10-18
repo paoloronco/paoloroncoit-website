@@ -1,5 +1,7 @@
 ---
 import Base from '@/layouts/Base.astro';
+import { Image } from 'astro:assets';
+import portrait from '../../../public/paolo.png';
 import CmdPath from '@/components/CmdPath.astro';
 import { site, categoryColors, enterpriseSecurityArea } from '@/data/site';
 import { getLangFromUrl, useTranslations, localizePath } from '@/i18n/utils';
@@ -44,11 +46,12 @@ const quickLinks = [
             </dl>
             <figure class="relative h-44 overflow-hidden">
               <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent"></div>
-              <img
-                src="/paolo.png"
+              <Image
+                src={portrait}
                 alt={site.name}
-                width="549"
-                height="552"
+                widths={[176, 352, 549]}
+                sizes="176px"
+                quality={85}
                 loading="lazy"
                 class="absolute bottom-0 left-1/2 w-44 max-w-none -translate-x-1/2 object-contain drop-shadow-2xl"
               />
@@ -71,11 +74,12 @@ const quickLinks = [
           <div class="grid gap-6 sm:grid-cols-[0.72fr_1fr] lg:grid-cols-1">
             <figure class="relative min-h-72 overflow-hidden border-b border-ink-600/80 sm:min-h-80 sm:border-b-0 sm:border-r lg:border-r-0 lg:border-b">
               <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent"></div>
-              <img
-                src="/paolo.png"
+              <Image
+                src={portrait}
                 alt={site.name}
-                width="549"
-                height="552"
+                widths={[352, 549]}
+                sizes="352px"
+                quality={85}
                 loading="lazy"
                 class="absolute bottom-0 left-1/2 w-[18.5rem] max-w-none -translate-x-1/2 object-contain drop-shadow-2xl sm:w-[20rem] lg:w-[22rem]"
               />
