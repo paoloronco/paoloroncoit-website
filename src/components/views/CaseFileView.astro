@@ -1,7 +1,6 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
 import Base from '@/layouts/Base.astro';
-import { categoryColors } from '@/data/site';
 import { projectSocialImage } from '@/lib/social-image';
 import { getLangFromUrl, useTranslations, localizePath, entrySlug } from '@/i18n/utils';
 
@@ -12,7 +11,6 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const { Content } = await render(project);
 const d = project.data;
-const color = categoryColors[d.category] ?? 'var(--color-accent)';
 const cover = d.socialImage ?? projectSocialImage(project);
 const automaticCover = !d.socialImage;
 
@@ -40,7 +38,7 @@ const ld = {
     <a href={localizePath('/projects', lang)} class="font-mono text-xs text-muted hover:text-accent">{t('work.back')}</a>
 
     <div class="mt-5 flex flex-wrap items-center gap-2">
-      <span class="kicker rounded px-1.5 py-0.5" style={`color:${color};background:color-mix(in oklab, ${color} 14%, transparent)`}>{d.category}</span>
+      <span class="kicker text-muted">{d.category}</span>
       <span class="font-mono text-xs text-muted">{d.stack.join('  ·  ')}</span>
     </div>
 
