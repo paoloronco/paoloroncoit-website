@@ -65,6 +65,13 @@ Seguo con particolare interesse l'evoluzione della cybersecurity, le metodologie
     // cv
     'cv.kicker': 'Curriculum',
     'cv.downloadPdf': '⬇ Scarica PDF',
+    'cv.profile': 'Profilo professionale',
+    'cv.intro':
+      `Sono un Cybersecurity Analyst presso Deloitte, dove lavoro su progetti di cybersecurity in contesti enterprise, dalle Security Operations e dalle piattaforme SIEM agli assessment e alla valutazione dei controlli di sicurezza. Il mio percorso comprende anche esperienze nell'amministrazione di sistemi e nei servizi IT.
+
+Accanto all'attività professionale sviluppo e gestisco progetti personali in ambito cloud computing, Linux, networking, virtualizzazione, sviluppo software e automazione. Questi progetti mi permettono di sperimentare tecnologie differenti, approfondirne il funzionamento e applicarle a problemi concreti.
+
+Seguo con particolare interesse l'evoluzione della cybersecurity, le pratiche DevSecOps e l'intelligenza artificiale, con attenzione alle applicazioni pratiche e all'integrazione con sistemi e servizi esistenti.`,
     'cv.experience': 'Esperienza',
     'cv.skills': 'Competenze',
     'cv.skillsCardDesc': 'Security · Cloud · Networking · DevOps · Automazione · AI — con livelli e strumenti.',
@@ -227,6 +234,13 @@ I'm particularly interested in the evolution of cybersecurity, DevSecOps practic
 
     'cv.kicker': 'Résumé',
     'cv.downloadPdf': '⬇ Download PDF',
+    'cv.profile': 'Professional profile',
+    'cv.intro':
+      `I'm a Cybersecurity Analyst at Deloitte, working on enterprise cybersecurity projects spanning Security Operations, SIEM platforms, security assessments, and security control evaluations. My background also includes experience in system administration and IT services.
+
+Alongside my professional role, I develop and maintain independent projects involving cloud computing, Linux, networking, virtualization, software development, and automation. These projects allow me to experiment with different technologies, understand how they work, and apply them to practical challenges.
+
+I'm particularly interested in the evolution of cybersecurity, DevSecOps practices, and artificial intelligence, with a focus on practical applications and integration with existing systems and services.`,
     'cv.experience': 'Experience',
     'cv.skills': 'Skills',
     'cv.skillsCardDesc': 'Security · Cloud · Networking · DevOps · Automation · AI — with levels and tools.',

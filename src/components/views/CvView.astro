@@ -58,6 +58,11 @@ const logoFrameStyle = (_color: string) =>
       </a>
     </div>
 
+    <h2 class="kicker mt-10 mb-4">{t('cv.profile')}</h2>
+    <div class="space-y-4 leading-relaxed text-text-dim">
+      {t('cv.intro').split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+
     <h2 class="kicker mt-12 mb-6">{t('cv.experience')}</h2>
     <div class="relative">
       <span class="absolute left-1/2 top-2 hidden h-[calc(100%-1rem)] w-px -translate-x-1/2 bg-ink-600 sm:block" aria-hidden="true"></span>
