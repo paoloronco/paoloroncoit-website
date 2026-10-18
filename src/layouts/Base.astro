@@ -21,6 +21,9 @@ interface Props {
   includeAlternates?: boolean;
   image?: string;
   imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageType?: string;
   ogType?: 'website' | 'article' | 'profile';
   robots?: string;
   publishedTime?: Date | string;
@@ -39,6 +42,9 @@ const {
   includeAlternates: includeAlternatesProp,
   image = '/paolo.png',
   imageAlt = `${site.name}, ${site.role}`,
+  imageWidth,
+  imageHeight,
+  imageType,
   ogType = 'website',
   robots = 'index, follow',
   publishedTime,
@@ -86,8 +92,6 @@ const personLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content" />
-    <Analytics />
-    <script is:inline>document.documentElement.classList.add('motion');</script>
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     <meta name="author" content={site.name} />
@@ -109,6 +113,10 @@ const personLd = {
     <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
+    {socialImage.startsWith('https://') && <meta property="og:image:secure_url" content={socialImage} />}
+    {imageType && <meta property="og:image:type" content={imageType} />}
+    {imageWidth && <meta property="og:image:width" content={String(imageWidth)} />}
+    {imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
     <meta property="og:image:alt" content={imageAlt} />
     {normalizedPublishedTime && <meta property="article:published_time" content={normalizedPublishedTime} />}
     {normalizedModifiedTime && <meta property="article:modified_time" content={normalizedModifiedTime} />}
@@ -124,6 +132,8 @@ const personLd = {
     <meta name="theme-color" content="#0a0c12" />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
+    <Analytics />
+    <script is:inline>document.documentElement.classList.add('motion');</script>
 
     <!-- Evita che mobile apra la tastiera per focus ripristinati o auto-focus involontari al caricamento. -->
     <script is:inline>

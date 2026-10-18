@@ -1,7 +1,6 @@
 ---
 title: "TechSkills Website"
 summary: "A bilingual React website for presenting technical skills by category, with search, light and dark themes, and animated indicators."
-socialImage: "/og/projects/skills-website.png"
 category: "tool"
 stack: ["React", "TypeScript", "Vite", "Tailwind CSS"]
 problem: "A static list of technologies says little about the breadth of a skill set and becomes difficult to browse as it grows."

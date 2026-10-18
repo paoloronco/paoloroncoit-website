@@ -1,7 +1,6 @@
 ---
 title: "Tabs Session Saver"
 summary: "A Chrome extension for saving groups of tabs, searching stored sessions, and restoring work into a new window when needed."
-socialImage: "/og/projects/tab-session-saver.png"
 category: "tool"
 stack: ["JavaScript", "Chrome Extension", "HTML", "CSS"]
 problem: "Closing the browser or shutting down a computer can interrupt work spread across many tabs and windows."

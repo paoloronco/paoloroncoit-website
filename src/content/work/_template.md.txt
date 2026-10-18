@@ -8,7 +8,8 @@ problem: "Quale problema/rischio risolve."
 solution: "Come l'hai risolto, in sintesi."
 outcome: "Il risultato concreto: metriche, prima/dopo, impatto."
 # ── Campi opzionali ────────────────────────────────
-# socialImage: "/og/projects/homelab-backup.png" # copertina social, file in public/og/projects/
+# Copertina social generata automaticamente durante la build.
+# socialImage: "/og/custom/homelab-backup.png" # solo per usare una copertina personalizzata
 featured: true               # true = mostrato in home tra i progetti in evidenza
 order: 2                      # ordine (numero più basso = più in alto)
 draft: false                 # true = bozza, non pubblicato

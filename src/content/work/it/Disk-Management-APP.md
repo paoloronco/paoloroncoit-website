@@ -1,7 +1,6 @@
 ---
 title: "Disk Management App"
 summary: "Applicazione desktop Windows in Python per consultare i dischi fisici ed eseguire operazioni amministrative da un'interfaccia grafica."
-socialImage: "/og/projects/disk-management-app.png"
 category: "tool"
 stack: ["Python", "Tkinter", "PowerShell", "PyInstaller"]
 problem: "Le informazioni e le operazioni sui dischi Windows sono distribuite tra strumenti grafici e comandi amministrativi non sempre immediati."

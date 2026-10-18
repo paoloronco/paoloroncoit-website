@@ -2,6 +2,7 @@
 import { render, type CollectionEntry } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import { categoryColors } from '@/data/site';
+import { projectSocialImage } from '@/lib/project-social-image';
 import { getLangFromUrl, useTranslations, localizePath, entrySlug } from '@/i18n/utils';
 
 interface Props { project: CollectionEntry<'work'> }
@@ -12,6 +13,8 @@ const t = useTranslations(lang);
 const { Content } = await render(project);
 const d = project.data;
 const color = categoryColors[d.category] ?? 'var(--color-accent)';
+const cover = d.socialImage ?? projectSocialImage(project);
+const automaticCover = !d.socialImage;
 
 const ld = {
   '@context': 'https://schema.org',
@@ -27,8 +30,11 @@ const ld = {
   title={d.title}
   description={d.summary}
   path={`/projects/${entrySlug(project.id)}`}
-  image={d.socialImage}
-  imageAlt={d.socialImage ? d.title : undefined}
+  image={cover}
+  imageAlt={d.title}
+  imageWidth={automaticCover ? 1200 : undefined}
+  imageHeight={automaticCover ? 630 : undefined}
+  imageType={automaticCover ? 'image/png' : undefined}
 >
   <article class="mx-auto max-w-3xl px-5 pt-14 pb-10">
     <a href={localizePath('/projects', lang)} class="font-mono text-xs text-muted hover:text-accent">{t('work.back')}</a>

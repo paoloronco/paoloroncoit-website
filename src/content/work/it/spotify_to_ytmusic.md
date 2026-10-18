@@ -1,7 +1,6 @@
 ---
 title: "Spotify to YouTube Music"
 summary: "Strumento Python da riga di comando per trasferire playlist e brani preferiti da Spotify a YouTube Music e mantenere aggiornate le raccolte migrate."
-socialImage: "/og/projects/spotify_to_ytmusic.png"
 category: "automation"
 stack: ["Python", "Spotify API", "ytmusicapi", "OAuth"]
 problem: "Cambiare servizio musicale comporta ricreare manualmente playlist e preferiti, con molto lavoro e possibili omissioni."

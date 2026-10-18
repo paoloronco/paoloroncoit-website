@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "test:social": "node --experimental-strip-types --test scripts/project-social-image.test.ts",
     "seo:audit": "node scripts/seo-audit.mjs"
   },
   "dependencies": {
@@ -23,6 +24,7 @@
     "@fontsource-variable/space-grotesk": "^5.2.10",
     "@tailwindcss/vite": "^4.0.9",
     "astro": "^5.4.0",
+    "sharp": "0.34.5",
     "tailwindcss": "^4.0.9"
   },
   "devDependencies": {

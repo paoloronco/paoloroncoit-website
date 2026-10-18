@@ -1,7 +1,6 @@
 ---
 title: "WorthTheHours"
 summary: "An Android app that converts an item's price into the working hours needed to afford it, making the cost more tangible."
-socialImage: "/og/projects/worththehours.png"
 category: "tool"
 stack: ["Kotlin", "Jetpack Compose", "Room", "Hilt"]
 problem: "A monetary amount alone does not always communicate how much working time it represents for an individual."

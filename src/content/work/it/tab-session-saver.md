@@ -1,7 +1,6 @@
 ---
 title: "Tabs Session Saver"
 summary: "Estensione Chrome per salvare gruppi di schede, cercare tra le sessioni e ripristinare il lavoro in una nuova finestra quando serve."
-socialImage: "/og/projects/tab-session-saver.png"
 category: "tool"
 stack: ["JavaScript", "Chrome Extension", "HTML", "CSS"]
 problem: "Chiudere il browser o spegnere il computer può interrompere attività distribuite su molte schede e finestre."
