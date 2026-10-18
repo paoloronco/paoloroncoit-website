@@ -106,7 +106,9 @@ LLM_API_KEY=sk-... LLM_MODEL=gpt-4o-mini node scripts/translate-articles.mjs
 
 **New project:** copy `src/content/work/_template.md.txt`, place it in `work/it/<slug>.md` and `work/en/<slug>.md`.
 
-Both collections use the same schema defined in `src/content.config.ts`.
+For an optional social cover, add `socialImage: "/og/projects/homelab-backup.png"` to the project's frontmatter and place the image at `public/og/projects/homelab-backup.png`. Open Graph and Twitter previews use this image; omitting the field keeps the default `/paolo.png`.
+
+Both collection schemas are defined in `src/content.config.ts`.
 
 ---
 

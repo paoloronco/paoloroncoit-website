@@ -23,7 +23,13 @@ const ld = {
 };
 ---
 
-<Base title={d.title} description={d.summary} path={`/projects/${entrySlug(project.id)}`}>
+<Base
+  title={d.title}
+  description={d.summary}
+  path={`/projects/${entrySlug(project.id)}`}
+  image={d.socialImage}
+  imageAlt={d.socialImage ? d.title : undefined}
+>
   <article class="mx-auto max-w-3xl px-5 pt-14 pb-10">
     <a href={localizePath('/projects', lang)} class="font-mono text-xs text-muted hover:text-accent">{t('work.back')}</a>
 

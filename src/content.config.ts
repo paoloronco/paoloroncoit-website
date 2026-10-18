@@ -22,6 +22,7 @@ const work = defineCollection({
   schema: z.object({
     title: z.string(),
     summary: z.string(),
+    socialImage: z.string().trim().min(1).optional(),
     // Tag funzionali per il filtro del portfolio.
     category: z.enum(['security', 'ai', 'automation', 'cloud', 'tool']),
     stack: z.array(z.string()).default([]),
