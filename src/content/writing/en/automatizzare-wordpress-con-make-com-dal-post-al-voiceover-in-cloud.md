@@ -9,7 +9,7 @@ draft: false
 ? **Publication on ReadyTensor**: [GCP TTS on WordPress | WordPress to Voice](https://app.readytensor.ai/publications/gcp-tts-on-wordpress-wordpress-to-voice-J5nH5EoHs9Lx)
 
 In the world of technology and cybersecurity, **automation** is not just about efficiency but also about precision and security.  
-As a **CyberSecurity Analyst** with a strong passion for **tech automation**, I have developed an advanced workflow on **Make.com** that allows me to intelligently manage the entire content lifecycle on **WordPress**, transforming it into **multiformat resources** and archiving it in an organized manner across multiple platforms.
+As a **Cybersecurity Analyst** with a strong passion for **tech automation**, I have developed an advanced workflow on **Make.com** that allows me to intelligently manage the entire content lifecycle on **WordPress**, transforming it into **multiformat resources** and archiving it in an organized manner across multiple platforms.
 
 In this article, I show you **how my workflow works**, what makes it effective, and how it can be adapted to other contexts, always with a focus on **scalability and security**.
 

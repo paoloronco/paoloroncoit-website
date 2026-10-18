@@ -91,7 +91,7 @@ Seguo con particolare interesse l'evoluzione della cybersecurity, le pratiche De
     // about
     'about.kicker': 'Chi sono',
     'about.p1':
-      `Sono un Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Prima ho lavorato come System Administrator e in diversi ruoli legati ai servizi IT, partendo da Torino.`,
+      `Sono un Cybersecurity Analyst in Deloitte, nell'${enterpriseSecurityArea}. Prima ho lavorato come System Administrator e in diversi ruoli legati ai servizi IT, partendo da Torino.`,
     'about.p2':
       '«Ogni esperienza che ho vissuto ha contribuito a formare la persona e il professionista che sono oggi.» Il mio campo è la sicurezza del cloud e delle architetture, con un interesse crescente per l\'AI applicata alla difesa e per l\'automazione di processi e analisi.',
     'about.p3':
@@ -259,7 +259,7 @@ I'm particularly interested in the evolution of cybersecurity, DevSecOps practic
 
     'about.kicker': 'About me',
     'about.p1':
-      `I am a Cyber Security Analyst at Deloitte, in the ${enterpriseSecurityArea}. Previously I worked as a System Administrator and in several IT-services roles, starting out in Turin.`,
+      `I am a Cybersecurity Analyst at Deloitte, in the ${enterpriseSecurityArea}. Previously I worked as a System Administrator and in several IT-services roles, starting out in Turin.`,
     'about.p2':
       '“Every experience I have lived has helped shape the person and professional I am today.” My field is cloud and architecture security, with a growing interest in AI applied to defense and in automating processes and analysis.',
     'about.p3':

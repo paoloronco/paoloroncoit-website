@@ -3,10 +3,10 @@ export const enterpriseSecurityArea = 'Enterprise Cloud & AI Security Team';
 
 export const site = {
   name: 'Paolo Ronco',
-  role: 'Cyber Security Analyst',
+  role: 'Cybersecurity Analyst',
   // Descrizione neutra — usata solo per <meta> / SEO, non in pagina.
   description:
-    `Cyber Security Analyst in Deloitte, nell'Enterprise Cloud & AI Security Team.
+    `Cybersecurity Analyst in Deloitte, nell'Enterprise Cloud & AI Security Team.
 
 Lavoro tra sicurezza cloud, AI e automazione. Nel mio homelab costruisco, testo e analizzo infrastrutture, agenti AI e piattaforme self-hosted, con l'obiettivo di comprendere a fondo le tecnologie che stanno ridefinendo il modo in cui progettiamo e proteggiamo i sistemi.`,
   domains: ['Security', 'AI / LLM', 'Automation', 'Cloud', 'DevSecOps'],
@@ -33,7 +33,7 @@ export const nav = [
 
 // Breve presentazione per la home (rifinisci con le tue parole).
 export const intro =
-  `Cyber Security Analyst in Deloitte, nell'${enterpriseSecurityArea}. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab metto le mani su automazioni, LLM e tutto ciò che vale la pena capire a fondo.`;
+  `Cybersecurity Analyst in Deloitte, nell'${enterpriseSecurityArea}. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab metto le mani su automazioni, LLM e tutto ciò che vale la pena capire a fondo.`;
 
 // Aree di competenza con descrizione + colore. Riempie la home con sostanza.
 export const areas = [

@@ -1,6 +1,6 @@
 # paoloronco.it
 
-Personal portfolio and technical blog of Paolo Ronco — Cyber Security Analyst at Deloitte (Enterprise Cloud & AI Security Team).
+Personal portfolio and technical blog of Paolo Ronco — Cybersecurity Analyst at Deloitte (Enterprise Cloud & AI Security Team).
 
 **Live:** [paoloronco.it](https://paoloronco.it)
 

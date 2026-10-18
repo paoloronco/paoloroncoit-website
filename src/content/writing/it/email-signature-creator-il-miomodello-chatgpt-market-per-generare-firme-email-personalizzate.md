@@ -54,7 +54,7 @@ middle;">
       <p style="margin: 0; font-size: 18px; font-weight: 
 bold; color: #333;">Paolo Ronco</p>
       <p style="margin: 5px 0; font-size: 14px; color: 
-#666;">CyberSecurity Analyst</p>
+#666;">Cybersecurity Analyst</p>
       <p style="margin: 5px 0; font-size: 14px;">
         <a href="mailto:info@paoloronco.it" style="text
 decoration: none; color: #0078d4;">info@paoloronco.it</a>

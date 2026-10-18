@@ -1,5 +1,5 @@
 /* TEAM */
-  Paolo Ronco — Cyber Security Analyst
+  Paolo Ronco — Cybersecurity Analyst
   Site: https://paoloronco.it
   GitHub: github.com/paoloronco
 

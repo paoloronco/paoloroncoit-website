@@ -2,12 +2,12 @@
   "profile": {
     "name": "Paolo Ronco",
     "role": {
-      "it": "Cyber Security Analyst - Deloitte",
-      "en": "Cyber Security Analyst - Deloitte"
+      "it": "Cybersecurity Analyst - Deloitte",
+      "en": "Cybersecurity Analyst - Deloitte"
     },
     "summary": {
-      "it": "Cyber Security Analyst in Deloitte, nell'Enterprise Cloud & AI Security Team. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab progetto, sperimento e documento soluzioni di automazione, LLM e infrastrutture self-hosted.",
-      "en": "Cyber Security Analyst at Deloitte, in the Enterprise Cloud & AI Security Team. I work on cloud security, infrastructure and AI applied to defense. In my homelab I build, test and document automation, LLM and self-hosted infrastructure solutions."
+      "it": "Cybersecurity Analyst in Deloitte, nell'Enterprise Cloud & AI Security Team. Mi occupo di sicurezza cloud, infrastrutture e AI. Nel mio homelab progetto, sperimento e documento soluzioni di automazione, LLM e infrastrutture self-hosted.",
+      "en": "Cybersecurity Analyst at Deloitte, in the Enterprise Cloud & AI Security Team. I work on cloud security, infrastructure and AI applied to defense. In my homelab I build, test and document automation, LLM and self-hosted infrastructure solutions."
     },
     "siteLabel": "paoloronco.it",
     "siteUrl": "https://paoloronco.it",
@@ -59,7 +59,7 @@
         "it": "Nov 2024 - presente",
         "en": "Nov 2024 - present"
       },
-      "role": "Cyber Security Analyst",
+      "role": "Cybersecurity Analyst",
       "sub": "Enterprise Cloud & AI Security Team",
       "org": "Deloitte Consulting",
       "pdfOrg": "Deloitte Consulting - Enterprise Cloud & AI Security Team",
