@@ -4,11 +4,11 @@ export const enterpriseSecurityArea = 'Enterprise Cloud & AI Security Team';
 export const site = {
   name: 'Paolo Ronco',
   role: 'Cybersecurity Analyst',
-  // Descrizione neutra — usata solo per <meta> / SEO, non in pagina.
-  description:
-    `Cybersecurity Analyst in Deloitte, nell'Enterprise Cloud & AI Security Team.
-
-Lavoro tra sicurezza cloud, AI e automazione. Nel mio homelab costruisco, testo e analizzo infrastrutture, agenti AI e piattaforme self-hosted, con l'obiettivo di comprendere a fondo le tecnologie che stanno ridefinendo il modo in cui progettiamo e proteggiamo i sistemi.`,
+  // Sintesi SEO per lingua, coerente con l'introduzione della home.
+  description: {
+    it: 'Cybersecurity Analyst presso Deloitte: Security Operations, SIEM e assessment. Progetti personali in cloud, software e automazione. Interessi in DevSecOps e AI.',
+    en: 'Cybersecurity Analyst at Deloitte: Security Operations, SIEM and assessments. Personal cloud, software and automation projects. Interests in DevSecOps and AI.',
+  },
   domains: ['Security', 'AI / LLM', 'Automation', 'Cloud', 'DevSecOps'],
   email: 'info@paoloronco.it',
   url: 'https://paoloronco.it',

@@ -27,9 +27,12 @@ interface Props {
   modifiedTime?: Date | string;
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const {
   title,
-  description = site.description,
+  description = site.description[lang],
   path = '',
   alternatePathIt,
   alternatePathEn,
@@ -42,8 +45,6 @@ const {
   modifiedTime,
 } = Astro.props;
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 const base = stripLangPrefix(path || Astro.url.pathname);
 const alternateBaseIt = stripLangPrefix(alternatePathIt ?? base);
 const alternateBaseEn = stripLangPrefix(alternatePathEn ?? base);
@@ -72,6 +73,7 @@ const personLd = {
   '@type': 'Person',
   name: site.name,
   jobTitle: site.role,
+  description: cleanText(t('home.intro')),
   url: site.url,
   email: `mailto:${site.email}`,
   sameAs: Object.values(site.socials),
