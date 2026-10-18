@@ -12,7 +12,12 @@ const projects = (await getCollection('work', (e) => !e.data.draft && entryLang(
   (a, b) => a.data.order - b.data.order
 );
 const allLabel = t('work.all');
-const categories = [allLabel, ...new Set(projects.map((p) => p.data.category))];
+const categories = [
+  { value: '__all__', label: allLabel },
+  ...[...new Set(projects.map((p) => p.data.category))].map((category) => ({
+    value: category, label: t(`work.category.${category}`),
+  })),
+];
 const groups = [
   { key: 'main', title: t('work.main'), projects: projects.filter((p) => p.data.featured) },
   { key: 'other', title: t('work.other'), projects: projects.filter((p) => !p.data.featured) },
@@ -29,13 +34,13 @@ const groups = [
     <div class="readable-filters mt-8 flex flex-wrap gap-2" data-filter-bar data-all={allLabel}>
       {categories.map((c, i) => (
         <button
-          data-filter={i === 0 ? '__all__' : c}
+          data-filter={c.value}
           aria-pressed={i === 0}
           class:list={[
             'readable-chip rounded-full border bg-ink-900/45 px-3 py-1 font-mono text-xs backdrop-blur-sm transition-colors',
             i === 0 ? 'border-accent text-accent' : 'border-ink-600 text-muted hover:text-text',
           ]}
-        >{c}</button>
+        >{c.label}</button>
       ))}
     </div>
     )}
@@ -55,6 +60,7 @@ const groups = [
                   href={localizePath(`/projects/${entrySlug(p.id)}`, lang)}
                   title={p.data.title}
                   summary={p.data.summary}
+                  category={p.data.category}
                   variant="hybrid"
                 />
               </div>

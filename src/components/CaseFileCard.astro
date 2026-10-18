@@ -1,11 +1,15 @@
 ---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCategoryBadge from '@/components/ProjectCategoryBadge.astro';
+
 interface Props {
   href: string;
   title: string;
   summary: string;
+  category: CollectionEntry<'work'>['data']['category'];
   variant?: 'default' | 'hybrid';
 }
-const { href, title, summary, variant = 'default' } = Astro.props;
+const { href, title, summary, category, variant = 'default' } = Astro.props;
 ---
 <a
   href={href}
@@ -31,7 +35,8 @@ const { href, title, summary, variant = 'default' } = Astro.props;
     variant === 'hybrid' ? 'casefile-card-hybrid' : '',
   ]}
 >
-  <h3 class="readable-title text-lg font-semibold text-text">{title}</h3>
+  <ProjectCategoryBadge category={category} />
+  <h3 class="readable-title mt-3 text-lg font-semibold text-text">{title}</h3>
   <p class="readable-summary mt-2 flex-1 text-sm leading-relaxed text-text-dim">{summary}</p>
 
   <span class="case-arrow mt-4 self-end font-mono text-sm text-muted" aria-hidden="true">↗</span>
