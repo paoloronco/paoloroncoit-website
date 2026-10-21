@@ -21,151 +21,36 @@ export const legal: Record<LegalKey, LegalDoc> = {
   privacy: {
     title: { it: 'Privacy Policy', en: 'Privacy Policy' },
     description: {
-      it: 'Informativa sul trattamento dei dati personali di paoloronco.it ai sensi del GDPR.',
-      en: 'Information on the processing of personal data of paoloronco.it under the GDPR.',
+      it: 'Informativa privacy di paoloronco.it: contatti, assistente AI, analytics e gestione del consenso.',
+      en: 'Privacy notice for paoloronco.it: contact details, AI assistant, analytics and consent choices.',
     },
     html: {
       it: `
-<p>La presente informativa descrive le modalità di trattamento dei dati personali degli utenti che consultano il sito <strong>paoloronco.it</strong> (di seguito, il "Sito"), ai sensi del Regolamento (UE) 2016/679 ("GDPR") e del D.Lgs. 196/2003 e ss.mm.ii. ("Codice Privacy").</p>
-
-<h2>1. Titolare del trattamento</h2>
-<p>Titolare del trattamento è <strong>Paolo Ronco</strong>, contattabile all'indirizzo email <a href="mailto:info@paoloronco.it">info@paoloronco.it</a>. Ulteriori dati identificativi e di contatto del Titolare sono disponibili su richiesta.</p>
-
-<h2>2. Tipologie di dati trattati</h2>
-<p>Il Sito è un sito personale a carattere divulgativo e non prevede registrazione degli utenti. I dati trattati sono limitati a quanto segue:</p>
+<p>L'informativa completa di <strong>Paolo Ronco</strong>, aggiornata il 21 ottobre 2026 e pubblicata su Termly, è disponibile in inglese:</p>
+<p><a href="/legal/privacy-policy.html" lang="en"><strong>Leggi la Privacy Policy completa →</strong></a></p>
+<h2>Informazioni principali</h2>
 <ul>
-  <li><strong>Dati di navigazione e tecnici.</strong> I sistemi informatici e le procedure software preposte al funzionamento del Sito acquisiscono, nel normale esercizio, alcuni dati la cui trasmissione è implicita nell'uso dei protocolli di comunicazione di Internet (es. indirizzo IP, tipo di browser e dispositivo, sistema operativo, data e ora della richiesta, pagine visitate, referrer). Tali dati sono trattati dai fornitori di hosting e di rete/sicurezza per finalità tecniche, statistiche aggregate e di sicurezza.</li>
-  <li><strong>Dati di misurazione e statistica (cookie e tecnologie simili).</strong> Previo consenso, il Sito utilizza strumenti di analisi del traffico. Per il dettaglio si rimanda alla <a href="/cookie">Cookie Policy</a>.</li>
-  <li><strong>Dati di contatto.</strong> Se l'utente sceglie di scrivere all'indirizzo email indicato, verranno trattati i dati contenuti nella comunicazione (es. indirizzo email, nome, contenuto del messaggio).</li>
+  <li><strong>Contatti:</strong> Paolo Ronco, Torino, Italia — <a href="mailto:info@paoloronco.it">info@paoloronco.it</a>.</li>
+  <li><strong>Assistente AI facoltativo:</strong> utilizza OpenAI, Cohere, n8n e Qdrant locale e Cloud. n8n e Qdrant locale sono ospitati in Italia; la regione di Qdrant Cloud è ancora da verificare.</li>
+  <li><strong>Conservazione del chatbot:</strong> domande, risposte, data e ora sono conservate senza una scadenza automatica nelle esecuzioni e in una data table n8n. Puoi chiedere accesso o cancellazione via email, fornendo il contesto necessario per individuare i messaggi.</li>
+  <li><strong>Analytics:</strong> Google Analytics e Microsoft Clarity si attivano dopo il consenso. Puoi modificare o revocare le scelte dalle preferenze cookie nel footer.</li>
 </ul>
-
-<h2>3. Finalità e basi giuridiche del trattamento</h2>
-<table>
-  <thead><tr><th>Finalità</th><th>Base giuridica (art. 6 GDPR)</th></tr></thead>
-  <tbody>
-    <tr><td>Erogazione e funzionamento del Sito, sicurezza e prevenzione abusi</td><td>Legittimo interesse del Titolare (art. 6.1.f)</td></tr>
-    <tr><td>Statistiche di utilizzo e miglioramento dei contenuti (analytics)</td><td>Consenso dell'interessato (art. 6.1.a)</td></tr>
-    <tr><td>Riscontro a richieste inviate via email</td><td>Riscontro a richiesta dell'interessato (art. 6.1.b/f)</td></tr>
-    <tr><td>Adempimento di obblighi di legge</td><td>Obbligo legale (art. 6.1.c)</td></tr>
-  </tbody>
-</table>
-
-<h2>4. Strumenti e fornitori (responsabili e terze parti)</h2>
-<p>Per l'erogazione del Sito il Titolare si avvale di fornitori che possono trattare dati in qualità di responsabili del trattamento o titolari autonomi. I principali sono:</p>
-<ul>
-  <li><strong>OVHcloud (OVH SAS)</strong> — registrazione del dominio.</li>
-  <li><strong>Cloudflare, Inc.</strong> — gestione DNS, CDN, sicurezza/WAF e protezione dagli attacchi.</li>
-  <li><strong>Vercel Inc.</strong> — hosting e distribuzione del Sito. L'infrastruttura di hosting potrebbe in futuro essere modificata (anche verso una soluzione self-hosted basata su Linux, Docker, NGINX e Cloudflare Zero Trust): la presente informativa sarà aggiornata di conseguenza.</li>
-  <li><strong>Zoho Corporation (Zoho Mail)</strong> — gestione della casella di posta elettronica per le comunicazioni.</li>
-  <li><strong>Google Ireland Ltd / Google LLC</strong> — Google Analytics e Google Search Console.</li>
-  <li><strong>Microsoft Ireland / Microsoft Corporation</strong> — Microsoft Clarity (analisi di utilizzo), ove attivo.</li>
-  <li><strong>Termly</strong> — piattaforma di gestione del consenso ai cookie (CMP).</li>
-</ul>
-<p>L'elenco aggiornato dei responsabili del trattamento è disponibile su richiesta scrivendo al Titolare.</p>
-
-<h2>5. Trasferimento dei dati extra-UE</h2>
-<p>Alcuni fornitori (in particolare Cloudflare, Vercel, Google e Microsoft) possono trattare dati al di fuori dello Spazio Economico Europeo, anche negli Stati Uniti. Tali trasferimenti avvengono nel rispetto degli artt. 44 e ss. del GDPR, sulla base di garanzie adeguate quali le Clausole Contrattuali Standard della Commissione europea e/o l'adesione al <em>EU-U.S. Data Privacy Framework</em>.</p>
-
-<h2>6. Periodo di conservazione</h2>
-<p>I dati di navigazione e i log tecnici sono conservati per il tempo strettamente necessario alle finalità tecniche e di sicurezza, secondo le politiche dei rispettivi fornitori. I dati statistici sono conservati secondo i tempi di ritenzione configurati negli strumenti di analisi. Le comunicazioni email sono conservate per il tempo necessario a gestire la richiesta e per i successivi adempimenti.</p>
-
-<h2>7. Diritti dell'interessato</h2>
-<p>In qualità di interessato, hai il diritto di esercitare, nei limiti e alle condizioni previste dagli artt. 15-22 del GDPR:</p>
-<ul>
-  <li>accesso ai tuoi dati personali;</li>
-  <li>rettifica dei dati inesatti o integrazione di quelli incompleti;</li>
-  <li>cancellazione ("diritto all'oblio");</li>
-  <li>limitazione del trattamento;</li>
-  <li>portabilità dei dati;</li>
-  <li>opposizione al trattamento basato sul legittimo interesse;</li>
-  <li>revoca del consenso in qualsiasi momento, senza pregiudicare la liceità del trattamento effettuato prima della revoca.</li>
-</ul>
-<p>Per esercitare i tuoi diritti puoi scrivere a <a href="mailto:info@paoloronco.it">info@paoloronco.it</a>. Hai inoltre il diritto di proporre reclamo all'Autorità Garante per la protezione dei dati personali (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>).</p>
-
-<h2>8. Cookie</h2>
-<p>Il Sito utilizza cookie e tecnologie simili. Per ogni dettaglio sulle tipologie, le finalità e la gestione del consenso, consulta la <a href="/cookie">Cookie Policy</a>.</p>
-
-<h2>9. Sicurezza</h2>
-<p>Il Titolare adotta misure tecniche e organizzative adeguate a proteggere i dati da accessi non autorizzati, perdita o divulgazione, tra cui cifratura del traffico (HTTPS), protezione perimetrale e filtraggio del traffico tramite il provider di sicurezza.</p>
-
-<h2>10. Modifiche alla presente informativa</h2>
-<p>Il Titolare si riserva di modificare o aggiornare la presente informativa, anche a seguito di variazioni normative o dei fornitori utilizzati. La versione vigente è sempre pubblicata su questa pagina, con indicazione della data di ultimo aggiornamento.</p>
-
-<h2>11. Contatti</h2>
-<p>Per qualsiasi domanda relativa al trattamento dei dati personali: <a href="mailto:info@paoloronco.it">info@paoloronco.it</a>.</p>
+<p>Questo riepilogo accompagna il <a href="/legal/privacy-policy.html">testo completo dell'informativa</a>, che descrive dati trattati, finalità, fornitori, trasferimenti e diritti. Consulta anche la <a href="/cookie">Cookie Policy</a> e l'inventario del CMP per le categorie di cookie rilevate.</p>
 `,
       en: `
-<p>This notice describes how the personal data of users visiting <strong>paoloronco.it</strong> (the "Site") is processed, pursuant to Regulation (EU) 2016/679 ("GDPR") and applicable Italian law.</p>
-
-<h2>1. Data Controller</h2>
-<p>The Data Controller is <strong>Paolo Ronco</strong>, reachable at <a href="mailto:info@paoloronco.it">info@paoloronco.it</a>. Further identification and contact details of the Controller are available on request.</p>
-
-<h2>2. Types of data processed</h2>
-<p>The Site is a personal, informational website and does not require user registration. The data processed is limited to the following:</p>
+<p>The full Privacy Policy for <strong>Paolo Ronco</strong>, updated on October 21, 2026 and published in Termly, is available below:</p>
+<p><a href="/legal/privacy-policy.html"><strong>Read the full Privacy Policy →</strong></a></p>
+<h2>Key information</h2>
 <ul>
-  <li><strong>Navigation and technical data.</strong> The systems and software running the Site acquire, during normal operation, certain data whose transmission is implicit in the use of Internet communication protocols (e.g. IP address, browser and device type, operating system, date and time of the request, pages visited, referrer). This data is processed by the hosting and network/security providers for technical, aggregate-statistical and security purposes.</li>
-  <li><strong>Measurement and statistical data (cookies and similar technologies).</strong> Subject to consent, the Site uses traffic analysis tools. See the <a href="/en/cookie">Cookie Policy</a> for details.</li>
-  <li><strong>Contact data.</strong> If the user chooses to write to the email address provided, the data contained in the message (e.g. email address, name, message content) will be processed.</li>
+  <li><strong>Contact:</strong> Paolo Ronco, Torino, Italy — <a href="mailto:info@paoloronco.it">info@paoloronco.it</a>.</li>
+  <li><strong>Optional AI assistant:</strong> uses OpenAI, Cohere, n8n and local and Cloud Qdrant. n8n and local Qdrant are hosted in Italy; the Qdrant Cloud region has not yet been verified.</li>
+  <li><strong>Chatbot retention:</strong> queries, responses, dates and times are retained indefinitely in n8n executions and a data table, without an automatic deletion deadline. You can request access or erasure by email, providing enough context to locate your messages.</li>
+  <li><strong>Analytics:</strong> Google Analytics and Microsoft Clarity load after consent. You can change or withdraw your choices through the cookie preferences link in the footer.</li>
 </ul>
-
-<h2>3. Purposes and legal bases</h2>
-<table>
-  <thead><tr><th>Purpose</th><th>Legal basis (Art. 6 GDPR)</th></tr></thead>
-  <tbody>
-    <tr><td>Provision and operation of the Site, security and abuse prevention</td><td>Legitimate interest (Art. 6.1.f)</td></tr>
-    <tr><td>Usage statistics and content improvement (analytics)</td><td>Consent (Art. 6.1.a)</td></tr>
-    <tr><td>Responding to requests sent by email</td><td>Response to the data subject's request (Art. 6.1.b/f)</td></tr>
-    <tr><td>Compliance with legal obligations</td><td>Legal obligation (Art. 6.1.c)</td></tr>
-  </tbody>
-</table>
-
-<h2>4. Tools and providers (processors and third parties)</h2>
-<p>To operate the Site, the Controller relies on providers that may process data as data processors or independent controllers. The main ones are:</p>
-<ul>
-  <li><strong>OVHcloud (OVH SAS)</strong> — domain registration.</li>
-  <li><strong>Cloudflare, Inc.</strong> — DNS management, CDN, security/WAF and attack protection.</li>
-  <li><strong>Vercel Inc.</strong> — hosting and delivery of the Site. The hosting infrastructure may change in the future (including a self-hosted solution based on Linux, Docker, NGINX and Cloudflare Zero Trust); this notice will be updated accordingly.</li>
-  <li><strong>Zoho Corporation (Zoho Mail)</strong> — email mailbox for communications.</li>
-  <li><strong>Google Ireland Ltd / Google LLC</strong> — Google Analytics and Google Search Console.</li>
-  <li><strong>Microsoft Ireland / Microsoft Corporation</strong> — Microsoft Clarity (usage analytics), where active.</li>
-  <li><strong>Termly</strong> — cookie consent management platform (CMP).</li>
-</ul>
-<p>An up-to-date list of data processors is available on request by writing to the Controller.</p>
-
-<h2>5. Transfers outside the EU</h2>
-<p>Some providers (in particular Cloudflare, Vercel, Google and Microsoft) may process data outside the European Economic Area, including in the United States. Such transfers take place in compliance with Art. 44 et seq. of the GDPR, based on adequate safeguards such as the European Commission's Standard Contractual Clauses and/or adherence to the <em>EU-U.S. Data Privacy Framework</em>.</p>
-
-<h2>6. Retention period</h2>
-<p>Navigation data and technical logs are retained for the time strictly necessary for technical and security purposes, according to the respective providers' policies. Statistical data is retained according to the retention periods configured in the analytics tools. Email communications are kept for the time needed to handle the request and for subsequent obligations.</p>
-
-<h2>7. Your rights</h2>
-<p>As a data subject, you have the right to exercise, within the limits and conditions set out in Art. 15-22 GDPR:</p>
-<ul>
-  <li>access to your personal data;</li>
-  <li>rectification of inaccurate data or completion of incomplete data;</li>
-  <li>erasure ("right to be forgotten");</li>
-  <li>restriction of processing;</li>
-  <li>data portability;</li>
-  <li>objection to processing based on legitimate interest;</li>
-  <li>withdrawal of consent at any time, without affecting the lawfulness of processing carried out before withdrawal.</li>
-</ul>
-<p>To exercise your rights you can write to <a href="mailto:info@paoloronco.it">info@paoloronco.it</a>. You also have the right to lodge a complaint with the Italian Data Protection Authority (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>) or your local supervisory authority.</p>
-
-<h2>8. Cookies</h2>
-<p>The Site uses cookies and similar technologies. For full details on the types, purposes and consent management, see the <a href="/en/cookie">Cookie Policy</a>.</p>
-
-<h2>9. Security</h2>
-<p>The Controller adopts appropriate technical and organizational measures to protect data against unauthorized access, loss or disclosure, including traffic encryption (HTTPS), perimeter protection and traffic filtering through the security provider.</p>
-
-<h2>10. Changes to this notice</h2>
-<p>The Controller reserves the right to amend or update this notice, including following regulatory changes or changes to the providers used. The current version is always published on this page, with the date of last update.</p>
-
-<h2>11. Contact</h2>
-<p>For any question regarding the processing of personal data: <a href="mailto:info@paoloronco.it">info@paoloronco.it</a>.</p>
+<p>This summary accompanies the <a href="/legal/privacy-policy.html">full Privacy Policy</a>, which describes the data processed, purposes, providers, transfers and your rights. See also the <a href="/en/cookie">Cookie Policy</a> and the CMP inventory for detected cookie categories.</p>
 `,
     },
   },
-
   // ============================================================ COOKIE
   cookie: {
     title: { it: 'Cookie Policy', en: 'Cookie Policy' },
