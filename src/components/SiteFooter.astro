@@ -91,6 +91,8 @@ const networkLinks = [
       <a class="hover:text-accent" href={localizePath('/terms', lang)}>{t('footer.terms')}</a>
       <span class="text-ink-600" aria-hidden="true">·</span>
       <a class="hover:text-accent" href={localizePath('/cookie', lang)}>{t('footer.cookie')}</a>
+      <span class="text-ink-600" aria-hidden="true">·</span>
+      <a class="hover:text-accent" href={localizePath('/cookie', lang)} onclick="if (window.displayPreferenceModal) { window.displayPreferenceModal(); return false; }">{lang === 'en' ? 'Consent preferences' : 'Preferenze cookie'}</a>
     </nav>
   </div>
 </footer>

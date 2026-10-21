@@ -15,7 +15,7 @@ Personal portfolio and technical blog of Paolo Ronco — Cybersecurity Analyst a
 | Content | Astro Content Collections (Markdown/MDX) — articles and projects in Git |
 | Deployment | [Vercel](https://vercel.com) — edge-deployed, static output with on-demand API routes |
 | i18n | Built-in Astro i18n — Italian (default) + English, explicit language selector + hreflang |
-| Analytics | Google Analytics + Microsoft Clarity (optional, loaded after analytics consent via CookieYes) |
+| Analytics | Google Analytics + Microsoft Clarity (optional, loaded after analytics consent via Termly) |
 
 ---
 
@@ -78,7 +78,7 @@ PUBLIC_MICROSOFT_CLARITY_ID=your-clarity-project-id
 N8N_WEBHOOK_URL=https://your-n8n-instance/webhook/ask
 ```
 
-CookieYes loads directly from `src/components/Analytics.astro` to manage consent.
+Termly loads first in the page head from `src/components/Analytics.astro`, with Auto Blocker enabled. Google Analytics and Clarity load only after analytics consent; withdrawal disables them and reloads the page. The footer opens the consent preferences. Banner settings are managed in Termly (the current free plan supports English only).
 
 ---
 

@@ -121,7 +121,7 @@ const i18n = {
     const setCookieOffset = () => {
       const viewportBottom = window.innerHeight;
       let offset = 0;
-      document.querySelectorAll('.cky-consent-container, [class*="cky-consent"]').forEach((el) => {
+      document.querySelectorAll('[data-termly-part="consent-banner"]').forEach((el) => {
         const style = window.getComputedStyle(el);
         const rect = el.getBoundingClientRect();
         if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return;

@@ -6,7 +6,7 @@
 import type { Lang } from '@/i18n/ui';
 type LS = Record<Lang, string>;
 
-export const legalUpdated = '2026-06-20';
+export const legalUpdated = '2026-10-21';
 
 export interface LegalDoc {
   title: LS;
@@ -59,7 +59,7 @@ export const legal: Record<LegalKey, LegalDoc> = {
   <li><strong>Zoho Corporation (Zoho Mail)</strong> — gestione della casella di posta elettronica per le comunicazioni.</li>
   <li><strong>Google Ireland Ltd / Google LLC</strong> — Google Analytics e Google Search Console.</li>
   <li><strong>Microsoft Ireland / Microsoft Corporation</strong> — Microsoft Clarity (analisi di utilizzo), ove attivo.</li>
-  <li><strong>CookieYes Limited</strong> — piattaforma di gestione del consenso ai cookie (CMP).</li>
+  <li><strong>Termly</strong> — piattaforma di gestione del consenso ai cookie (CMP).</li>
 </ul>
 <p>L'elenco aggiornato dei responsabili del trattamento è disponibile su richiesta scrivendo al Titolare.</p>
 
@@ -128,7 +128,7 @@ export const legal: Record<LegalKey, LegalDoc> = {
   <li><strong>Zoho Corporation (Zoho Mail)</strong> — email mailbox for communications.</li>
   <li><strong>Google Ireland Ltd / Google LLC</strong> — Google Analytics and Google Search Console.</li>
   <li><strong>Microsoft Ireland / Microsoft Corporation</strong> — Microsoft Clarity (usage analytics), where active.</li>
-  <li><strong>CookieYes Limited</strong> — cookie consent management platform (CMP).</li>
+  <li><strong>Termly</strong> — cookie consent management platform (CMP).</li>
 </ul>
 <p>An up-to-date list of data processors is available on request by writing to the Controller.</p>
 
@@ -181,19 +181,19 @@ export const legal: Record<LegalKey, LegalDoc> = {
 <p>I cookie sono piccoli file di testo che i siti visitati inviano al dispositivo dell'utente, dove vengono memorizzati per essere ritrasmessi agli stessi siti alla visita successiva. Tecnologie simili (es. local storage, pixel) possono svolgere funzioni analoghe. I cookie si distinguono in <strong>tecnici</strong> (necessari al funzionamento) e di <strong>analisi/profilazione</strong> (soggetti a consenso).</p>
 
 <h2>2. Gestione del consenso</h2>
-<p>Al primo accesso viene mostrato un banner tramite la piattaforma di gestione del consenso <strong>CookieYes</strong>, che consente di accettare, rifiutare o personalizzare l'uso dei cookie non necessari. I cookie diversi da quelli tecnici vengono installati solo previo consenso. È possibile modificare o revocare le scelte in qualsiasi momento riaprendo il pannello delle preferenze cookie dal banner.</p>
+<p>Al primo accesso viene mostrato un banner tramite la piattaforma di gestione del consenso <strong>Termly</strong>, che consente di accettare, rifiutare o personalizzare l'uso dei cookie non necessari. I cookie diversi da quelli tecnici vengono installati solo previo consenso. È possibile modificare o revocare le scelte in qualsiasi momento riaprendo il pannello delle preferenze cookie dal link «Preferenze cookie» nel footer.</p>
 
 <h2>3. Tipologie di cookie utilizzati</h2>
 <h3>Cookie tecnici e necessari</h3>
-<p>Indispensabili al corretto funzionamento del Sito e alla memorizzazione delle preferenze (incluse quelle sui cookie e sulla lingua). Non richiedono consenso. Rientrano in questa categoria il cookie del CMP CookieYes e le preferenze salvate localmente dal browser (es. lingua, vista delle competenze).</p>
+<p>Indispensabili al corretto funzionamento del Sito e alla memorizzazione delle preferenze (incluse quelle sui cookie e sulla lingua). Non richiedono consenso. Rientrano in questa categoria le preferenze del CMP Termly salvate nel local storage e le preferenze salvate localmente dal browser (es. lingua, vista delle competenze).</p>
 <h3>Cookie analitici e di statistica</h3>
-<p>Utilizzati, previo consenso, per raccogliere informazioni in forma aggregata sull'uso del Sito (pagine visitate, durata, provenienza) al fine di migliorarne i contenuti. Sono erogati da Google Analytics e Microsoft Clarity e attivati in base alle preferenze espresse tramite CookieYes.</p>
+<p>Utilizzati, previo consenso, per raccogliere informazioni in forma aggregata sull'uso del Sito (pagine visitate, durata, provenienza) al fine di migliorarne i contenuti. Sono erogati da Google Analytics e Microsoft Clarity e attivati in base alle preferenze espresse tramite Termly.</p>
 
 <h2>4. Elenco dei principali cookie/servizi</h2>
 <table>
   <thead><tr><th>Servizio</th><th>Fornitore</th><th>Finalità</th></tr></thead>
   <tbody>
-    <tr><td>CookieYes</td><td>CookieYes Limited</td><td>Memorizzazione delle preferenze sul consenso (tecnico)</td></tr>
+    <tr><td>Termly</td><td>Termly</td><td>Memorizzazione delle preferenze sul consenso (tecnico)</td></tr>
     <tr><td>Google Analytics (es. _ga, _ga_*)</td><td>Google</td><td>Statistiche di utilizzo (analitico)</td></tr>
     <tr><td>Microsoft Clarity (es. _clck, _clsk)</td><td>Microsoft</td><td>Analisi di utilizzo e mappe di interazione (analitico), ove attivo</td></tr>
   </tbody>
@@ -205,7 +205,7 @@ export const legal: Record<LegalKey, LegalDoc> = {
 <ul>
   <li><a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener">Google — Tipi di cookie</a> · <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Google</a></li>
   <li><a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener">Informativa privacy Microsoft</a></li>
-  <li><a href="https://www.cookieyes.com/privacy-policy/" target="_blank" rel="noopener">Privacy CookieYes</a></li>
+  <li><a href="https://termly.io/our-privacy-policy/" target="_blank" rel="noopener">Privacy Termly</a></li>
 </ul>
 
 <h2>6. Modifiche</h2>
@@ -218,19 +218,19 @@ export const legal: Record<LegalKey, LegalDoc> = {
 <p>Cookies are small text files that visited websites send to the user's device, where they are stored and re-sent to the same sites on a later visit. Similar technologies (e.g. local storage, pixels) may perform analogous functions. Cookies are divided into <strong>technical</strong> (necessary for operation) and <strong>analytics/profiling</strong> (subject to consent).</p>
 
 <h2>2. Consent management</h2>
-<p>On first access, a banner is shown through the consent management platform <strong>CookieYes</strong>, which lets you accept, reject or customize the use of non-necessary cookies. Cookies other than technical ones are installed only after consent. You can change or withdraw your choices at any time by reopening the cookie preferences panel from the banner.</p>
+<p>On first access, a banner is shown through the consent management platform <strong>Termly</strong>, which lets you accept, reject or customize the use of non-necessary cookies. Cookies other than technical ones are installed only after consent. You can change or withdraw your choices at any time by reopening the cookie preferences panel using the “Consent preferences” link in the footer.</p>
 
 <h2>3. Types of cookies used</h2>
 <h3>Technical and necessary cookies</h3>
-<p>Essential for the proper functioning of the Site and for storing preferences (including cookie and language choices). They do not require consent. This category includes the CookieYes CMP cookie and preferences stored locally by the browser (e.g. language, skills view).</p>
+<p>Essential for the proper functioning of the Site and for storing preferences (including cookie and language choices). They do not require consent. This category includes Termly CMP preferences saved in local storage and preferences stored locally by the browser (e.g. language, skills view).</p>
 <h3>Analytics and statistical cookies</h3>
-<p>Used, subject to consent, to collect aggregate information about the use of the Site (pages visited, duration, source) in order to improve its content. They are provided by Google Analytics and Microsoft Clarity and enabled according to the preferences expressed through CookieYes.</p>
+<p>Used, subject to consent, to collect aggregate information about the use of the Site (pages visited, duration, source) in order to improve its content. They are provided by Google Analytics and Microsoft Clarity and enabled according to the preferences expressed through Termly.</p>
 
 <h2>4. Main cookies/services</h2>
 <table>
   <thead><tr><th>Service</th><th>Provider</th><th>Purpose</th></tr></thead>
   <tbody>
-    <tr><td>CookieYes</td><td>CookieYes Limited</td><td>Stores consent preferences (technical)</td></tr>
+    <tr><td>Termly</td><td>Termly</td><td>Stores consent preferences (technical)</td></tr>
     <tr><td>Google Analytics (e.g. _ga, _ga_*)</td><td>Google</td><td>Usage statistics (analytics)</td></tr>
     <tr><td>Microsoft Clarity (e.g. _clck, _clsk)</td><td>Microsoft</td><td>Usage analytics and interaction maps (analytics), where active</td></tr>
   </tbody>
@@ -242,7 +242,7 @@ export const legal: Record<LegalKey, LegalDoc> = {
 <ul>
   <li><a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener">Google — Types of cookies</a> · <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy</a></li>
   <li><a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener">Microsoft Privacy Statement</a></li>
-  <li><a href="https://www.cookieyes.com/privacy-policy/" target="_blank" rel="noopener">CookieYes Privacy</a></li>
+  <li><a href="https://termly.io/our-privacy-policy/" target="_blank" rel="noopener">Termly Privacy</a></li>
 </ul>
 
 <h2>6. Changes</h2>

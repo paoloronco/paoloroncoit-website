@@ -94,6 +94,7 @@ const personLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content" />
+    <Analytics />
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     <meta name="author" content={site.name} />
@@ -139,7 +140,6 @@ const personLd = {
     <meta name="theme-color" content="#0a0c12" />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
-    <Analytics />
     <script is:inline>document.documentElement.classList.add('motion');</script>
 
     <!-- Evita che mobile apra la tastiera per focus ripristinati o auto-focus involontari al caricamento. -->
