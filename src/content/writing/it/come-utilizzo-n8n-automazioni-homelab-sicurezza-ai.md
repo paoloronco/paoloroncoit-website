@@ -8,7 +8,7 @@ draft: false
 
 Ci sono attività che, prese singolarmente, richiedono pochi minuti. Scaricare una fattura, rinominarla, archiviarla nella cartella corretta. Controllare gli ultimi alert di sicurezza. Scorrere le notizie tecnologiche per capire quali meritino davvero attenzione. Il problema è che queste piccole operazioni tornano ogni giorno o ogni mese, spesso distribuite tra servizi che non comunicano tra loro.
 
-È soprattutto per questo che ho iniziato a utilizzare **n8n**. Non per automatizzare qualsiasi cosa a tutti i costi, ma per togliere di mezzo passaggi ripetitivi e collegare gli strumenti che uso già: Gmail, Google Sheets, Splunk, WordPress, Qdrant, servizi cloud e server del mio homelab.
+È soprattutto per questo che ho iniziato a utilizzare **n8n**. Non per automatizzare qualsiasi cosa a tutti i costi, ma per togliere di mezzo passaggi ripetitivi e collegare gli strumenti che uso già: Gmail, Google Sheets, Splunk, i miei siti web, Qdrant, servizi cloud e server del mio homelab.
 
 Nel tempo n8n è passato dall'essere uno strumento con cui sperimentare a una componente stabile della mia infrastruttura. In questo articolo racconto come lo utilizzo, quali workflow ho sviluppato e quali compromessi ho incontrato. Alcuni progetti sono disponibili su [GitHub](https://github.com/paoloronco/n8n-templates), con file importabili e istruzioni per adattarli al proprio ambiente.
 
@@ -56,15 +56,15 @@ Non considero il riassunto generato dall'AI una verifica dei fatti: rimando semp
 
 [Repository dei template](https://github.com/paoloronco/n8n-templates).
 
-## Un chatbot RAG per il mio sito WordPress
+## Un chatbot RAG per i miei siti web
 
 Un altro esperimento importante è stato costruire un chatbot capace di rispondere utilizzando i contenuti del mio sito, invece di affidarsi soltanto alle conoscenze generiche di un modello.
 
 Il progetto usa un'architettura **Retrieval-Augmented Generation (RAG)**: i contenuti vengono indicizzati, le richieste degli utenti attivano una ricerca in **Qdrant**, **Cohere** riordina i risultati recuperati e **OpenAI** genera una risposta a partire dal contesto selezionato. n8n coordina le fasi, dalla gestione delle richieste all'interazione con i servizi.
 
-Il problema interessante non è semplicemente collegare un chatbot a WordPress. È capire quali documenti recuperare, come gestire risultati poco pertinenti e come evitare che il modello presenti come certe informazioni che non trova nel sito. Anche la qualità dei contenuti indicizzati conta: un database vettoriale non può correggere una documentazione incompleta.
+Il problema interessante non è semplicemente integrare un chatbot in un sito web. È capire quali documenti recuperare, come gestire risultati poco pertinenti e come evitare che il modello presenti come certe informazioni che non trova nel sito. Anche la qualità dei contenuti indicizzati conta: un database vettoriale non può correggere una documentazione incompleta.
 
-Ho pubblicato una versione riutilizzabile del progetto, con alternative per alcuni componenti di storage, nella [repository n8n-templates](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/wordpress-rag-chatbot).
+Il progetto nasce da un precedente template che ho successivamente adattato ai miei siti attuali, sviluppati e distribuiti tramite GitHub e Vercel. La logica RAG resta utile anche senza il precedente backend: ciò che conta è la qualità dei contenuti indicizzati e della ricerca. Una versione di riferimento è disponibile nella [repository n8n-templates](https://github.com/paoloronco/n8n-templates).
 
 ## Automatizzare anche la pubblicazione dei workflow
 
@@ -76,7 +76,7 @@ Mi interessa particolarmente questo progetto perché automatizza un'attività na
 
 ## Altri collegamenti: cloud, Home Assistant e progetti personali
 
-n8n non è limitato ai progetti appena descritti. Nel mio ambiente lo utilizzo anche per collegare servizi cloud, gestire notifiche, interagire con Home Assistant e coordinare operazioni tramite API e SSH. Ho sperimentato integrazioni con **Google Cloud**, processi legati a **OrbitPage** e workflow che trasformano contenuti WordPress in audio con **Google Cloud Text-to-Speech**.
+n8n non è limitato ai progetti appena descritti. Nel mio ambiente lo utilizzo anche per collegare servizi cloud, gestire notifiche, interagire con Home Assistant e coordinare operazioni tramite API e SSH. Ho sperimentato integrazioni con **Google Cloud**, processi legati a **OrbitPage** e workflow per la conversione di articoli in audio con **Google Cloud Text-to-Speech**.
 
 Non tutte queste automazioni hanno la stessa maturità o frequenza di utilizzo. Alcune sono strumenti quotidiani; altre sono prototipi, template distribuiti alla community o progetti in evoluzione. Preferisco fare questa distinzione piuttosto che presentare ogni esperimento come un sistema di produzione.
 
