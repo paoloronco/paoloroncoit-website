@@ -16,38 +16,9 @@ La mia strategia si basa su controlli complementari: **segmentazione e firewall*
 
 Lo schema riassume i ruoli e i flussi logici, non l'inventario fisico della rete. Ho volutamente omesso modelli dei dispositivi UniFi, IP e dettagli amministrativi. Le frecce indicano percorsi di raccolta e integrazioni, non permessi di accesso indiscriminati.
 
-<figure aria-label="Logical homelab cybersecurity architecture" style="margin:2rem 0;overflow-x:auto"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 625" role="img" aria-labelledby="security-diagram-title" style="width:100%;height:auto;min-width:560px"><title id="security-diagram-title">Homelab security architecture: UniFi, Proxmox, Wazuh, Splunk, PatchMon, n8n and backups</title><defs><marker id="sec-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#73839a"/></marker></defs><path d="M475 70 L475 105" fill="none" stroke="#73839a" stroke-width="2" marker-end="url(#sec-arrow)"/><path d="M475 159 L475 205" fill="none" stroke="#73839a" stroke-width="2" marker-end="url(#sec-arrow)"/><path d="M475 259 L155 335" fill="none" stroke="#73839a" stroke-width="2" marker-end="url(#sec-arrow)"/><path d="M475 259 L475 335" fill="none" stroke="#73839a" stroke-width="2" marker-end="url(#sec-arrow)"/><path d="M475 259 L795 335" fill="none" stroke="#73839a" stroke-width="2" marker-end="url(#sec-arrow)"/><path d="M280 366 L350 366" fill="none" stroke="#73839a" stroke-width="2" marker-end="url(#sec-arrow)"/><path d="M475 397 L475 460" fill="none" stroke="#73839a" stroke-width="2" marker-end="url(#sec-arrow)"/><path d="M475 515 L475 550" fill="none" stroke="#73839a" stroke-width="2" marker-end="url(#sec-arrow)"/><path d="M600 232 L670 250" fill="none" stroke="#73839a" stroke-width="2" marker-end="url(#sec-arrow)"/><rect x="350" y="20" width="250" height="50" rx="12" fill="#e6efff" stroke="#8092a7" stroke-width="1.5"/><text x="475" y="50" font-size="15" font-family="Arial,sans-serif" font-weight="600" text-anchor="middle" fill="#26384a">Internet / Remote access</text><rect x="350" y="105" width="250" height="54" rx="12" fill="#e6efff" stroke="#8092a7" stroke-width="1.5"/><text x="475" y="137" font-size="15" font-family="Arial,sans-serif" font-weight="600" text-anchor="middle" fill="#26384a">UniFi · Firewall &amp; VLAN</text><rect x="350" y="205" width="250" height="54" rx="12" fill="#e6f5ec" stroke="#8092a7" stroke-width="1.5"/><text x="475" y="237" font-size="15" font-family="Arial,sans-serif" font-weight="600" text-anchor="middle" fill="#26384a">Proxmox VE · VMs &amp; LXC</text><rect x="30" y="335" width="250" height="62" rx="12" fill="#fff0d9" stroke="#8092a7" stroke-width="1.5"/><text x="155" y="371" font-size="15" font-family="Arial,sans-serif" font-weight="600" text-anchor="middle" fill="#26384a">Wazuh · Endpoint / CVE</text><rect x="350" y="335" width="250" height="62" rx="12" fill="#fff0d9" stroke="#8092a7" stroke-width="1.5"/><text x="475" y="371" font-size="15" font-family="Arial,sans-serif" font-weight="600" text-anchor="middle" fill="#26384a">Splunk · SIEM / Detection</text><rect x="670" y="335" width="250" height="62" rx="12" fill="#fff0d9" stroke="#8092a7" stroke-width="1.5"/><text x="795" y="371" font-size="15" font-family="Arial,sans-serif" font-weight="600" text-anchor="middle" fill="#26384a">PatchMon · Patching</text><rect x="350" y="460" width="250" height="55" rx="12" fill="#f0e9ff" stroke="#8092a7" stroke-width="1.5"/><text x="475" y="492.5" font-size="15" font-family="Arial,sans-serif" font-weight="600" text-anchor="middle" fill="#26384a">n8n · Alert routing</text><rect x="350" y="550" width="250" height="48" rx="12" fill="#f0e9ff" stroke="#8092a7" stroke-width="1.5"/><text x="475" y="579" font-size="15" font-family="Arial,sans-serif" font-weight="600" text-anchor="middle" fill="#26384a">Notifications / Triage</text><rect x="670" y="225" width="250" height="54" rx="12" fill="#e6f5ec" stroke="#8092a7" stroke-width="1.5"/><text x="795" y="257" font-size="15" font-family="Arial,sans-serif" font-weight="600" text-anchor="middle" fill="#26384a">Backup · Local / Cloud</text><text x="155" y="425" font-size="13" font-family="Arial,sans-serif" text-anchor="middle" fill="#56677a">Via collector to Splunk</text><text x="475" y="618" font-size="12" font-family="Arial,sans-serif" text-anchor="middle" fill="#56677a">Logical view · PatchMon has no direct application alert feed to Splunk</text></svg><figcaption style="font-size:.85em;opacity:.8;margin-top:.75rem">Schema logico dell'architettura di sicurezza / Logical security architecture overview.</figcaption></figure>
+![Schema logico della sicurezza del mio homelab: UniFi, Proxmox, Wazuh, Splunk, PatchMon, n8n e backup](/posts/cybersecurity-homelab/security-architecture.svg)
 
-<details><summary>Visualizza il sorgente Mermaid</summary>
-
-```mermaid
-flowchart TB
-  WAN["Internet / Remote access"] --> UNI["UniFi infrastructure<br/>Firewall · VLAN segmentation"]
-  UNI --> LAN["Trusted / Management"]
-  UNI --> IOT["IoT / Guest"]
-  UNI --> LAB["Homelab / Services"]
-  UNI --> DMZ["DMZ / Published services"]
-  LAB --> PVE["Proxmox VE<br/>VMs · LXC · Guest firewalls"]
-  DMZ -. "Controlled access" .-> PVE
-  PVE --> HOST["Linux · Windows · Applications"]
-  HOST -->|"Endpoint telemetry"| W["Wazuh<br/>FIM · SCA/CIS · Vulnerabilities"]
-  HOST -->|"Logs"| S["Splunk<br/>SIEM · Detection · Dashboards"]
-  HOST -->|"Patch inventory"| P["PatchMon<br/>Updates · Compliance"]
-  W -->|"Alerts and inventory via collector"| S
-  S -->|"Authenticated webhook"| N["n8n<br/>Alert enrichment and routing"]
-  N --> T["Notifications · Manual triage"]
-  PVE --> B["Backups<br/>Local · Offsite · Cloud"]
-  classDef network fill:#e6efff,stroke:#4776bb,color:#173b70
-  classDef infra fill:#e6f5ec,stroke:#3e8a65,color:#19583b
-  classDef security fill:#fff0d9,stroke:#c68a31,color:#76480b
-  classDef automation fill:#f0e9ff,stroke:#8565bb,color:#513585
-  class WAN,UNI,LAN,IOT,LAB,DMZ network
-  class PVE,HOST,B infra
-  class W,S,P security
-  class N,T automation
-```
-
-</details>
+*Schema logico semplificato. PatchMon non invia direttamente gli alert applicativi a Splunk.*
 
 In particolare, **PatchMon non invia direttamente gli alert applicativi a Splunk**. Wazuh, invece, fornisce alert e inventari attraverso un collector dedicato. Distinguere le integrazioni realmente operative da quelle soltanto possibili è importante anche per valutare la copertura di sicurezza.
 
