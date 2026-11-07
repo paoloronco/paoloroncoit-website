@@ -1,102 +1,53 @@
 ---
-title: "OrbitPage comes to ChatGPT: manage your workspace through conversation"
-description: "I brought OrbitPage into ChatGPT: from AI conversations to controlled workspace management, using OAuth, MCP and a review-first approach."
+title: "OrbitPage comes to ChatGPT: build and manage your website with AI"
+description: "OrbitPage is a visual website builder with multiple pages, Shop, SEO and analytics. Now you can also manage your workspace through ChatGPT, with authorized tools and controlled changes."
 pubDate: 2026-09-16
 tags: ["OrbitPage", "ChatGPT", "AI", "MCP", "OpenAI", "SaaS"]
 draft: false
 ---
-OrbitPage started as a more flexible alternative to traditional link-in-bio pages, but over time it has become something much broader: a SaaS and open-source product with multi-page sites, a shop, newsletters, analytics, digital menus, APIs, SEO tools, privacy management and AI features.
 
-One of my goals throughout this evolution was to keep artificial intelligence from remaining a secondary feature inside the dashboard. I wanted it to become an **operational interface to the product**, while retaining control, permissions and a review of changes.
+**Building a website should not mean juggling dozens of tools or writing code for every change.** That's the idea behind [OrbitPage](https://orbitpage.com/), the website builder I'm developing to create, customize and publish a digital presence from one dashboard.
 
-That work led to the **OrbitPage plugin for ChatGPT**, now available directly in ChatGPT.
+OrbitPage lets you build **multi-page websites, landing pages, portfolios, professional pages and digital menus** with a visual editor. Content, design, SEO, analytics, newsletters and, where supported, Shop and custom domains live in the same workspace. The project is available as managed SaaS and as self-hosted open-source software.
 
-**[Open OrbitPage in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6a72f9db2440819182e2a20ea276ce9b?q=orbitpage)**
+Now there is another way to interact with the platform: **OrbitPage is also available as a ChatGPT app**.
 
-## From ChatGPT to your OrbitPage workspace
+**[Try OrbitPage](https://orbitpage.com/) · [Open OrbitPage in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6a72f9db2440819182e2a20ea276ce9b?q=orbitpage)**
 
-The idea is simple: instead of opening the dashboard and manually looking for each setting, I can start with a conversation.
+## A website builder that grows with your project
 
-After connecting an OrbitPage account, ChatGPT can interact with the capabilities I chose to expose from the product. The goal is to add a **conversational** way to use OrbitPage alongside the dashboard.
+Start with a simple page and expand into a website with multiple sections, navigation and independent content. The editor combines text, images, videos, links, social profiles, contact details, maps, events and calls to action, with customizable themes and layouts and a responsive preview.
 
-This brings AI reasoning and workspace operations into the same flow, while maintaining a clear separation between what the model proposes and what is actually applied.
+For creators and professionals, it can become a portfolio or a landing page for services and products. For a local business, it can provide business information, contacts and **QR-code digital menus**. SEO tools, traffic analytics and subscriber and campaign features help your website grow beyond its initial launch.
 
-It follows the same direction I had already taken when designing OrbitPage AI and its MCP integration: the dashboard, APIs and AI interface are different ways to interact with the same system.
+The goal is to make getting online approachable while providing more advanced capabilities as your project evolves.
 
-## Why a ChatGPT plugin
+## From a ChatGPT request to a website action
 
-Integrating OrbitPage directly into ChatGPT primarily changes the entry point.
+The visual dashboard remains at the center of OrbitPage, but it does not have to be the only interface.
 
-A SaaS application normally requires users to learn its interface: open the dashboard, find the right section, edit the fields and complete the product's workflow.
+With the ChatGPT app, you can connect your OrbitPage account and interact in natural language with **supported, authorized workspace capabilities**. Rather than searching through menus and forms, you can start with your goal: inspect page context, prepare content or design changes, and review supported operations.
 
-With a conversational interface, the process can start from the user's intent.
+This is not a promise that one sentence will automatically build any website. It is a more direct path from **intent** to real application actions, with the visual dashboard still available for fine-grained control.
 
-I can describe what I want to achieve in natural language and let ChatGPT use the operations provided by OrbitPage to turn that intent into structured actions.
+## Useful AI, with control built in
 
-For me, this is one of the most interesting aspects of integrating AI with traditional software: a model can become an interaction layer over real APIs and functions, beyond generating text.
+The integration uses **MCP (Model Context Protocol)** and **OAuth** authorization bound to a specific workspace. ChatGPT does not receive unrestricted access to your account or infrastructure: it can use only the capabilities OrbitPage exposes and the user authorizes.
 
-## Access with defined boundaries
+I also designed the built-in AI assistant around a **review-first** approach. Supported edits become structured proposals, validated and confirmed before they are applied. Editing and publishing remain separate steps, with sensitive permissions enforced server-side.
 
-When connecting an LLM to a real application, getting it to perform operations is only part of the work. It also means deciding **which operations to make available, with which permissions and within which limits**.
+For me, that distinction matters: AI agents should make software easier to use without bypassing its security model.
 
-OrbitPage uses an OAuth-based authorization model and keeps the connection associated with the authorized workspace. The integration therefore gives ChatGPT access within that scope, rather than general access to the account or infrastructure.
+## One platform, multiple ways to work
 
-The available capabilities are those that OrbitPage intentionally exposes to the integration, and access can be revoked.
+ChatGPT is one of several OrbitPage interfaces. The product combines a **visual dashboard**, a built-in **AI Assistant**, an automation **REST API**, **MCP** for compatible clients and a community **n8n integration**.
 
-This principle was already important in OrbitPage's MCP integration, and becomes even more relevant when the integration is made available directly to ChatGPT users.
+That architecture makes it possible to work visually, through automated workflows or through conversation while retaining shared application logic. It has also been one of the most interesting parts of the project from a full-stack development, AI engineering and cybersecurity perspective.
 
-## The review-first principle
+## Try OrbitPage
 
-Since introducing AI into the dashboard, I have avoided a model where a natural-language request immediately changes a public page without review.
+Whether you want to create a portfolio, a landing page, a local-business website or a more organized online presence, you can start with OrbitPage's visual editor and explore advanced capabilities as you grow.
 
-The workflow I chose is **review-first**.
+The ChatGPT app adds another option: **work on your website through conversation**, while keeping changes reviewable.
 
-The AI interprets the request and prepares the operation. The system keeps the suggestion, the workspace change and publication separate. Where supported, users can check what is about to change before the action affects public content.
-
-This is a UX detail and a security decision.
-
-A language model can misunderstand a request, work with incomplete context or produce an unexpected result. Human review at sensitive points reduces the risk of automatically turning a model error into a real change.
-
-## MCP, OAuth and an AI-native product
-
-The plugin grew out of the wider product architecture.
-
-Over the past few months, I have worked to make OrbitPage usable through several interfaces:
-
-- the **dashboard**, for visual management;
-- the **REST API**, for scripts, workflows and automations;
-- **MCP**, for compatible AI clients and agents;
-- **OrbitPage AI**, integrated directly into the product;
-- now **ChatGPT**, as an additional conversational interface to the workspace.
-
-The part I find most significant is the architecture that lets the same product be controlled through different interfaces while keeping identity, permissions and application logic consistent.
-
-MCP has played an important role in this evolution because it exposes application capabilities to AI systems through an interface designed specifically for that interaction.
-
-OAuth connects the user's identity and limits access without distributing credentials or static tokens inside the conversation.
-
-## What development required
-
-Bringing a SaaS feature into an AI interface requires thinking through aspects that a conventional UI often handles implicitly.
-
-Operations need sufficiently structured inputs and outputs for a model to use them reliably. Errors must be understandable to both the application and the AI. Permissions must be checked on the server, independently of the model's instructions. Available actions also need to be specific enough to be useful without unnecessarily exposing internal product capabilities.
-
-I approached the integration as an application interface with those requirements, beyond an AI demo.
-
-This brought together **full-stack development, API design, OAuth, cybersecurity, AI engineering, MCP, cloud architecture and product design**.
-
-## Another step in OrbitPage's evolution
-
-When I started OrbitPage, its main purpose was to create a public page from blocks and links.
-
-Today, the same workspace can manage content, pages, a shop, audiences, analytics, privacy, SEO, automations and AI integrations. The ChatGPT plugin adds another layer: the ability to interact with part of that system directly through a conversation.
-
-It is also a practical experiment around a question I find increasingly relevant in software development: **how much of an application's interface will continue to consist of menus and forms, and how much could instead start from an intent expressed in natural language?**
-
-OrbitPage will continue to have a complete dashboard. I do not see conversation as a universal replacement for traditional interfaces. For some tasks, however, describing the desired result and letting AI use authorized tools can make the interaction much more direct.
-
-That is exactly the kind of integration I wanted to explore by building OrbitPage.
-
----
-
-**[Try OrbitPage](https://orbitpage.com/) · [Open the OrbitPage plugin in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6a72f9db2440819182e2a20ea276ce9b?q=orbitpage) · [Explore the OrbitPage project](https://paoloronco.it/en/projects/orbitpage)**
+**[Build your website with OrbitPage](https://orbitpage.com/) · [Use OrbitPage in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6a72f9db2440819182e2a20ea276ce9b?q=orbitpage) · [Explore the project](https://paoloronco.it/en/projects/orbitpage)**
