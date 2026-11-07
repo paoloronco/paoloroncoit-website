@@ -20,6 +20,24 @@ Potrei controllare tutto manualmente. Nel mio caso sarebbe ancora fattibile, vis
 
 Non considero questo workflow un sostituto di una piattaforma CSPM, né un sistema di sicurezza capace di individuare ogni configurazione rischiosa. È, prima di tutto, **uno strumento di visibilità e change tracking**. E per un laboratorio personale è già un risultato utile.
 
+## Google Cloud ha già un inventario: perché crearne un altro?
+
+Google Cloud non parte certo da zero su questo fronte. Nella console posso consultare **Cloud Asset Inventory** per cercare gli asset visibili nel mio scope e analizzarne i metadati. Dalla Cloud Shell, o da una macchina con Google Cloud CLI configurata, posso fare ricerche analoghe con un comando come questo:
+
+```bash
+gcloud asset search-all-resources --scope=projects/PROJECT_ID
+```
+
+Esistono poi i comandi specifici dei singoli servizi, per esempio `gcloud run services list` o `gcloud compute instances list`, e le API che permettono di interrogare direttamente risorse e configurazioni. Cloud Asset Inventory supporta anche esportazioni e analisi storiche, a seconda della funzionalità utilizzata. Quindi non sarebbe corretto dire che Google Cloud non offre un inventario, o che per ottenere uno storico sia obbligatorio costruire un workflow personalizzato.
+
+Il punto, per me, è un altro: **un elenco di asset non è necessariamente una rappresentazione leggibile di ciò che ho distribuito**. Se interrogo un progetto posso trovare workload, API abilitate, account di servizio, regole di rete, configurazioni e risorse gestite dalla piattaforma. Sono informazioni utili, ma non tutte raccontano la stessa cosa. Un asset registrato non equivale automaticamente a un'applicazione in esecuzione, né il totale degli asset corrisponde al numero di workload.
+
+Con questa automazione ho voluto costruire una vista più vicina alle domande che mi faccio davvero: quali workload e servizi risultano presenti? Quali elementi sono solo configurazione o infrastruttura di supporto? Quali API sono abilitate? Che cosa è cambiato rispetto all'ultima scansione? E quali permessi meritano una verifica?
+
+Il workflow **riutilizza gli strumenti nativi di Google Cloud come sorgenti**, non prova a reinventarli. Il lavoro aggiuntivo è nella normalizzazione, nella classificazione, nel confronto tra snapshot e nella presentazione dei dati attraverso BigQuery e Sheets. È una differenza soprattutto di fruibilità: passo da più interrogazioni tecniche a un report che posso consultare periodicamente, senza perdere la possibilità di risalire ai dati di origine.
+
+Resta un limite fondamentale: la presenza di una risorsa non dimostra che sia attivamente utilizzata, e l'inventario non garantisce una mappa completa delle applicazioni distribuite. Per questo parlo di una **vista ragionata delle risorse osservabili**, non di una fonte infallibile sul loro utilizzo.
+
 ## Come funziona il workflow n8n
 
 Ho sviluppato e pubblicato una versione del progetto in **n8n**, il motore di automazione che utilizzo anche per altri workflow personali. Nella versione 2.2.0 il flusso può analizzare un elenco esplicito di progetti Google Cloud, oppure un singolo scope di cartella o organizzazione, nei limiti dei permessi concessi.
