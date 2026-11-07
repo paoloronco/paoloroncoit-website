@@ -1,53 +1,45 @@
 ---
-title: "OrbitPage arriva su ChatGPT: crea e gestisci il tuo sito con l'AI"
-description: "OrbitPage è un website builder visuale con pagine multiple, Shop, SEO e analytics. Ora puoi gestire il tuo workspace anche attraverso ChatGPT, con strumenti autorizzati e modifiche controllate."
+title: "OrbitPage arriva su ChatGPT: gestisci il tuo sito attraverso una conversazione"
+description: "L'app OrbitPage per ChatGPT collega l'AI al tuo workspace: consulta il contesto, prepara modifiche e interagisci con il sito tramite MCP e OAuth, con autorizzazioni e revisione."
 pubDate: 2026-09-16
 tags: ["OrbitPage", "ChatGPT", "AI", "MCP", "OpenAI", "SaaS"]
 draft: false
 ---
 
-**Creare un sito web non dovrebbe significare gestire decine di strumenti o scrivere codice per ogni modifica.** È l'idea alla base di [OrbitPage](https://orbitpage.com/), il website builder che sto sviluppando per creare, personalizzare e pubblicare una presenza digitale da un'unica dashboard.
+**OrbitPage è ora disponibile direttamente in ChatGPT.** Ho sviluppato un'integrazione che permette di collegare il proprio workspace alla conversazione e utilizzare l'AI per interagire con alcune funzionalità reali della piattaforma, senza dover passare ogni volta dalla dashboard.
 
-OrbitPage permette di realizzare **siti multi-pagina, landing page, portfolio, pagine professionali e menu digitali** attraverso un editor visuale. Contenuti, design, SEO, analytics, newsletter e, nelle modalità supportate, Shop e domini personalizzati convivono nello stesso workspace. Il progetto è disponibile come servizio SaaS gestito e in un'edizione open source self-hosted.
+OrbitPage è un website builder visuale per siti multi-pagina, portfolio, landing page e altre presenze digitali. Con l'app ChatGPT, a questa esperienza si aggiunge un nuovo modo di lavorare: **descrivere ciò che vuoi ottenere in linguaggio naturale**.
 
-Ora c'è un altro modo per interagire con la piattaforma: **OrbitPage è disponibile anche come app per ChatGPT**.
+**[Apri OrbitPage in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6a72f9db2440819182e2a20ea276ce9b?q=orbitpage)**
 
-**[Prova OrbitPage](https://orbitpage.com/) · [Apri OrbitPage in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6a72f9db2440819182e2a20ea276ce9b?q=orbitpage)**
+## Cosa puoi fare con OrbitPage in ChatGPT
 
-## Un website builder che cresce con il tuo progetto
+Dopo aver collegato il tuo account e autorizzato un workspace, puoi utilizzare le operazioni che OrbitPage mette a disposizione dell'integrazione. Per esempio, puoi chiedere a ChatGPT di **esaminare la configurazione della pagina, preparare aggiornamenti ai contenuti o al design e aiutarti a revisionare le modifiche** prima di applicarle, nei flussi supportati.
 
-Si può iniziare con una pagina essenziale e arrivare a un sito con più sezioni, navigazione e contenuti indipendenti. L'editor permette di combinare testi, immagini, video, link, social, contatti, mappe, eventi e call to action, con temi e layout personalizzabili e anteprima responsive.
+Non si tratta di una chat che si limita a suggerire testi da copiare manualmente: ChatGPT può richiamare strumenti applicativi collegati al workspace. Le funzioni effettivamente disponibili dipendono dalle capacità esposte, dai permessi e dal contesto autorizzato.
 
-Per creator e professionisti può diventare un portfolio o una landing page per servizi e prodotti. Per un'attività locale può ospitare informazioni, contatti e **menu digitali condivisibili via QR code**. Strumenti SEO, statistiche di traffico e funzionalità per gestire iscritti e campagne aiutano a far evolvere il sito anche dopo la pubblicazione.
+La dashboard rimane disponibile per le attività visuali e le configurazioni più dettagliate. Il plugin aggiunge un'interfaccia complementare, particolarmente utile quando è più naturale spiegare un obiettivo che cercare una specifica impostazione.
 
-L'obiettivo è offrire un'esperienza accessibile a chi vuole andare online rapidamente, senza rinunciare a funzionalità più avanzate quando il progetto cresce.
+## Come funziona il collegamento
 
-## Da una richiesta in ChatGPT a un'operazione sul sito
+L'integrazione utilizza **MCP (Model Context Protocol)** per mettere a disposizione di ChatGPT un insieme definito di strumenti OrbitPage. Il collegamento dell'account avviene tramite **OAuth**, con autorizzazione riferita a un workspace specifico.
 
-La dashboard visuale rimane il centro di OrbitPage, ma non deve essere l'unico punto di accesso.
+ChatGPT non ottiene accesso indiscriminato all'account: può utilizzare soltanto le operazioni esposte e consentite. I controlli di autenticazione, autorizzazione e validazione rimangono lato server, e l'accesso può essere revocato.
 
-Con l'app ChatGPT puoi collegare il tuo account OrbitPage e interagire, in linguaggio naturale, con le **funzioni del workspace esposte e autorizzate**. Invece di cercare ogni impostazione tra menu e form, puoi partire da ciò che vuoi ottenere: esaminare il contesto della pagina, preparare una modifica ai contenuti o al design e revisionare le operazioni supportate.
+## L'AI propone, tu mantieni il controllo
 
-L'idea non è promettere che una singola frase costruisca automaticamente qualsiasi sito. È rendere più diretto il passaggio dall'**intento** alle operazioni reali della piattaforma, con la dashboard sempre disponibile per il controllo visuale.
+Una scelta centrale nello sviluppo di OrbitPage AI e delle integrazioni conversazionali è il principio **review-first**. Nei flussi di modifica previsti, l'AI prepara una proposta strutturata, che viene verificata prima dell'applicazione. **Modificare un workspace e pubblicare il risultato sono passaggi distinti.**
 
-## AI utile, senza rinunciare al controllo
+Questo approccio permette di sfruttare la rapidità dell'AI senza trasformare automaticamente un'interpretazione errata in una modifica visibile ai visitatori.
 
-L'integrazione è costruita sopra **MCP (Model Context Protocol)** e un'autorizzazione **OAuth** associata a uno specifico workspace. ChatGPT non riceve accesso illimitato all'account o all'infrastruttura: può utilizzare soltanto le capacità che OrbitPage rende disponibili e che l'utente autorizza.
+## Perché ho sviluppato questa integrazione
 
-Ho seguito un approccio **review-first** anche per l'assistente AI interno: le modifiche vengono preparate come proposte strutturate, validate e confermate prima dell'applicazione nei flussi previsti. Modifica e pubblicazione restano passaggi distinti, mentre permessi e controlli sensibili vengono verificati lato server.
+Volevo che ChatGPT fosse più di un assistente esterno capace di parlare *di* OrbitPage: doveva poter diventare un'interfaccia per lavorare *con* OrbitPage.
 
-Per me è un punto fondamentale: un agente AI può rendere un software più semplice da usare, ma non dovrebbe aggirarne le regole di sicurezza.
+L'app nasce dal lavoro su API, MCP, OAuth e strumenti AI già presenti nella piattaforma. Dashboard, Automation REST API, assistente integrato e ChatGPT offrono modalità diverse per raggiungere lo stesso obiettivo, con regole e autorizzazioni coerenti.
 
-## Una piattaforma, più modi di lavorare
+È un passo concreto verso un software in cui **l'interazione può partire dall'intento dell'utente**, non soltanto da menu, pulsanti e form.
 
-ChatGPT è solo una delle interfacce di OrbitPage. Il prodotto combina una **dashboard visuale**, un **AI Assistant integrato**, una **REST API** per automazioni, l'accesso **MCP** per client compatibili e un'integrazione community per **n8n**.
+---
 
-Questa architettura consente di usare il prodotto manualmente, tramite workflow o attraverso una conversazione, mantenendo una logica applicativa condivisa. È anche uno degli aspetti più interessanti del progetto dal punto di vista del full-stack development, dell'AI engineering e della cybersecurity.
-
-## Prova OrbitPage
-
-Se vuoi creare un portfolio, una landing page, un sito per la tua attività o semplicemente gestire meglio la tua presenza online, puoi partire dall'editor di OrbitPage e scoprire progressivamente le funzioni più avanzate.
-
-L'app ChatGPT aggiunge una possibilità in più: **lavorare sul tuo sito partendo da una conversazione**, senza rinunciare alla revisione delle modifiche.
-
-**[Crea il tuo sito con OrbitPage](https://orbitpage.com/) · [Usa OrbitPage in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6a72f9db2440819182e2a20ea276ce9b?q=orbitpage) · [Scopri il progetto](https://paoloronco.it/projects/orbitpage/)**
+Vuoi provarlo? **[Collega OrbitPage a ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6a72f9db2440819182e2a20ea276ce9b?q=orbitpage)** oppure **[scopri OrbitPage](https://orbitpage.com/)**. Per una panoramica completa delle funzionalità, consulta la **[scheda progetto](/projects/orbitpage/)**.
