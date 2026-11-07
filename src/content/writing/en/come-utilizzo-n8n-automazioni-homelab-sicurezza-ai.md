@@ -8,7 +8,7 @@ draft: false
 
 Some tasks take only a few minutes on their own: downloading an invoice, renaming it, saving it in the right folder, checking recent security alerts, or sorting through technology news. The problem is that these small tasks keep coming back, often across services that do not talk to each other.
 
-That is why I started using **n8n**. Not to automate everything for the sake of it, but to remove repetitive steps and connect tools I already rely on: Gmail, Google Sheets, Splunk, WordPress, Qdrant, cloud services, and servers in my homelab.
+That is why I started using **n8n**. Not to automate everything for the sake of it, but to remove repetitive steps and connect tools I already rely on: Gmail, Google Sheets, Splunk, my websites, Qdrant, cloud services, and servers in my homelab.
 
 Over time, n8n has gone from an experiment to a stable part of my infrastructure. Here is how I use it, the workflows I have built, and the trade-offs I have encountered. Some of these projects are available on [GitHub](https://github.com/paoloronco/n8n-templates), with importable files and instructions for adapting them to your own environment.
 
@@ -56,15 +56,15 @@ I do not treat AI-generated summaries as fact-checking; the original sources rem
 
 [Browse the templates](https://github.com/paoloronco/n8n-templates).
 
-## A RAG chatbot for my WordPress site
+## A RAG chatbot for my websites
 
 Another important experiment was building a chatbot that answers questions using my website's own content instead of relying solely on a model's general knowledge.
 
 The project uses **Retrieval-Augmented Generation (RAG)**. Website content is indexed, user questions trigger a search in **Qdrant**, **Cohere** reranks the retrieved results, and **OpenAI** generates an answer using the selected context. n8n coordinates the stages, from request handling to service integrations.
 
-The interesting challenge is not simply connecting a chatbot to WordPress. It is deciding which documents to retrieve, how to handle irrelevant results, and how to avoid presenting information as certain when the website does not support it. The quality of the indexed content matters as well: a vector database cannot repair incomplete documentation.
+The interesting challenge is not simply integrating a chatbot into a website. It is deciding which documents to retrieve, how to handle irrelevant results, and how to avoid presenting information as certain when the website does not support it. The quality of the indexed content matters as well: a vector database cannot repair incomplete documentation.
 
-I published a reusable version, including alternative storage options for some components, in my [n8n-templates repository](https://github.com/paoloronco/n8n-templates/tree/main/free-templates/wordpress-rag-chatbot).
+The project evolved from an earlier template, which I have since adapted to my current websites built and deployed through GitHub and Vercel. The RAG approach remains useful without the former backend: what matters is the quality of the indexed content and retrieval. A reference version is available in my [n8n-templates repository](https://github.com/paoloronco/n8n-templates).
 
 ## Automating the publication of workflows themselves
 
@@ -76,7 +76,7 @@ I particularly like this project because it automates work created by other auto
 
 ## More integrations: cloud, Home Assistant, and personal projects
 
-n8n is not limited to these examples. I also use it to connect cloud services, manage notifications, interact with Home Assistant, and coordinate operations through APIs and SSH. I have experimented with **Google Cloud**, processes related to **OrbitPage**, and workflows that turn WordPress articles into audio using **Google Cloud Text-to-Speech**.
+n8n is not limited to these examples. I also use it to connect cloud services, manage notifications, interact with Home Assistant, and coordinate operations through APIs and SSH. I have experimented with **Google Cloud**, processes related to **OrbitPage**, and workflows that convert articles into audio using **Google Cloud Text-to-Speech**.
 
 These automations are not all equally mature or frequently used. Some support everyday tasks; others are prototypes, community templates, or evolving projects. I prefer to make that distinction rather than describe every experiment as a production system.
 
