@@ -20,6 +20,24 @@ I could answer those questions manually. With so few actual workloads, that woul
 
 I don't see this workflow as a replacement for a CSPM platform or as a security tool that can identify every risky configuration. First and foremost, it's **a visibility and change-tracking tool**. For a personal lab, that's already useful.
 
+## Google Cloud already has an inventory. Why build another one?
+
+Google Cloud already provides native tools for this. In the console, **Cloud Asset Inventory** lets me search visible assets and inspect their metadata. From Cloud Shell, or any machine with the Google Cloud CLI configured, I can run a similar query:
+
+```bash
+gcloud asset search-all-resources --scope=projects/PROJECT_ID
+```
+
+There are also service-specific commands such as `gcloud run services list` and `gcloud compute instances list`, along with APIs for retrieving resource and configuration data directly. Cloud Asset Inventory itself supports exports and historical analysis, depending on the feature used. So it would be misleading to suggest that Google Cloud lacks inventory tools or that a custom workflow is the only way to retain history.
+
+What I wanted to solve is slightly different: **a list of assets isn't necessarily an understandable picture of what I've deployed**. A project query can return workloads, enabled APIs, service accounts, networking rules, configuration records and platform-managed resources. All of these matter, but they don't mean the same thing. An asset record isn't automatically a running application, and the total asset count isn't the number of workloads.
+
+I wanted a view that answers the questions I actually ask: which workloads and services are present? Which records represent configuration or supporting infrastructure? Which APIs are enabled? What changed since the previous scan? And which permissions deserve a closer look?
+
+The workflow **uses Google's native tools as its data sources** rather than attempting to replace them. The added value is in normalization, classification, snapshot comparison and presenting the results through BigQuery and Sheets. It's primarily a usability improvement: instead of repeating several technical queries, I get a report I can review regularly while still being able to trace the information back to its source.
+
+There's an important limitation: a resource's presence doesn't prove that it's actively used, and an inventory cannot guarantee a complete map of deployed applications. That's why I think of it as **a structured view of observable resources**, not an infallible statement about actual usage.
+
 ## How the n8n workflow works
 
 I developed and published one version using **n8n**, the automation platform I use for several other personal workflows. Version 2.2.0 can scan an explicit list of Google Cloud projects, or a single folder or organization scope, subject to the permissions granted to it.
