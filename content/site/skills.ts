@@ -1,5 +1,5 @@
 // Competenze tecniche — fonte: skills.paoloronco.it. Bilingue IT/EN.
-import type { Lang } from '@/i18n/ui';
+import type { Lang } from '@content/translations/ui';
 type LS = Record<Lang, string>;
 
 export interface Skill {

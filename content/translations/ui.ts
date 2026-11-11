@@ -1,4 +1,4 @@
-import { enterpriseSecurityArea } from '@/data/site';
+import { enterpriseSecurityArea } from '@content/site/profile';
 
 export const defaultLang = 'it';
 export type Lang = 'it' | 'en';

@@ -6,6 +6,21 @@ Personal portfolio and technical blog of Paolo Ronco — Cybersecurity Analyst a
 
 ---
 
+## Contenuti / Content
+
+Tutti i file modificabili a mano sono raccolti in **[`content/`](./content/README.md)**:
+
+| Cosa vuoi modificare | Italiano | English |
+|---|---|---|
+| Articoli / post | [`content/articles/it/`](./content/articles/it/) | [`content/articles/en/`](./content/articles/en/) |
+| Progetti | [`content/projects/it/`](./content/projects/it/) | [`content/projects/en/`](./content/projects/en/) |
+| Profilo, CV, competenze e certificazioni | [`content/site/`](./content/site/) | stessa cartella |
+| Testi dell'interfaccia e lingue | [`content/translations/`](./content/translations/) | stessa cartella |
+
+Ogni area contiene un README con i file da aprire, i campi disponibili e le istruzioni per aggiungere nuovi contenuti. Codice applicativo e componenti restano separati in `src/`.
+
+---
+
 ## Stack
 
 | Layer | Tech |
@@ -22,14 +37,13 @@ Personal portfolio and technical blog of Paolo Ronco — Cybersecurity Analyst a
 ## Project structure
 
 ```
+content/                  # all manually editable content
+├── articles/             # articles and posts (it/ and en/)
+├── projects/             # project case files (it/ and en/)
+├── site/                 # profile, CV, skills, certificates and legal text
+└── translations/         # all interface strings in IT and EN
 src/
-├── data/
-│   ├── site.ts           # central profile, nav, domains — single source of truth
-│   ├── skills.ts         # skill categories with proficiency levels and tools
-│   └── certs.ts          # certifications data
-├── content/
-│   ├── writing/          # 130+ articles (it/ and en/)
-│   └── work/             # project case files (it/ and en/)
+├── content.config.ts     # content schemas and validation
 ├── layouts/
 │   └── Base.astro        # base layout — SEO, JSON-LD and hreflang
 ├── components/
@@ -38,7 +52,6 @@ src/
 ├── pages/                # thin page files that import view components
 │   └── api/              # on-demand API routes (ask proxy)
 └── i18n/
-    ├── ui.ts             # all UI strings in IT and EN
     └── utils.ts          # getLangFromUrl, useTranslations, localizePath
 public/
 ├── llms.txt              # LLM-optimized site context
@@ -87,13 +100,13 @@ Termly loads first in the page head from `src/components/Analytics.astro`, with 
 Scripts in `scripts/` cover a full WordPress → Astro migration pipeline:
 
 ```bash
-# 1. Import posts from a WordPress XML export → Markdown articles in writing/it/
+# 1. Import posts from a WordPress XML export → Markdown articles in content/articles/it/
 node scripts/import-wordpress.mjs "path/to/export.xml"
 
 # 2. Download remote post images locally → public/posts/<slug>/
 node scripts/download-post-images.mjs
 
-# 3. Translate IT articles → EN (writing/en/) via LLM
+# 3. Translate IT articles → EN (content/articles/en/) via LLM
 #    Free with local Ollama:
 LLM_BASE_URL=http://localhost:11434/v1 LLM_MODEL=qwen2.5:7b node scripts/translate-articles.mjs
 #    Or with OpenAI:
@@ -105,9 +118,9 @@ LLM_API_KEY=sk-... LLM_MODEL=gpt-4o-mini node scripts/translate-articles.mjs
 
 ## Adding content
 
-**New article:** copy `src/content/writing/_template.md.txt`, place it in `writing/it/<slug>.md` (and optionally `writing/en/<slug>.md`), fill in the frontmatter.
+**New article:** copy [`content/articles/_template.md.txt`](./content/articles/_template.md.txt), place it in `content/articles/it/<slug>.md` (and optionally `content/articles/en/<slug>.md`), then fill in the frontmatter.
 
-**New project:** copy `src/content/work/_template.md.txt`, place it in `work/it/<slug>.md` and `work/en/<slug>.md`.
+**New project:** copy [`content/projects/_template.md.txt`](./content/projects/_template.md.txt), place it in `content/projects/it/<slug>.md` and `content/projects/en/<slug>.md`.
 
 Set `featured: true` for a main project: it appears in the first Projects section and on the homepage. Other projects appear in the second section. Set `order` in both languages to control the order within each section; category filters apply to both groups and hide empty sections.
 

@@ -13,8 +13,8 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const IT = path.join(root, 'src', 'content', 'writing', 'it');
-const EN = path.join(root, 'src', 'content', 'writing', 'en');
+const IT = path.join(root, 'content', 'articles', 'it');
+const EN = path.join(root, 'content', 'articles', 'en');
 
 // --- argomenti CLI (hanno priorità sulle variabili d'ambiente) ---
 const argv = process.argv.slice(2);

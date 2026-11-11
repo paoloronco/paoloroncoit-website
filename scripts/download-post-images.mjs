@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const POSTS_DIR = path.join(root, 'src', 'content', 'writing', 'it');
+const POSTS_DIR = path.join(root, 'content', 'articles', 'it');
 const PUBLIC_DIR = path.join(root, 'public', 'posts');
 
 const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.md'));

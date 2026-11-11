@@ -1,8 +1,8 @@
 ---
 import Base from '@/layouts/Base.astro';
 import CmdPath from '@/components/CmdPath.astro';
-import { certificateEntries, type CertificateAsset } from '@/data/certificateAssets';
-import { resolveCert, type ResolvedCert } from '@/data/certs';
+import { certificateEntries, type CertificateAsset } from '@content/site/certificate-assets';
+import { resolveCert, type ResolvedCert } from '@content/site/certifications';
 import { getLangFromUrl, localizePath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);

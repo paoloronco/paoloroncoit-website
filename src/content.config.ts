@@ -4,7 +4,7 @@ import { glob } from 'astro/loaders';
 // Articoli — Markdown/MDX in Git (Opzione B della proposta).
 const writing = defineCollection({
   // esclude i file che iniziano con "_" (es. _template.md)
-  loader: glob({ pattern: ['**/*.{md,mdx}', '!**/_*'], base: './src/content/writing' }),
+  loader: glob({ pattern: ['**/*.{md,mdx}', '!**/_*', '!**/README.md'], base: './content/articles' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -18,7 +18,7 @@ const writing = defineCollection({
 // Progetti — formato "case file" investigativo.
 const work = defineCollection({
   // esclude i file che iniziano con "_" (es. _template.md)
-  loader: glob({ pattern: ['**/*.{md,mdx}', '!**/_*'], base: './src/content/work' }),
+  loader: glob({ pattern: ['**/*.{md,mdx}', '!**/_*', '!**/README.md'], base: './content/projects' }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),

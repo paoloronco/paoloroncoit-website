@@ -1,6 +1,6 @@
 // Importa i post da un export WordPress (.xml) in articoli Markdown.
 // Uso:  node scripts/import-wordpress.mjs "percorso/export.xml"
-// Output: src/content/writing/it/<slug>.md
+// Output: content/articles/it/<slug>.md
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,7 +9,7 @@ import { gfm } from 'turndown-plugin-gfm';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const OUT_DIR = path.join(root, 'src', 'content', 'writing', 'it');
+const OUT_DIR = path.join(root, 'content', 'articles', 'it');
 
 const xmlPath = process.argv[2];
 if (!xmlPath || !fs.existsSync(xmlPath)) {

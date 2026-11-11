@@ -18,7 +18,7 @@ PUBLIC = ROOT / "public"
 TMP = ROOT / "tmp" / "pdfs"
 PHOTO = PUBLIC / "paolo.png"
 LOGOS = PUBLIC / "logos"
-DATA = json.loads((ROOT / "src" / "data" / "cv-content.json").read_text(encoding="utf-8"))
+DATA = json.loads((ROOT / "content" / "site" / "cv.json").read_text(encoding="utf-8"))
 PROFILE = DATA["profile"]
 SITE = PROFILE["siteUrl"].rstrip("/")
 LINKEDIN = PROFILE["linkedinUrl"]

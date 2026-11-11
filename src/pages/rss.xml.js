@@ -1,6 +1,6 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
-import { site } from '@/data/site';
+import { site } from '@content/site/profile';
 import { entryLang, entrySlug, localizePath } from '@/i18n/utils';
 
 export async function GET(context) {

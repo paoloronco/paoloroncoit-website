@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import sharp from 'sharp';
 import type { CollectionEntry } from 'astro:content';
-import { site } from '../data/site.ts';
+import { site } from '../../content/site/profile.ts';
 
 type Project = Pick<CollectionEntry<'work'>, 'id' | 'data'>;
 type Article = Pick<CollectionEntry<'writing'>, 'id' | 'data'>;

@@ -1,7 +1,7 @@
 ---
 import Base from '@/layouts/Base.astro';
 import CmdPath from '@/components/CmdPath.astro';
-import { site } from '@/data/site';
+import { site } from '@content/site/profile';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);

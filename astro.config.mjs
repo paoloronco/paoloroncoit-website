@@ -37,7 +37,7 @@ const RESERVED_ROOT_PATHS = new Set([
  */
 function getWritingSlugs(lang) {
   try {
-    return readdirSync(new URL(`./src/content/writing/${lang}/`, import.meta.url), { withFileTypes: true })
+    return readdirSync(new URL(`./content/articles/${lang}/`, import.meta.url), { withFileTypes: true })
       .filter((entry) => entry.isFile() && CONTENT_ENTRY_EXTENSIONS.has(extname(entry.name).toLowerCase()))
       .map((entry) => entry.name.replace(/\.(md|mdx)$/i, ''))
       .filter((slug) => slug && !RESERVED_ROOT_PATHS.has(slug));

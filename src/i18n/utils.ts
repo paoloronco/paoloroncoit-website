@@ -1,4 +1,4 @@
-import { ui, defaultLang, type Lang } from './ui';
+import { ui, defaultLang, type Lang } from '@content/translations/ui';
 
 export const languages: Record<Lang, string> = { it: 'Italiano', en: 'English' };
 export { defaultLang };

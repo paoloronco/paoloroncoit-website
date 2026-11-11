@@ -4,7 +4,8 @@
   "exclude": ["dist", ".vercel", "tmp"],
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@content/*": ["./content/*"]
     }
   }
 }

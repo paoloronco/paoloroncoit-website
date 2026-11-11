@@ -3,7 +3,7 @@
 // NB: documento informativo allineato a GDPR (Reg. UE 2016/679) e normativa IT;
 // per una conformità piena è consigliata una revisione legale.
 
-import type { Lang } from '@/i18n/ui';
+import type { Lang } from '@content/translations/ui';
 type LS = Record<Lang, string>;
 
 export const legalUpdated = '2026-10-21';
