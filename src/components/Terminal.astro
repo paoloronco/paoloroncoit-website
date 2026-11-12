@@ -4,17 +4,18 @@
 // I comandi sconosciuti restituiscono un errore "command not found".
 import { enterpriseSecurityArea, site } from '@content/site/profile';
 import { getCollection } from 'astro:content';
-import { entryLang, entrySlug, getLangFromUrl, localizePath } from '@/i18n/utils';
+import { entryLang, entrySlug, getLangFromUrl, useTranslations, localizePath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const en = lang === 'en';
+const t = useTranslations(lang);
 const user = 'paolo';
 const host = 'secops';
 const path = '~';
 
 const focus: [string, string][] = [
   ['security', 'security architecture · cloud security · zero trust · IAM · CSPM/CNAPP · SIEM/SOAR · EDR/XDR · risk & compliance'],
-  ['ai', en ? 'RAG · agents · self-hosted LLMs · Heretic · AI red teaming · MCP' : 'RAG · agenti · LLM self-hosted · Heretic · AI red teaming · MCP'],
+  ['ai', t('terminal.focusAi')],
   ['automation', 'workflow · pipeline · REST API · CI/CD · n8n · Zapier · Make · GitHub Actions · serverless'],
   ['cloud', 'Google Cloud · AWS · Azure · Oracle Cloud · IaaS/PaaS/SaaS'],
 ];
@@ -36,13 +37,13 @@ const projectFiles = projectEntries.map((project) => {
     `category: ${data.category}`,
     `stack: ${data.stack.join(', ') || '-'}`,
     '',
-    `## ${en ? 'Problem' : 'Problema'}`,
+    `## ${t('work.problem')}`,
     data.problem,
     '',
-    `## ${en ? 'Solution' : 'Soluzione'}`,
+    `## ${t('work.solution')}`,
     data.solution,
     '',
-    `## ${en ? 'Outcome' : 'Risultato'}`,
+    `## ${t('work.outcome')}`,
     data.outcome,
   ];
   if (data.links.length) {
@@ -62,7 +63,7 @@ const T = {
   role: `Cybersecurity Analyst · Deloitte · ${enterpriseSecurityArea}`,
   email: site.email,
   cvpdf: en ? '/cv-en.pdf' : '/cv-it.pdf',
-  cvpdfLabel: en ? 'CV PDF (download)' : 'CV PDF (download)',
+  cvpdfLabel: t('terminal.cvPdfLabel'),
   focus,
   links: [
     { label: 'GitHub', handle: '@paoloronco', href: site.socials.github },
@@ -83,44 +84,18 @@ const T = {
     writings: `/api/terminal/writings.json?lang=${lang}`,
   },
   s: {
-    dHelp: en ? 'list the available commands' : "elenca i comandi disponibili",
-    dWhoami: en ? 'who I am, in one line' : 'chi sono, in una riga',
-    dSkills: en ? 'technical skills (with levels)' : 'competenze tecniche (con livelli)',
-    dWork: en ? 'projects / case files' : 'progetti / case file',
-    dWriting: en ? 'articles & notes' : 'articoli e note',
-    dCv: en ? 'experience, certifications, education' : 'esperienza, certificazioni, formazione',
-    dAbout: en ? 'who I am' : 'chi sono',
-    dContact: en ? 'how to reach me' : 'come contattarmi',
-    dAi: en ? 'ask the AI assistant' : "chiedi all'assistente AI",
-    dSocial: en ? 'my profiles' : 'i miei profili',
-    dFocus: en ? 'focus areas' : 'aree di competenza',
-    dClear: en ? 'clear the terminal' : 'pulisci il terminale',
-    dCd: en ? 'change directory' : 'entra/esci da una cartella',
-    dLs: en ? 'list files in the current directory' : 'lista i file nella cartella corrente',
-    dCat: en ? 'read a file (e.g. cat cv.md)' : 'leggi un file (es. cat cv.md)',
-    notFound: en ? 'command not found' : 'comando non trovato',
-    hint: en ? "type 'help' to list the commands" : "scrivi 'help' per l'elenco dei comandi",
-    introHint: en ? "interactive terminal — type 'help' and press enter" : "terminale interattivo — scrivi 'help' e premi invio",
-    placeholder: en ? 'type a command… (e.g. help)' : 'scrivi un comando… (es. help)',
-    noFile: en ? 'No such file or directory' : 'file o cartella inesistente',
-    isDir: en ? 'Is a directory' : 'è una cartella',
-    emptyProjects: en ? 'no project markdown files yet' : 'nessun file markdown progetto al momento',
-    emptyWritings: en ? 'no article markdown files yet' : 'nessun file markdown articolo al momento',
-    badPath: en ? 'invalid path' : 'percorso non valido',
-    loadError: en ? 'unable to load files' : 'impossibile caricare i file',
-    readonly: en ? '(read-only — this is a terminal, not an editor 🙂)' : '(sola lettura — è un terminale, non un editor 🙂)',
-    bio: en
-      ? `Cybersecurity Analyst at Deloitte, in the ${enterpriseSecurityArea}. Cloud security, infrastructure and AI applied to defense.`
-      : `Cybersecurity Analyst in Deloitte, nell'${enterpriseSecurityArea}. Sicurezza cloud, infrastrutture e AI applicata alla difesa.`,
-    sudo: en ? '🔒 no root here — it all runs in your browser.' : '🔒 niente root qui — gira tutto nel tuo browser.',
-    nmap: en ? 'scanning… 1 host up: you. only open port: curiosity.' : 'scanning… 1 host up: tu. unica porta aperta: la curiosità.',
-    hack: en ? 'the only hack here is how fast this site loads ⚡' : "l'unico hack qui è quanto è veloce questo sito ⚡",
-    aria: en ? 'Interactive terminal input' : 'Input del terminale interattivo',
-    close: en ? 'close terminal' : 'chiudi terminale',
-    minimize: en ? 'minimize terminal' : 'minimizza terminale',
-    maximize: en ? 'expand terminal' : 'espandi terminale',
-    restore: en ? 'restore terminal' : 'ripristina terminale',
-    reopen: en ? 'reopen terminal' : 'riapri terminale',
+    dHelp: t('terminal.dHelp'), dWhoami: t('terminal.dWhoami'), dSkills: t('terminal.dSkills'),
+    dWork: t('terminal.dWork'), dWriting: t('terminal.dWriting'), dCv: t('terminal.dCv'),
+    dAbout: t('terminal.dAbout'), dContact: t('terminal.dContact'), dAi: t('terminal.dAi'),
+    dSocial: t('terminal.dSocial'), dFocus: t('terminal.dFocus'), dClear: t('terminal.dClear'),
+    dCd: t('terminal.dCd'), dLs: t('terminal.dLs'), dCat: t('terminal.dCat'),
+    notFound: t('terminal.notFound'), hint: t('terminal.hint'), introHint: t('terminal.introHint'),
+    placeholder: t('terminal.placeholder'), noFile: t('terminal.noFile'), isDir: t('terminal.isDir'),
+    emptyProjects: t('terminal.emptyProjects'), emptyWritings: t('terminal.emptyWritings'),
+    badPath: t('terminal.badPath'), loadError: t('terminal.loadError'), readonly: t('terminal.readonly'),
+    bio: t('terminal.bio'), sudo: t('terminal.sudo'), nmap: t('terminal.nmap'), hack: t('terminal.hack'),
+    aria: t('terminal.aria'), close: t('terminal.close'), minimize: t('terminal.minimize'),
+    maximize: t('terminal.maximize'), restore: t('terminal.restore'), reopen: t('terminal.reopen'),
   },
   projectFiles,
 };

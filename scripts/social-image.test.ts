@@ -2,6 +2,11 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import sharp from 'sharp';
 import { projectSocialImage, writingSocialImage, renderSocialImage } from '../src/lib/social-image.ts';
+import { ui } from '../content/translations/ui.ts';
+
+test('Italian and English UI dictionaries expose the same keys', () => {
+  assert.deepEqual(Object.keys(ui.en).sort(), Object.keys(ui.it).sort());
+});
 
 const project = {
   id: 'en/homelab-backup',

@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import sharp from 'sharp';
 import type { CollectionEntry } from 'astro:content';
 import { site } from '../../content/site/profile.ts';
+import { ui, type Lang } from '../../content/translations/ui.ts';
 
 type Project = Pick<CollectionEntry<'work'>, 'id' | 'data'>;
 type Article = Pick<CollectionEntry<'writing'>, 'id' | 'data'>;
@@ -58,10 +59,10 @@ export async function renderSocialImage(entry: Project | Article) {
   const { summary, accent, category, details } = 'summary' in d
     ? { summary: d.summary, accent: colors[d.category], category: d.category.toUpperCase(), details: d.stack }
     : { summary: d.description, accent: '#0369a1', category: 'WRITING', details: d.tags.map((tag) => `#${tag}`) };
-  const lang = entry.id.split('/')[0];
+  const lang: Lang = entry.id.startsWith('en/') ? 'en' : 'it';
   const section = 'summary' in d
-    ? (lang === 'en' ? 'PROJECT' : 'PROGETTO')
-    : (lang === 'en' ? 'ARTICLE' : 'ARTICOLO');
+    ? ui[lang]['social.projectLabel']
+    : ui[lang]['social.articleLabel'];
   const [heading, brand, badge, domain, locale] = await Promise.all([
     text(title, 64, '#0f172a', 168, true),
     text(site.name.toUpperCase(), 18, '#475569', 24, true),

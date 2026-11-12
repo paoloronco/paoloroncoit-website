@@ -5,9 +5,7 @@ import { site } from '@content/site/profile';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const metaDescription = lang === 'en'
-  ? `Contact Paolo Ronco at ${site.email} for collaborations, consulting, or technical discussions.`
-  : `Contatta Paolo Ronco all'indirizzo ${site.email} per collaborazioni, consulenze o confronti tecnici.`;
+const metaDescription = t('contact.meta').replace('{email}', site.email);
 
 const profiles = [
   {

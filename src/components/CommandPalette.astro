@@ -2,24 +2,25 @@
 // Command palette: barra unificata di ricerca AI-assisted (naviga + cerca contenuti + chiedi all'AI).
 // Vanilla JS, zero dipendenze. Lang-aware: link e label localizzati. Indicizza anche gli articoli.
 import { getCollection } from 'astro:content';
-import { getLangFromUrl, localizePath, entryLang, entrySlug } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations, localizePath, entryLang, entrySlug } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const L = (p: string) => localizePath(p, lang);
 const en = lang === 'en';
-const g = en ? { nav: 'Navigate', act: 'Actions', post: 'Articles' } : { nav: 'Naviga', act: 'Azioni', post: 'Articoli' };
+const t = useTranslations(lang);
+const g = { nav: t('palette.group.navigate'), act: t('palette.group.actions'), post: t('palette.group.articles') };
 const certificatesPath = en ? '/en/certifications' : '/certificati';
 const cvPdfPath = en ? '/cv-en.pdf' : '/cv-it.pdf';
 
 const navCommands = [
   { group: g.nav, name: 'Home', href: L('/'), keys: 'home start', kind: 'nav' },
   { group: g.nav, name: 'CV', href: L('/cv'), keys: 'curriculum cv esperienza experience', kind: 'nav' },
-  { group: g.nav, name: en ? 'Certifications' : 'Certificati', href: certificatesPath, keys: 'certificati certificazioni certificates certifications docs pdf badge', kind: 'nav' },
-  { group: g.nav, name: 'Projects', sub: en ? 'case files' : 'progetti', href: L('/projects'), keys: 'progetti portfolio case projects work', kind: 'nav' },
-  { group: g.nav, name: 'Writing', sub: en ? 'articles' : 'articoli', href: L('/writing'), keys: 'articoli blog post articles', kind: 'nav' },
-  { group: g.nav, name: 'Skills', sub: en ? 'technical skills' : 'competenze tecniche', href: L('/skills'), keys: 'competenze skill tecnologie tool skills', kind: 'nav' },
+  { group: g.nav, name: t('palette.certifications'), href: certificatesPath, keys: 'certificati certificazioni certificates certifications docs pdf badge', kind: 'nav' },
+  { group: g.nav, name: t('nav.projects'), sub: t('palette.projectsSub'), href: L('/projects'), keys: 'progetti portfolio case projects work', kind: 'nav' },
+  { group: g.nav, name: t('nav.writing'), sub: t('palette.writingSub'), href: L('/writing'), keys: 'articoli blog post articles', kind: 'nav' },
+  { group: g.nav, name: t('nav.skills'), sub: t('palette.skillsSub'), href: L('/skills'), keys: 'competenze skill tecnologie tool skills', kind: 'nav' },
   { group: g.nav, name: 'About', href: L('/about'), keys: 'chi sono bio infra about', kind: 'nav' },
-  { group: g.act, name: en ? 'Download CV (PDF)' : 'Scarica il CV (PDF)', href: cvPdfPath, keys: 'download pdf scarica', kind: 'act' },
-  { group: g.act, name: en ? 'Contact' : 'Contatti', href: L('/contact'), keys: 'email scrivi contact contatti', kind: 'act' },
+  { group: g.act, name: t('palette.downloadCv'), href: cvPdfPath, keys: 'download pdf scarica', kind: 'act' },
+  { group: g.act, name: t('palette.contact'), href: L('/contact'), keys: 'email scrivi contact contatti', kind: 'act' },
   { group: g.act, name: 'AI Assistant', href: L('/ask'), keys: 'chatbot ai chiedi assistente ask', kind: 'act' },
 ];
 
@@ -38,9 +39,9 @@ const postCommands = posts.map((p) => ({
 const commands = [...navCommands, ...postCommands];
 
 const i18nStrings = {
-  placeholder: en ? 'Search or ask the AI…' : 'Cerca o chiedi all’AI…',
-  askGroup: en ? 'Ask the AI' : "Chiedi all'AI",
-  noResults: en ? 'No results — try asking the AI.' : "Nessun risultato — prova a chiedere all'AI.",
+  placeholder: t('palette.placeholder'),
+  askGroup: t('palette.askGroup'),
+  noResults: t('palette.noResults'),
   askRoute: L('/ask'),
 };
 ---

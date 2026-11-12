@@ -7,7 +7,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const links = [
-  { href: '/', label: lang === 'en' ? 'Home' : 'Home' },
+  { href: '/', label: t('notFound.home') },
   { href: '/projects', label: t('nav.projects') },
   { href: '/writing', label: t('nav.writing') },
   { href: '/cv', label: t('nav.cv') },
@@ -16,26 +16,24 @@ const links = [
 
 <Base
   title="404"
-  description={lang === 'en' ? 'Page not found.' : 'Pagina non trovata.'}
+  description={t('notFound.description')}
   path="/404"
   robots="noindex, nofollow"
   includeAlternates={false}
 >
   <section class="mx-auto max-w-5xl px-5 pt-16 pb-32">
-    <CmdPath cmd="cd" arg="~" note={lang === 'en' ? 'path not found' : 'percorso non trovato'} />
+    <CmdPath cmd="cd" arg="~" note={t('notFound.path')} />
 
     <div class="mt-10 border-y border-ink-600/70 py-12">
       <p class="anim-rise font-mono text-2xl font-semibold tracking-widest" style="animation-delay:.1s; color: var(--color-danger)">ERROR:404</p>
       <h1 class="anim-rise mt-3 text-5xl font-semibold tracking-tight text-text sm:text-7xl" style="animation-delay:.18s">
-        {lang === 'en' ? 'Not found' : 'Non trovato'}
+        {t('notFound.title')}
       </h1>
       <p class="anim-rise mt-5 max-w-md text-base leading-relaxed text-text-dim" style="animation-delay:.28s">
-        {lang === 'en'
-          ? "The page you're looking for doesn't exist or has been moved."
-          : 'La pagina che cerchi non esiste o è stata spostata.'}
+        {t('notFound.text')}
       </p>
 
-      <nav class="anim-rise mt-8 flex flex-wrap gap-3" style="animation-delay:.38s" aria-label={lang === 'en' ? 'Useful pages' : 'Pagine utili'}>
+      <nav class="anim-rise mt-8 flex flex-wrap gap-3" style="animation-delay:.38s" aria-label={t('notFound.links')}>
         {links.map((l) => (
           <a
             href={localizePath(l.href, lang)}
